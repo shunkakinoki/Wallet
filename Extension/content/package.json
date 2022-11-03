@@ -1,0 +1,43 @@
+{
+  "name": "@lightdotso/content",
+  "scripts": {
+    "build": "concurrently 'pnpm:build:*'",
+    "build:content": "esbuild ./src/content.ts  --bundle --outdir='../../Application/Light Safari Extension/Resources' --tsconfig=tsconfig.build.json",
+    "build:storybook": "node -e \"if (process.env.CI === '1'){process.exit(1)} \" || build-storybook -o public",
+    "dev": "concurrently 'pnpm:dev:*'",
+    "dev:storybook": "start-storybook",
+    "dev:next": "next dev"
+  },
+  "dependencies": {
+    "@emotion/cache": "^11.10.3",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@types/firefox-webext-browser": "^94.0.1",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "framer-motion": "^7.6.1",
+    "next": "^12.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
+    "react-transition-state": "^2.0.2",
+    "storybook": "^6.5.12",
+    "zustand": "^4.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/builder-webpack5": "^6.5.12",
+    "@storybook/manager-webpack5": "^6.5.12",
+    "@storybook/react": "^6.5.12",
+    "@storybook/testing-library": "^0.0.13",
+    "@types/node": "^18.8.4",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "babel-loader": "^8.2.5"
+  }
+}

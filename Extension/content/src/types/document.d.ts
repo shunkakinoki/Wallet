@@ -1,0 +1,3 @@
+interface Document {
+  favicon: any;
+}

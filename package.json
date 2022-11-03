@@ -1,0 +1,51 @@
+{
+  "name": "@lightdotso/magic",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "turbo run build",
+    "eslint:cmd": "eslint --config .eslintrc.js --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint",
+    "eslint:fix": "eslint --config .eslintrc.js --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint . --fix",
+    "eslint:lint": "eslint --config .eslintrc.js --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "fastlane:submit": "bundle exec fastlane submit_build",
+    "fastlane:test": "bundle exec fastlane test",
+    "fix": "concurrently 'pnpm:*:fix'",
+    "lint": "concurrently 'pnpm:*:lint'",
+    "ncu:check": "ncu--packageFile 'Extension/**/package.json'",
+    "ncu:upgrade:monorepo": "ncu --packageFile 'Extension/**/package.json' -u",
+    "ncu:upgrade:root": "ncu --packageFile package.json -u",
+    "ncu:upgrade": "concurrently 'pnpm:ncu:upgrade:*'",
+    "prettier:cmd": "prettier",
+    "prettier:fix": "prettier --write .",
+    "prettier:lint": "prettier --check .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^17.1.0",
+    "@lightdotso/eslint-config": "^1.0.1",
+    "@lightdotso/prettier": "^1.0.1",
+    "@lightdotso/tsconfig": "^1.0.1",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "autoprefixer": "^10.4.12",
+    "commitlint": "^17.1.2",
+    "concurrently": "^7.4.0",
+    "esbuild": "^0.15.10",
+    "git-cz": "^4.9.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "npm-check-updates": "^16.3.11",
+    "postcss": "^8.4.17",
+    "prettier": "^2.7.1",
+    "tailwindcss": "^3.1.8",
+    "turbo": "^1.5.6",
+    "typescript": "^4.8.4",
+    "vercel": "^28.4.10"
+  },
+  "packageManager": "pnpm@7.11.0",
+  "pnpm": {
+    "patchedDependencies": {
+      "@types/firefox-webext-browser@94.0.1": "patches/@types__firefox-webext-browser@94.0.1.patch"
+    }
+  }
+}

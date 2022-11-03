@@ -1,0 +1,12 @@
+{
+  "name": "@lightdotso/background",
+  "scripts": {
+    "build": "esbuild ./src/background.ts  --bundle --outdir='../../Application/Light Safari Extension/Resources'"
+  },
+  "dependencies": {
+    "@types/firefox-webext-browser": "^94.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}

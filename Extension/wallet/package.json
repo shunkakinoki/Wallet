@@ -1,0 +1,27 @@
+{
+  "name": "@lightdotso/wallet",
+  "scripts": {
+    "dev": "next dev",
+    "env:pull": "vercel env pull .env.local",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.0.12",
+    "clsx": "^1.2.1",
+    "konsta": "^1.0.2",
+    "next": "^12.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "telegraf": "^4.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.8.4",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "autoprefixer": "^10.4.12",
+    "postcss": "^8.4.17",
+    "tailwindcss": "^3.1.8",
+    "typescript": "4.8.4"
+  }
+}

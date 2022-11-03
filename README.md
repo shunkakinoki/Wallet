@@ -1,2 +1,1 @@
-# magic
 # Wallet

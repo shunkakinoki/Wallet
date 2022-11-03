@@ -1,0 +1,16 @@
+{
+  "name": "@lightdotso/inpage",
+  "scripts": {
+    "build": "esbuild ./src/inpage.ts  --bundle --outdir='../../Application/Light Safari Extension/Resources'"
+  },
+  "dependencies": {
+    "@metamask/eth-sig-util": "^5.0.0",
+    "@types/firefox-webext-browser": "^94.0.1",
+    "buffer": "^6.0.3",
+    "events": "^3.3.0",
+    "isutf8": "^4.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}

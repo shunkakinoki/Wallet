@@ -1,0 +1,87 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "@lightdotso/background#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": ["../../Application/Light Safari Extension/Resources/background.js"]
+    },
+    "@lightdotso/content#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "env": ["CI"],
+      "outputs": [
+        "public",
+        "../../Application/Light Safari Extension/Resources/content.js",
+        "../../Application/Light Safari Extension/Resources/light.css"
+      ]
+    },
+    "@lightdotso/ethereum#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": [
+        "../../Application/Light Safari Extension/Resources/ethereum.js"
+      ]
+    },
+    "@lightdotso/inpage#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": [
+        "../../Application/Light Safari Extension/Resources/inpage.js"
+      ]
+    },
+    "@lightdotso/popup#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": [
+        ".next",
+        "../../Application/Light Safari Extension/Resources/popup/**",
+        "../../Application/Light Safari Extension/Resources/popup.html"
+      ]
+    },
+    "@lightdotso/website#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": [
+        ".next"
+      ]
+    },
+    "storybook": {
+      "dependsOn": ["^storybook"]
+    },
+    "//#lint": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": [
+        "Extension/**/src/**/*.ts",
+        "Extension/**/src/**/*.tsx"
+      ]
+    },
+    "//#fastlane:submit": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": [
+        "Application/**",
+        "Components/**",
+        "Extension/background/**",
+        "Extension/content/**",
+        "Extension/ethereum/**",
+        "Extension/popup/**",
+        "fastlane/**",
+        "packgae.json"
+      ]
+    },
+    "//#fastlane:test": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": [
+        "Application/**",
+        "Components/**",
+        "fastlane/**"
+      ]
+    }
+  }
+}

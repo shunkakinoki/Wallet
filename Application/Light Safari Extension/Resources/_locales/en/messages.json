@@ -1,0 +1,10 @@
+{
+    "extension_name": {
+        "message": "Light Wallet",
+        "description": "This is the official Safari Extension for Light Wallet"
+    },
+    "extension_description": {
+        "message": "This is Light Wallet Safari Extension. We are an opensource and transparent wallet for iOS.",
+        "description": "We enable to make web3 work on mobile."
+    }
+}

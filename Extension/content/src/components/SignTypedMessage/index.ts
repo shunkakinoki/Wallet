@@ -1,0 +1,1 @@
+export { SignTypedMessage } from "./SignTypedMessage";

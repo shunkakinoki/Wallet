@@ -1,0 +1,35 @@
+name: iOS
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    paths:
+      - "Application/**"
+      - "Components/**"
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+jobs:
+  test:
+    runs-on: macos-12
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
+      - run: |
+          pnpm install --frozen-lockfile
+      - run: |
+          pnpm run build
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "14"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.6.8"
+      - name: Install dependencies
+        run: bundle install
+      - name: Running tests
+        run: pnpm run fastlane:test

@@ -1,0 +1,13 @@
+diff --git a/index.d.ts b/index.d.ts
+index 2f30a32bbd06cda8173d468d7660d7d3838af0ce..9a1f292ef9668cff560b8b34ce0450f46c35d564 100755
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -4029,7 +4029,7 @@ declare namespace browser.runtime {
+      * @param application The name of the native messaging host.
+      * @param message The message that will be passed to the native messaging host.
+      */
+-    function sendNativeMessage(application: string, message: any): Promise<any>;
++    function sendNativeMessage(application: string, message: any, sendResponse: (response?: any) => void): Promise<any>;
+ 
+     /** Returns information about the current browser. */
+     function getBrowserInfo(): Promise<BrowserInfo>;
