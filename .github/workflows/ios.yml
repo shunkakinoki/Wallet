@@ -1,7 +1,8 @@
 name: iOS
 on:
   push:
-    branches: [dev]
+    branches:
+      - main
   pull_request:
     paths:
       - "Application/**"
