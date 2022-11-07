@@ -42,7 +42,7 @@ extension OnboardingView {
 
     func loginActions() {
         loginView.importWalletAction = {
-            let importView = ImportView()
+            let importView = ImportView(primary: true)
             self.present(UIHostingController(rootView: importView), animated: true)
         }
         loginView.createWalletAction = {

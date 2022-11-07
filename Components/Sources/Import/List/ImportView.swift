@@ -4,11 +4,15 @@ import Commons
 import UIComponents
 
 public struct ImportView: View {
+    
+    private let primary: Bool
 
     @Environment(\.presentationMode)
     var presentationMode
 
-    public init() { }
+    public init(primary: Bool = false) {
+        self.primary = primary
+    }
 
     public var body: some View {
         NavigationView {
@@ -21,7 +25,7 @@ public struct ImportView: View {
                     Spacer()
                 }.padding(.top, 23)
                 VStack {
-                    NavigationLink(destination: ImportHDWalletView()) {
+                    NavigationLink(destination: ImportHDWalletView(primary: self.primary)) {
                         ImportViewCategoryItem(icon: ["SeedPhraseIcon"], title: "With Recovery Phrase", description: "Import wallets with a 12 word recovery phrase")
                     }
                     NavigationLink(destination: ImportPrivateKeyView()) {
