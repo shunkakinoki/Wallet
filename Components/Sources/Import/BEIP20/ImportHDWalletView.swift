@@ -4,6 +4,9 @@ import Commons
 import UIComponents
 
 public struct ImportHDWalletView: View {
+    
+    private let primary: Bool
+    
     @State
     private var text = ""
 
@@ -13,7 +16,9 @@ public struct ImportHDWalletView: View {
     @Environment(\.presentationMode)
     var presentationMode
 
-    public init() { }
+    public init(primary: Bool = true) {
+        self.primary = primary
+    }
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -74,7 +79,7 @@ public struct ImportHDWalletView: View {
 
     var importButton: some View {
         Button {
-            viewModel.importKey(with: text)
+            viewModel.importKey(with: text, primary: self.primary)
         } label: {
             HStack(spacing: 10) {
                 Image(systemName: "square.and.arrow.down")

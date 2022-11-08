@@ -19,10 +19,10 @@ class ImportHDWalletViewModel: ObservableObject {
         self.importWallet = importWallet
     }
 
-    func importKey(with mnemonic: String) {
+    func importKey(with mnemonic: String, primary: Bool = true) {
         do {
             let seedPhrase = sanitize(wallet: mnemonic)
-            try importWallet.import(seedPhrase.bytes(), type: .mnemonic)
+            try importWallet.import(seedPhrase.bytes(), type: primary ? .primaryMnemonic : .mnemonic)
             AppOrchestra.home()
         } catch {
             print(error)
