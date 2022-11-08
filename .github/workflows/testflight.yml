@@ -19,7 +19,7 @@ jobs:
           xcode-version: "13.3"
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.6.8"
+          ruby-version: "2.7.6"
       - uses: actions/setup-node@v3
       - uses: pnpm/action-setup@v2
       - run: |
