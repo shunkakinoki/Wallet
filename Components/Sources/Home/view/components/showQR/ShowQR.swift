@@ -1,4 +1,5 @@
 import Foundation
+import Commons
 import SwiftUI
 
 struct ShowQR: View {
@@ -9,6 +10,11 @@ struct ShowQR: View {
         Image(uiImage: getQRCodeUIImage(text: text, color: .label.resolvedColor(with: .current))!)
             .resizable()
             .frame(width: 200, height: 200)
+            .padding(.all, 10)
+            .overlay(
+                RoundedRectangle(cornerRadius: 14)
+                    .stroke(Color(Colors.Separator.noTransparency), lineWidth: 1)
+            )
     }
 
     func getQRCodeUIImage(text: String, color: UIColor) -> UIImage? {

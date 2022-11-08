@@ -20,6 +20,7 @@ public enum Colors {
     }
     public enum Separator {
         public static let transparency = UIColor(named: "separator.transparency")!
+        public static let noTransparency = UIColor(named: "separator.noTransparency")!
     }
     public enum Surface {
         public static let overlay = UIColor(named: "surface.overlay")!
