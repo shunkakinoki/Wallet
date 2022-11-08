@@ -91,6 +91,9 @@ platform :ios do
       skip_waiting_for_build_processing: true,
       skip_submission: true,
       distribute_external: true,
+      groups: [
+        "External Testers"
+      ],
       notify_external_testers: true,
       itc_provider: "4Z47XRX22C",
       team_id: "4Z47XRX22C"
