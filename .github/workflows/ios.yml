@@ -30,7 +30,5 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "2.6.8"
-      - name: Install dependencies
-        run: bundle install
-      - name: Running tests
-        run: pnpm run fastlane:test
+      - run: bundle install
+      - run: pnpm run fastlane:test

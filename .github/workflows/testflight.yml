@@ -22,16 +22,12 @@ jobs:
           ruby-version: "2.6.8"
       - uses: actions/setup-node@v3
       - uses: pnpm/action-setup@v2
-      - name: Install dependencies
-        run: bundle install
-      - name: Install pnpm dependencies
-        run: |
+      - run: |
+          bundle install
           pnpm install --frozen-lockfile
-      - name: Build extension js
-        run: |
           pnpm turbo run build
-      - name: Submit our build to testflight
-        run: bundle exec fastlane submit_build
+      - run: |
+          bundle exec fastlane submit_build
         env:
           APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
           APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
@@ -45,6 +41,5 @@ jobs:
           DEVELOPER_PORTAL_TEAM_ID: ${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           ITMSTRANSPORTER_FORCE_ITMS_PACKAGE_UPLOAD: true
-      - name: Commit updated build number
-        if: always()
+      - if: always()
         uses: stefanzweifel/git-auto-commit-action@v4
