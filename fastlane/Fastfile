@@ -87,6 +87,7 @@ platform :ios do
     pilot(
       apple_id: "#{DEVELOPER_APP_ID}",
       app_identifier: "io.magic.light",
+      changelog: "Bug fixes and performance improvements",
       skip_waiting_for_build_processing: true,
       skip_submission: true,
       distribute_external: true,
