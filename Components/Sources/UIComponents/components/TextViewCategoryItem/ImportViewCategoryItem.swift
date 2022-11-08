@@ -41,6 +41,5 @@ public struct ImportViewCategoryItem: View {
         .frame(maxWidth: .infinity)
         .background(Color(Colors.System.secondary))
         .cornerRadius(14)
-        .padding([.leading, .top, .trailing], 16)
     }
 }
