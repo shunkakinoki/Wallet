@@ -1,5 +1,6 @@
 {
   "name": "@lightdotso/ethereum",
+  "version": "0.0.0",
   "scripts": {
     "build": "esbuild ./src/ethereum.ts  --bundle --outdir='../../Application/Light Safari Extension/Resources'"
   },
