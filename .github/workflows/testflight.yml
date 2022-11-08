@@ -36,7 +36,7 @@ jobs:
           APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
           APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
           APPLE_KEY_CONTENT: ${{ secrets.APPLE_KEY_CONTENT }}
-          GIT_AUTHORIZATION: ${{ secrets.GIT_AUTHORIZATION }}
+          GIT_AUTHORIZATION: ${{ secrets.BOT_TOKEN }}
           TEMP_KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}
           TEMP_KEYCHAIN_USER: ${{ secrets.TEMP_KEYCHAIN_USER }}
           DEVELOPER_APP_ID: ${{ secrets.DEVELOPER_APP_ID }}

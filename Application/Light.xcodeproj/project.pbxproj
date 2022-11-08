@@ -288,7 +288,6 @@
 				2AE391F32800D8F000E19495 /* Frameworks */,
 				2AE391F42800D8F000E19495 /* Resources */,
 				2A0108DB28E245E800611300 /* Embed Foundation Extensions */,
-				2A9476B828EF95AF0006E8B9 /* Run pnpm */,
 			);
 			buildRules = (
 			);
@@ -400,25 +399,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\ncd \"${PROJECT_DIR}/../\"\n\nif ! which swiftlint >/dev/null; then\n    echo \"warning: SwiftLint not installed, run: 'brew install swiftlint'\"\nfi\n\nswiftlint --strict\n";
-		};
-		2A9476B828EF95AF0006E8B9 /* Run pnpm */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run pnpm";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd \"$PROJECT_DIR\"/..\n\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which pnpm > /dev/null; then\n    pnpm install\n    pnpm run build\nelse\n    echo \"warning: pnpm is not installed! Try `brew install pnpm`\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
