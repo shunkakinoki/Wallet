@@ -1,6 +1,6 @@
 {
   "name": "@lightdotso/popup",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export -o '../../Application/Light Safari Extension/Resources/popup' && cp '../../Application/Light Safari Extension/Resources/popup/index.html' '../../Application/Light Safari Extension/Resources/popup.html'",

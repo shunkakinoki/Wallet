@@ -22,6 +22,7 @@ jobs:
           pnpm run build
       - uses: changesets/action@v1
         with:
+          createGithubReleases: false
           publish: pnpm release -r
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}

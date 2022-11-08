@@ -1,6 +1,6 @@
 {
   "name": "@lightdotso/background",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "build": "esbuild ./src/background.ts  --bundle --outdir='../../Application/Light Safari Extension/Resources'"
   },
