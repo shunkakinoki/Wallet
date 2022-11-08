@@ -3358,6 +3358,7 @@ packages:
       config-chain: 1.1.13
     dev: true
 
+<<<<<<< HEAD
   /@reach/router/1.3.4_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-+mtn9wjlB9NN2CNnnC/BRYtwdKBfSyyasPYraNAyvaV1occr/5NnB4CVzjEZipNHwYebQwcndGUmpFzxAUoqSA==}
     peerDependencies:
@@ -3372,6 +3373,8 @@ packages:
       react-lifecycles-compat: 3.0.4
     dev: true
 
+=======
+>>>>>>> origin/feat/ini-changeset
   /@release-it/keep-a-changelog/3.1.0_release-it@15.5.0:
     resolution: {integrity: sha512-o8lxZCAFwFkFpo88aIIgS5dR3kDy6yLjJVpe9QAGNY6tpKMMRHxsiJ8MS5NvrEeIC2VTzOoOjN/CDvdd3a4+/A==}
     engines: {node: '>=14'}
@@ -10991,12 +10994,15 @@ packages:
     resolution: {integrity: sha512-Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==}
     engines: {node: '>= 0.10'}
 
+<<<<<<< HEAD
   /invariant/2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
     dependencies:
       loose-envify: 1.4.0
     dev: true
 
+=======
+>>>>>>> origin/feat/ini-changeset
   /ip/1.1.8:
     resolution: {integrity: sha512-PuExPYUiu6qMBQb4l06ecm6T6ujzhmh+MeJcW9wa89PoAz5pvd4zPgN5WJV104mb6S2T1AwNIAaB70JNrLQWhg==}
     dev: true
