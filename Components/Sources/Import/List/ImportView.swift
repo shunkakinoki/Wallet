@@ -24,14 +24,14 @@ public struct ImportView: View {
                         .padding(.leading, 16)
                     Spacer()
                 }.padding(.top, 23)
-                VStack {
+                VStack(spacing: 16) {
                     NavigationLink(destination: ImportHDWalletView(primary: self.primary)) {
                         ImportViewCategoryItem(icon: ["SeedPhraseIcon"], title: "With Recovery Phrase", description: "Import wallets with a 12 word recovery phrase")
                     }
                     NavigationLink(destination: ImportPrivateKeyView()) {
                         ImportViewCategoryItem(icon: ["PrivateKeyIcon"], title: "With Private Key", description: "Import a wallet by entering its private key.")
                     }
-                }.padding(.top, 8)
+                }.padding(.top, 8).padding([.leading, .trailing], 16)
                 Spacer()
             }
             .navigationBarTitle("Import or Restore Wallet", displayMode: .inline)

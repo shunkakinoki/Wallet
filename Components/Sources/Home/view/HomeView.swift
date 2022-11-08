@@ -65,17 +65,15 @@ struct HomeView: View {
                     }
                 }
                 Link(destination: URL(string: "https://wallet.light.so")!) {
-                    VStack(alignment: .leading) {
-                        ImportViewCategoryItem(icon: ["SafariIcon", "ExtensionIcon"], title: "Set Up Light for Safari", description: "Set up Light Safari Extension to use Light on any website, right from Safari")
-                    }
-                    .padding(.top, 10)
-                    .multilineTextAlignment(.leading)
+                    ImportViewCategoryItem(icon: ["SafariIcon", "ExtensionIcon"], title: "Set Up Light for Safari", description: "Set up Light Safari Extension to use Light on any website, right from Safari")
+                        .padding(.top, 10)
+                        .multilineTextAlignment(.leading)
                 }
                 HStack {
                     Text("Apps")
                         .font(.system(size: 15, weight: .semibold))
                         .foregroundColor(Color(Colors.Label.secondary))
-                        .padding([.leading, .top], 16)
+                        .padding(.top, 16)
                         .opacity(viewModel.configurations.count == 0 ? 0 : 1)
                     Spacer()
                 }
@@ -119,7 +117,7 @@ struct HomeView: View {
                 .background(Color(Colors.System.secondary))
                 .cornerRadius(14)
                 .padding(.top, 6)
-                .padding([.leading, .bottom, .trailing], 16)
+                .padding(.bottom, 16)
             }
             Spacer()
         }
