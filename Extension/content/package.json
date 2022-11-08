@@ -1,6 +1,6 @@
 {
   "name": "@lightdotso/content",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "build": "concurrently 'pnpm:build:*'",
     "build:content": "esbuild ./src/content.ts  --bundle --outdir='../../Application/Light Safari Extension/Resources' --tsconfig=tsconfig.build.json",
