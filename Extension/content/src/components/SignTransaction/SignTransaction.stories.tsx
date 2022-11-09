@@ -12,13 +12,13 @@ export default {
 } as Meta;
 
 const Template: Story = args => {
-  return <Page id={0} type="SignTransaction" params={""} method="" />;
+  return <Page id={1} type="SignTransaction" params={""} method="" />;
 };
 
 export const UniswapGoerliWrap: Story = args => {
   return (
     <Page
-      id={0}
+      id={2}
       type="SignTransaction"
       params={{
         from: "0xd77d7a55d10a9d26ee838453973d40a287322587",

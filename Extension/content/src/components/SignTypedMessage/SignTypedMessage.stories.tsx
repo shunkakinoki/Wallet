@@ -12,13 +12,13 @@ export default {
 } as Meta;
 
 const Template: Story = args => {
-  return <Page id={0} type="SignTypedMessage" params={""} method="" />;
+  return <Page id={1} type="SignTypedMessage" params={""} method="" />;
 };
 
 export const OpenseaTestnet: Story = args => {
   return (
     <Page
-      id={0}
+      id={2}
       type="SignTypedMessage"
       params={{
         from: "0xd77d7a55d10a9d26ee838453973d40a287322587",

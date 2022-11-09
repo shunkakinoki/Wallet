@@ -14,7 +14,7 @@ export default {
 const Template: Story = args => {
   return (
     <Page
-      id={0}
+      id={1}
       type="SwitchEthereumChain"
       params={{
         chainId: "0x89",
