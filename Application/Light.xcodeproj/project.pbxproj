@@ -314,12 +314,15 @@
 				TargetAttributes = {
 					2A0108C128E245E700611300 = {
 						CreatedOnToolsVersion = 14.0;
+						ProvisioningStyle = Manual;
 					};
 					2A4993412821E2C100346628 = {
 						CreatedOnToolsVersion = 13.3;
+						ProvisioningStyle = Manual;
 					};
 					2AE391F52800D8F000E19495 = {
 						CreatedOnToolsVersion = 13.2.1;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -448,8 +451,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Light Safari Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Light Safari Extension/Info.plist";
@@ -482,8 +485,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Light Safari Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Light Safari Extension/Info.plist";
@@ -513,7 +516,7 @@
 		2A4993422821E2C100346628 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -521,7 +524,7 @@
 		2A4993432821E2C100346628 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -650,8 +653,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Light/Light.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Light/Resources/Info.plist;
@@ -688,7 +691,7 @@
 				CODE_SIGN_ENTITLEMENTS = Light/Light.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Light/Resources/Info.plist;
