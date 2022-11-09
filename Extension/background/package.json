@@ -10,5 +10,9 @@
   },
   "devDependencies": {
     "typescript": "^4.8.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   }
 }
