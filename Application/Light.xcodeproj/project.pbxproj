@@ -447,11 +447,10 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Light Safari Extension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development: Created via API (C9D4454S76)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 220;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
+				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Light Safari Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Light Safari Extension";
@@ -470,7 +469,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.magic.light.Light-Safari-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.magic.light.Light-Safari-Extension";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -483,11 +481,10 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Light Safari Extension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 220;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
+				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Light Safari Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Light Safari Extension";
@@ -506,7 +503,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.magic.light.Light-Safari-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.magic.light.Light-Safari-Extension";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -653,8 +649,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Light/Light.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development: Created via API (C9D4454S76)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 220;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -676,7 +672,7 @@
 					"-weak_framework",
 					SwiftUI,
 				);
-				PROVISIONING_PROFILE_SPECIFIER = "match Development io.magic.light";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

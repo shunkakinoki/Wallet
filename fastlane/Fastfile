@@ -26,6 +26,7 @@ platform :ios do
     build = get_build_number(
       xcodeproj: "Application/Light.xcodeproj",
     )
+    disable_automatic_code_signing(path: "Application/Light.xcodeproj")
 
     api_key = app_store_connect_api_key(
       key_id: APPLE_KEY_ID,
@@ -82,6 +83,7 @@ platform :ios do
       }
     )
 
+    enable_automatic_code_signing(path: "Application/Light.xcodeproj")
   end
 
   lane :internal do
