@@ -11,4 +11,11 @@ public extension EthereumAccount {
         ]
         let _ = SecItemDelete(params as CFDictionary)
     }
+    
+    func deleteAllKeys() throws {
+        let params: [String: Any] = [
+            kSecClass as String: kSecClassKey,
+        ]
+        let _ = SecItemDelete(params as CFDictionary)
+    }
 }

@@ -49,6 +49,10 @@ extension EthereumAccount {
     public func delete(wallet: EthereumWallet) throws {
         try walletDirectory.delete(at: wallet.address.eip55Description)
     }
+    
+    public func deleteAll() throws {
+        try walletDirectory.deleteAll()
+    }
 }
 
 /// Update Wallet Methods

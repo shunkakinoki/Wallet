@@ -21,6 +21,11 @@ extension EthereumAccount {
             }
         }
     }
+    
+    func deleteAllIndexes() throws {
+        let emptyObject: [Int: String] = [:]
+        try UserDefaults.standard.set(object: emptyObject, forKey: "accountAddresses")
+    }
 
     private func updateAddressIndex(_ indexes: [Int: String],  index: Int, address: String) throws -> Int {
         var indexToSave = indexes

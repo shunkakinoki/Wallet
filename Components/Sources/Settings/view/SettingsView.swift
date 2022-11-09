@@ -3,6 +3,8 @@ import Commons
 import UIComponents
 
 public struct SettingsView: View {
+    @ObservedObject
+    var viewModel = SettingsViewModel()
 
     @Environment(\.presentationMode)
     var presentationMode
@@ -76,9 +78,13 @@ public struct SettingsView: View {
         }
     }
 
-    func deleteWallets() {
-        let spec: NSDictionary = [kSecClass: kSecClassKey]
-        SecItemDelete(spec)
+    func deleteWallets()  {
+        do {
+            try viewModel.deleteAllAccounts()
+            AppOrchestra.onboarding()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 
