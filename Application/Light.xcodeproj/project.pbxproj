@@ -449,7 +449,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Light Safari Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development: Created via API (C9D4454S76)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 218;
+				CURRENT_PROJECT_VERSION = 220;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -485,7 +485,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Light Safari Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 218;
+				CURRENT_PROJECT_VERSION = 220;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
