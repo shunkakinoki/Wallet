@@ -4,7 +4,17 @@
 
 ## Contributing
 
+- Figma: https://www.figma.com/file/Qqd4WKaub5BHLUHi0eqvD7
+- Issues: https://github.com/LightDotSo/Wallet/issues
+- Project: https://github.com/orgs/LightDotSo/projects/1/views/1
+
 See our [contributing guidelines](./CONTRIBUTING.md).
+
+## Community
+
+- Testflight: https://testflight.apple.com/join/4bbpvn9a
+- Discord: https://discord.com/invite/Vgfxg2Rcy8
+- Twitter: http://twitter.com/Light_Wallet
 
 ## Getting Help
 
@@ -14,9 +24,16 @@ See our [contributing guidelines](./CONTRIBUTING.md).
 
 If you want to contribute, you can use our [main telegram](https://t.me/Light_Wallet_General) to chat with us about further development!
 
+## Getting Started
+
+1. Download XCode: https://developer.apple.com/xcode/
+2. Install Cocoapods: https://cocoapods.org/
+3. Install Pnpm: https://pnpm.io/
+4. Run `pod install && pnpm install && pnpm run build`
+
 ## Acknowledgements
 
-- Heavily inspired by the works of [Balance](https://github.com/balance-io/Balance).
+- Heavily inspired by the works of [Balance](https://github.com/balance-io).
 - Light Wallet is a clean-room rewrite of [Tokenary](https://github.com/zeriontech/Tokenary).
 - The Extension Ethereum Provider is a fork of [Trust Web3 Provider](https://github.com/trustwallet/trust-web3-provider).
 - All the other [contributors](https://github.com/LightDotSo/Wallet/graphs/contributors).
