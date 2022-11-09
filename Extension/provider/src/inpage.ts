@@ -1,6 +1,5 @@
-import { EthereumProvider } from "@lightdotso/provider";
-
-import { logEthereum } from "./log";
+import { EthereumProvider } from "./EthereumProvider";
+import { logInpage } from "./log";
 
 // Work around for Can't find vairable: Buffer Error (https://stackoverflow.com/questions/48432524/cant-find-variable-buffer)
 (window as any).global = window;
@@ -19,7 +18,7 @@ window.lightwallet = { overlayConfigurations: [] };
 window.lightwallet.postMessage = (method, id, params) => {
   const message = { method: method, id: id, params: params };
   const payload = { direction: "from-page-script", message: message };
-  logEthereum(`==> postMessage: ${JSON.stringify(payload)}`);
+  logInpage(`==> postMessage: ${JSON.stringify(payload)}`);
 
   window.postMessage(payload, "*");
 };
@@ -36,12 +35,7 @@ window.addEventListener(
       const id = event.data.id;
       const method = event.data.method;
 
-      logEthereum(`<== from-content-script: ${event.data.id}`);
-
-      if (method == "signTransaction") {
-        logEthereum("Sign Transaction! Skipping");
-        return;
-      }
+      logInpage(`<== from-content-script: ${event.data.id}`);
 
       window.ethereum.processLightWalletResponse(response, id, method);
     }

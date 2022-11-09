@@ -6,6 +6,7 @@
     "build": "esbuild ./src/inpage.ts  --bundle --outdir='../../Application/Light Safari Extension/Resources'"
   },
   "dependencies": {
+    "@lightdotso/provider": "workspace:*",
     "@metamask/eth-sig-util": "^5.0.0",
     "@types/firefox-webext-browser": "^94.0.1",
     "buffer": "^6.0.3",
@@ -13,6 +14,7 @@
     "isutf8": "^4.0.0"
   },
   "devDependencies": {
+    "@types/node": "^18.8.4",
     "typescript": "^4.8.4"
   },
   "publishConfig": {

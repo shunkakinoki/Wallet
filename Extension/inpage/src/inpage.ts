@@ -1,4 +1,5 @@
-import { EthereumProvider } from "./EthereumProvider";
+import { EthereumProvider } from "@lightdotso/provider";
+
 import { logInpage } from "./log";
 
 // Work around for Can't find vairable: Buffer Error (https://stackoverflow.com/questions/48432524/cant-find-variable-buffer)
