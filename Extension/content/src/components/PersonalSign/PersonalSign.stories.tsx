@@ -12,13 +12,13 @@ export default {
 } as Meta;
 
 const Template: Story = args => {
-  return <Page id={0} type="PersonalSign" params={""} method="" />;
+  return <Page id={1} type="PersonalSign" params={""} method="" />;
 };
 
 export const Lenster: Story = args => {
   return (
     <Page
-      id={0}
+      id={2}
       type="PersonalSign"
       params={{
         from: "0xd77d7a55d10a9d26ee838453973d40a287322587",

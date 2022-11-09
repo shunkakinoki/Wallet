@@ -12,7 +12,7 @@ export default {
 } as Meta;
 
 const Template: Story = args => {
-  return <Page id={0} type="ConnectWallet" params={""} method="" />;
+  return <Page id={1} type="ConnectWallet" params={""} method="" />;
 };
 
 export const Default = Template.bind({});
