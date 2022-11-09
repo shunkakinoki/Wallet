@@ -66,6 +66,24 @@ platform :ios do
       api_key: api_key
     )
 
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      targets: "Light",
+      path: "Application/Light.xcodeproj",
+      team_id: "4Z47XRX22C",
+      bundle_identifier: "io.magic.light",
+      profile_name: "match AppStore io.magic.light",
+      entitlements_file_path: "Light/Light.entitlements"
+    )
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      targets: "Light Safari Extension",
+      path: "Application/Light.xcodeproj",
+      team_id: "4Z47XRX22C",
+      bundle_identifier: "io.magic.light.Light-Safari-Extension",
+      profile_name: "match AppStore io.magic.light.Light-Safari-Extension",
+      entitlements_file_path: "Light Safari Extension/Light Safari Extension.entitlements"
+    )
     increment_build_number(
       xcodeproj: 'Application/Light.xcodeproj'
     )
@@ -80,6 +98,11 @@ platform :ios do
           DEVELOPER_APP_ID => PROVISIONING_PROFILE_SPECIFIER
         }
       }
+    )
+
+    update_code_signing_settings(
+      use_automatic_signing: true,
+      path: "Application/Light.xcodeproj",
     )
 
   end
