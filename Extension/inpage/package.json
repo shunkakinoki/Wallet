@@ -1,5 +1,6 @@
 {
   "name": "@lightdotso/inpage",
+  "private": false,
   "version": "0.0.1",
   "scripts": {
     "build": "esbuild ./src/inpage.ts  --bundle --outdir='../../Application/Light Safari Extension/Resources'"

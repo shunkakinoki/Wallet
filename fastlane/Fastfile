@@ -83,11 +83,14 @@ platform :ios do
     )
 
     ENV['ITMSTRANSPORTER_FORCE_ITMS_PACKAGE_UPLOAD'] = 'true'
+    changelog = read_changelog(
+      section_identifier: '[Unreleased]'
+    )
 
     pilot(
       apple_id: "#{DEVELOPER_APP_ID}",
       app_identifier: "io.magic.light",
-      changelog: "Bug fixes and performance improvements",
+      changelog: changelog,
       skip_waiting_for_build_processing: false,
       skip_submission: true,
       distribute_external: true,
@@ -98,6 +101,8 @@ platform :ios do
       itc_provider: "4Z47XRX22C",
       team_id: "4Z47XRX22C"
     )
+
+    stamp_changelog(section_identifier: "Build #{build}")
 
   end
 
