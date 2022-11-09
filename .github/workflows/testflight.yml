@@ -27,7 +27,22 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm turbo run build
       - run: |
-          bundle exec fastlane submit_build
+          bundle exec fastlane internal
+        env:
+          APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
+          APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
+          APPLE_KEY_CONTENT: ${{ secrets.APPLE_KEY_CONTENT }}
+          GIT_AUTHORIZATION: ${{ secrets.BOT_TOKEN }}
+          TEMP_KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}
+          TEMP_KEYCHAIN_USER: ${{ secrets.TEMP_KEYCHAIN_USER }}
+          DEVELOPER_APP_ID: ${{ secrets.DEVELOPER_APP_ID }}
+          DEVELOPER_APP_IDENTIFIER: ${{ secrets.DEVELOPER_APP_IDENTIFIER }}
+          PROVISIONING_PROFILE_SPECIFIER: ${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          ITMSTRANSPORTER_FORCE_ITMS_PACKAGE_UPLOAD: true
+      - if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          bundle exec fastlane external
         env:
           APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
           APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}

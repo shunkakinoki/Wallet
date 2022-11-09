@@ -18,7 +18,7 @@ KEYCHAIN_PASSWORD = ENV["TEMP_KEYCHAIN_PASSWORD"]
 
 platform :ios do
 
-  lane :submit_build do
+  lane :build do
     version = get_version_number(
       xcodeproj: "Application/Light.xcodeproj",
       target: "Light"
@@ -82,10 +82,34 @@ platform :ios do
       }
     )
 
+  end
+
+  lane :internal do
+    build
+
     ENV['ITMSTRANSPORTER_FORCE_ITMS_PACKAGE_UPLOAD'] = 'true'
+
+    pilot(
+      apple_id: "#{DEVELOPER_APP_ID}",
+      app_identifier: "io.magic.light",
+      changelog: "Bug fixes and performance improvements",
+      skip_waiting_for_build_processing: false,
+      skip_submission: true,
+      distribute_external: false,
+      notify_external_testers: true,
+      itc_provider: "4Z47XRX22C",
+      team_id: "4Z47XRX22C"
+    )
+  end
+
+  lane :external do
+    build
+
     changelog = read_changelog(
       section_identifier: '[Unreleased]'
     )
+
+    ENV['ITMSTRANSPORTER_FORCE_ITMS_PACKAGE_UPLOAD'] = 'true'
 
     pilot(
       apple_id: "#{DEVELOPER_APP_ID}",
@@ -103,7 +127,6 @@ platform :ios do
     )
 
     stamp_changelog(section_identifier: "Build #{build}")
-
   end
 
   lane :change_app_icon do
