@@ -2,6 +2,7 @@ import Foundation
 import Domain
 import Keychain
 import Session
+import Commons
 
 public final class ProfileSelectorViewModel: ObservableObject {
     @Published var wallets = [EthereumWallet]()
@@ -48,6 +49,11 @@ public final class ProfileSelectorViewModel: ObservableObject {
     }
 
     public func deleteWallet(with wallet: EthereumWallet) throws {
+        if wallets.count == 1 {
+            try deleteWallet.deleteAll()
+            AppOrchestra.onboarding()
+            return
+        }
         wallets.removeAll(where: { $0.address.eip55Description == wallet.address.eip55Description })
         try deleteWallet.delete(wallet)
         if selectedWallet() == nil { selectLastWallet() }

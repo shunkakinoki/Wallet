@@ -50,6 +50,13 @@ public struct DirectoryWalletWriterDirectory: WriterDirectory {
     public func delete(at file: String) throws {
         try fileManager.removeItem(at: saveAt(file))
     }
+    
+    public func deleteAll() throws {
+        let files = try fileManager.contentsOfDirectory(at: destination, includingPropertiesForKeys: nil)
+        for file in files {
+            try fileManager.removeItem(at: file)
+        }
+    }
 }
 
 extension DirectoryWalletWriterDirectory {

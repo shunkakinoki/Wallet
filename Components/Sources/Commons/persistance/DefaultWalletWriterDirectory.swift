@@ -33,4 +33,12 @@ public struct UserDefaultsWalletWriterDirectory: WriterDirectory {
         try sharedContainer.remove(forKey: file)
         sharedContainer.synchronize()
     }
+    
+    public func deleteAll() throws {
+        guard let sharedContainer = UserDefaults(suiteName: "group.io.magic.light") else {
+            throw Error.deleting
+        }
+        try sharedContainer.removeAll()
+        sharedContainer.synchronize()
+    }
 }
