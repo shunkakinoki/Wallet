@@ -16,32 +16,27 @@ public struct WalletBackupView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            ZStack {
-                VStack(spacing: 0) {
-                    HStack {
-                        Text("Keychain")
-                            .foregroundColor(Color(Colors.Label.primary))
-                            .padding([.leading, .top], 16)
-                            .font(.system(size: 17, weight: .semibold))
-                        Spacer()
-                    }
-                    HStack {
-                        Text("Your recovery phrase and private keys are stored securely on device with Apple Keychain. If you delete Light and reinstall it, you will still have access to your accounts.")
-                            .lineLimit(nil)
-                            ._lineHeightMultiple(1.08)
-                            .foregroundColor(Color(Colors.Label.secondary))
-                            .padding([.leading, .bottom], 16).padding(.top, 8)
-                            .font(.system(size: 17, weight: .regular))
-                        Spacer()
+            Form {
+                ZStack {
+                    VStack(spacing: 0) {
+                        HStack {
+                            Text("Keychain")
+                                .foregroundColor(Color(Colors.Label.primary))
+                                .font(.system(size: 17, weight: .semibold))
+                                .padding(.top, 8)
+                            Spacer()
+                        }
+                        HStack {
+                            Text("Your recovery phrase and private keys are stored securely on device with Apple's Secure Enclave. If you delete Light and reinstall it, you will not have access to your accounts.")
+                                .lineLimit(nil)
+                                ._lineHeightMultiple(1.08)
+                                .foregroundColor(Color(Colors.Label.secondary))
+                                .padding([.top, .bottom], 8)
+                                .font(.system(size: 17, weight: .regular))
+                            Spacer()
+                        }
                     }
                 }
-            }
-            .contentShape(Rectangle())
-            .frame(maxWidth: .infinity)
-            .background(Color(Colors.System.secondary))
-            .cornerRadius(16)
-            .padding([.leading, .top, .trailing], 16)
-            Form {
                 Section {
                     if viewModel.hasSeedPhrase() {
                         NavigationLink(destination: ShowSeedPhraseView(viewModel: ShowSeedPhraseViewModel(address: viewModel.ethereumAddress()))) {
