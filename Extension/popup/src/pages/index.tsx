@@ -800,8 +800,32 @@ export default function Home() {
             <DialogButton
               strong
               onClick={() => {
-                if (typeof browser !== "undefined") {
-                  browser.storage.local.clear();
+                if (typeof browser.tabs !== "undefined") {
+                  (browser.tabs as any).query(
+                    {
+                      active: true,
+                      currentWindow: true,
+                    },
+                    (tabs: browser.tabs.Tab[]) => {
+                      let accountIdPayload = {
+                        direction: "from-popup-script",
+                        method: "delete_windowAccount",
+                        params: {},
+                      };
+                      logPopup(
+                        `==> sendingMessageContent at ${tabId}: ${JSON.stringify(
+                          accountIdPayload,
+                        )}`,
+                      );
+                      if (tabs && tabId) {
+                        browser.tabs
+                          .sendMessage(tabId, accountIdPayload)
+                          .then(value => {
+                            logPopup(`<== sendingMessageContent: ${value}`);
+                          });
+                      }
+                    },
+                  );
                 }
                 return setHistoryOpened(false);
               }}
