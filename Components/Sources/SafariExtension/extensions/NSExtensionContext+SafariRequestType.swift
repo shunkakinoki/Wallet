@@ -9,6 +9,7 @@ public enum SafariRequestType {
     case getHostConfiguration(Any?)
     case getLightConfiguration
     case postHostConfiguration(Any?)
+    case deleteAllHostConfiguration
     case postTransaction(Any?)
     case postPersonalSignature(Any?)
     case postSignature(Any?)
@@ -30,6 +31,8 @@ public enum SafariRequestType {
             return GetHostConfigurationSafariRequest(parameters: parameters)
         case .postHostConfiguration(let parameters):
             return PostHostConfigurationSafariRequest(parameters: parameters)
+        case .deleteAllHostConfiguration:
+            return DeleteAllHostConfigurationSafariRequest()
         case .postTransaction(let parameters):
             return PostTransactionSafariRequest(parameters: parameters)
         case .postPersonalSignature(let parameters):
@@ -67,6 +70,8 @@ public extension NSExtensionContext {
             return .postHostConfiguration(message["params"])
         case "getHostConfiguration":
             return .getHostConfiguration(message["params"])
+        case "deleteAllHostConfiguration":
+            return .deleteAllHostConfiguration
         case "getLightConfiguration":
             return .getLightConfiguration
         default:
