@@ -4,17 +4,17 @@
 
 ## Contributing
 
-- Figma: https://www.figma.com/file/Qqd4WKaub5BHLUHi0eqvD7
-- Issues: https://github.com/LightDotSo/Wallet/issues
-- Project: https://github.com/orgs/LightDotSo/projects/1/views/1
+- Our designs are on [Figma](https://www.figma.com/file/Qqd4WKaub5BHLUHi0eqvD7), credits to [Oz](https://twitter.com/0xOzh) and [Zypsy](https://zypsy.com) for the work.
+- Look in to our [Github Issues](https://github.com/LightDotSo/Wallet/issues)
+- See progress on our [Github Project Board](https://github.com/orgs/LightDotSo/projects/1/views/1)
 
 See our [contributing guidelines](./CONTRIBUTING.md).
 
 ## Community
 
-- Testflight: https://testflight.apple.com/join/4bbpvn9a
-- Discord: https://discord.com/invite/Vgfxg2Rcy8
-- Twitter: http://twitter.com/Light_Wallet
+- Install our [Testflight](https://testflight.apple.com/join/4bbpvn9a)
+- Join our [Discord](https://discord.com/invite/Vgfxg2Rcy8)
+- Follow our [Twitter](http://twitter.com/Light_Wallet)
 
 ## Getting Help
 
