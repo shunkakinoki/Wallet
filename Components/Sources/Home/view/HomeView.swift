@@ -4,6 +4,24 @@ import SDWebImageSwiftUI
 import UIComponents
 import Settings
 
+struct ColoredIconView: View {
+
+    let imageName: String
+    let foregroundColor: Color
+    let backgroundColor: Color
+    
+    var body: some View {
+        Image(systemName: imageName)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 30, height: 30)
+            .foregroundColor(foregroundColor)
+            .padding(9.0)
+            .background(backgroundColor)
+            .cornerRadius(7.0)
+    }
+}
+
 struct HomeView: View {
     @ObservedObject
     var viewModel: HomeViewModel = HomeViewModel()
@@ -65,9 +83,47 @@ struct HomeView: View {
                     }
                 }
                 Link(destination: URL(string: "https://wallet.light.so")!) {
-                    ImportViewCategoryItem(icon: ["SafariIcon", "ExtensionIcon"], title: "Set Up Light for Safari", description: "Set up Light Safari Extension to use Light on any website, right from Safari")
-                        .padding(.top, 10)
+                    ZStack {
+                        VStack(alignment: .leading, spacing: 0) {
+                            HStack(spacing: -6) {
+                                Image(systemName: "safari.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding(6.0)
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.blue)
+                                    .background(.white)
+                                    .cornerRadius(7.0)
+                                    .padding([.leading, .top], 16)
+                                Image(systemName: "puzzlepiece.extension.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding(6.0)
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.blue)
+                                    .background(.white)
+                                    .cornerRadius(7.0)
+                                    .padding([.leading, .top], 16)
+                            }
+                            Text("Set Up Light For Safari")
+                                .foregroundColor(Color(Colors.Label.primary))
+                                .padding(.leading, 16).padding(.top, 8)
+                                .font(.system(size: 17, weight: .semibold))
+                            HStack {
+                                Text("Set up Light Safari Extension to use Light on any website, right from Safari")
+                                    .foregroundColor(Color(Colors.Label.secondary))
+                                    .padding([.leading, .bottom], 16).padding(.top, 8)
+                                    .font(.system(size: 13, weight: .regular))
+                                Spacer()
+                            }
+                        }
                         .multilineTextAlignment(.leading)
+                    }
+                    .contentShape(Rectangle())
+                    .frame(maxWidth: .infinity)
+                    .background(Color(.systemBlue))
+                    .cornerRadius(14)
+                    .padding(.top, 16)
                 }
                 HStack {
                     Text("Apps")

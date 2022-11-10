@@ -34,9 +34,7 @@ public struct ProfileSelectorView: View {
                 }
                 .toolbar {
                     Button(action: {
-                        withAnimation {
-                            self.editState.toggle()
-                        }
+                        self.editState.toggle()
                     }) {
                         Text(editState ? "Done" : "Edit")
                             .font(.system(size: 15, weight: .semibold))
