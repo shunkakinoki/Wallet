@@ -95,8 +95,15 @@ public struct HostConfigurationImp: HostConfiguration {
             guard let account = try ethereumAccount.fetchSelectedWallet() else {
                 throw Error.fetchingSelectedWallet
             }     
-            let hostConfiguration = HostConfigurationModel(configuration: [account.address.eip55Description: []])
-            try hostsDirectory.write(hostConfiguration, at: "hostsDirectory")
+            if let currentHosts = fetchHosts() {
+                var configurationHosts = currentHosts
+                configurationHosts.configuration[account.address.eip55Description] = []
+                try hostsDirectory.write(configurationHosts, at: "hostsDirectory")
+
+            } else {
+                let hostConfiguration = HostConfigurationModel(configuration: [account.address.eip55Description: []])
+                try hostsDirectory.write(hostConfiguration, at: "hostsDirectory")
+            }
         } catch {
             throw Error.retrievingHostConfiguration
         }
