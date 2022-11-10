@@ -1,6 +1,6 @@
 <img src="assets/logo.png" alt="Light Wallet logo" align="right" width="120" />
 
-## 🪄 Light Wallet
+# 🪄 Light Wallet
 
 <div align="left">
     <a href="https://github.com/LightDotSo/Wallet/blob/main/LICENSE">
