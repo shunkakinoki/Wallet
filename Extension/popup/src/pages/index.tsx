@@ -594,8 +594,42 @@ export default function Home() {
           />
         </List>
         <Block className="flex justify-center">
-          <Button outline small rounded className="w-32 normal-case">
-            <a href="lightdotso://">Open Light App</a>
+          <Button
+            outline
+            small
+            rounded
+            className="w-32 normal-case"
+            onClick={() => {
+              window.close();
+              if (typeof browser.tabs !== "undefined") {
+                (browser.tabs as any).query(
+                  {
+                    active: true,
+                    currentWindow: true,
+                  },
+                  (tabs: browser.tabs.Tab[]) => {
+                    let accountIdPayload = {
+                      direction: "from-popup-script",
+                      method: "open_windowApp",
+                    };
+                    logPopup(
+                      `==> sendingMessageContent at ${tabId}: ${JSON.stringify(
+                        accountIdPayload,
+                      )}`,
+                    );
+                    if (tabs && tabId) {
+                      browser.tabs
+                        .sendMessage(tabId, accountIdPayload)
+                        .then(value => {
+                          logPopup(`<== sendingMessageContent: ${value}`);
+                        });
+                    }
+                  },
+                );
+              }
+            }}
+          >
+            Open Light App
           </Button>
         </Block>
         <BlockHeader className="invisible ml-4 font-semibold">

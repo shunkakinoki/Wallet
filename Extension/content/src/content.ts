@@ -32,6 +32,9 @@ browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
   if (message.direction == "from-popup-script") {
     switch (message.method) {
+      case "open_windowApp":
+        (window as Window).location = "lightdotso://";
+        break;
       case "write_windowChainId":
         sendToEthereum(message.params, genId(), "changeChainId");
         storeHostConfiguration({
