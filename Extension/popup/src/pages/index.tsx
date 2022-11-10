@@ -596,7 +596,7 @@ export default function Home() {
         <Block className="flex justify-center">
           <Button
             outline
-            small
+            large
             rounded
             className="w-32 normal-case"
             onClick={() => {
