@@ -595,7 +595,7 @@ export default function Home() {
         </List>
         <Block className="flex justify-center">
           <Button outline small rounded className="w-32 normal-case">
-            Open Light App
+            <a href="lightdotso://">Open Light App</a>
           </Button>
         </Block>
         <BlockHeader className="invisible ml-4 font-semibold">
