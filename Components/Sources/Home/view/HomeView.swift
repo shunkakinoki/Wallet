@@ -50,7 +50,7 @@ struct HomeView: View {
                             forPasteboardType: "public.plain-text"
                         )
                     } label: {
-                        Text("Copy Address")
+                        Label("Copy Address", systemImage: "doc.on.doc")
                             .font(.system(size: 17, weight: .bold))
                             .padding([.top, .bottom], 14)
                             .foregroundColor(.white)
@@ -66,7 +66,7 @@ struct HomeView: View {
                     Button {
                         showingQR.toggle()
                     } label: {
-                        Text("Show QR")
+                        Label("Show QR", systemImage: "qrcode")
                             .font(.system(size: 17, weight: .bold))
                             .padding([.top, .bottom], 14)
                             .foregroundColor(.white)
