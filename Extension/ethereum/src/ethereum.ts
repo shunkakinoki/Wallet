@@ -6,11 +6,14 @@ import { logEthereum } from "./log";
 (window as any).global = window;
 (window as any).global.Buffer = global.Buffer || require("buffer").Buffer;
 
-window.ethereum = new EthereumProvider({
-  isMetamask: true,
-  chainId: 1,
-  rpcUrl: "https://mainnet.infura.io/v3/013805fd6bd24b3c9a464eeb7c05c63b",
-});
+window.ethereum = new EthereumProvider(
+  {
+    isMetamask: true,
+    chainId: 1,
+    rpcUrl: "https://mainnet.infura.io/v3/013805fd6bd24b3c9a464eeb7c05c63b",
+  },
+  logEthereum,
+);
 window.web3 = { currentProvider: window.ethereum };
 window.dispatchEvent(new Event("ethereum#initialized"));
 window.metamask = window.ethereum;
