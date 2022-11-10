@@ -14,6 +14,7 @@ public protocol SessionRepository {
     func getHostParameters() -> [HostConfigurationModel.HostConfigurationParameters]?
     func getHostParameters(with host: String) -> HostConfigurationResolve?
     func updateHosts(with host: HostConfigurationRequest) throws
+    func deleteHosts(with host: HostConfigurationRequest) throws
     func deleteAllHosts() throws
 }
 
@@ -72,6 +73,11 @@ extension SessionRepositoryImp {
     public func updateHosts(with host: HostConfigurationRequest) throws {
         try hostConfiguration.update(configuration: host)
     }
+
+    public func deleteHosts(with host: HostConfigurationRequest) throws {
+        try hostConfiguration.delete(configuration: host)
+    }
+
 
     public func deleteAllHosts() throws {
         try hostConfiguration.deleteAll()
