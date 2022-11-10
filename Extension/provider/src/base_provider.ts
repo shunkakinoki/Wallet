@@ -1,14 +1,14 @@
 import { EventEmitter } from "events";
 
-import { logInpage } from "./log";
-
 export class BaseProvider extends EventEmitter {
   providerNetwork: any;
   callbacks: any;
   isLight: boolean;
+  logger: (text: any) => void;
 
-  constructor() {
+  constructor(logger) {
     super();
+    this.logger = logger;
     this.isLight = true;
   }
 
@@ -34,12 +34,14 @@ export class BaseProvider extends EventEmitter {
    */
   sendResponse(id, result) {
     let callback = this.callbacks.get(id);
-    logInpage(`<== sendResponse id: ${id}, result: ${JSON.stringify(result)}`);
+    this.logger(
+      `<== sendResponse id: ${id}, result: ${JSON.stringify(result)}`,
+    );
     if (callback) {
       callback(null, result);
       this.callbacks.delete(id);
     } else {
-      logInpage(`callback id: ${id} not found`);
+      this.logger(`callback id: ${id} not found`);
     }
   }
 
@@ -47,7 +49,7 @@ export class BaseProvider extends EventEmitter {
    * @private Internal native error -> js
    */
   sendError(id, error) {
-    logInpage(`<== ${id} sendError ${error}`);
+    this.logger(`<== ${id} sendError ${error}`);
     let callback = this.callbacks.get(id);
     if (callback) {
       callback(error instanceof Error ? error : new Error(error), null);

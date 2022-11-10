@@ -6,7 +6,6 @@ import isUtf8 from "isutf8";
 import { BaseProvider } from "./base_provider";
 import { ProviderRpcError } from "./error";
 import { IdMapping } from "./id_mapping";
-import { logInpage } from "./log";
 import { RPCServer } from "./rpc";
 import { rpcMapping } from "./rpc_mapping";
 import { Utils } from "./utils";
@@ -21,9 +20,10 @@ export class EthereumProvider extends BaseProvider {
   rpc: RPCServer;
   didEmitConnectAfterSubscription: boolean;
   isMetaMask: boolean;
+  logger: (text: any) => void;
 
-  constructor(config) {
-    super();
+  constructor(config, logger) {
+    super(logger);
     this.setConfig(config);
 
     this.providerNetwork = "ethereum";
@@ -32,6 +32,7 @@ export class EthereumProvider extends BaseProvider {
     this.wrapResults = new Map();
     this.isMetaMask = true;
     this.isLight = true;
+    this.logger = logger;
 
     this.emitConnect(this.chainId);
 
@@ -39,7 +40,7 @@ export class EthereumProvider extends BaseProvider {
 
     const originalOn = this.on;
     this.on = (...args) => {
-      logInpage(`on: ${JSON.stringify(args)}`);
+      this.logger(`on: ${JSON.stringify(args)}`);
       if (args[0] == "connect") {
         setTimeout(() => {
           if (!window.ethereum.didEmitConnectAfterSubscription) {
@@ -63,14 +64,14 @@ export class EthereumProvider extends BaseProvider {
   }
 
   setAddress(address) {
-    logInpage(`setAddress: ${address}`);
+    this.logger(`setAddress: ${address}`);
 
     const lowerAddress = (address || "").toLowerCase();
     this.address = lowerAddress;
     this.ready = !!address;
 
-    logInpage(`setAddress: ${this.address}`);
-    logInpage(`setAddress: ${this.ready}`);
+    this.logger(`setAddress: ${this.address}`);
+    this.logger(`setAddress: ${this.ready}`);
 
     try {
       for (var i = 0; i < window.frames.length; i++) {
@@ -81,7 +82,7 @@ export class EthereumProvider extends BaseProvider {
         }
       }
     } catch (error) {
-      logInpage(error);
+      this.logger(error);
     }
   }
 
@@ -117,7 +118,7 @@ export class EthereumProvider extends BaseProvider {
    * @deprecated Use request({method: "eth_requestAccounts"}) instead.
    */
   enable() {
-    logInpage(
+    this.logger(
       "enable() is deprecated, please use window.ethereum.request({method: 'eth_requestAccounts'}) instead.",
     );
     if (!this.address) {
@@ -135,7 +136,7 @@ export class EthereumProvider extends BaseProvider {
    * @deprecated Use request() method instead.
    */
   send(payload) {
-    logInpage(`==> send payload ${JSON.stringify(payload)}`);
+    this.logger(`==> send payload ${JSON.stringify(payload)}`);
     let response = { jsonrpc: "2.0", id: payload.id, result: null };
     switch (payload.method) {
       case "eth_accounts":
@@ -163,7 +164,7 @@ export class EthereumProvider extends BaseProvider {
    * @deprecated Use request() method instead.
    */
   sendAsync(payload, callback) {
-    logInpage(
+    this.logger(
       "sendAsync(data, callback) is deprecated, please use window.ethereum.request(data) instead.",
     );
     // this points to window in methods like web3.eth.getAccounts()
@@ -200,7 +201,7 @@ export class EthereumProvider extends BaseProvider {
    */
   _request(payload, wrapResult = true) {
     this.idMapping.tryIntifyId(payload);
-    logInpage(`==> _request payload ${JSON.stringify(payload)}`);
+    this.logger(`==> _request payload ${JSON.stringify(payload)}`);
     this.fillJsonRpcVersion(payload);
     return new Promise((resolve, reject) => {
       if (!payload.id) {
@@ -215,7 +216,7 @@ export class EthereumProvider extends BaseProvider {
       });
       this.wrapResults.set(payload.id, wrapResult);
 
-      logInpage(
+      this.logger(
         `==> _request callbacks: ${JSON.stringify(
           Array.from(this.callbacks.keys()),
         )}`,
@@ -268,14 +269,14 @@ export class EthereumProvider extends BaseProvider {
             `Trust does not support calling ${payload.method}. Please use your own solution`,
           );
         default:
-          logInpage(`<== callback delete: ${payload.id}`);
+          this.logger(`<== callback delete: ${payload.id}`);
           // call upstream rpc
           this.callbacks.delete(payload.id);
           this.wrapResults.delete(payload.id);
           return this.rpc
             .call(payload)
             .then(response => {
-              logInpage(`<== rpc response ${JSON.stringify(response)}`);
+              this.logger(`<== rpc response ${JSON.stringify(response)}`);
               wrapResult ? resolve(response) : resolve(response.result);
             })
             .catch(reject);
@@ -331,12 +332,12 @@ export class EthereumProvider extends BaseProvider {
   }
 
   personal_sign(payload) {
-    logInpage(`personal_sign: ${JSON.stringify(payload)}`);
+    this.logger(`personal_sign: ${JSON.stringify(payload)}`);
     const message = payload.params[0];
     const from = payload.params[1];
     const buffer = Utils.messageToBuffer(message);
     if (buffer.length === 0) {
-      logInpage("personal_sign: Buffer length is 0");
+      this.logger("personal_sign: Buffer length is 0");
       // hex it
       const hex = Utils.bufferToHex(message);
       this.postMessage("signPersonalMessage", payload.id, {
@@ -344,7 +345,7 @@ export class EthereumProvider extends BaseProvider {
         message: hex,
       });
     } else {
-      logInpage("personal_sign: Buffer length is not 0");
+      this.logger("personal_sign: Buffer length is not 0");
 
       this.postMessage("signPersonalMessage", payload.id, {
         from: from,
@@ -361,7 +362,7 @@ export class EthereumProvider extends BaseProvider {
   }
 
   eth_signTypedData(payload, version) {
-    logInpage(`signTypedMessage: ${JSON.stringify(payload)}`);
+    this.logger(`signTypedMessage: ${JSON.stringify(payload)}`);
 
     const from = payload.params[0];
     const message = JSON.parse(payload.params[1]);
@@ -401,7 +402,7 @@ export class EthereumProvider extends BaseProvider {
   }
 
   processLightWalletResponse(response, id, method) {
-    logInpage(
+    this.logger(
       `<== processLightWalletResponse: ${JSON.stringify({
         id: id,
         response: response,
@@ -426,7 +427,7 @@ export class EthereumProvider extends BaseProvider {
             this.sendResponse(id, response);
           })
           .catch(err => {
-            logInpage(`signTransaction error: ${err}`);
+            this.logger(`signTransaction error: ${err}`);
             this.sendError(id, err);
 
             fetch("https://wallet.light.so/api/report", {
@@ -500,7 +501,7 @@ export class EthereumProvider extends BaseProvider {
    * @private Internal native result -> js
    */
   sendResponse(id, result) {
-    logInpage(
+    this.logger(
       `==> sendResponse callbacks: ${JSON.stringify(
         Array.from(this.callbacks.keys()),
       )}`,
@@ -522,7 +523,7 @@ export class EthereumProvider extends BaseProvider {
     }
 
     if (callback) {
-      logInpage(
+      this.logger(
         `<== sendResponse: ${JSON.stringify({
           id: id,
           result: result,
@@ -530,13 +531,13 @@ export class EthereumProvider extends BaseProvider {
         })}`,
       );
 
-      logInpage(`<== callbackId wrapResult: ${JSON.stringify(wrapResult)}`);
+      this.logger(`<== callbackId wrapResult: ${JSON.stringify(wrapResult)}`);
       wrapResult ? callback(null, data) : callback(null, result);
 
-      logInpage(`<== callback delete: ${id}`);
+      this.logger(`<== callback delete: ${id}`);
       this.callbacks.delete(id);
     } else {
-      logInpage(`<== callbackId: ${id} not found`);
+      this.logger(`<== callbackId: ${id} not found`);
       // check if it's iframe callback
       for (var i = 0; i < window.frames.length; i++) {
         const frame = window.frames[i];
@@ -545,7 +546,7 @@ export class EthereumProvider extends BaseProvider {
             frame.ethereum.sendResponse(id, result);
           }
         } catch (error) {
-          logInpage(`send response to frame error: ${error}`);
+          this.logger(`send response to frame error: ${error}`);
         }
       }
     }
@@ -555,7 +556,7 @@ export class EthereumProvider extends BaseProvider {
    * @private Internal native result -> js
    */
   sendError(id, error) {
-    logInpage(`<== ${id} sendError: ${error}`);
+    this.logger(`<== ${id} sendError: ${error}`);
     let callback = this.callbacks.get(id);
     if (callback) {
       callback(error instanceof Error ? error : new Error(error), null);
