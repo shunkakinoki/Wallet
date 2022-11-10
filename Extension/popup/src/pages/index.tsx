@@ -190,7 +190,7 @@ export default function Home() {
   }, [shadowChainIdOption]);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center" style={{ minWidth: 320 }}>
       <div className="w-full max-w-lg">
         <BlockHeader className="ml-1.5 font-semibold">
           <div className="">
