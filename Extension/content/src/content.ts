@@ -20,7 +20,8 @@ import { genId } from "./utils/genId";
 let address: string;
 let accounts;
 let config;
-let hostConfig;
+
+let initialLoad = false;
 
 browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   logContent(
@@ -68,12 +69,21 @@ browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 });
 
 document.addEventListener("readystatechange", () => {
-  if (document.readyState === "interactive") {
+  logContent(`document.readyState: ${document.readyState}`);
+
+  if (!initialLoad) {
+    logContent(`initialLoad: ${initialLoad}`);
+    initialLoad = true;
+
+    if (document.readyState === "complete") {
+      window.location.reload();
+    }
+
     injectEthereum();
+    injectWagmi("");
   }
 
-  if (document.readyState !== "loading") {
-    logContent(`document.readyState: ${document.readyState}`);
+  if (document.readyState !== "loading" || initialLoad) {
     logContent(`allowedDomainCheck: ${allowedDomainCheck()}`);
     injectApp();
 
@@ -83,7 +93,6 @@ document.addEventListener("readystatechange", () => {
           address = item.address;
         }
         if (item?.chainId) {
-          hostConfig = item;
           sendToEthereum(address, genId(), "requestAccounts");
           injectWagmi(address);
           return item.chainId;
@@ -128,7 +137,6 @@ window.addEventListener("message", event => {
                 address = item.address;
               }
               if (item?.chainId) {
-                hostConfig = item;
                 sendToEthereum(
                   address,
                   event.data.message.id,
