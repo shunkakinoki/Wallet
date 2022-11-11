@@ -796,11 +796,32 @@ export default function Home() {
             <DialogButton
               strong
               onClick={() => {
-                if (typeof browser !== "undefined" && host && accountId) {
-                  browser.storage.local.remove([
-                    utils.getAddress(accountId),
-                    host,
-                  ]);
+                if (typeof browser.tabs !== "undefined") {
+                  (browser.tabs as any).query(
+                    {
+                      active: true,
+                      currentWindow: true,
+                    },
+                    (tabs: browser.tabs.Tab[]) => {
+                      let accountIdPayload = {
+                        direction: "from-popup-script",
+                        method: "delete_windowHost",
+                        params: { host: host },
+                      };
+                      logPopup(
+                        `==> sendingMessageContent at ${tabId}: ${JSON.stringify(
+                          accountIdPayload,
+                        )}`,
+                      );
+                      if (tabs && tabId) {
+                        browser.tabs
+                          .sendMessage(tabId, accountIdPayload)
+                          .then(value => {
+                            logPopup(`<== sendingMessageContent: ${value}`);
+                          });
+                      }
+                    },
+                  );
                 }
                 return setForgetOpened(false);
               }}

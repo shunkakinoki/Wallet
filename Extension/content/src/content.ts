@@ -51,6 +51,13 @@ browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         });
         address = message.params.wallet;
         break;
+      case "delete_windowHost":
+        sendMessageToNativeApp({
+          id: genId(),
+          method: "deleteHostConfiguration",
+          params: message.params,
+        });
+        break;
       case "delete_windowAccount":
         sendMessageToNativeApp({
           id: genId(),
