@@ -22,6 +22,6 @@ public class DeleteHostConfigurationImp: DeleteHostConfiguration {
     }
 
     public func delete(from request: HostConfigurationRequest) throws {
-        return try sessionRepository.updateHosts(with: request)
+        return try sessionRepository.deleteHosts(with: request)
     }
 }

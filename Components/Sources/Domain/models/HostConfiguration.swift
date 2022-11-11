@@ -95,19 +95,15 @@ public struct HostConfigurationImp: HostConfiguration {
         do {
             guard let account = try ethereumAccount.fetchSelectedWallet() else {
                 throw Error.fetchingSelectedWallet
-            }
-            let config = HostConfigurationModel.HostConfigurationParameters(host: configuration.host, chainId: "", option: "", favicon: "")
-
+            }     
             if let currentHosts = fetchHosts() {
                 var configurationHosts = currentHosts
-                configurationHosts.configuration.removeValue(forKey: configuration.host)
+                configurationHosts.configuration[account.address.eip55Description] = []
                 try hostsDirectory.write(configurationHosts, at: "hostsDirectory")
 
             } else {
-                let hostConfiguration = HostConfigurationModel(configuration: [account.address.eip55Description: [config]])
-                var configurationHosts = hostConfiguration
-                configurationHosts.configuration.removeValue(forKey: configuration.host)
-                try hostsDirectory.write(configurationHosts, at: "hostsDirectory")
+                let hostConfiguration = HostConfigurationModel(configuration: [account.address.eip55Description: []])
+                try hostsDirectory.write(hostConfiguration, at: "hostsDirectory")
             }
         } catch {
             throw Error.retrievingHostConfiguration
