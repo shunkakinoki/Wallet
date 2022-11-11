@@ -2,7 +2,7 @@ import Foundation
 import Domain
 
 public protocol DeleteHostConfiguration {
-    func delete(from request: HostConfigurationRequest) throws
+    func delete(from request: DeleteHostConfigurationRequest) throws
 }
 
 public class DeleteHostConfigurationImp: DeleteHostConfiguration {
@@ -21,7 +21,7 @@ public class DeleteHostConfigurationImp: DeleteHostConfiguration {
         self.sessionRepository = sessionRepository
     }
 
-    public func delete(from request: HostConfigurationRequest) throws {
+    public func delete(from request: DeleteHostConfigurationRequest) throws {
         return try sessionRepository.deleteHosts(with: request)
     }
 }

@@ -5,7 +5,7 @@ public protocol HostConfiguration {
     func fetchHostsConfiguration() -> [HostConfigurationModel.HostConfigurationParameters]?
     func fetchHostsConfiguration(with host: String) -> HostConfigurationResolve?
     func update(configuration: HostConfigurationRequest) throws
-    func delete(configuration: HostConfigurationRequest) throws
+    func delete(configuration: DeleteHostConfigurationRequest) throws
     func deleteAll() throws
 }
 
@@ -91,14 +91,21 @@ public struct HostConfigurationImp: HostConfiguration {
         }
     }
 
-    public func delete(configuration: HostConfigurationRequest) throws {
-        do {
+    public func delete(configuration: DeleteHostConfigurationRequest) throws {
+          do {
             guard let account = try ethereumAccount.fetchSelectedWallet() else {
                 throw Error.fetchingSelectedWallet
-            }     
+            }
             if let currentHosts = fetchHosts() {
                 var configurationHosts = currentHosts
-                configurationHosts.configuration[account.address.eip55Description] = []
+
+                if var parameters = fetchHostsParameters(with: account.address.eip55Description) {
+                    parameters.removeAll { $0.host == configuration.host }
+                    configurationHosts.configuration[account.address.eip55Description] = parameters
+                } else {
+                    configurationHosts.configuration[account.address.eip55Description] = []
+                }
+
                 try hostsDirectory.write(configurationHosts, at: "hostsDirectory")
 
             } else {

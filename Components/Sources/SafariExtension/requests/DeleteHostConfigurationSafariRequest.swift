@@ -42,12 +42,9 @@ extension DeleteHostConfigurationSafariRequest {
 }
 
 extension DeleteConfigurationRequestModel {
-    func toModel() -> HostConfigurationRequest {
-        HostConfigurationRequest(
-            host: self.host,
-            chainId: "",
-            option: "",
-            favicon: ""
+    func toModel() -> DeleteHostConfigurationRequest {
+        DeleteHostConfigurationRequest(
+            host: self.host
         )
     }
 }
