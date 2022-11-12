@@ -8,3 +8,64 @@ export const SignTransactionDescriptionContainer = styled.div`
   line-height: 1.6rem;
   color: #544949;
 `;
+
+export const SignTransactionGasContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const SignTransactionGasSelectContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const SignTransactionGasSelectSVGContainer = styled.div`
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding-left: 0.75rem;
+  align-items: center;
+  pointer-events: none;
+`;
+
+export const SignTransactionGasSelect = styled.select`
+  background-color: #e0e0e0;
+  color: gray;
+  height: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 1.25rem;
+  margin-left: 1rem;
+  margin-right: 0.65rem;
+  border-style: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  option {
+    direction: rtl;
+    color: black;
+    display: flex;
+    white-space: pre;
+  }
+`;
+
+export const SignTransactionGasSelectSVG = styled.svg`
+  display: inline-flex;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  width: 1.25rem;
+  height: 1.25rem;
+
+  justify-content: center;
+  align-items: center;
+`;

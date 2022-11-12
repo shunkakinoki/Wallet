@@ -10,7 +10,14 @@ import { logContent } from "../../services/log";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
 import { ConfirmButton } from "../Base/ConfirmButton";
 
-import { SignTransactionDescriptionContainer } from "./SignTransaction.styles";
+import {
+  SignTransactionDescriptionContainer,
+  SignTransactionGasContainer,
+  SignTransactionGasSelectContainer,
+  SignTransactionGasSelect,
+  SignTransactionGasSelectSVGContainer,
+  SignTransactionGasSelectSVG,
+} from "./SignTransaction.styles";
 
 type SignTransactionParams = {
   id: number;
@@ -67,11 +74,11 @@ export const SignTransactionDescription: FC<
 > = ({ params }) => {
   const [result, setResult] = useState(null);
 
-  const [config] = useTransactionGasConfig(state => {
-    return [state.config];
+  const [config, setConfig] = useTransactionGasConfig(state => {
+    return [state.config, state.setConfig];
   });
-  const [setGasPrice] = useTransactionGasPrice(state => {
-    return [state.setGasPrice];
+  const [gasPrice, setGasPrice] = useTransactionGasPrice(state => {
+    return [state.gasPrice, state.setGasPrice];
   });
 
   useEffect(() => {
@@ -98,6 +105,7 @@ export const SignTransactionDescription: FC<
         .catch(err => {
           logContent(`Error gas: ${JSON.stringify(err)}`);
           if (window.ethereum.storybook) {
+            setGasPrice("0x69");
             return;
           }
           window.ethereum.rpc
@@ -157,8 +165,44 @@ export const SignTransactionDescription: FC<
   }, []);
 
   if (params?.from && params?.to && params?.value && params?.data) {
-    return <SignTransactionDescriptionContainer />;
+    return (
+      <SignTransactionDescriptionContainer>
+        <SignTransactionGasContainer>
+          <div>{gasPrice}</div>
+          <SignTransactionGasSelectContainer>
+            <SignTransactionGasSelect
+              value={config.legacySpeed}
+              onChange={e => {
+                setConfig({ legacySpeed: e.target.value });
+              }}
+            >
+              <option value="instant">🚨 Instant</option>
+              <option value="fast">🏄‍♂️ Fast</option>
+              <option value="standard">🚗 Standard</option>
+              <option value="low">🐢 Slow</option>
+            </SignTransactionGasSelect>
+            <SignTransactionGasSelectSVGContainer>
+              <SignTransactionGasSelectSVG
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                />
+              </SignTransactionGasSelectSVG>
+            </SignTransactionGasSelectSVGContainer>
+          </SignTransactionGasSelectContainer>
+        </SignTransactionGasContainer>
+      </SignTransactionDescriptionContainer>
+    );
   }
 
   return null;
 };
+
+export const shortenName = (name: string) => {};
