@@ -20,17 +20,9 @@ export const SignTransactionGasSelectContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
+  z-index: 2147483647;
 
-export const SignTransactionGasSelectSVGContainer = styled.div`
-  display: flex;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  padding-left: 0.75rem;
-  align-items: center;
-  pointer-events: none;
+  -webkit-appearance: listbox !important;
 `;
 
 export const SignTransactionGasSelect = styled.select`
@@ -43,8 +35,8 @@ export const SignTransactionGasSelect = styled.select`
   padding-bottom: 0.25rem;
   font-size: 1.25rem;
   margin-left: 1rem;
-  margin-right: 0.65rem;
   border-style: none;
+  text-align-last: right;
 
   option {
     direction: rtl;
