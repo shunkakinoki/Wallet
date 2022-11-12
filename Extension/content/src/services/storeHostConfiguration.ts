@@ -4,7 +4,9 @@ export const storeHostConfiguration = payload => {
     host: window.location.host,
     payload: payload,
   };
-  browser.runtime.sendMessage(request).then(response => {
-    return response;
-  });
+  browser.runtime
+    .sendMessage("io.magic.light.Light-Safari-Extension (4Z47XRX22C)", request)
+    .then(response => {
+      return response;
+    });
 };
