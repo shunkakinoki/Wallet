@@ -43,44 +43,66 @@ struct HomeView: View {
                 settingsButton
             }
             ScrollView {
-                HStack(spacing: 15) {
+                HStack(spacing: 24) {
                     Button {
                         UIPasteboard.general.setValue(
                             viewModel.selectedRawAddress,
                             forPasteboardType: "public.plain-text"
                         )
                     } label: {
-                        Text("Copy Address")
-                            .font(.system(size: 17, weight: .bold))
-                            .padding([.top, .bottom], 14)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .background(Color(Colors.Background.secondary))
-                            .clipShape(RoundedRectangle(cornerRadius: 14))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 14)
-                                    .stroke(Color(Colors.Separator.transparency), lineWidth: 1)
-                            )
-                            .padding(.top, 25)
+                        VStack {
+                            Image(systemName: "plus")
+                                .font(.system(size: 17, weight: .bold))
+                                .padding([.top, .bottom], 14)
+                                .foregroundColor(.white)
+                                .frame(width: 48, height: 48)
+                                .background(Color(Colors.Background.secondary))
+                                .clipShape(Circle())
+                                .padding(.top, 25)
+                            Text("Buy")
+                               .font(.body)
+                               .foregroundColor(Color(Colors.Label.primary))
+                        }
                     }
                     Button {
                         showingQR.toggle()
                     } label: {
-                        Text("Show QR")
-                            .font(.system(size: 17, weight: .bold))
-                            .padding([.top, .bottom], 14)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .background(Color(Colors.Background.secondary))
-                            .clipShape(RoundedRectangle(cornerRadius: 14))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 14)
-                                    .stroke(Color(Colors.Separator.transparency), lineWidth: 1)
-                            )
-                            .padding(.top, 25)
+                        VStack {
+                            Image(systemName: "arrow.down")
+                                .font(.system(size: 17, weight: .bold))
+                                .padding([.top, .bottom], 14)
+                                .foregroundColor(.white)
+                                .frame(width: 48, height: 48)
+                                .background(Color(Colors.Background.secondary))
+                                .clipShape(Circle())
+                                .padding(.top, 25)
+                            Text("Receive")
+                                .font(.body)
+                               .foregroundColor(Color(Colors.Label.primary))
+                        }
                     }.sheet(isPresented: $showingQR) {
                         ShowQR(text: viewModel.selectedRawAddress)
                     }
+                    Button {
+                        showingQR.toggle()
+                    } label: {
+                        VStack {
+                            Image(systemName: "ellipsis.circle")
+                                .font(.system(size: 17, weight: .bold))
+                                .padding([.top, .bottom], 14)
+                                .foregroundColor(.white)
+                                .frame(width: 48, height: 48)
+                                .background(Color(Colors.Background.secondary))
+                                .clipShape(Circle())
+                                .padding(.top, 25)
+                            Text("More")
+                                .font(.body)
+                               .foregroundColor(Color(Colors.Label.primary))
+                        }
+                    }.sheet(isPresented: $showingQR) {
+                        ShowQR(text: viewModel.selectedRawAddress)
+                    }
+                    Spacer()
                 }
                 Link(destination: URL(string: "https://wallet.light.so")!) {
                     ZStack {
