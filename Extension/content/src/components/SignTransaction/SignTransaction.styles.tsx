@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const SignTransactionDescriptionContainer = styled.div`
-  padding: 10px 18px 10px 12px;
+  padding: 10px 4px 14px 4px;
   word-break: break-all;
   font-size: 18px;
   font-weight: 700;

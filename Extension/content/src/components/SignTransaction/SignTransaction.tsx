@@ -70,6 +70,7 @@ export const SignTransactionDescription: FC<
   Pick<SignTransactionParams, "params">
 > = ({ params }) => {
   const [result, setResult] = useState(null);
+  const [isFallback, setIsFallback] = useState(false);
 
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
@@ -83,18 +84,24 @@ export const SignTransactionDescription: FC<
     if (config) {
       fetch(`https://wallet.light.so/api/gas/${window.ethereum.chainId}`, {
         method: "POST",
-        body: JSON.stringify(config),
+        body: JSON.stringify({
+          isLegacy: true,
+          legacySpeed: config.legacySpeed,
+        }),
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        }),
       })
         .then(response => {
           return response.json();
         })
         .then(data => {
           logContent(`GasPrice result: ${JSON.stringify(data)}`);
-          if (data && data?.gasPrice) {
-            setGasPrice(JSON.parse(data)?.gasPrice);
-          } else {
+          if (!data?.gasPrice) {
             throw "No gasPrice";
           }
+          setGasPrice(data.gasPrice);
         })
         .catch(err => {
           logContent(`Error gas: ${JSON.stringify(err)}`);
@@ -102,6 +109,7 @@ export const SignTransactionDescription: FC<
             setGasPrice("0x69");
             return;
           }
+          setIsFallback(true);
           window.ethereum.rpc
             .call({
               jsonrpc: "2.0",
@@ -169,10 +177,14 @@ export const SignTransactionDescription: FC<
               setConfig({ legacySpeed: e.target.value });
             }}
           >
-            <option value="instant">🚨 Instant</option>
-            <option value="fast">🏄‍♂️ Fast</option>
             <option value="standard">🚗 Standard</option>
-            <option value="low">🐢 Slow</option>
+            {!isFallback && (
+              <>
+                <option value="instant">🚨 Instant</option>
+                <option value="fast">🏄‍♂️ Fast</option>
+                <option value="low">🐢 Slow</option>
+              </>
+            )}
           </SignTransactionGasSelect>
         </SignTransactionGasContainer>
       </SignTransactionDescriptionContainer>
