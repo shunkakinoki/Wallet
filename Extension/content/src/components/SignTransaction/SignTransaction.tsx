@@ -13,10 +13,7 @@ import { ConfirmButton } from "../Base/ConfirmButton";
 import {
   SignTransactionDescriptionContainer,
   SignTransactionGasContainer,
-  SignTransactionGasSelectContainer,
   SignTransactionGasSelect,
-  SignTransactionGasSelectSVGContainer,
-  SignTransactionGasSelectSVG,
 } from "./SignTransaction.styles";
 
 type SignTransactionParams = {
@@ -169,34 +166,17 @@ export const SignTransactionDescription: FC<
       <SignTransactionDescriptionContainer>
         <SignTransactionGasContainer>
           <div>{gasPrice}</div>
-          <SignTransactionGasSelectContainer>
-            <SignTransactionGasSelect
-              value={config.legacySpeed}
-              onChange={e => {
-                setConfig({ legacySpeed: e.target.value });
-              }}
-            >
-              <option value="instant">🚨 Instant</option>
-              <option value="fast">🏄‍♂️ Fast</option>
-              <option value="standard">🚗 Standard</option>
-              <option value="low">🐢 Slow</option>
-            </SignTransactionGasSelect>
-            <SignTransactionGasSelectSVGContainer>
-              <SignTransactionGasSelectSVG
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                />
-              </SignTransactionGasSelectSVG>
-            </SignTransactionGasSelectSVGContainer>
-          </SignTransactionGasSelectContainer>
+          <SignTransactionGasSelect
+            value={config.legacySpeed}
+            onChange={e => {
+              setConfig({ legacySpeed: e.target.value });
+            }}
+          >
+            <option value="instant">🚨 Instant</option>
+            <option value="fast">🏄‍♂️ Fast</option>
+            <option value="standard">🚗 Standard</option>
+            <option value="low">🐢 Slow</option>
+          </SignTransactionGasSelect>
         </SignTransactionGasContainer>
       </SignTransactionDescriptionContainer>
     );
@@ -204,5 +184,3 @@ export const SignTransactionDescription: FC<
 
   return null;
 };
-
-export const shortenName = (name: string) => {};

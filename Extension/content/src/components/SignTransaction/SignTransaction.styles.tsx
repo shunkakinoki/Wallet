@@ -46,26 +46,10 @@ export const SignTransactionGasSelect = styled.select`
   margin-right: 0.65rem;
   border-style: none;
 
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
   option {
     direction: rtl;
     color: black;
     display: flex;
     white-space: pre;
   }
-`;
-
-export const SignTransactionGasSelectSVG = styled.svg`
-  display: inline-flex;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 600;
-  width: 1.25rem;
-  height: 1.25rem;
-
-  justify-content: center;
-  align-items: center;
 `;
