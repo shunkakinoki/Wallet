@@ -2,6 +2,8 @@ import type { FC } from "react";
 
 import { useEffect, useState } from "react";
 
+import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
+
 import { useTransactionGasPrice } from "../../hooks/useTransactionGasPrice";
 
 import { logContent } from "../../services/log";
@@ -21,47 +23,39 @@ export const SignTransaction: FC<SignTransactionParams> = ({
   method,
   params,
 }) => {
+  const [gasPrice] = useTransactionGasPrice(state => {
+    return [state.gasPrice];
+  });
+
   return (
     <ConfirmButton
       id={id}
       onConfirmText="Approve"
       onConfirmClick={() => {
-        let gasPriceVar: any;
         let nonceVar: any;
+
         window.ethereum.rpc
           .call({
             jsonrpc: "2.0",
-            method: "eth_gasPrice",
-            params: [],
+            method: "eth_getTransactionCount",
+            params: [params.from, "pending"],
             id: 1,
           })
           .then(response => {
-            gasPriceVar = response.result;
+            nonceVar = response.result;
           })
           .then(() => {
-            window.ethereum.rpc
-              .call({
-                jsonrpc: "2.0",
-                method: "eth_getTransactionCount",
-                params: [params.from, "pending"],
-                id: 1,
-              })
-              .then(response => {
-                nonceVar = response.result;
-              })
-              .then(() => {
-                sendMessageToNativeApp({
-                  id: id,
-                  method: method,
-                  params: {
-                    ...params,
-                    value: params?.value ?? "0x0",
-                    chainId: window.ethereum.chainId,
-                    gasPrice: gasPriceVar,
-                    nonce: nonceVar,
-                  },
-                });
-              });
+            sendMessageToNativeApp({
+              id: id,
+              method: method,
+              params: {
+                ...params,
+                value: params?.value ?? "0x0",
+                chainId: window.ethereum.chainId,
+                gasPrice: gasPrice,
+                nonce: nonceVar,
+              },
+            });
           });
       }}
     />
@@ -73,27 +67,52 @@ export const SignTransactionDescription: FC<
 > = ({ params }) => {
   const [result, setResult] = useState(null);
 
-  const [config] = useTransactionGasPrice(state => {
+  const [config] = useTransactionGasConfig(state => {
     return [state.config];
+  });
+  const [setGasPrice] = useTransactionGasPrice(state => {
+    return [state.setGasPrice];
   });
 
   useEffect(() => {
     console.log(config);
     if (config) {
-      fetch(`https://wallet-8hn88eklk-lightdotso.vercel.app/api/gas/0x1`, {
-        method: "GET",
-      })
+      fetch(
+        `https://wallet-dyrsoiex2-lightdotso.vercel.app/api/gas/${window.ethereum.chainId}`,
+        {
+          method: "POST",
+          body: JSON.stringify(config),
+        },
+      )
         .then(response => {
           return response.json();
         })
         .then(data => {
-          logContent(`Gas message result: ${JSON.stringify(data)}`);
-          return setResult(data);
+          logContent(`GasPrice result: ${JSON.stringify(data)}`);
+          if (data && data?.gasPrice) {
+            setGasPrice(JSON.parse(data)?.gasPrice);
+          } else {
+            throw "No gasPrice";
+          }
         })
         .catch(err => {
           logContent(`Error gas: ${JSON.stringify(err)}`);
+          if (window.ethereum.storybook) {
+            return;
+          }
+          window.ethereum.rpc
+            .call({
+              jsonrpc: "2.0",
+              method: "eth_gasPrice",
+              params: [],
+              id: 1,
+            })
+            .then(response => {
+              setGasPrice(response.result);
+            });
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config]);
 
   useEffect(() => {

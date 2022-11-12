@@ -1,20 +1,16 @@
 import create from "zustand";
 
 interface TransactionGasState {
-  config: {
-    legacySpeed: "instant" | "fast" | "standard" | "low";
-  };
-  setConfig: (config) => void;
+  gasPrice: string;
+  setGasPrice: (gasPrice) => void;
 }
 
 export const useTransactionGasPrice = create<TransactionGasState>(set => {
   return {
-    config: {
-      legacySpeed: "standard",
-    },
-    setConfig: config => {
+    gasPrice: "",
+    setGasPrice: gasPrice => {
       return set(() => {
-        return config;
+        return { gasPrice: gasPrice };
       });
     },
   };
