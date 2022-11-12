@@ -57,7 +57,7 @@ struct HomeView: View {
                             Image(systemName: "plus")
                                 .font(.system(size: 17, weight: .bold))
                                 .padding([.top, .bottom], 14)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(Colors.Label.primary))
                                 .frame(width: 48, height: 48)
                                 .background(Color(Colors.Background.secondary))
                                 .clipShape(Circle())
@@ -74,7 +74,7 @@ struct HomeView: View {
                             Image(systemName: "arrow.down")
                                 .font(.system(size: 17, weight: .bold))
                                 .padding([.top, .bottom], 14)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(Colors.Label.primary))
                                 .frame(width: 48, height: 48)
                                 .background(Color(Colors.Background.secondary))
                                 .clipShape(Circle())
@@ -105,21 +105,11 @@ struct HomeView: View {
                         Image(systemName: "ellipsis.circle")
                             .font(.system(size: 17, weight: .bold))
                             .padding([.top, .bottom], 14)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color(Colors.Label.primary))
                             .frame(width: 48, height: 48)
                             .background(Color(Colors.Background.secondary))
                             .clipShape(Circle())
                             .padding(.top, 25)
-                            .contextMenu {
-                                Button {} label: {
-                                    Label("Download", systemImage: "square.and.arrow.down ")
-                                }
-                                Button {} label: {
-                                    Label("Save to photos", systemImage: "photo.fill")
-                                }
-                                Button {} label: {
-                                    Label("Share", systemImage: "square.and.arrow.up")
-                                }}
                             }
                         Text("More")
                             .font(.body)
