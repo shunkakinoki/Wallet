@@ -30,6 +30,9 @@ struct HomeView: View {
     private var visibleAccount = false
 
     @State
+    private var showingMore = false
+
+    @State
     private var showingQR = false
 
     @State
@@ -43,44 +46,76 @@ struct HomeView: View {
                 settingsButton
             }
             ScrollView {
-                HStack(spacing: 15) {
+                HStack(spacing: 24) {
                     Button {
                         UIPasteboard.general.setValue(
                             viewModel.selectedRawAddress,
                             forPasteboardType: "public.plain-text"
                         )
                     } label: {
-                        Text("Copy Address")
-                            .font(.system(size: 17, weight: .bold))
-                            .padding([.top, .bottom], 14)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .background(Color(Colors.Background.secondary))
-                            .clipShape(RoundedRectangle(cornerRadius: 14))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 14)
-                                    .stroke(Color(Colors.Separator.transparency), lineWidth: 1)
-                            )
-                            .padding(.top, 25)
+                        VStack {
+                            Image(systemName: "plus")
+                                .font(.system(size: 17, weight: .bold))
+                                .padding([.top, .bottom], 14)
+                                .foregroundColor(Color(Colors.Label.primary))
+                                .frame(width: 48, height: 48)
+                                .background(Color(Colors.Background.secondary))
+                                .clipShape(Circle())
+                                .padding(.top, 25)
+                            Text("Buy")
+                               .font(.body)
+                               .foregroundColor(Color(Colors.Label.primary))
+                        }
                     }
                     Button {
                         showingQR.toggle()
                     } label: {
-                        Text("Show QR")
-                            .font(.system(size: 17, weight: .bold))
-                            .padding([.top, .bottom], 14)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .background(Color(Colors.Background.secondary))
-                            .clipShape(RoundedRectangle(cornerRadius: 14))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 14)
-                                    .stroke(Color(Colors.Separator.transparency), lineWidth: 1)
-                            )
-                            .padding(.top, 25)
+                        VStack {
+                            Image(systemName: "arrow.down")
+                                .font(.system(size: 17, weight: .bold))
+                                .padding([.top, .bottom], 14)
+                                .foregroundColor(Color(Colors.Label.primary))
+                                .frame(width: 48, height: 48)
+                                .background(Color(Colors.Background.secondary))
+                                .clipShape(Circle())
+                                .padding(.top, 25)
+                            Text("Receive")
+                                .font(.body)
+                               .foregroundColor(Color(Colors.Label.primary))
+                        }
                     }.sheet(isPresented: $showingQR) {
                         ShowQR(text: viewModel.selectedRawAddress)
                     }
+                    VStack {
+                        Menu {
+                            Button(action: {
+                                UIPasteboard.general.setValue(
+                                    viewModel.selectedRawAddress,
+                                    forPasteboardType: "public.plain-text"
+                                )
+                            }) {
+                                Label("Copy Address", systemImage: "doc.on.clipboard")
+                            }
+                            Button(action: {
+                                showingQR.toggle()
+                            }) {
+                                Label("Show QR Code", systemImage: "qrcode")
+                            }
+                        } label: {
+                        Image(systemName: "ellipsis.circle")
+                            .font(.system(size: 17, weight: .bold))
+                            .padding([.top, .bottom], 14)
+                            .foregroundColor(Color(Colors.Label.primary))
+                            .frame(width: 48, height: 48)
+                            .background(Color(Colors.Background.secondary))
+                            .clipShape(Circle())
+                            .padding(.top, 25)
+                            }
+                        Text("More")
+                            .font(.body)
+                           .foregroundColor(Color(Colors.Label.primary))
+                    }
+                    Spacer()
                 }
                 Link(destination: URL(string: "https://wallet.light.so")!) {
                     ZStack {
@@ -106,12 +141,12 @@ struct HomeView: View {
                                     .padding([.leading, .top], 16)
                             }
                             Text("Set Up Light For Safari")
-                                .foregroundColor(Color(Colors.Label.primary))
+                                .foregroundColor(Color(.white))
                                 .padding(.leading, 16).padding(.top, 8)
                                 .font(.system(size: 17, weight: .semibold))
                             HStack {
                                 Text("Set up Light Safari Extension to use Light on any website, right from Safari")
-                                    .foregroundColor(Color(Colors.Label.secondary))
+                                    .foregroundColor(Color(.white))
                                     .padding([.leading, .bottom], 16).padding(.top, 8)
                                     .font(.system(size: 13, weight: .regular))
                                 Spacer()
