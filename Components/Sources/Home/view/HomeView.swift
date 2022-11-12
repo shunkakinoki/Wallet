@@ -106,12 +106,12 @@ struct HomeView: View {
                                     .padding([.leading, .top], 16)
                             }
                             Text("Set Up Light For Safari")
-                                .foregroundColor(Color(Colors.Label.primary))
+                                .foregroundColor(Color(.white))
                                 .padding(.leading, 16).padding(.top, 8)
                                 .font(.system(size: 17, weight: .semibold))
                             HStack {
                                 Text("Set up Light Safari Extension to use Light on any website, right from Safari")
-                                    .foregroundColor(Color(Colors.Label.secondary))
+                                    .foregroundColor(Color(.white))
                                     .padding([.leading, .bottom], 16).padding(.top, 8)
                                     .font(.system(size: 13, weight: .regular))
                                 Spacer()
