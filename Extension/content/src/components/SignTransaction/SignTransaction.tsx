@@ -2,6 +2,8 @@ import type { FC } from "react";
 
 import { useEffect, useState } from "react";
 
+import { useTransactionGasPrice } from "../../hooks/useTransactionGasPrice";
+
 import { logContent } from "../../services/log";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
 import { ConfirmButton } from "../Base/ConfirmButton";
@@ -70,6 +72,29 @@ export const SignTransactionDescription: FC<
   Pick<SignTransactionParams, "params">
 > = ({ params }) => {
   const [result, setResult] = useState(null);
+
+  const [config] = useTransactionGasPrice(state => {
+    return [state.config];
+  });
+
+  useEffect(() => {
+    console.log(config);
+    if (config) {
+      fetch(`https://wallet-8hn88eklk-lightdotso.vercel.app/api/gas/0x1`, {
+        method: "GET",
+      })
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          logContent(`Gas message result: ${JSON.stringify(data)}`);
+          return setResult(data);
+        })
+        .catch(err => {
+          logContent(`Error gas: ${JSON.stringify(err)}`);
+        });
+    }
+  }, [config]);
 
   useEffect(() => {
     if (

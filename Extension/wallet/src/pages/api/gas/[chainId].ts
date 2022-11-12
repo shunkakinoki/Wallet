@@ -5,6 +5,17 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  if (req.method === "OPTIONS") {
+    return res.status(200).json({
+      body: "OK",
+    });
+  }
+
+  if (req.method !== "POST") {
+    res.status(405).send({ message: "Only POST requests allowed" });
+    return;
+  }
+
   const { chainId: chainIdHex } = req.query;
   const chainId = parseInt(
     typeof chainIdHex === "string" ? chainIdHex : "0x1",
