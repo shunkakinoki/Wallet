@@ -30,6 +30,9 @@ struct HomeView: View {
     private var visibleAccount = false
 
     @State
+    private var showingMore = false
+
+    @State
     private var showingQR = false
 
     @State
@@ -83,24 +86,44 @@ struct HomeView: View {
                     }.sheet(isPresented: $showingQR) {
                         ShowQR(text: viewModel.selectedRawAddress)
                     }
-                    Button {
-                        showingQR.toggle()
-                    } label: {
-                        VStack {
-                            Image(systemName: "ellipsis.circle")
-                                .font(.system(size: 17, weight: .bold))
-                                .padding([.top, .bottom], 14)
-                                .foregroundColor(.white)
-                                .frame(width: 48, height: 48)
-                                .background(Color(Colors.Background.secondary))
-                                .clipShape(Circle())
-                                .padding(.top, 25)
-                            Text("More")
-                                .font(.body)
-                               .foregroundColor(Color(Colors.Label.primary))
-                        }
-                    }.sheet(isPresented: $showingQR) {
-                        ShowQR(text: viewModel.selectedRawAddress)
+                    VStack {
+                        Menu {
+                            Button(action: {
+                                UIPasteboard.general.setValue(
+                                    viewModel.selectedRawAddress,
+                                    forPasteboardType: "public.plain-text"
+                                )
+                            }) {
+                                Label("Copy Address", systemImage: "doc.on.clipboard")
+                            }
+                            Button(action: {
+                                showingQR.toggle()
+                            }) {
+                                Label("Show QR Code", systemImage: "qrcode")
+                            }
+                        } label: {
+                        Image(systemName: "ellipsis.circle")
+                            .font(.system(size: 17, weight: .bold))
+                            .padding([.top, .bottom], 14)
+                            .foregroundColor(.white)
+                            .frame(width: 48, height: 48)
+                            .background(Color(Colors.Background.secondary))
+                            .clipShape(Circle())
+                            .padding(.top, 25)
+                            .contextMenu {
+                                Button {} label: {
+                                    Label("Download", systemImage: "square.and.arrow.down ")
+                                }
+                                Button {} label: {
+                                    Label("Save to photos", systemImage: "photo.fill")
+                                }
+                                Button {} label: {
+                                    Label("Share", systemImage: "square.and.arrow.up")
+                                }}
+                            }
+                        Text("More")
+                            .font(.body)
+                           .foregroundColor(Color(Colors.Label.primary))
                     }
                     Spacer()
                 }
