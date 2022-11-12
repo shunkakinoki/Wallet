@@ -81,13 +81,10 @@ export const SignTransactionDescription: FC<
   useEffect(() => {
     console.log(config);
     if (config) {
-      fetch(
-        `https://wallet-dyrsoiex2-lightdotso.vercel.app/api/gas/${window.ethereum.chainId}`,
-        {
-          method: "POST",
-          body: JSON.stringify(config),
-        },
-      )
+      fetch(`https://wallet.light.so/api/gas/${window.ethereum.chainId}`, {
+        method: "POST",
+        body: JSON.stringify(config),
+      })
         .then(response => {
           return response.json();
         })

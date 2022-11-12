@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const SignTransactionDescriptionContainer = styled.div`
-  padding: 10px 18px 23px 12px;
+  padding: 10px 18px 10px 12px;
   word-break: break-all;
   font-size: 18px;
   font-weight: 700;
@@ -29,8 +29,6 @@ export const SignTransactionGasSelect = styled.select`
   background-color: #e0e0e0;
   color: gray;
   height: 2rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   font-size: 1.25rem;
