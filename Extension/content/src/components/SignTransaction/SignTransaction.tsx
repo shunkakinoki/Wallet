@@ -13,6 +13,9 @@ import {
   SignTransactionDescriptionContainer,
   SignTransactionGasContainer,
   SignTransactionGasSelect,
+  SignTransactionGasEstimateContainer,
+  SignTransactionGasEstimateFeeContainer,
+  SignTransactionGasEstimateFeeSecondsContainer,
 } from "./SignTransaction.styles";
 
 type SignTransactionParams = {
@@ -71,7 +74,7 @@ export const SignTransactionDescription: FC<
   const [result, setResult] = useState(null);
   const [isFallback, setIsFallback] = useState(false);
   const [gasEstimationDollar, setGasEstimationDollar] = useState("");
-  const [gasEstimationFee, setGasEstimationFee] = useState(123212120);
+  const [gasEstimationFee, setGasEstimationFee] = useState(0.01);
 
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
@@ -218,12 +221,43 @@ export const SignTransactionDescription: FC<
     return (
       <SignTransactionDescriptionContainer>
         <SignTransactionGasContainer>
-          <div>
-            Estimated gas: ${gasEstimationDollar}
+          <SignTransactionGasEstimateContainer>
+            ${gasEstimationDollar ?? 0}{" "}
+            <SignTransactionGasEstimateFeeSecondsContainer>
+              ~
+              {window.ethereum.chainId === "0x1"
+                ? config.legacySpeed === "instant"
+                  ? 12
+                  : config.legacySpeed === "fast"
+                  ? 30
+                  : config.legacySpeed === "standard"
+                  ? 45
+                  : 60
+                : window.ethereum.chainId === "0x89"
+                ? config.legacySpeed === "instant"
+                  ? 2
+                  : config.legacySpeed === "fast"
+                  ? 10
+                  : config.legacySpeed === "standard"
+                  ? 15
+                  : 20
+                : config.legacySpeed === "instant"
+                ? 3
+                : config.legacySpeed === "fast"
+                ? 5
+                : config.legacySpeed === "standard"
+                ? 8
+                : 20}{" "}
+              sec.
+            </SignTransactionGasEstimateFeeSecondsContainer>
             <br />
-            {gasEstimationFee}{" "}
-            {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
-          </div>
+            <SignTransactionGasEstimateFeeContainer>
+              Estimated Fee: <strong>{gasEstimationFee.toFixed(9)}</strong>{" "}
+              <strong>
+                {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
+              </strong>
+            </SignTransactionGasEstimateFeeContainer>
+          </SignTransactionGasEstimateContainer>
           <SignTransactionGasSelect
             value={config.legacySpeed}
             onChange={e => {
