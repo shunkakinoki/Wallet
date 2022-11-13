@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useMemo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
 
@@ -185,7 +185,10 @@ export const SignTransactionDescription: FC<
   }, []);
 
   useEffect(() => {
-    setGasEstimationFee((parseInt(gasPrice, 16) * 21_000) / 10e18);
+    setGasEstimationFee(
+      (parseInt(gasPrice, 16) * (21_000 + 68 * (params?.data.length / 2))) /
+        10e18,
+    );
   }, [gasPrice, params?.data]);
 
   useEffect(() => {
