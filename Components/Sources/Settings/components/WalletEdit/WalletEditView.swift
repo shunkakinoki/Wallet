@@ -59,9 +59,9 @@ public struct WalletEditView: View {
                                     .overlay(
                                         ZStack{
                                             selected == color ?
-                                            Circle().stroke(Color.white, lineWidth: 4) :
-                                            Circle().stroke(Color.white, lineWidth: 0)
-                                            Circle().strokeBorder(Color(Colors.System.secondary), lineWidth: 2)
+                                            Circle().stroke(Color(Colors.Label.primary), lineWidth: 4) :
+                                            Circle().stroke(Color(Colors.System.secondary), lineWidth: 4)
+                                            Circle().strokeBorder(Color(Colors.System.secondary), lineWidth: 4)
                                         }
                                     )
                             }
