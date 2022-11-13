@@ -1,6 +1,5 @@
 import type { FC } from "react";
-
-import { useEffect, useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
 
@@ -71,6 +70,8 @@ export const SignTransactionDescription: FC<
 > = ({ params }) => {
   const [result, setResult] = useState(null);
   const [isFallback, setIsFallback] = useState(false);
+  const [gasEstimationDollar, setGasEstimationDollar] = useState("");
+  const [gasEstimationFee, setGasEstimationFee] = useState(123212120);
 
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
@@ -123,11 +124,6 @@ export const SignTransactionDescription: FC<
 
   useEffect(() => {
     logContent(config);
-    setTimeout(() => {
-      return setConfig(prevToggle => {
-        return !prevToggle;
-      });
-    }, 3000);
 
     if (config) {
       fetchGasPrice();
@@ -188,11 +184,43 @@ export const SignTransactionDescription: FC<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setGasEstimationFee((parseInt(gasPrice, 16) * 21_000) / 10e18);
+  }, [gasPrice, params?.data]);
+
+  useEffect(() => {
+    fetch(
+      `https://min-api.cryptocompare.com/data/price?fsym=${
+        window.ethereum.chainId == "0x89" ? "MATIC" : "ETH"
+      }&tsyms=USD`,
+      {
+        method: "GET",
+      },
+    )
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        logContent(`Gas dollar result: ${JSON.stringify(data)}`);
+        setGasEstimationDollar(
+          (Number(data.USD) * gasEstimationFee).toFixed(2).toString(),
+        );
+      })
+      .catch(err => {
+        logContent(`Error scan: ${JSON.stringify(err)}`);
+      });
+  }, [gasEstimationFee]);
+
   if (params?.from && params?.to && params?.value && params?.data) {
     return (
       <SignTransactionDescriptionContainer>
         <SignTransactionGasContainer>
-          <div>{gasPrice}</div>
+          <div>
+            Estimated gas: ${gasEstimationDollar}
+            <br />
+            {gasEstimationFee}{" "}
+            {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
+          </div>
           <SignTransactionGasSelect
             value={config.legacySpeed}
             onChange={e => {
