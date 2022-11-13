@@ -1,26 +1,11 @@
+
 import SwiftUI
 import Commons
 import SDWebImageSwiftUI
 import UIComponents
 import Settings
 
-struct ColoredIconView: View {
 
-    let imageName: String
-    let foregroundColor: Color
-    let backgroundColor: Color
-    
-    var body: some View {
-        Image(systemName: imageName)
-            .resizable()
-            .scaledToFit()
-            .frame(width: 30, height: 30)
-            .foregroundColor(foregroundColor)
-            .padding(9.0)
-            .background(backgroundColor)
-            .cornerRadius(7.0)
-    }
-}
 
 struct HomeView: View {
     @ObservedObject

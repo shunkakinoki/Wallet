@@ -141,7 +141,7 @@ public struct ProfileSelectorView: View {
         VStack(spacing: 0) {
             ZStack {
                 HStack(spacing: 10) {
-                    Image("CreateWalletIcon")
+                    ColoredIconView(imageName: "plus.circle", foregroundColor: Color(.white), backgroundColor: Color(.green))
                         .padding([.top, .bottom], 7)
                     Text("Create New Wallet")
                         .font(Font.system(size: 17, weight: .regular))
