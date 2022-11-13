@@ -1,5 +1,4 @@
 import type { FC } from "react";
-
 import { useEffect, useState } from "react";
 
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
@@ -14,6 +13,9 @@ import {
   SignTransactionDescriptionContainer,
   SignTransactionGasContainer,
   SignTransactionGasSelect,
+  SignTransactionGasEstimateContainer,
+  SignTransactionGasEstimateFeeContainer,
+  SignTransactionGasEstimateFeeSecondsContainer,
 } from "./SignTransaction.styles";
 
 type SignTransactionParams = {
@@ -71,6 +73,8 @@ export const SignTransactionDescription: FC<
 > = ({ params }) => {
   const [result, setResult] = useState(null);
   const [isFallback, setIsFallback] = useState(false);
+  const [gasEstimationDollar, setGasEstimationDollar] = useState("");
+  const [gasEstimationFee, setGasEstimationFee] = useState(0.01);
 
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
@@ -123,11 +127,6 @@ export const SignTransactionDescription: FC<
 
   useEffect(() => {
     logContent(config);
-    setTimeout(() => {
-      return setConfig(prevToggle => {
-        return !prevToggle;
-      });
-    }, 3000);
 
     if (config) {
       fetchGasPrice();
@@ -188,11 +187,75 @@ export const SignTransactionDescription: FC<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setGasEstimationFee(
+      (parseInt(gasPrice, 16) * (21_000 + 68 * (params?.data.length / 2))) /
+        10e18,
+    );
+  }, [gasPrice, params?.data]);
+
+  useEffect(() => {
+    fetch(
+      `https://min-api.cryptocompare.com/data/price?fsym=${
+        window.ethereum.chainId == "0x89" ? "MATIC" : "ETH"
+      }&tsyms=USD`,
+      {
+        method: "GET",
+      },
+    )
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        logContent(`Gas dollar result: ${JSON.stringify(data)}`);
+        setGasEstimationDollar(
+          (Number(data.USD) * gasEstimationFee).toFixed(2).toString(),
+        );
+      })
+      .catch(err => {
+        logContent(`Error scan: ${JSON.stringify(err)}`);
+      });
+  }, [gasEstimationFee]);
+
   if (params?.from && params?.to && params?.value && params?.data) {
     return (
       <SignTransactionDescriptionContainer>
         <SignTransactionGasContainer>
-          <div>{gasPrice}</div>
+          <SignTransactionGasEstimateContainer>
+            ${gasEstimationDollar ?? 0}{" "}
+            <SignTransactionGasEstimateFeeSecondsContainer>
+              ~
+              {window.ethereum.chainId === "0x1"
+                ? config.legacySpeed === "instant"
+                  ? 12
+                  : config.legacySpeed === "fast"
+                  ? 30
+                  : config.legacySpeed === "standard"
+                  ? 45
+                  : 60
+                : window.ethereum.chainId === "0x89"
+                ? config.legacySpeed === "instant"
+                  ? 2
+                  : config.legacySpeed === "fast"
+                  ? 10
+                  : config.legacySpeed === "standard"
+                  ? 15
+                  : 20
+                : config.legacySpeed === "instant"
+                ? 3
+                : config.legacySpeed === "fast"
+                ? 5
+                : config.legacySpeed === "standard"
+                ? 8
+                : 20}{" "}
+              sec.
+            </SignTransactionGasEstimateFeeSecondsContainer>
+            <br />
+            <SignTransactionGasEstimateFeeContainer>
+              Estimated Fee: {gasEstimationFee.toFixed(9)}{" "}
+              {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
+            </SignTransactionGasEstimateFeeContainer>
+          </SignTransactionGasEstimateContainer>
           <SignTransactionGasSelect
             value={config.legacySpeed}
             onChange={e => {
