@@ -20,7 +20,7 @@ public struct SettingsView: View {
                 Section {
                     NavigationLink(destination: WalletEditView()) {
                         HStack(spacing: 16) {
-                            ColoredIconView(imageName: "pencil.circle.fill", foregroundColor: Color(.white), backgroundColor: Color(.green))
+                            ColoredIconView(imageName: "pencil.circle.fill", foregroundColor: Color(.white), backgroundColor: Color(Colors.System.green))
                                 .frame(width: 30, height: 30)
                             Text("Edit")
                                 .font(.custom(font: .inter, size: 17, weight: .regular))
@@ -28,13 +28,13 @@ public struct SettingsView: View {
                     }
                     NavigationLink(destination: WalletBackupView()) {
                         HStack(spacing: 16) {
-                            ColoredIconView(imageName: "arrow.triangle.2.circlepath.circle.fill", foregroundColor: Color(.white), backgroundColor: Color(.orange))
+                            ColoredIconView(imageName: "arrow.triangle.2.circlepath.circle.fill", foregroundColor: Color(.white), backgroundColor: Color(Colors.System.orange))
                             Text("Backup")
                                 .font(.custom(font: .inter, size: 17, weight: .regular))
                         }
                     }
                     HStack(spacing: 16) {
-                        ColoredIconView(imageName: "paintpalette.fill", foregroundColor: Color(.white), backgroundColor: Color(.purple))
+                        ColoredIconView(imageName: "paintpalette.fill", foregroundColor: Color(.white), backgroundColor: Color(Colors.System.purple))
                         Toggle("Dark mode", isOn: $appTheme)
                             .toggleStyle(SwitchToggleStyle(tint: .green))
                             .font(.custom(font: .inter, size: 17, weight: .regular))
@@ -57,13 +57,13 @@ public struct SettingsView: View {
                             .font(.custom(font: .inter, size: 17, weight: .regular))
                     }
                      HStack(spacing: 16) {
-                        ColoredIconView(imageName: "hand.raised.circle", foregroundColor: Color(.white), backgroundColor: Color(.purple))
+                        ColoredIconView(imageName: "hand.raised.circle", foregroundColor: Color(.white), backgroundColor: Color(Colors.System.purple))
                         Link("Privacy Policy", destination: URL(string: "https://lightdotso.notion.site/81dbf21d7bca4b9285a13392edbf575e")!)
                             .foregroundColor(Color(Colors.Label.primary))
                             .font(.custom(font: .inter, size: 17, weight: .regular))
                     }
                      HStack(spacing: 16) {
-                        ColoredIconView(imageName: "questionmark.circle", foregroundColor: Color(.white), backgroundColor: Color(.blue))
+                        ColoredIconView(imageName: "questionmark.circle", foregroundColor: Color(.white), backgroundColor: Color(Colors.System.blue))
                         Link("FAQ", destination: URL(string: "https://lightdotso.notion.site/d9a70e761b9e4290bc2b8e58cd71a70c")!)
                             .foregroundColor(Color(Colors.Label.primary))
                             .font(.custom(font: .inter, size: 17, weight: .regular))
