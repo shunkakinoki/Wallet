@@ -46,7 +46,7 @@ public struct WalletEditView: View {
             .cornerRadius(16)
             .padding([.leading, .top, .trailing], 16)
             ZStack {
-                LazyVGrid(columns: columns, spacing: 34) {
+                LazyVGrid(columns: columns, spacing: 10) {
                     ForEach(viewModel.getColors(), id: \.self) { color in
                         ZStack {
                             HStack(spacing: 4) {
