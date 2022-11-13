@@ -4,12 +4,14 @@ import Commons
 
 public struct ImportViewCategoryItem: View {
 
-    private let icon: [String]
+    private let icon: String
+    private let color: Color
     private let title: String
     private let description: String
 
-    public init(icon: [String], title: String, description: String) {
+    public init(icon: String, color: Color, title: String, description: String) {
         self.icon = icon
+        self.color = color 
         self.title = title
         self.description = description
     }
@@ -18,11 +20,9 @@ public struct ImportViewCategoryItem: View {
         ZStack {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: -6) {
-                    ForEach(icon, id:\.self) { icon in
-                        Image(icon)
-                            .frame(width: 32, height: 32)
-                            .padding([.leading, .top], 16)
-                    }
+                    ColoredIconView(imageName: icon, foregroundColor: Color(.white), backgroundColor: color)
+                        .frame(width: 32, height: 32)
+                        .padding([.leading, .top], 16)
                 }
                 Text(title)
                     .foregroundColor(Color(Colors.Label.primary))
