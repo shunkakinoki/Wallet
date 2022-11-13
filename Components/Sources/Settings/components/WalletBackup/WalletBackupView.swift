@@ -41,7 +41,7 @@ public struct WalletBackupView: View {
                     if viewModel.hasSeedPhrase() {
                         NavigationLink(destination: ShowSeedPhraseView(viewModel: ShowSeedPhraseViewModel(address: viewModel.ethereumAddress()))) {
                             HStack(spacing: 16) {
-                                Image("SeedPhraseIcon")
+                                ColoredIconView(imageName: "ellipsis.rectangle.fill", foregroundColor: Color(.white), backgroundColor: Color(Colors.System.purple))
                                 Text("Recovery Phrase")
                                     .font(.custom(font: .inter, size: 17, weight: .regular))
                             }
@@ -51,7 +51,7 @@ public struct WalletBackupView: View {
                     if viewModel.hasPrivateKey() {
                         NavigationLink(destination: ShowPrivateKeyView(viewModel: ShowPrivateKeyViewModel(address: viewModel.ethereumAddress()))) {
                             HStack(spacing: 16) {
-                                Image("PrivateKeyIcon")
+                                ColoredIconView(imageName: "key.fill", foregroundColor: Color(.white), backgroundColor: Color(Colors.System.orange))
                                 Text("Private Key")
                                     .font(.custom(font: .inter, size: 17, weight: .regular))
                             }

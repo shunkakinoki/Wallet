@@ -13,6 +13,9 @@ public enum Colors {
         public static let orange = UIColor(named: "system.orange")!
         public static let red = UIColor(named: "system.red")!
         public static let green = UIColor(named: "system.green")!
+        public static let blue = UIColor(named: "system.blue")!
+        public static let indigo = UIColor(named: "system.indigo")!
+        public static let purple = UIColor(named: "system.purple")!
     }
     public enum Background {
         public static let primary = UIColor(named: "background.primary")!

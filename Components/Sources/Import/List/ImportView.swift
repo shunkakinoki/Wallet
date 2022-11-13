@@ -27,10 +27,10 @@ public struct ImportView: View {
                     }.padding(.top, 23)
                     VStack(spacing: 16) {
                         NavigationLink(destination: ImportHDWalletView(primary: self.primary)) {
-                            ImportViewCategoryItem(icon: ["SeedPhraseIcon"], title: "With Recovery Phrase", description: "Import wallets with a 12 word recovery phrase")
+                            ImportViewCategoryItem(icon: "ellipsis.rectangle.fill", color: Color(Colors.System.purple), title: "With Recovery Phrase", description: "Import wallets with a 12 word recovery phrase")
                         }
                         NavigationLink(destination: ImportPrivateKeyView()) {
-                            ImportViewCategoryItem(icon: ["PrivateKeyIcon"], title: "With Private Key", description: "Import a wallet by entering its private key.")
+                            ImportViewCategoryItem(icon: "key.fill", color: Color(Colors.System.orange), title: "With Private Key", description: "Import a wallet by entering its private key.")
                         }
                     }.padding(.top, 8).padding([.leading, .trailing], 16)
                     Spacer()

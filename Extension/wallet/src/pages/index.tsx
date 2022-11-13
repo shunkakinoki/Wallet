@@ -61,7 +61,7 @@ export default function Home() {
             <p>2</p>
           </div>
           <div>
-            Tap the <strong className="text-indigo-400">button</strong>{" "}
+            Tap the <span className="font-bold text-indigo-400">aA</span> or{" "}
             <ExtensionIcon />
             in the address bar
             <div>

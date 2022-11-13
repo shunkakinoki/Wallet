@@ -4,48 +4,32 @@ import SDWebImageSwiftUI
 import UIComponents
 import Settings
 
-struct ColoredIconView: View {
 
-    let imageName: String
-    let foregroundColor: Color
-    let backgroundColor: Color
-    
-    var body: some View {
-        Image(systemName: imageName)
-            .resizable()
-            .scaledToFit()
-            .frame(width: 30, height: 30)
-            .foregroundColor(foregroundColor)
-            .padding(9.0)
-            .background(backgroundColor)
-            .cornerRadius(7.0)
-    }
-}
 
 struct HomeView: View {
     @ObservedObject
     var viewModel: HomeViewModel = HomeViewModel()
-
+    
     @State
     private var visibleAccount = false
-
+    
     @State
     private var showingMore = false
-
+    
     @State
     private var showingQR = false
-
+    
     @State
     private var showingSettings = false
-
+    
     var body: some View {
-        VStack {
-            HStack(alignment: .center) {
-                walletSelectorButton
-                Spacer()
-                settingsButton
-            }
-            ScrollView {
+        ScrollView {
+            VStack {
+                HStack(alignment: .center) {
+                    walletSelectorButton
+                    Spacer()
+                    settingsButton
+                }
                 HStack(spacing: 24) {
                     Button {
                         UIPasteboard.general.setValue(
@@ -63,8 +47,8 @@ struct HomeView: View {
                                 .clipShape(Circle())
                                 .padding(.top, 25)
                             Text("Buy")
-                               .font(.body)
-                               .foregroundColor(Color(Colors.Label.primary))
+                                .font(.body)
+                                .foregroundColor(Color(Colors.Label.primary))
                         }
                     }
                     Button {
@@ -81,7 +65,7 @@ struct HomeView: View {
                                 .padding(.top, 25)
                             Text("Receive")
                                 .font(.body)
-                               .foregroundColor(Color(Colors.Label.primary))
+                                .foregroundColor(Color(Colors.Label.primary))
                         }
                     }.sheet(isPresented: $showingQR) {
                         ShowQR(text: viewModel.selectedRawAddress)
@@ -102,18 +86,18 @@ struct HomeView: View {
                                 Label("Show QR Code", systemImage: "qrcode")
                             }
                         } label: {
-                        Image(systemName: "ellipsis.circle")
-                            .font(.system(size: 17, weight: .bold))
-                            .padding([.top, .bottom], 14)
-                            .foregroundColor(Color(Colors.Label.primary))
-                            .frame(width: 48, height: 48)
-                            .background(Color(Colors.Background.secondary))
-                            .clipShape(Circle())
-                            .padding(.top, 25)
-                            }
+                            Image(systemName: "ellipsis.circle")
+                                .font(.system(size: 17, weight: .bold))
+                                .padding([.top, .bottom], 14)
+                                .foregroundColor(Color(Colors.Label.primary))
+                                .frame(width: 48, height: 48)
+                                .background(Color(Colors.Background.secondary))
+                                .clipShape(Circle())
+                                .padding(.top, 25)
+                        }
                         Text("More")
                             .font(.body)
-                           .foregroundColor(Color(Colors.Label.primary))
+                            .foregroundColor(Color(Colors.Label.primary))
                     }
                     Spacer()
                 }
@@ -209,20 +193,22 @@ struct HomeView: View {
                 .cornerRadius(14)
                 .padding(.top, 6)
                 .padding(.bottom, 16)
+                
+                Spacer()
             }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                viewModel.getConfiguration()
+            }
+            .onAppear {
+                viewModel.getWalletSelected()
+                viewModel.getConfiguration()
+            }
+            .padding([.leading, .trailing, .top], 16)
             Spacer()
         }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            viewModel.getConfiguration()
-        }
-        .onAppear {
-            viewModel.getWalletSelected()
-            viewModel.getConfiguration()
-        }
-        .padding([.leading, .trailing, .top], 16)
-        Spacer()
+        .refreshable {}
     }
-
+    
     var walletSelectorButton: some View {
         Button(action: { visibleAccount.toggle() }) {
             WalletSelector(walletColor: viewModel.color, walletName: viewModel.name, walletAddress: viewModel.selectedAddress)
@@ -231,7 +217,7 @@ struct HomeView: View {
             ProfileSelectorView()
         }
     }
-
+    
     var settingsButton: some View {
         Button(action: { showingSettings.toggle() }) {
             Image(systemName: "gearshape.fill")
@@ -246,7 +232,7 @@ struct HomeView: View {
             SettingsView()
         }
     }
-
+    
     private func onDismiss() {
         viewModel.getWalletSelected()
         viewModel.getConfiguration()

@@ -46,7 +46,7 @@ public struct WalletEditView: View {
             .cornerRadius(16)
             .padding([.leading, .top, .trailing], 16)
             ZStack {
-                LazyVGrid(columns: columns, spacing: 34) {
+                LazyVGrid(columns: columns, spacing: 10) {
                     ForEach(viewModel.getColors(), id: \.self) { color in
                         ZStack {
                             HStack(spacing: 4) {
@@ -57,9 +57,12 @@ public struct WalletEditView: View {
                                     }
                                     .clipShape(Circle())
                                     .overlay(
-                                        selected == color ?
-                                        Circle().stroke(Color.white, lineWidth: 8) :
-                                        Circle().stroke(Color.white, lineWidth: 0)
+                                        ZStack{
+                                            selected == color ?
+                                            Circle().stroke(Color(Colors.Label.primary), lineWidth: 4) :
+                                            Circle().stroke(Color(Colors.System.secondary), lineWidth: 4)
+                                            Circle().strokeBorder(Color(Colors.System.secondary), lineWidth: 4)
+                                        }
                                     )
                             }
                             .padding([.top, .bottom, .leading, .trailing], 8)
