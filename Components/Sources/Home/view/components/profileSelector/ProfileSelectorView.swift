@@ -162,7 +162,7 @@ public struct ProfileSelectorView: View {
                 .padding(.leading, 54)
             ZStack {
                 HStack(spacing: 10) {
-                    Image("ImportWalletIcon")
+                    ColoredIconView(imageName: "square.and.arrow.down", foregroundColor: Color(.white), backgroundColor: Color(.blue))
                         .padding([.top, .bottom], 7)
                     Text("Import Wallet")
                         .font(Font.system(size: 17, weight: .regular))
