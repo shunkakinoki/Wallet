@@ -252,10 +252,8 @@ export const SignTransactionDescription: FC<
             </SignTransactionGasEstimateFeeSecondsContainer>
             <br />
             <SignTransactionGasEstimateFeeContainer>
-              Estimated Fee: <strong>{gasEstimationFee.toFixed(9)}</strong>{" "}
-              <strong>
-                {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
-              </strong>
+              Estimated Fee: {gasEstimationFee.toFixed(9)}{" "}
+              {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
             </SignTransactionGasEstimateFeeContainer>
           </SignTransactionGasEstimateContainer>
           <SignTransactionGasSelect
