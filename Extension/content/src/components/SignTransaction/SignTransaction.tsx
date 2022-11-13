@@ -70,6 +70,7 @@ export const SignTransactionDescription: FC<
   Pick<SignTransactionParams, "params">
 > = ({ params }) => {
   const [result, setResult] = useState(null);
+  const [isFallback, setIsFallback] = useState(false);
 
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
@@ -78,42 +79,71 @@ export const SignTransactionDescription: FC<
     return [state.gasPrice, state.setGasPrice];
   });
 
-  useEffect(() => {
-    console.log(config);
-    if (config) {
-      fetch(`https://wallet.light.so/api/gas/${window.ethereum.chainId}`, {
-        method: "POST",
-        body: JSON.stringify(config),
+  const fetchGasPrice = () => {
+    fetch(`https://wallet.light.so/api/gas/${window.ethereum.chainId}`, {
+      method: "POST",
+      body: JSON.stringify({
+        isLegacy: true,
+        legacySpeed: config.legacySpeed,
+      }),
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      }),
+    })
+      .then(response => {
+        return response.json();
       })
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          logContent(`GasPrice result: ${JSON.stringify(data)}`);
-          if (data && data?.gasPrice) {
-            setGasPrice(JSON.parse(data)?.gasPrice);
-          } else {
-            throw "No gasPrice";
-          }
-        })
-        .catch(err => {
-          logContent(`Error gas: ${JSON.stringify(err)}`);
-          if (window.ethereum.storybook) {
-            setGasPrice("0x69");
-            return;
-          }
-          window.ethereum.rpc
-            .call({
-              jsonrpc: "2.0",
-              method: "eth_gasPrice",
-              params: [],
-              id: 1,
-            })
-            .then(response => {
-              setGasPrice(response.result);
-            });
-        });
+      .then(data => {
+        logContent(`GasPrice result: ${JSON.stringify(data)}`);
+        if (!data?.gasPrice) {
+          throw "No gasPrice";
+        }
+        setGasPrice(data.gasPrice);
+      })
+      .catch(err => {
+        logContent(`Error gas: ${JSON.stringify(err)}`);
+        if (window.ethereum.storybook) {
+          setGasPrice("0x69");
+          return;
+        }
+        setIsFallback(true);
+        window.ethereum.rpc
+          .call({
+            jsonrpc: "2.0",
+            method: "eth_gasPrice",
+            params: [],
+            id: 1,
+          })
+          .then(response => {
+            setGasPrice(response.result);
+          });
+      });
+  };
+
+  useEffect(() => {
+    logContent(config);
+    setTimeout(() => {
+      return setConfig(prevToggle => {
+        return !prevToggle;
+      });
+    }, 3000);
+
+    if (config) {
+      fetchGasPrice();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [config]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (config) {
+        fetchGasPrice();
+      }
+    }, 3000);
+    return () => {
+      return clearInterval(interval);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config]);
 
@@ -169,10 +199,14 @@ export const SignTransactionDescription: FC<
               setConfig({ legacySpeed: e.target.value });
             }}
           >
-            <option value="instant">🚨 Instant</option>
-            <option value="fast">🏄‍♂️ Fast</option>
             <option value="standard">🚗 Standard</option>
-            <option value="low">🐢 Slow</option>
+            {!isFallback && (
+              <>
+                <option value="instant">🚨 Instant</option>
+                <option value="fast">🏄‍♂️ Fast</option>
+                <option value="low">🐢 Slow</option>
+              </>
+            )}
           </SignTransactionGasSelect>
         </SignTransactionGasContainer>
       </SignTransactionDescriptionContainer>
