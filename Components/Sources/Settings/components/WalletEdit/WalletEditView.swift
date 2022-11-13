@@ -57,9 +57,12 @@ public struct WalletEditView: View {
                                     }
                                     .clipShape(Circle())
                                     .overlay(
-                                        selected == color ?
-                                        Circle().stroke(Color.white, lineWidth: 8) :
-                                        Circle().stroke(Color.white, lineWidth: 0)
+                                        ZStack{
+                                            selected == color ?
+                                            Circle().stroke(Color.white, lineWidth: 4) :
+                                            Circle().stroke(Color.white, lineWidth: 0)
+                                            Circle().strokeBorder(Color(Colors.System.secondary), lineWidth: 2)
+                                        }
                                     )
                             }
                             .padding([.top, .bottom, .leading, .trailing], 8)
