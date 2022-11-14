@@ -5,11 +5,13 @@ import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
 
 import { useTransactionGasPrice } from "../../hooks/useTransactionGasPrice";
 
+import { WarningIcon } from "../../icons/WarningIcon";
 import { logContent } from "../../services/log";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
 import { ConfirmButton } from "../Base/ConfirmButton";
 
 import {
+  InfoButton,
   SignTransactionDescriptionContainer,
   SignTransactionGasContainer,
   SignTransactionGasSelect,
@@ -17,6 +19,7 @@ import {
   SignTransactionGasEstimateFeeContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
   SignTransactionGasSimulationContainer,
+  SignTransactionGasSelectApproveContainer,
   SignTransactionGasSelectTransferContainer,
   SignTransactionGasSelectTransferNameContainer,
   SignTransactionGasSelectTransferImageContainer,
@@ -254,7 +257,7 @@ export const SignTransactionDescription: FC<
                 change?.rawInfo?.kind === "ERC1155_APPROVAL_FOR_ALL"
               ) {
                 return (
-                  <div
+                  <SignTransactionGasSelectApproveContainer
                     key={change?.humanReadableDiff}
                     style={{
                       color:
@@ -264,8 +267,11 @@ export const SignTransactionDescription: FC<
                           : "#30D158",
                     }}
                   >
-                    {change?.humanReadableDiff}
-                  </div>
+                    <InfoButton>
+                      <WarningIcon />
+                    </InfoButton>
+                    <div>{change?.humanReadableDiff}</div>
+                  </SignTransactionGasSelectApproveContainer>
                 );
               }
 

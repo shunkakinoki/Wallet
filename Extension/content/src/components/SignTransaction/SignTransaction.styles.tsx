@@ -57,6 +57,11 @@ export const SignTransactionGasSimulationContainer = styled.div`
   word-break: keep-all;
 `;
 
+export const SignTransactionGasSelectApproveContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const SignTransactionGasSelectTransferContainer = styled.div`
   position: relative;
   display: flex;
@@ -123,4 +128,8 @@ export const SignTransactionGasSelect = styled.select`
     display: flex;
     white-space: pre;
   }
+`;
+
+export const InfoButton = styled.span`
+  flex-shrink: 1;
 `;
