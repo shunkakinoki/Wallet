@@ -61,7 +61,20 @@ export const SignTransactionGasSelectTransferContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.6rem;
+`;
+
+export const SignTransactionGasSelectTransferNameContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const SignTransactionGasSelectTransferImageContainer = styled.img`
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+
+  padding-right: 0.6rem;
 `;
 
 export const SignTransactionGasSelect = styled.select`

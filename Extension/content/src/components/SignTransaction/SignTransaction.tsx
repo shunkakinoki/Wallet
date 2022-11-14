@@ -18,6 +18,8 @@ import {
   SignTransactionGasEstimateFeeSecondsContainer,
   SignTransactionGasSimulationContainer,
   SignTransactionGasSelectTransferContainer,
+  SignTransactionGasSelectTransferNameContainer,
+  SignTransactionGasSelectTransferImageContainer,
 } from "./SignTransaction.styles";
 
 type SignTransactionParams = {
@@ -267,13 +269,23 @@ export const SignTransactionDescription: FC<
                   <SignTransactionGasSelectTransferContainer
                     key={change?.humanReadableDiff}
                   >
-                    <div>
+                    <SignTransactionGasSelectTransferNameContainer>
+                      <SignTransactionGasSelectTransferImage
+                        name={
+                          change?.rawInfo?.data?.name ??
+                          change?.humanReadableDiff
+                            ?.split(" ")
+                            .slice(1)
+                            .join(" ")
+                        }
+                        src={"https://img.cryptocorgis.co/corgi/13014975"}
+                      />
                       {change?.rawInfo?.data?.name ??
                         change?.humanReadableDiff
                           ?.split(" ")
                           .slice(1)
                           .join(" ")}
-                    </div>
+                    </SignTransactionGasSelectTransferNameContainer>
                     <div
                       style={{
                         color:
@@ -351,4 +363,36 @@ export const SignTransactionDescription: FC<
   }
 
   return null;
+};
+
+export const shortenName = (name: string) => {
+  return name.match(/\b\w/g)?.join("").toUpperCase().substring(0, 3);
+};
+
+export const SignTransactionGasSelectTransferImage = ({
+  name,
+  src,
+}: {
+  name: string;
+  src: string;
+}) => {
+  const [isFallback, setIsFallback] = useState(false);
+
+  if (isFallback) {
+    return (
+      <span className="flex justify-center items-center w-5 h-5 text-xs font-semibold leading-none text-gray-400 bg-gray-200 rounded-full border dark:border-0 border-gray-400">
+        {shortenName(name)}
+      </span>
+    );
+  }
+
+  return (
+    // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
+    <SignTransactionGasSelectTransferImageContainer
+      src={src}
+      onError={() => {
+        return setIsFallback(true);
+      }}
+    />
+  );
 };
