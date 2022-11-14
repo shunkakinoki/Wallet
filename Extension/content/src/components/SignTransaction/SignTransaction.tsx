@@ -20,12 +20,22 @@ import {
   SignTransactionGasSelectTransferContainer,
   SignTransactionGasSelectTransferNameContainer,
   SignTransactionGasSelectTransferImageContainer,
+  SignTransactionGasSelectTransferFallbackImageContainer,
+  SignTransactionGasSelectTransferBalanceContainer,
 } from "./SignTransaction.styles";
 
 type SignTransactionParams = {
   id: number;
   method: string;
   params: any;
+};
+
+const chains = {
+  "0x1": "ethereum",
+  "0x5": "goerli",
+  "0xa": "optimism",
+  "0x89": "polygon",
+  "0xa4b1": "arbitrum",
 };
 
 export const SignTransaction: FC<SignTransactionParams> = ({
@@ -278,7 +288,15 @@ export const SignTransactionDescription: FC<
                             .slice(1)
                             .join(" ")
                         }
-                        src={"https://img.cryptocorgis.co/corgi/13014975"}
+                        src={
+                          change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER"
+                            ? `https://defillama.com/chain-icons/rsz_${
+                                chains[window.ethereum.chainId]
+                              }.jpg`
+                            : change?.rawInfo?.kind === "ERC721_TRANSFER"
+                            ? change?.rawInfo?.data?.metadata?.rawImageUrl
+                            : ""
+                        }
                       />
                       {change?.rawInfo?.data?.name ??
                         change?.humanReadableDiff
@@ -286,7 +304,7 @@ export const SignTransactionDescription: FC<
                           .slice(1)
                           .join(" ")}
                     </SignTransactionGasSelectTransferNameContainer>
-                    <div
+                    <SignTransactionGasSelectTransferBalanceContainer
                       style={{
                         color:
                           Number(change?.rawInfo?.data?.amount?.after) <
@@ -300,7 +318,7 @@ export const SignTransactionDescription: FC<
                         ? "-"
                         : "+"}{" "}
                       {change?.humanReadableDiff?.split(" ").slice(1).join(" ")}
-                    </div>
+                    </SignTransactionGasSelectTransferBalanceContainer>
                   </SignTransactionGasSelectTransferContainer>
                 );
               }
@@ -380,9 +398,9 @@ export const SignTransactionGasSelectTransferImage = ({
 
   if (isFallback) {
     return (
-      <span className="flex justify-center items-center w-5 h-5 text-xs font-semibold leading-none text-gray-400 bg-gray-200 rounded-full border dark:border-0 border-gray-400">
+      <SignTransactionGasSelectTransferFallbackImageContainer>
         {shortenName(name)}
-      </span>
+      </SignTransactionGasSelectTransferFallbackImageContainer>
     );
   }
 
