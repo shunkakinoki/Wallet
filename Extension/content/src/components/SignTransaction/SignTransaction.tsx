@@ -16,6 +16,7 @@ import {
   SignTransactionGasEstimateContainer,
   SignTransactionGasEstimateFeeContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
+  SignTransactionGasSimulationContainer,
 } from "./SignTransaction.styles";
 
 type SignTransactionParams = {
@@ -228,15 +229,30 @@ export const SignTransactionDescription: FC<
   if (params?.from && params?.to && params?.value && params?.data) {
     return (
       <SignTransactionDescriptionContainer>
-        {result?.simulationResults &&
-          !result?.simulationResults?.error &&
-          result?.simulationResults?.expectedStateChanges.map(change => {
-            return (
-              <div key={change?.humanReadableDiff}>
-                {change?.humanReadableDiff}
-              </div>
-            );
-          })}
+        <SignTransactionGasSimulationContainer>
+          {result?.simulationResults &&
+            !result?.simulationResults?.error &&
+            result?.simulationResults?.expectedStateChanges.map(change => {
+              if (
+                change?.rawInfo?.kind === "ERC20_APPROVAL" ||
+                change?.rawInfo?.kind === "ERC721_APPROVAL" ||
+                change?.rawInfo?.kind === "ERC721_APPROVAL_FOR_ALL" ||
+                change?.rawInfo?.kind === "ERC1155_TRANSFER" ||
+                change?.rawInfo?.kind === "ERC1155_APPROVAL_FOR_ALL"
+              ) {
+                return (
+                  <div key={change?.humanReadableDiff} style={{ color: "red" }}>
+                    {change?.humanReadableDiff}
+                  </div>
+                );
+              }
+              return (
+                <div key={change?.humanReadableDiff}>
+                  {change?.humanReadableDiff}
+                </div>
+              );
+            })}
+        </SignTransactionGasSimulationContainer>
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>
             ${gasEstimationDollar ?? 0}{" "}

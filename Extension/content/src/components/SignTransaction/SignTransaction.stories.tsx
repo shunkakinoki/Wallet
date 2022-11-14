@@ -31,7 +31,7 @@ export const UniswapGoerliWrap: Story = args => {
   );
 };
 
-export const UniswapDaiApproval: Story = args => {
+export const UniswapDAIApproval: Story = args => {
   return (
     <Page
       id={3}

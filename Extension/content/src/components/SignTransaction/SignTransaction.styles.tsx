@@ -47,6 +47,14 @@ export const SignTransactionGasSelectContainer = styled.div`
   -webkit-appearance: listbox !important;
 `;
 
+export const SignTransactionGasSimulationContainer = styled.div`
+  padding-top: 0.25rem;
+  padding-bottom: 1.25rem;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.6rem;
+`;
+
 export const SignTransactionGasSelect = styled.select`
   background-color: #e0e0e0;
   color: gray;
