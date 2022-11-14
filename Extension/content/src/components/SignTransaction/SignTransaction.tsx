@@ -295,7 +295,12 @@ export const SignTransactionDescription: FC<
                               }.jpg`
                             : change?.rawInfo?.kind === "ERC721_TRANSFER"
                             ? change?.rawInfo?.data?.metadata?.rawImageUrl
-                            : ""
+                            : `https://logos.covalenthq.com/tokens/${parseInt(
+                                window.ethereum.chainId,
+                                16,
+                              ).toString()}/${
+                                change?.rawInfo?.data?.contract?.address
+                              }.png`
                         }
                       />
                       {change?.rawInfo?.data?.name ??
