@@ -43,8 +43,14 @@ export const SignTypedDescription: FC<
     ) {
       logContent("Starting fetch...");
       fetch(
-        `https://wallet.light.so/api/blowfish/ethereum/v0/${
-          window.ethereum.chainId == "0x1" ? "mainnet" : "goerli"
+        `https://wallet.light.so/api/blowfish/${
+          window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x5"
+            ? "ethereum"
+            : "polygon"
+        }/v0/${
+          window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x89"
+            ? "mainnet"
+            : "goerli"
         }/scan/message`,
         {
           method: "POST",
