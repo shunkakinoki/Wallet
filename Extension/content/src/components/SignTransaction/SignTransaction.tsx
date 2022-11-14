@@ -267,7 +267,13 @@ export const SignTransactionDescription: FC<
                   <SignTransactionGasSelectTransferContainer
                     key={change?.humanReadableDiff}
                   >
-                    <div>{change?.rawInfo?.data?.name}</div>
+                    <div>
+                      {change?.rawInfo?.data?.name ??
+                        change?.humanReadableDiff
+                          ?.split(" ")
+                          .slice(1)
+                          .join(" ")}
+                    </div>
                     <div
                       style={{
                         color:
@@ -279,8 +285,8 @@ export const SignTransactionDescription: FC<
                     >
                       {Number(change?.rawInfo?.data?.amount?.after) <
                       Number(change?.rawInfo?.data?.amount?.before)
-                        ? "+"
-                        : "-"}{" "}
+                        ? "-"
+                        : "+"}{" "}
                       {change?.humanReadableDiff?.split(" ").slice(1).join(" ")}
                     </div>
                   </SignTransactionGasSelectTransferContainer>
