@@ -248,8 +248,8 @@ export const SignTransactionDescription: FC<
                       color:
                         Number(change?.rawInfo?.data?.amount?.after) >
                         Number(change?.rawInfo?.data?.amount?.before)
-                          ? "red"
-                          : "green",
+                          ? "#FF453A"
+                          : "#30D158",
                     }}
                   >
                     {change?.humanReadableDiff}
@@ -257,24 +257,8 @@ export const SignTransactionDescription: FC<
                 );
               }
 
-              if (change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER") {
-                return (
-                  <SignTransactionGasSelectTransferContainer
-                    key={change?.humanReadableDiff}
-                    style={{
-                      color:
-                        Number(change?.rawInfo?.data?.amount?.after) >
-                        Number(change?.rawInfo?.data?.amount?.before)
-                          ? "red"
-                          : "green",
-                    }}
-                  >
-                    {change?.humanReadableDiff}
-                  </SignTransactionGasSelectTransferContainer>
-                );
-              }
-
               if (
+                change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
                 change?.rawInfo?.kind === "ERC20_TRANSFER" ||
                 change?.rawInfo?.kind === "ERC721_TRANSFER" ||
                 change?.rawInfo?.kind === "ERC1155_TRANSFER"
@@ -282,15 +266,23 @@ export const SignTransactionDescription: FC<
                 return (
                   <SignTransactionGasSelectTransferContainer
                     key={change?.humanReadableDiff}
-                    style={{
-                      color:
-                        Number(change?.rawInfo?.data?.amount?.after) <
-                        Number(change?.rawInfo?.data?.amount?.before)
-                          ? "red"
-                          : "blue",
-                    }}
                   >
-                    {change?.humanReadableDiff}
+                    <div>{change?.rawInfo?.data?.name}</div>
+                    <div
+                      style={{
+                        color:
+                          Number(change?.rawInfo?.data?.amount?.after) <
+                          Number(change?.rawInfo?.data?.amount?.before)
+                            ? "#FF453A"
+                            : "#30D158",
+                      }}
+                    >
+                      {Number(change?.rawInfo?.data?.amount?.after) <
+                      Number(change?.rawInfo?.data?.amount?.before)
+                        ? "+"
+                        : "-"}{" "}
+                      {change?.humanReadableDiff?.split(" ").slice(1).join(" ")}
+                    </div>
                   </SignTransactionGasSelectTransferContainer>
                 );
               }

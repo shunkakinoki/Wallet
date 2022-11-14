@@ -60,6 +60,8 @@ export const SignTransactionGasSelectTransferContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  padding-bottom: 0.5rem;
 `;
 
 export const SignTransactionGasSelect = styled.select`
