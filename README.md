@@ -28,6 +28,12 @@ See our [contributing guidelines](./CONTRIBUTING.md).
 - Join our [Discord](https://discord.com/invite/Vgfxg2Rcy8)
 - Follow our [Twitter](http://twitter.com/Light_Wallet)
 
+## 🪄 Features
+
+- **Open Source & Community Owned** for trustless web3 ethos
+- **Safari Extension** to enable seamless dapp experiences on Safari
+- **Secure Enclave** for secure transactions on mobile
+
 ## 🙋 Getting Help
 
 - Join the [support Telegram](https://t.me/Light_Wallet_Support) to get help, or
