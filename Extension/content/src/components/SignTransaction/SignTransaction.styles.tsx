@@ -102,6 +102,8 @@ export const SignTransactionGasSelectTransferBalanceContainer = styled.div`
   font-size: 18px;
   font-weight: 600;
   line-height: 1.6rem;
+
+  text-align: right;
 `;
 
 export const SignTransactionGasSelect = styled.select`
