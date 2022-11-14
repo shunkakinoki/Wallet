@@ -143,7 +143,7 @@ export const SignTransactionDescription: FC<
   };
 
   useEffect(() => {
-    logContent(config);
+    logContent(`Config: ${JSON.stringify(config)}`);
 
     if (config) {
       fetchGasPrice();
