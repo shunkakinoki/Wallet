@@ -17,6 +17,7 @@ import {
   SignTransactionGasEstimateFeeContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
   SignTransactionGasSimulationContainer,
+  SignTransactionGasSelectTransferContainer,
 } from "./SignTransaction.styles";
 
 type SignTransactionParams = {
@@ -256,20 +257,43 @@ export const SignTransactionDescription: FC<
                 );
               }
 
-              return (
-                <div
-                  key={change?.humanReadableDiff}
-                  style={{
-                    color:
-                      Number(change?.rawInfo?.data?.amount?.after) <
-                      Number(change?.rawInfo?.data?.amount?.before)
-                        ? "red"
-                        : "blue",
-                  }}
-                >
-                  {change?.humanReadableDiff}
-                </div>
-              );
+              if (change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER") {
+                return (
+                  <SignTransactionGasSelectTransferContainer
+                    key={change?.humanReadableDiff}
+                    style={{
+                      color:
+                        Number(change?.rawInfo?.data?.amount?.after) >
+                        Number(change?.rawInfo?.data?.amount?.before)
+                          ? "red"
+                          : "green",
+                    }}
+                  >
+                    {change?.humanReadableDiff}
+                  </SignTransactionGasSelectTransferContainer>
+                );
+              }
+
+              if (
+                change?.rawInfo?.kind === "ERC20_TRANSFER" ||
+                change?.rawInfo?.kind === "ERC721_TRANSFER" ||
+                change?.rawInfo?.kind === "ERC1155_TRANSFER"
+              ) {
+                return (
+                  <SignTransactionGasSelectTransferContainer
+                    key={change?.humanReadableDiff}
+                    style={{
+                      color:
+                        Number(change?.rawInfo?.data?.amount?.after) <
+                        Number(change?.rawInfo?.data?.amount?.before)
+                          ? "red"
+                          : "blue",
+                    }}
+                  >
+                    {change?.humanReadableDiff}
+                  </SignTransactionGasSelectTransferContainer>
+                );
+              }
             })}
         </SignTransactionGasSimulationContainer>
         <SignTransactionGasContainer>

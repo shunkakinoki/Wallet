@@ -55,6 +55,13 @@ export const SignTransactionGasSimulationContainer = styled.div`
   line-height: 1.6rem;
 `;
 
+export const SignTransactionGasSelectTransferContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const SignTransactionGasSelect = styled.select`
   background-color: #e0e0e0;
   color: gray;
