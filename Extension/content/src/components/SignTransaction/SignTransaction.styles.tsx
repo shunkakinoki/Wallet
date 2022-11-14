@@ -53,6 +53,8 @@ export const SignTransactionGasSimulationContainer = styled.div`
   font-size: 18px;
   font-weight: 600;
   line-height: 1.6rem;
+
+  word-break: keep-all;
 `;
 
 export const SignTransactionGasSelectTransferContainer = styled.div`
@@ -70,8 +72,8 @@ export const SignTransactionGasSelectTransferNameContainer = styled.div`
 `;
 
 export const SignTransactionGasSelectTransferImageContainer = styled.img`
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
   border-radius: 9999px;
   object-fit: fill;
 
