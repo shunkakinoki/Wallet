@@ -39,7 +39,9 @@ export const SignTypedDescription: FC<
     if (
       params?.from &&
       params?.raw &&
-      (window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x5")
+      (window.ethereum.chainId == "0x1" ||
+        window.ethereum.chainId == "0x5" ||
+        window.ethereum.chainId == "0x89")
     ) {
       logContent("Starting fetch...");
       fetch(

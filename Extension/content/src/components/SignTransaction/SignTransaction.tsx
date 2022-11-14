@@ -152,7 +152,9 @@ export const SignTransactionDescription: FC<
       params?.to &&
       params?.value &&
       params?.data &&
-      (window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x5")
+      (window.ethereum.chainId == "0x1" ||
+        window.ethereum.chainId == "0x5" ||
+        window.ethereum.chainId == "0x89")
     ) {
       logContent("Starting fetch...");
       fetch(
@@ -195,7 +197,7 @@ export const SignTransactionDescription: FC<
 
   useEffect(() => {
     setGasEstimationFee(
-      (parseInt(gasPrice, 16) * (21_000 + 68 * (params?.data.length / 2))) /
+      (parseInt(gasPrice, 16) * (21_000 + 68 * (params?.data?.length / 2))) /
         10e18,
     );
   }, [gasPrice, params?.data]);
