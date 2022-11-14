@@ -9,10 +9,9 @@ export const config = {
 };
 
 export default async function handler(req: NextRequest) {
-  console.log(req.nextUrl.pathname);
   return NextResponse.rewrite(
-    `https://logos.covalenthq.com/tokens/${req.nextUrl.pathname.replace(
-      "/api/token/",
+    `https://api.covalenthq.com/${req.nextUrl.pathname.replace(
+      "/api/covalent/",
       "",
     )}?key=${process.env.COVALENT_API_KEY}`,
   );
