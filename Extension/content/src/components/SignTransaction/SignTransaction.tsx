@@ -237,17 +237,36 @@ export const SignTransactionDescription: FC<
                 change?.rawInfo?.kind === "ERC20_APPROVAL" ||
                 change?.rawInfo?.kind === "ERC721_APPROVAL" ||
                 change?.rawInfo?.kind === "ERC721_APPROVAL_FOR_ALL" ||
-                change?.rawInfo?.kind === "ERC1155_TRANSFER" ||
+                change?.rawInfo?.kind === "ERC1155_APPROVAL" ||
                 change?.rawInfo?.kind === "ERC1155_APPROVAL_FOR_ALL"
               ) {
                 return (
-                  <div key={change?.humanReadableDiff} style={{ color: "red" }}>
+                  <div
+                    key={change?.humanReadableDiff}
+                    style={{
+                      color:
+                        Number(change?.rawInfo?.data?.amount?.after) >
+                        Number(change?.rawInfo?.data?.amount?.before)
+                          ? "red"
+                          : "green",
+                    }}
+                  >
                     {change?.humanReadableDiff}
                   </div>
                 );
               }
+
               return (
-                <div key={change?.humanReadableDiff}>
+                <div
+                  key={change?.humanReadableDiff}
+                  style={{
+                    color:
+                      Number(change?.rawInfo?.data?.amount?.after) <
+                      Number(change?.rawInfo?.data?.amount?.before)
+                        ? "red"
+                        : "blue",
+                  }}
+                >
                   {change?.humanReadableDiff}
                 </div>
               );
