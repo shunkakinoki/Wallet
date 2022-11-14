@@ -70,21 +70,25 @@ export const SignTransactionGasSelectTransferNameContainer = styled.div`
 `;
 
 export const SignTransactionGasSelectTransferImageContainer = styled.img`
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 9999px;
   object-fit: fill;
 
   margin-right: 0.6rem;
 `;
 
-export const SignTransactionGasSelectTransferFallbackImageContainer = styled.svg`
-  color: black;
+export const SignTransactionGasSelectTransferFallbackImageContainer = styled.span`
+  display: flex;
+  color: gray;
 
   justify-content: center;
   align-items: center;
   width: 1.75rem;
   height: 1.75rem;
+  padding: 0.2rem;
+
+  overflow: hidden;
 
   border: 1px solid gray;
   border-radius: 9999px;
@@ -93,8 +97,8 @@ export const SignTransactionGasSelectTransferFallbackImageContainer = styled.svg
 `;
 
 export const SignTransactionGasSelectTransferBalanceContainer = styled.div`
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
   line-height: 1.6rem;
 `;
 
