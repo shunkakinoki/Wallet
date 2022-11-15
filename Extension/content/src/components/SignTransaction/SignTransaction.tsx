@@ -257,8 +257,15 @@ export const SignTransactionDescription: FC<
         <SignTransactionGasSelectAccordionContainer
           onClick={handleExpandToggle}
         >
-          Changes
-          <ChevronIcon direction={isExpanded ? "top" : "bottom"} />
+          {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
+            "APPROVAL",
+          ) && "Approval Request"}
+          {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
+            "TRANSFER",
+          ) && "Balance Changes"}
+          {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
+            "TRANSFER",
+          ) && <ChevronIcon direction={isExpanded ? "top" : "bottom"} />}
         </SignTransactionGasSelectAccordionContainer>
         <SignTransactionGasSimulationContainer>
           {result?.simulationResults &&
@@ -352,12 +359,18 @@ export const SignTransactionDescription: FC<
                       </SignTransactionGasSelectTransferBalanceContainer>
                     </SignTransactionGasSelectTransferContainer>
                     {isExpanded && (
-                      <SignTransactionGasSelectTransferNameContainer>
-                        {change?.humanReadableDiff
-                          ?.split(" ")
-                          .slice(1)
-                          .join(" ")}
-                      </SignTransactionGasSelectTransferNameContainer>
+                      <>
+                        <SignTransactionGasSelectTransferNameContainer>
+                          <div />
+                        </SignTransactionGasSelectTransferNameContainer>
+                        <SignTransactionGasSelectTransferBalanceContainer>
+                          {" "}
+                          {change?.humanReadableDiff
+                            ?.split(" ")
+                            .slice(1)
+                            .join(" ")}
+                        </SignTransactionGasSelectTransferBalanceContainer>
+                      </>
                     )}
                   </>
                 );

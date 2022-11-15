@@ -66,7 +66,7 @@ export const SignTransactionGasSelectAccordionContainer = styled.div`
   line-height: 1.25;
   cursor: pointer;
 
-  padding-bottom: 0.6rem;
+  padding-bottom: 1.25rem;
   padding-right: 0.3rem;
 `;
 
