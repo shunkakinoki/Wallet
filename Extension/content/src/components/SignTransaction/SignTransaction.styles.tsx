@@ -85,7 +85,7 @@ export const SignTransactionGasSelectTransferContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  padding-bottom: 0.6rem;
+  padding-bottom: 0.3rem;
 `;
 
 export const SignTransactionGasSelectTransferNameContainer = styled.div`
@@ -129,6 +129,22 @@ export const SignTransactionGasSelectTransferBalanceContainer = styled.div`
   line-height: 1.6rem;
 
   text-align: right;
+`;
+
+export const SignTransactionGasSelectTransferBalanceExpansionContainer = styled.div`
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.2rem;
+
+  text-align: right;
+`;
+
+export const SignTransactionGasSelectTransferBalanceContainerSpan = styled.span`
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2rem;
+
+  padding-bottom: 0.75rem;
 `;
 
 export const SignTransactionGasSelect = styled.select`

@@ -29,6 +29,8 @@ import {
   SignTransactionGasSelectTransferImageContainer,
   SignTransactionGasSelectTransferFallbackImageContainer,
   SignTransactionGasSelectTransferBalanceContainer,
+  SignTransactionGasSelectTransferBalanceContainerSpan,
+  SignTransactionGasSelectTransferBalanceExpansionContainer,
 } from "./SignTransaction.styles";
 
 type SignTransactionParams = {
@@ -385,44 +387,48 @@ export const SignTransactionDescription: FC<
                         {change?.humanReadableDiff
                           ?.split(" ")
                           .slice(1)
-                          .join(" ")}
+                          .join(" ")}{" "}
+                        {isExpanded && change?.rawInfo?.data?.value && (
+                          <SignTransactionGasSelectTransferBalanceContainerSpan>
+                            ($
+                            {(
+                              (Math.abs(
+                                Number(change?.rawInfo?.data?.amount?.before) -
+                                  Number(change?.rawInfo?.data?.amount?.after),
+                              ) /
+                                10 ** Number(change?.rawInfo?.data?.decimals)) *
+                              Number(change?.rawInfo?.data?.value)
+                            ).toFixed(2)}
+                            )
+                          </SignTransactionGasSelectTransferBalanceContainerSpan>
+                        )}{" "}
                         <br />
                       </SignTransactionGasSelectTransferBalanceContainer>
                     </SignTransactionGasSelectTransferContainer>
-                    {isExpanded && (
-                      <>
-                        <SignTransactionGasSelectTransferNameContainer>
-                          <div />
-                        </SignTransactionGasSelectTransferNameContainer>
-                        <SignTransactionGasSelectTransferBalanceContainer>
-                          {"Before: "}
-                          {(
-                            Number(change?.rawInfo?.data?.amount?.before) /
-                            10 ** Number(change?.rawInfo?.data?.decimals)
-                          ).toFixed(4)}{" "}
-                          {change?.rawInfo?.data?.symbol}
-                          {"After: "}
-                          {(
-                            Number(change?.rawInfo?.data?.amount?.after) /
-                            10 ** Number(change?.rawInfo?.data?.decimals)
-                          ).toFixed(4)}{" "}
-                          {change?.rawInfo?.data?.symbol}
-                          {Number(change?.rawInfo?.data?.amount?.after) <
-                          Number(change?.rawInfo?.data?.amount?.before)
-                            ? "-"
-                            : "+"}
-                          {"$"}
-                          {(
-                            (Math.abs(
-                              Number(change?.rawInfo?.data?.amount?.before) -
-                                Number(change?.rawInfo?.data?.amount?.after),
-                            ) /
-                              10 ** Number(change?.rawInfo?.data?.decimals)) *
-                            Number(change?.rawInfo?.data?.value)
-                          ).toFixed(4)}{" "}
-                        </SignTransactionGasSelectTransferBalanceContainer>
-                      </>
-                    )}
+                    {isExpanded &&
+                      (change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
+                        change?.rawInfo?.kind === "ERC20_TRANSFER") && (
+                        <>
+                          <SignTransactionGasSelectTransferNameContainer>
+                            <div />
+                          </SignTransactionGasSelectTransferNameContainer>
+                          <SignTransactionGasSelectTransferBalanceExpansionContainer>
+                            {"Before: "}
+                            {(
+                              Number(change?.rawInfo?.data?.amount?.before) /
+                              10 ** Number(change?.rawInfo?.data?.decimals)
+                            ).toFixed(3)}{" "}
+                            <strong>{change?.rawInfo?.data?.symbol}</strong>
+                            <br />
+                            {"After: "}
+                            {(
+                              Number(change?.rawInfo?.data?.amount?.after) /
+                              10 ** Number(change?.rawInfo?.data?.decimals)
+                            ).toFixed(3)}{" "}
+                            <strong>{change?.rawInfo?.data?.symbol}</strong>
+                          </SignTransactionGasSelectTransferBalanceExpansionContainer>
+                        </>
+                      )}
                   </>
                 );
               }
