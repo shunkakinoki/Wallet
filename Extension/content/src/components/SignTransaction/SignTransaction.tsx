@@ -245,10 +245,10 @@ export const SignTransactionDescription: FC<
       });
   }, [gasEstimationFee]);
 
-  const [isExpanded, setExpand] = useState<boolean>();
+  const [isExpanded, setIsExpand] = useState<boolean>();
 
   const handleExpandToggle = useCallback(() => {
-    setExpand(!isExpanded);
+    setIsExpand(!isExpanded);
   }, [isExpanded]);
 
   if (params?.from && params?.to && params?.value && params?.data) {
@@ -257,7 +257,7 @@ export const SignTransactionDescription: FC<
         <SignTransactionGasSelectAccordionContainer
           onClick={handleExpandToggle}
         >
-          {"Balance Changes"}{" "}
+          Changes
           <ChevronIcon direction={isExpanded ? "top" : "bottom"} />
         </SignTransactionGasSelectAccordionContainer>
         <SignTransactionGasSimulationContainer>

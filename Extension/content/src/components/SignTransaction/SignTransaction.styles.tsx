@@ -61,10 +61,13 @@ export const SignTransactionGasSelectAccordionContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 400;
   line-height: 1.25;
   cursor: pointer;
+
+  padding-bottom: 0.6rem;
+  padding-right: 0.3rem;
 `;
 
 export const SignTransactionGasSelectApproveContainer = styled.div`
@@ -101,9 +104,12 @@ export const SignTransactionGasSelectTransferFallbackImageContainer = styled.spa
 
   justify-content: center;
   align-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  padding: 0.2rem;
+  min-width: 1.15rem;
+  min-height: 1.15rem;
+  padding: 0.3rem;
+
+  width: 1.15rem;
+  height: 1.15rem;
 
   overflow: hidden;
 
@@ -153,8 +159,8 @@ interface ChevronProps {
 export const ChevronIcon = styled.div<ChevronProps>`
   border-style: solid;
   border-width: 0.125rem 0.125rem 0 0;
-  height: 0.5rem;
-  width: 0.5rem;
+  height: 0.4rem;
+  width: 0.4rem;
   transition: all 0.25s ease-in-out;
 
   transform: ${p => {
