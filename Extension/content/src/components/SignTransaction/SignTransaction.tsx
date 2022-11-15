@@ -22,6 +22,7 @@ import {
   SignTransactionGasEstimateFeeContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
   SignTransactionGasSimulationContainer,
+  SignTransactionGasSimulationBlowfishContainer,
   SignTransactionGasSelectApproveContainer,
   SignTransactionGasSelectTransferContainer,
   SignTransactionGasSelectTransferNameContainer,
@@ -264,9 +265,9 @@ export const SignTransactionDescription: FC<
           {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
             "TRANSFER",
           ) && "Balance Changes"}
-          {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
-            "TRANSFER",
-          ) && <ChevronIcon direction={isExpanded ? "top" : "bottom"} />}
+          {result?.simulationResults && (
+            <ChevronIcon direction={isExpanded ? "top" : "bottom"} />
+          )}
         </SignTransactionGasSelectAccordionContainer>
         <SignTransactionGasSimulationContainer>
           {result?.simulationResults &&
@@ -377,7 +378,11 @@ export const SignTransactionDescription: FC<
                 );
               }
             })}
-          {isExpanded && <BlowfishIcon />}
+          {isExpanded && (
+            <SignTransactionGasSimulationBlowfishContainer>
+              <BlowfishIcon />
+            </SignTransactionGasSimulationBlowfishContainer>
+          )}
         </SignTransactionGasSimulationContainer>
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>

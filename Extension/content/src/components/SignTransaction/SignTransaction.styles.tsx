@@ -57,6 +57,10 @@ export const SignTransactionGasSimulationContainer = styled.div`
   word-break: keep-all;
 `;
 
+export const SignTransactionGasSimulationBlowfishContainer = styled.div`
+  padding-top: 0.7rem;
+`;
+
 export const SignTransactionGasSelectAccordionContainer = styled.div`
   display: flex;
   align-items: center;
