@@ -97,8 +97,6 @@ export const SignTransactionDescription: FC<
   const [isFallback, setIsFallback] = useState(false);
   const [gasEstimationDollar, setGasEstimationDollar] = useState("");
   const [gasEstimationFee, setGasEstimationFee] = useState(0.01);
-  const [totalAmount, setTotalAmount] = useState();
-  const [tokenPrice, setTokenPrice] = useState();
 
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
@@ -177,8 +175,6 @@ export const SignTransactionDescription: FC<
           change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
           change?.rawInfo?.kind === "ERC20_TRANSFER"
         ) {
-          logContent(JSON.stringify(tokenPrice));
-
           fetch(
             `https://min-api.cryptocompare.com/data/price?fsym=${change?.rawInfo.data?.symbol}&tsyms=USD`,
             {
@@ -194,7 +190,7 @@ export const SignTransactionDescription: FC<
                   change?.rawInfo.data?.symbol
                 } dollar result: ${JSON.stringify(data)}`,
               );
-              logContent(data?.USD);
+              change.rawInfo.data.value = data.USD;
             });
         }
       });
@@ -400,11 +396,23 @@ export const SignTransactionDescription: FC<
                           <div />
                         </SignTransactionGasSelectTransferNameContainer>
                         <SignTransactionGasSelectTransferBalanceContainer>
-                          {" "}
-                          {change?.humanReadableDiff
-                            ?.split(" ")
-                            .slice(1)
-                            .join(" ")}
+                          {"Before: "}
+                          {(
+                            Number(change?.rawInfo?.data?.amount?.before) /
+                            10 ** Number(change?.rawInfo?.data?.decimals)
+                          ).toFixed(4)}{" "}
+                          {"After: "}
+                          {(
+                            Number(change?.rawInfo?.data?.amount?.after) /
+                            10 ** Number(change?.rawInfo?.data?.decimals)
+                          ).toFixed(4)}{" "}
+                          {"$"}
+                          {(
+                            ((Number(change?.rawInfo?.data?.amount?.before) -
+                              Number(change?.rawInfo?.data?.amount?.after)) /
+                              10 ** Number(change?.rawInfo?.data?.decimals)) *
+                            Number(change?.rawInfo?.data?.value)
+                          ).toFixed(4)}{" "}
                         </SignTransactionGasSelectTransferBalanceContainer>
                       </>
                     )}
@@ -412,11 +420,6 @@ export const SignTransactionDescription: FC<
                 );
               }
             })}
-          {isExpanded && (
-            <SignTransactionGasSimulationTotalAmountContainer>
-              {totalAmount}
-            </SignTransactionGasSimulationTotalAmountContainer>
-          )}
           {isExpanded && (
             <SignTransactionGasSimulationBlowfishContainer>
               <BlowfishIcon />
