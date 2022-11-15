@@ -74,6 +74,12 @@ We love contributors! Feel free to contribute to this project but please read th
 
 Light Wallet is open-sourced software licensed under the © [GPL-v3.0](LICENSE).
 
+## 🫶 Sponsoring
+
+If you find Light Wallet useful, please consider supporting development.
+
+- [Slice Funding Page](https://slice.so/slicer/26)
+
 ## ❤️ Support
 
 <img src="assets/blowfish.svg" alt="Light Wallet logo"  width="300" />
