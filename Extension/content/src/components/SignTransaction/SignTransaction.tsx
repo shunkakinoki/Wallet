@@ -22,7 +22,6 @@ import {
   SignTransactionGasEstimateFeeContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
   SignTransactionGasSimulationContainer,
-  SignTransactionGasSimulationTotalAmountContainer,
   SignTransactionGasSimulationBlowfishContainer,
   SignTransactionGasSelectApproveContainer,
   SignTransactionGasSelectTransferContainer,
@@ -401,15 +400,23 @@ export const SignTransactionDescription: FC<
                             Number(change?.rawInfo?.data?.amount?.before) /
                             10 ** Number(change?.rawInfo?.data?.decimals)
                           ).toFixed(4)}{" "}
+                          {change?.rawInfo?.data?.symbol}
                           {"After: "}
                           {(
                             Number(change?.rawInfo?.data?.amount?.after) /
                             10 ** Number(change?.rawInfo?.data?.decimals)
                           ).toFixed(4)}{" "}
+                          {change?.rawInfo?.data?.symbol}
+                          {Number(change?.rawInfo?.data?.amount?.after) <
+                          Number(change?.rawInfo?.data?.amount?.before)
+                            ? "-"
+                            : "+"}
                           {"$"}
                           {(
-                            ((Number(change?.rawInfo?.data?.amount?.before) -
-                              Number(change?.rawInfo?.data?.amount?.after)) /
+                            (Math.abs(
+                              Number(change?.rawInfo?.data?.amount?.before) -
+                                Number(change?.rawInfo?.data?.amount?.after),
+                            ) /
                               10 ** Number(change?.rawInfo?.data?.decimals)) *
                             Number(change?.rawInfo?.data?.value)
                           ).toFixed(4)}{" "}
