@@ -57,6 +57,9 @@ export const SignTransactionGasSimulationContainer = styled.div`
   word-break: keep-all;
 `;
 
+export const SignTransactionGasSimulationTotalAmountContainer = styled.div`
+  padding-top: 0.7rem;
+`;
 export const SignTransactionGasSimulationBlowfishContainer = styled.div`
   padding-top: 0.7rem;
 `;

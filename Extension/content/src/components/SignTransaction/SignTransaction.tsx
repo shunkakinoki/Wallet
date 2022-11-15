@@ -22,6 +22,7 @@ import {
   SignTransactionGasEstimateFeeContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
   SignTransactionGasSimulationContainer,
+  SignTransactionGasSimulationTotalAmountContainer,
   SignTransactionGasSimulationBlowfishContainer,
   SignTransactionGasSelectApproveContainer,
   SignTransactionGasSelectTransferContainer,
@@ -97,6 +98,7 @@ export const SignTransactionDescription: FC<
   const [gasEstimationDollar, setGasEstimationDollar] = useState("");
   const [gasEstimationFee, setGasEstimationFee] = useState(0.01);
   const [totalAmount, setTotalAmount] = useState();
+  const [tokenPrice, setTokenPrice] = useState();
 
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
@@ -167,6 +169,38 @@ export const SignTransactionDescription: FC<
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config]);
+
+  useEffect(() => {
+    if (result?.simulationResults && !result?.simulationResults?.error) {
+      result?.simulationResults?.expectedStateChanges.map(change => {
+        if (
+          change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
+          change?.rawInfo?.kind === "ERC20_TRANSFER"
+        ) {
+          logContent(JSON.stringify(tokenPrice));
+
+          fetch(
+            `https://min-api.cryptocompare.com/data/price?fsym=${change?.rawInfo.data?.symbol}&tsyms=USD`,
+            {
+              method: "GET",
+            },
+          )
+            .then(response => {
+              return response.json();
+            })
+            .then(data => {
+              logContent(
+                `${
+                  change?.rawInfo.data?.symbol
+                } dollar result: ${JSON.stringify(data)}`,
+              );
+              logContent(data?.USD);
+            });
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result?.simulationResults]);
 
   useEffect(() => {
     if (
@@ -378,6 +412,11 @@ export const SignTransactionDescription: FC<
                 );
               }
             })}
+          {isExpanded && (
+            <SignTransactionGasSimulationTotalAmountContainer>
+              {totalAmount}
+            </SignTransactionGasSimulationTotalAmountContainer>
+          )}
           {isExpanded && (
             <SignTransactionGasSimulationBlowfishContainer>
               <BlowfishIcon />
