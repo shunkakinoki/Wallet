@@ -5,6 +5,7 @@ import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
 
 import { useTransactionGasPrice } from "../../hooks/useTransactionGasPrice";
 
+import { BlowfishIcon } from "../../icons/BlowfishIcon";
 import { WarningIcon } from "../../icons/WarningIcon";
 import { logContent } from "../../services/log";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
@@ -376,6 +377,7 @@ export const SignTransactionDescription: FC<
                 );
               }
             })}
+          {isExpanded && <BlowfishIcon />}
         </SignTransactionGasSimulationContainer>
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>

@@ -73,3 +73,7 @@ We love contributors! Feel free to contribute to this project but please read th
 ## ⚖️ License
 
 Light Wallet is open-sourced software licensed under the © [GPL-v3.0](LICENSE).
+
+## ❤️ Support
+
+<img src="assets/blowfish.svg" alt="Light Wallet logo"  width="300" />
