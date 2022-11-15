@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
 
@@ -12,9 +12,11 @@ import { ConfirmButton } from "../Base/ConfirmButton";
 
 import {
   InfoButton,
+  ChevronIcon,
   SignTransactionDescriptionContainer,
   SignTransactionGasContainer,
   SignTransactionGasSelect,
+  SignTransactionGasSelectAccordionContainer,
   SignTransactionGasEstimateContainer,
   SignTransactionGasEstimateFeeContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
@@ -92,6 +94,7 @@ export const SignTransactionDescription: FC<
   const [isFallback, setIsFallback] = useState(false);
   const [gasEstimationDollar, setGasEstimationDollar] = useState("");
   const [gasEstimationFee, setGasEstimationFee] = useState(0.01);
+  const [totalAmount, setTotalAmount] = useState();
 
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
@@ -242,9 +245,21 @@ export const SignTransactionDescription: FC<
       });
   }, [gasEstimationFee]);
 
+  const [isExpanded, setExpand] = useState<boolean>();
+
+  const handleExpandToggle = useCallback(() => {
+    setExpand(!isExpanded);
+  }, [isExpanded]);
+
   if (params?.from && params?.to && params?.value && params?.data) {
     return (
       <SignTransactionDescriptionContainer>
+        <SignTransactionGasSelectAccordionContainer
+          onClick={handleExpandToggle}
+        >
+          {"Balance Changes"}{" "}
+          <ChevronIcon direction={isExpanded ? "top" : "bottom"} />
+        </SignTransactionGasSelectAccordionContainer>
         <SignTransactionGasSimulationContainer>
           {result?.simulationResults &&
             !result?.simulationResults?.error &&
@@ -282,55 +297,69 @@ export const SignTransactionDescription: FC<
                 change?.rawInfo?.kind === "ERC1155_TRANSFER"
               ) {
                 return (
-                  <SignTransactionGasSelectTransferContainer
-                    key={change?.humanReadableDiff}
-                  >
-                    <SignTransactionGasSelectTransferNameContainer>
-                      <SignTransactionGasSelectTransferImage
-                        name={
-                          change?.rawInfo?.data?.name ??
+                  <>
+                    <SignTransactionGasSelectTransferContainer
+                      key={change?.humanReadableDiff}
+                    >
+                      <SignTransactionGasSelectTransferNameContainer>
+                        <SignTransactionGasSelectTransferImage
+                          name={
+                            change?.rawInfo?.data?.name ??
+                            change?.humanReadableDiff
+                              ?.split(" ")
+                              .slice(1)
+                              .join(" ")
+                          }
+                          src={
+                            change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER"
+                              ? `https://defillama.com/chain-icons/rsz_${
+                                  chains[window.ethereum.chainId]
+                                }.jpg`
+                              : change?.rawInfo?.kind === "ERC721_TRANSFER"
+                              ? change?.rawInfo?.data?.metadata?.rawImageUrl
+                              : `https://logos.covalenthq.com/tokens/${parseInt(
+                                  window.ethereum.chainId,
+                                  16,
+                                ).toString()}/${
+                                  change?.rawInfo?.data?.contract?.address
+                                }.png`
+                          }
+                        />
+                        {change?.rawInfo?.data?.name ??
                           change?.humanReadableDiff
                             ?.split(" ")
                             .slice(1)
-                            .join(" ")
-                        }
-                        src={
-                          change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER"
-                            ? `https://defillama.com/chain-icons/rsz_${
-                                chains[window.ethereum.chainId]
-                              }.jpg`
-                            : change?.rawInfo?.kind === "ERC721_TRANSFER"
-                            ? change?.rawInfo?.data?.metadata?.rawImageUrl
-                            : `https://logos.covalenthq.com/tokens/${parseInt(
-                                window.ethereum.chainId,
-                                16,
-                              ).toString()}/${
-                                change?.rawInfo?.data?.contract?.address
-                              }.png`
-                        }
-                      />
-                      {change?.rawInfo?.data?.name ??
-                        change?.humanReadableDiff
+                            .join(" ")}
+                      </SignTransactionGasSelectTransferNameContainer>
+                      <SignTransactionGasSelectTransferBalanceContainer
+                        style={{
+                          color:
+                            Number(change?.rawInfo?.data?.amount?.after) <
+                            Number(change?.rawInfo?.data?.amount?.before)
+                              ? "#FF453A"
+                              : "#30D158",
+                        }}
+                      >
+                        {Number(change?.rawInfo?.data?.amount?.after) <
+                        Number(change?.rawInfo?.data?.amount?.before)
+                          ? "-"
+                          : "+"}{" "}
+                        {change?.humanReadableDiff
                           ?.split(" ")
                           .slice(1)
                           .join(" ")}
-                    </SignTransactionGasSelectTransferNameContainer>
-                    <SignTransactionGasSelectTransferBalanceContainer
-                      style={{
-                        color:
-                          Number(change?.rawInfo?.data?.amount?.after) <
-                          Number(change?.rawInfo?.data?.amount?.before)
-                            ? "#FF453A"
-                            : "#30D158",
-                      }}
-                    >
-                      {Number(change?.rawInfo?.data?.amount?.after) <
-                      Number(change?.rawInfo?.data?.amount?.before)
-                        ? "-"
-                        : "+"}{" "}
-                      {change?.humanReadableDiff?.split(" ").slice(1).join(" ")}
-                    </SignTransactionGasSelectTransferBalanceContainer>
-                  </SignTransactionGasSelectTransferContainer>
+                        <br />
+                      </SignTransactionGasSelectTransferBalanceContainer>
+                    </SignTransactionGasSelectTransferContainer>
+                    {isExpanded && (
+                      <SignTransactionGasSelectTransferNameContainer>
+                        {change?.humanReadableDiff
+                          ?.split(" ")
+                          .slice(1)
+                          .join(" ")}
+                      </SignTransactionGasSelectTransferNameContainer>
+                    )}
+                  </>
                 );
               }
             })}

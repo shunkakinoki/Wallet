@@ -57,6 +57,16 @@ export const SignTransactionGasSimulationContainer = styled.div`
   word-break: keep-all;
 `;
 
+export const SignTransactionGasSelectAccordionContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+`;
+
 export const SignTransactionGasSelectApproveContainer = styled.div`
   display: flex;
   align-items: center;
@@ -132,4 +142,31 @@ export const SignTransactionGasSelect = styled.select`
 
 export const InfoButton = styled.span`
   flex-shrink: 1;
+`;
+
+type DirectionType = "top" | "right" | "bottom" | "left";
+
+interface ChevronProps {
+  direction: DirectionType;
+}
+
+export const ChevronIcon = styled.div<ChevronProps>`
+  border-style: solid;
+  border-width: 0.125rem 0.125rem 0 0;
+  height: 0.5rem;
+  width: 0.5rem;
+  transition: all 0.25s ease-in-out;
+
+  transform: ${p => {
+    return p.direction === "top" && "rotate(-45deg)";
+  }};
+  transform: ${p => {
+    return p.direction === "right" && "rotate(45deg)";
+  }};
+  transform: ${p => {
+    return p.direction === "bottom" && "rotate(135deg)";
+  }};
+  transform: ${p => {
+    return p.direction === "left" && "rotate(-135deg)";
+  }};
 `;
