@@ -414,18 +414,22 @@ export const SignTransactionDescription: FC<
                           </SignTransactionGasSelectTransferNameContainer>
                           <SignTransactionGasSelectTransferBalanceExpansionContainer>
                             {"Before: "}
-                            {(
-                              Number(change?.rawInfo?.data?.amount?.before) /
-                              10 ** Number(change?.rawInfo?.data?.decimals)
-                            ).toFixed(3)}{" "}
-                            <strong>{change?.rawInfo?.data?.symbol}</strong>
+                            <strong>
+                              {(
+                                Number(change?.rawInfo?.data?.amount?.before) /
+                                10 ** Number(change?.rawInfo?.data?.decimals)
+                              ).toFixed(2)}{" "}
+                              {change?.rawInfo?.data?.symbol}
+                            </strong>
                             <br />
                             {"After: "}
-                            {(
-                              Number(change?.rawInfo?.data?.amount?.after) /
-                              10 ** Number(change?.rawInfo?.data?.decimals)
-                            ).toFixed(3)}{" "}
-                            <strong>{change?.rawInfo?.data?.symbol}</strong>
+                            <strong>
+                              {(
+                                Number(change?.rawInfo?.data?.amount?.after) /
+                                10 ** Number(change?.rawInfo?.data?.decimals)
+                              ).toFixed(2)}{" "}
+                              {change?.rawInfo?.data?.symbol}
+                            </strong>
                           </SignTransactionGasSelectTransferBalanceExpansionContainer>
                         </>
                       )}

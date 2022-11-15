@@ -137,6 +137,8 @@ export const SignTransactionGasSelectTransferBalanceExpansionContainer = styled.
   line-height: 1.2rem;
 
   text-align: right;
+
+  padding-bottom: 0.2rem;
 `;
 
 export const SignTransactionGasSelectTransferBalanceContainerSpan = styled.span`
