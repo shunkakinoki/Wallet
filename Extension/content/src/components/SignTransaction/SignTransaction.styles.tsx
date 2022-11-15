@@ -57,13 +57,35 @@ export const SignTransactionGasSimulationContainer = styled.div`
   word-break: keep-all;
 `;
 
+export const SignTransactionGasSimulationBlowfishContainer = styled.div`
+  padding-top: 0.7rem;
+`;
+
+export const SignTransactionGasSelectAccordionContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25;
+  cursor: pointer;
+
+  padding-bottom: 1.25rem;
+  padding-right: 0.3rem;
+`;
+
+export const SignTransactionGasSelectApproveContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const SignTransactionGasSelectTransferContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  padding-bottom: 0.6rem;
+  padding-bottom: 0.3rem;
 `;
 
 export const SignTransactionGasSelectTransferNameContainer = styled.div`
@@ -86,9 +108,12 @@ export const SignTransactionGasSelectTransferFallbackImageContainer = styled.spa
 
   justify-content: center;
   align-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  padding: 0.2rem;
+  min-width: 1.15rem;
+  min-height: 1.15rem;
+  padding: 0.3rem;
+
+  width: 1.15rem;
+  height: 1.15rem;
 
   overflow: hidden;
 
@@ -104,6 +129,24 @@ export const SignTransactionGasSelectTransferBalanceContainer = styled.div`
   line-height: 1.6rem;
 
   text-align: right;
+`;
+
+export const SignTransactionGasSelectTransferBalanceExpansionContainer = styled.div`
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.2rem;
+
+  text-align: right;
+
+  padding-bottom: 0.2rem;
+`;
+
+export const SignTransactionGasSelectTransferBalanceContainerSpan = styled.span`
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2rem;
+
+  padding-bottom: 0.75rem;
 `;
 
 export const SignTransactionGasSelect = styled.select`
@@ -123,4 +166,35 @@ export const SignTransactionGasSelect = styled.select`
     display: flex;
     white-space: pre;
   }
+`;
+
+export const InfoButton = styled.span`
+  flex-shrink: 1;
+`;
+
+type DirectionType = "top" | "right" | "bottom" | "left";
+
+interface ChevronProps {
+  direction: DirectionType;
+}
+
+export const ChevronIcon = styled.div<ChevronProps>`
+  border-style: solid;
+  border-width: 0.125rem 0.125rem 0 0;
+  height: 0.4rem;
+  width: 0.4rem;
+  transition: all 0.25s ease-in-out;
+
+  transform: ${p => {
+    return p.direction === "top" && "rotate(-45deg)";
+  }};
+  transform: ${p => {
+    return p.direction === "right" && "rotate(45deg)";
+  }};
+  transform: ${p => {
+    return p.direction === "bottom" && "rotate(135deg)";
+  }};
+  transform: ${p => {
+    return p.direction === "left" && "rotate(-135deg)";
+  }};
 `;
