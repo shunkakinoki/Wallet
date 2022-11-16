@@ -272,11 +272,11 @@ export const SignTransactionDescription: FC<
   }, [gasPrice, params?.data]);
 
   useEffect(() => {
-    if (result?.simulationResults?.error) {
-      setError(true);
+    if (typeof result?.warnings !== "undefined" && result?.warnings.length) {
+      setError();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result?.simulationResults]);
+  }, [result?.warnings]);
 
   useEffect(() => {
     fetch(

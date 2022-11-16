@@ -26,6 +26,23 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
     return [state.closeDrawer];
   });
 
+  if (disabled) {
+    return (
+      <ConfirmButtonContainer>
+        <Button
+          option="cancel"
+          onClick={() => {
+            sendToEthereum(null, id, "cancel");
+            closeDrawer();
+            onCancelClick();
+          }}
+        >
+          {onCancelText}
+        </Button>
+      </ConfirmButtonContainer>
+    );
+  }
+
   return (
     <ConfirmButtonContainer>
       <Button
