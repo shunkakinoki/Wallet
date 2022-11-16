@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { useEffect, useState, useCallback } from "react";
 
+import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
 
 import { useTransactionGasPrice } from "../../hooks/useTransactionGasPrice";
@@ -56,10 +57,14 @@ export const SignTransaction: FC<SignTransactionParams> = ({
   const [gasPrice] = useTransactionGasPrice(state => {
     return [state.gasPrice];
   });
+  const [error] = useTransactionError(state => {
+    return [state.error];
+  });
 
   return (
     <ConfirmButton
       id={id}
+      disabled={error}
       onConfirmText="Approve"
       onConfirmClick={() => {
         let nonceVar: any;
@@ -105,6 +110,10 @@ export const SignTransactionDescription: FC<
   });
   const [gasPrice, setGasPrice] = useTransactionGasPrice(state => {
     return [state.gasPrice, state.setGasPrice];
+  });
+
+  const [setError] = useTransactionError(state => {
+    return [state.setError];
   });
 
   const fetchGasPrice = () => {
@@ -263,6 +272,13 @@ export const SignTransactionDescription: FC<
   }, [gasPrice, params?.data]);
 
   useEffect(() => {
+    if (result?.simulationResults?.error) {
+      setError(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result?.simulationResults]);
+
+  useEffect(() => {
     fetch(
       `https://min-api.cryptocompare.com/data/price?fsym=${
         window.ethereum.chainId == "0x89" ? "MATIC" : "ETH"
@@ -301,7 +317,12 @@ export const SignTransactionDescription: FC<
         >
           <SignTransactionGasSelectTransferErrorContainer>
             {result?.warnings.map(warning => {
-              return <div key={warning?.kind}>{warning?.message}</div>;
+              return (
+                <>
+                  <div key={warning?.kind}>{warning?.message}</div>
+                  <br />
+                </>
+              );
             })}
             {result?.simulationResults?.error?.humanReadableError}
           </SignTransactionGasSelectTransferErrorContainer>
