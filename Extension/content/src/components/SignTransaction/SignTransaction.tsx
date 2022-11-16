@@ -273,7 +273,7 @@ export const SignTransactionDescription: FC<
 
   useEffect(() => {
     if (typeof result?.warnings !== "undefined" && result?.warnings.length) {
-      setError();
+      setError(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result?.warnings]);

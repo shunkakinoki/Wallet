@@ -2,15 +2,15 @@ import create from "zustand";
 
 interface TransactionErrorState {
   error: boolean;
-  setError: () => void;
+  setError: (state: boolean) => void;
 }
 
 export const useTransactionError = create<TransactionErrorState>(set => {
   return {
     error: false,
-    setError: () => {
+    setError: state => {
       return set(() => {
-        return { error: true };
+        return { error: state };
       });
     },
   };
