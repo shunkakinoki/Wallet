@@ -224,7 +224,13 @@ export const SignTransactionDescription: FC<
         {
           method: "POST",
           body: JSON.stringify({
-            metadata: { origin: `https://${window.location.host}` },
+            metadata: {
+              origin: `https://${
+                window.location.host.startsWith("localhost")
+                  ? "https://wallet.light.so"
+                  : window.location.host
+              }`,
+            },
             userAccount: params.from,
             txObject: {
               from: params.from,
@@ -294,6 +300,9 @@ export const SignTransactionDescription: FC<
           }}
         >
           <SignTransactionGasSelectTransferErrorContainer>
+            {result?.warnings.map(warning => {
+              return <div key={warning?.kind}>{warning?.message}</div>;
+            })}
             {result?.simulationResults?.error?.humanReadableError}
           </SignTransactionGasSelectTransferErrorContainer>
         </SignTransactionGasSimulationContainer>
