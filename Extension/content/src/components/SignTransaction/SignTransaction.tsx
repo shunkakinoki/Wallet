@@ -25,6 +25,7 @@ import {
   SignTransactionGasSimulationBlowfishContainer,
   SignTransactionGasSelectApproveContainer,
   SignTransactionGasSelectTransferContainer,
+  SignTransactionGasSelectTransferErrorContainer,
   SignTransactionGasSelectTransferNameContainer,
   SignTransactionGasSelectTransferImageContainer,
   SignTransactionGasSelectTransferFallbackImageContainer,
@@ -285,6 +286,19 @@ export const SignTransactionDescription: FC<
   }, [isExpanded]);
 
   if (params?.from && params?.to && params?.value && params?.data) {
+    if (result?.simulationResults && result?.simulationResults?.error) {
+      return (
+        <SignTransactionGasSimulationContainer
+          style={{
+            color: "#FF453A",
+          }}
+        >
+          <SignTransactionGasSelectTransferErrorContainer>
+            {result?.simulationResults?.error?.humanReadableError}
+          </SignTransactionGasSelectTransferErrorContainer>
+        </SignTransactionGasSimulationContainer>
+      );
+    }
     return (
       <SignTransactionDescriptionContainer>
         <SignTransactionGasSelectAccordionContainer

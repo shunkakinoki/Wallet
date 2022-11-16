@@ -88,6 +88,17 @@ export const SignTransactionGasSelectTransferContainer = styled.div`
   padding-bottom: 0.3rem;
 `;
 
+export const SignTransactionGasSelectTransferErrorContainer = styled.div`
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.4rem;
+
+  padding-top: 0.75rem;
+  padding-bottom: 0.25rem;
+
+  text-align: center;
+`;
+
 export const SignTransactionGasSelectTransferNameContainer = styled.div`
   display: flex;
   align-items: center;
