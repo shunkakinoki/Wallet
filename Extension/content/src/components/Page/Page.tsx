@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useTransition } from "react-transition-state";
 
 import { useShowDrawer } from "../../hooks/useShowDrawer";
+import { useTransactionError } from "../../hooks/useTransactionError";
 import { ChainIcon } from "../../icons/ChainIcon";
 import { CloseIcon } from "../../icons/CloseIcon";
 import { InfoIcon } from "../../icons/InfoIcon";
@@ -199,6 +200,9 @@ export type PageDescriptionProps = {
 };
 
 export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
+  const [error] = useTransactionError(state => {
+    return [state.error];
+  });
   return (
     <>
       <PageDescriptionContainer>
@@ -209,21 +213,23 @@ export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
         {type === "SignTypedMessage" && (
           <SignTypedDescription params={params} />
         )}
-        <PageDescriptionInfoContainer>
-          <InfoButton>
-            <InfoIcon />
-          </InfoButton>
-          {type === "ConnectWallet" &&
-            " When you click connect, you will allow this dapp to view your public wallet address, token balances & previous transactions."}
-          {type === "PersonalSign" &&
-            "When you click sign, you will passing a message back to the dapp that it can use to authenticate your wallet."}
-          {type === "SwitchEthereumChain" &&
-            "When you click Switch, you will be switching the network that the wallet is connected to."}
-          {type === "SignTransaction" &&
-            "    When you click approve, you will allow this dapp to send a transaction with your wallet."}
-          {type === "SignTypedMessage" &&
-            "When you click sign, you will allow this dapp to send a transaction with your wallet."}
-        </PageDescriptionInfoContainer>
+        {!error && (
+          <PageDescriptionInfoContainer>
+            <InfoButton>
+              <InfoIcon />
+            </InfoButton>
+            {type === "ConnectWallet" &&
+              " When you click connect, you will allow this dapp to view your public wallet address, token balances & previous transactions."}
+            {type === "PersonalSign" &&
+              "When you click sign, you will passing a message back to the dapp that it can use to authenticate your wallet."}
+            {type === "SwitchEthereumChain" &&
+              "When you click Switch, you will be switching the network that the wallet is connected to."}
+            {type === "SignTransaction" &&
+              "    When you click approve, you will allow this dapp to send a transaction with your wallet."}
+            {type === "SignTypedMessage" &&
+              "When you click sign, you will allow this dapp to send a transaction with your wallet."}
+          </PageDescriptionInfoContainer>
+        )}
       </PageDescriptionContainer>
     </>
   );
