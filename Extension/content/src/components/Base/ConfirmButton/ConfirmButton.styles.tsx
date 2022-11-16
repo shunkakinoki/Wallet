@@ -30,6 +30,10 @@ export const Button = styled.button`
 
   transition: background-color 200ms ease, transform 150ms ease;
 
+  &:disabled {
+    background-color: "#cbc6c6";
+  }
+
   &:hover {
     background-color: ${(props: ConfirmButtonProps) => {
       return props.option === "approve" ? "#4b4a4a" : "#cbc6c6";

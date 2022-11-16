@@ -542,7 +542,7 @@ export class EthereumProvider extends BaseProvider {
       for (var i = 0; i < window.frames.length; i++) {
         const frame = window.frames[i];
         try {
-          if (frame.ethereum.callbacks.has(id)) {
+          if (frame?.ethereum?.callbacks.has(id)) {
             frame.ethereum.sendResponse(id, result);
           }
         } catch (error) {

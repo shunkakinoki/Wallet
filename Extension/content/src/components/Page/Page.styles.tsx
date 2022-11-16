@@ -84,7 +84,11 @@ export const LinkButton = styled.span`
   color: #838282;
 `;
 
-export const PageDescriptionContainer = styled.div`
+type PageDescriptionContainerProps = {
+  error: boolean;
+};
+
+export const PageDescriptionContainer = styled.div<PageDescriptionContainerProps>`
   max-height: 45vh;
   overflow-wrap: break-word;
   overflow-x: scroll;
@@ -93,7 +97,10 @@ export const PageDescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px 14px 12px 20px;
-  background-color: #e0e0e0;
+
+  background-color: ${(props: PageDescriptionContainerProps) => {
+    return props.error ? "#f8c5c5" : "#e0e0e0";
+  }};
 `;
 
 export const PageDescriptionInfoContainer = styled.div`

@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { useEffect, useState, useCallback } from "react";
 
+import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
 
 import { useTransactionGasPrice } from "../../hooks/useTransactionGasPrice";
@@ -25,6 +26,7 @@ import {
   SignTransactionGasSimulationBlowfishContainer,
   SignTransactionGasSelectApproveContainer,
   SignTransactionGasSelectTransferContainer,
+  SignTransactionGasSelectTransferErrorContainer,
   SignTransactionGasSelectTransferNameContainer,
   SignTransactionGasSelectTransferImageContainer,
   SignTransactionGasSelectTransferFallbackImageContainer,
@@ -55,10 +57,14 @@ export const SignTransaction: FC<SignTransactionParams> = ({
   const [gasPrice] = useTransactionGasPrice(state => {
     return [state.gasPrice];
   });
+  const [error] = useTransactionError(state => {
+    return [state.error];
+  });
 
   return (
     <ConfirmButton
       id={id}
+      disabled={error}
       onConfirmText="Approve"
       onConfirmClick={() => {
         let nonceVar: any;
@@ -104,6 +110,10 @@ export const SignTransactionDescription: FC<
   });
   const [gasPrice, setGasPrice] = useTransactionGasPrice(state => {
     return [state.gasPrice, state.setGasPrice];
+  });
+
+  const [setError] = useTransactionError(state => {
+    return [state.setError];
   });
 
   const fetchGasPrice = () => {
@@ -223,7 +233,13 @@ export const SignTransactionDescription: FC<
         {
           method: "POST",
           body: JSON.stringify({
-            metadata: { origin: `https://${window.location.host}` },
+            metadata: {
+              origin: `https://${
+                window.location.host.startsWith("localhost")
+                  ? "https://wallet.light.so"
+                  : window.location.host
+              }`,
+            },
             userAccount: params.from,
             txObject: {
               from: params.from,
@@ -256,6 +272,13 @@ export const SignTransactionDescription: FC<
   }, [gasPrice, params?.data]);
 
   useEffect(() => {
+    if (typeof result?.warnings !== "undefined" && result?.warnings.length) {
+      setError(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result?.warnings]);
+
+  useEffect(() => {
     fetch(
       `https://min-api.cryptocompare.com/data/price?fsym=${
         window.ethereum.chainId == "0x89" ? "MATIC" : "ETH"
@@ -285,6 +308,27 @@ export const SignTransactionDescription: FC<
   }, [isExpanded]);
 
   if (params?.from && params?.to && params?.value && params?.data) {
+    if (result?.simulationResults && result?.simulationResults?.error) {
+      return (
+        <SignTransactionGasSimulationContainer
+          style={{
+            color: "#FF453A",
+          }}
+        >
+          <SignTransactionGasSelectTransferErrorContainer>
+            {result?.warnings.map(warning => {
+              return (
+                <>
+                  <div key={warning?.kind}>{warning?.message}</div>
+                  <br />
+                </>
+              );
+            })}
+            {result?.simulationResults?.error?.humanReadableError}
+          </SignTransactionGasSelectTransferErrorContainer>
+        </SignTransactionGasSimulationContainer>
+      );
+    }
     return (
       <SignTransactionDescriptionContainer>
         <SignTransactionGasSelectAccordionContainer

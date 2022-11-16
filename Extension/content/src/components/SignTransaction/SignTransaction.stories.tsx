@@ -95,4 +95,20 @@ export const SliceTransfer: Story = args => {
   );
 };
 
+export const ErrorTokenContractTransfer: Story = args => {
+  return (
+    <Page
+      id={5}
+      type="SignTransaction"
+      params={{
+        data: "0xa9059cbb000000000000000000000000b4fbf271143f4fbf7b91a5ded31805e42b2208d6000000000000000000000000000000000000000000000000002386f26fc10000",
+        to: "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
+        from: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        value: "0x0",
+      }}
+      method=""
+    />
+  );
+};
+
 export const Default = Template.bind({});
