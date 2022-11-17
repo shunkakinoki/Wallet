@@ -14,6 +14,17 @@
     </a>
 </div>
 
+## 🪄 Features
+
+- 🫰 **Best Dapp Experience** for making possible what dapps can enable people to do
+- 👨‍👩‍👧‍👦 **Open Source & Community Owned** for trustless web3 ethos
+- 🌐 **Safari Extension** to enable seamless dapp experiences on Safari
+- 🔑 **Secure Enclave** for secure transactions on mobile
+
+## 📱 Demo
+
+See [here](https://twitter.com/i/status/1587163495262404608)
+
 ## 🏄‍♂️ Contributing
 
 - Our designs are on [Figma](https://www.figma.com/file/Qqd4WKaub5BHLUHi0eqvD7), credits to [Oz](https://twitter.com/0xOzh) and [Zypsy](https://zypsy.com) for the work.
@@ -27,12 +38,6 @@ See our [contributing guidelines](./CONTRIBUTING.md).
 - Install our [Testflight](https://testflight.apple.com/join/4bbpvn9a)
 - Join our [Discord](https://discord.com/invite/Vgfxg2Rcy8)
 - Follow our [Twitter](http://twitter.com/Light_Wallet)
-
-## 🪄 Features
-
-- **Open Source & Community Owned** for trustless web3 ethos
-- **Safari Extension** to enable seamless dapp experiences on Safari
-- **Secure Enclave** for secure transactions on mobile
 
 ## 🙋 Getting Help
 
