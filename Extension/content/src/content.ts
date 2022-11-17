@@ -105,6 +105,8 @@ document.addEventListener("readystatechange", () => {
 
     getHostConfiguration()
       .then(item => {
+        logContent(`getHostConfiguration: ${JSON.stringify(item)}`);
+
         if (item?.address) {
           address = item.address;
         }
