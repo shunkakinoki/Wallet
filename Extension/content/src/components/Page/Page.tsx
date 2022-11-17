@@ -12,8 +12,10 @@ import { CloseIcon } from "../../icons/CloseIcon";
 import { InfoIcon } from "../../icons/InfoIcon";
 import { LightIcon } from "../../icons/LightIcon";
 import { LinkIcon } from "../../icons/LinkIcon";
+import { WalletIcon } from "../../icons/WalletIcon";
 import { logContent } from "../../services/log";
 import { sendToEthereum } from "../../services/sendToEthereum";
+import { splitAddress } from "../../utils/splitAddress";
 import { ConnectWallet } from "../ConnectWallet";
 import { Drawer } from "../Drawer";
 import { PersonalSign } from "../PersonalSign";
@@ -187,6 +189,15 @@ export const PageBanner: FC<PageBannerProps> = ({ type }) => {
             </LinkButton>
             &nbsp;
             {isMounted && window.ethereum && chains[window.ethereum.chainId]}
+          </LinkContainer>
+          <LinkContainer>
+            <LinkButton>
+              <WalletIcon />
+            </LinkButton>
+            &nbsp;
+            {isMounted &&
+              window.ethereum &&
+              splitAddress(window.ethereum.address)}
           </LinkContainer>
         </PageBannerDataContainer>
       </PageBannerContainer>
