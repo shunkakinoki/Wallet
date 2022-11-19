@@ -85,6 +85,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
               method: method,
               params: {
                 ...params,
+                data: params?.data ?? "0x",
                 value: params?.value ?? "0x0",
                 chainId: window.ethereum.chainId,
                 gasPrice: gasPrice,
@@ -133,7 +134,11 @@ export const SignTransactionDescription: FC<
       })
       .then(data => {
         logContent(`GasPrice result: ${JSON.stringify(data)}`);
-        if (!data?.gasPrice) {
+        if (
+          !data?.gasPrice ||
+          Number.isNaN(data?.gasPrice) ||
+          data?.gasPrice === 0
+        ) {
           throw "No gasPrice";
         }
         setGasPrice(data.gasPrice);
@@ -331,19 +336,23 @@ export const SignTransactionDescription: FC<
     }
     return (
       <SignTransactionDescriptionContainer>
-        <SignTransactionGasSelectAccordionContainer
-          onClick={handleExpandToggle}
-        >
-          {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
-            "APPROVAL",
-          ) && "Approval Request"}
-          {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
-            "TRANSFER",
-          ) && "Balance Changes"}
-          {result?.simulationResults && (
-            <ChevronIcon direction={isExpanded ? "top" : "bottom"} />
-          )}
-        </SignTransactionGasSelectAccordionContainer>
+        {(window.ethereum.chainId === "0x1" ||
+          window.ethereum.chainId === "0x5" ||
+          window.ethereum.chainId === "0x89") && (
+          <SignTransactionGasSelectAccordionContainer
+            onClick={handleExpandToggle}
+          >
+            {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
+              "APPROVAL",
+            ) && "Approval Request"}
+            {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
+              "TRANSFER",
+            ) && "Balance Changes"}
+            {result?.simulationResults && (
+              <ChevronIcon direction={isExpanded ? "top" : "bottom"} />
+            )}
+          </SignTransactionGasSelectAccordionContainer>
+        )}
         <SignTransactionGasSimulationContainer>
           {result?.simulationResults &&
             !result?.simulationResults?.error &&
