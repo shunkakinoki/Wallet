@@ -244,7 +244,7 @@ export const SignTransactionDescription: FC<
             txObject: {
               from: params.from,
               to: params.to,
-              data: params.data,
+              data: params?.data ?? "0x",
               value: params?.value ?? "0x0",
             },
           }),
