@@ -1,11 +1,4 @@
-import { logContent } from "./log";
-
 export const injectWagmi = (address: string) => {
-  if (!localStorage.getItem("wagmi.wallet") && address === "") {
-    logContent("==> injectWagmi: Reloading Window");
-    window.location.reload();
-  }
-
   localStorage.setItem("rk-recent", '["injected"]');
   localStorage.setItem("wagmi.injected.shimDisconnect", "true");
   localStorage.setItem("wagmi.wallet", '"injected"');
