@@ -9,7 +9,7 @@ import { logEthereum } from "./log";
 window.ethereum = new EthereumProvider(
   {
     isMetamask: true,
-    chainId: 1,
+    chainId: "0x1",
     rpcUrl: "https://mainnet.infura.io/v3/013805fd6bd24b3c9a464eeb7c05c63b",
   },
   logEthereum,
