@@ -14,8 +14,8 @@ import { sendMessageToNativeApp } from "./services/sendMessageToNativeApp";
 import { sendToEthereum } from "./services/sendToEthereum";
 import { storeHostConfiguration } from "./services/storeHostConfiguration";
 import { allowedDomainCheck } from "./utils/allowedDomainCheck";
-
 import { genId } from "./utils/genId";
+import { rpcMapping } from "./utils/rpcMapping";
 
 let address: string;
 let accounts;
@@ -111,7 +111,15 @@ document.addEventListener("readystatechange", () => {
           address = item.address;
         }
         if (item?.chainId) {
-          sendToEthereum(address, genId(), "requestAccounts");
+          sendToEthereum(
+            {
+              address: address,
+              chainId: item.chainId,
+              rpcUrl: rpcMapping[item.chainId],
+            },
+            genId(),
+            "didLoadLatestConfiguration",
+          );
           injectWagmi(address);
           return item.chainId;
         } else {
@@ -120,7 +128,15 @@ document.addEventListener("readystatechange", () => {
               window.location.host
             } empty at: ${JSON.stringify(item)}`,
           );
-          sendToEthereum("", genId(), "requestAccounts");
+          sendToEthereum(
+            {
+              address: "",
+              chainId: "0x1",
+              rpcUrl: rpcMapping["0x1"],
+            },
+            genId(),
+            "didLoadLatestConfiguration",
+          );
           injectWagmi("");
           return null;
         }

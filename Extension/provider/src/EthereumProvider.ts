@@ -78,6 +78,27 @@ export class EthereumProvider extends BaseProvider {
     this.rpc = new RPCServer(config.rpcUrl);
   }
 
+  updateAccount(eventName, address, chainId, rpcUrl) {
+    window.ethereum.setAddress(address);
+
+    if (eventName == "switchAccount") {
+      window.ethereum.emit("accountsChanged", address);
+    }
+
+    if (window.ethereum.rpc.rpcUrl != rpcUrl) {
+      this.rpc = new RPCServer(rpcUrl);
+    }
+
+    if (window.ethereum.chainId != chainId) {
+      window.ethereum.chainId = chainId;
+      window.ethereum.networkVersion = this.net_version();
+      if (eventName != "didLoadLatestConfiguration") {
+        window.ethereum.emit("chainChanged", chainId);
+        window.ethereum.emit("networkChanged", window.ethereum.net_version());
+      }
+    }
+  }
+
   request(payload) {
     // this points to window in methods like web3.eth.getAccounts()
     var that = this;
@@ -397,6 +418,14 @@ export class EthereumProvider extends BaseProvider {
     switch (method) {
       case "cancel":
         this.sendResponse(id, response);
+        break;
+      case "didLoadLatestConfiguration":
+        this.updateAccount(
+          "didLoadLatestConfiguration",
+          response.address,
+          response.chainId,
+          response.rpcUrl,
+        );
         break;
       case "signTransaction":
         if (!response.startsWith("0x")) {
