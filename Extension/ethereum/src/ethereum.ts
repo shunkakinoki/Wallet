@@ -41,8 +41,12 @@ window.addEventListener(
 
       logEthereum(`<== from-content-script: ${event.data.id}`);
 
-      if (method == "signTransaction") {
-        logEthereum("Sign Transaction! Skipping");
+      if (
+        method == "signTransaction" ||
+        method == "signTypedMessage" ||
+        method == "signPersonalMessage"
+      ) {
+        logEthereum(`${method}! Skipping`);
         return;
       }
 
