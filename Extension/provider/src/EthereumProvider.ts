@@ -68,21 +68,6 @@ export class EthereumProvider extends BaseProvider {
     const lowerAddress = (address || "").toLowerCase();
     this.address = lowerAddress;
     this.ready = !!address;
-
-    this.logger(`setAddress: ${this.address}`);
-    this.logger(`setAddress: ${this.ready}`);
-
-    try {
-      for (var i = 0; i < window.frames.length; i++) {
-        const frame = window.frames[i];
-        if (frame.ethereum?.isLight) {
-          frame.ethereum.address = lowerAddress;
-          frame.ethereum.ready = !!address;
-        }
-      }
-    } catch (error) {
-      this.logger(error);
-    }
   }
 
   setConfig(config) {
