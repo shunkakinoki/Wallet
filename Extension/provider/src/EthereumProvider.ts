@@ -7,7 +7,6 @@ import { BaseProvider } from "./base_provider";
 import { ProviderRpcError } from "./error";
 import { IdMapping } from "./id_mapping";
 import { RPCServer } from "./rpc";
-import { rpcMapping } from "./rpc_mapping";
 import { Utils } from "./utils";
 
 export class EthereumProvider extends BaseProvider {
@@ -472,7 +471,7 @@ export class EthereumProvider extends BaseProvider {
         const chainId = response.chainId;
         this.chainId = chainId;
         this.networkVersion = parseInt(chainId, 16).toString();
-        this.rpc = new RPCServer(rpcMapping[chainId]);
+        this.rpc = new RPCServer(response.rpcUrl);
         window.ethereum.emit("chainChanged", chainId);
         window.ethereum.emit("networkChanged", window.ethereum.net_version());
         this.sendResponse(id, response);

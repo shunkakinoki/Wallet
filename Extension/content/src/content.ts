@@ -125,11 +125,6 @@ document.addEventListener("readystatechange", () => {
           return null;
         }
       })
-      .then(chainId => {
-        if (chainId) {
-          sendToEthereum({ chainId: chainId }, genId(), "switchEthereumChain");
-        }
-      })
       .then(() => {
         getLightConfiguration().then(item => {
           logContent(
@@ -149,46 +144,32 @@ window.addEventListener("message", event => {
     if (event.data.direction == "from-page-script") {
       switch (event.data.message.method) {
         case "requestAccounts":
-          getHostConfiguration()
-            .then(item => {
-              if (item?.address) {
-                address = item.address;
-              }
-              if (item?.chainId) {
-                sendToEthereum(
-                  address,
-                  event.data.message.id,
-                  "requestAccounts",
-                );
-                injectWagmi(address);
-                return item.chainId;
-              } else {
-                logContent(
-                  `getHostConfiguration: ${address} for ${
-                    window.location.host
-                  } empty at: ${JSON.stringify(item)}`,
-                );
-                injectWagmi("");
-                injectComponent(
-                  Page({
-                    type: "ConnectWallet",
-                    id: event.data.message.id,
-                    method: event.data.message.method,
-                    params: event.data.message.params,
-                  }),
-                );
-                return null;
-              }
-            })
-            .then(chainId => {
-              if (chainId) {
-                sendToEthereum(
-                  { chainId: chainId },
-                  genId(),
-                  "switchEthereumChain",
-                );
-              }
-            });
+          getHostConfiguration().then(item => {
+            if (item?.address) {
+              address = item.address;
+            }
+            if (item?.chainId) {
+              sendToEthereum(address, event.data.message.id, "requestAccounts");
+              injectWagmi(address);
+              return item.chainId;
+            } else {
+              logContent(
+                `getHostConfiguration: ${address} for ${
+                  window.location.host
+                } empty at: ${JSON.stringify(item)}`,
+              );
+              injectWagmi("");
+              injectComponent(
+                Page({
+                  type: "ConnectWallet",
+                  id: event.data.message.id,
+                  method: event.data.message.method,
+                  params: event.data.message.params,
+                }),
+              );
+              return null;
+            }
+          });
 
           break;
         case "signPersonalMessage":

@@ -5,6 +5,7 @@ import { getFavicon } from "../../services/getFavicon";
 import { getTitle } from "../../services/getTitle";
 import { sendToEthereum } from "../../services/sendToEthereum";
 import { storeHostConfiguration } from "../../services/storeHostConfiguration";
+import { rpcMapping } from "../../utils/rpcMapping";
 import { ConfirmButton } from "../Base/ConfirmButton";
 
 type SwitchEthereumChainParams = {
@@ -27,7 +28,11 @@ export const SwitchEthereumChain: FC<SwitchEthereumChainParams> = ({
       id={id}
       onConfirmText="Switch"
       onConfirmClick={() => {
-        sendToEthereum(params, id, method);
+        sendToEthereum(
+          { ...params, rpcUrl: rpcMapping[params.chainId] },
+          id,
+          method,
+        );
         storeHostConfiguration({
           name: getTitle(),
           favicon: getFavicon(),
