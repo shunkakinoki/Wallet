@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-named-as-default
 import clsx from "clsx";
 import { Page } from "konsta/react";
 import { useEffect, useMemo, useState } from "react";
@@ -88,7 +89,7 @@ export default function Home() {
           <p className="mt-4 text-sm">
             {isSafari
               ? "That's step 1 done! You're almost there."
-              : "Please switch to Safari to proceed."}
+              : "Please switch to iOS Safari to proceed."}
           </p>
         </div>
         <div className="my-12">
