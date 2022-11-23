@@ -90,12 +90,12 @@ export default function Home() {
             </a>
           </h3>
           {!isSafari && (
-            <p className="mt-4 text-sm">
+            <p className="mt-3 text-sm">
               Please switch to iOS Safari to proceed.
             </p>
           )}
         </div>
-        <div className="my-1">
+        <div className="my-4">
           <div className="flex justify-center">
             <span className="inline-flex items-center py-0.5 px-2.5 text-sm font-medium text-indigo-800 bg-indigo-100 rounded-md">
               <svg
