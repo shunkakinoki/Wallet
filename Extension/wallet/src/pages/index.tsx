@@ -63,6 +63,8 @@ export default function Home() {
           <div className="my-5 text-center">
             <h1 className="text-2xl font-bold">
               {step === 1 && "Enable the extension"}
+              {step === 2 && "Allow website permissions"}
+              {step === 3 && "Test wallet connection"}
             </h1>
           </div>
           {(step === 1 || step === 2) && (
@@ -74,6 +76,21 @@ export default function Home() {
               className="rounded-md"
             />
           )}
+          <div className="flex justify-center w-full">
+            <Button
+              outline
+              className="w-36"
+              onClick={() => {
+                if (step === 1 || step === 2) {
+                  setStep(step + 1);
+                } else {
+                  setStep(1);
+                }
+              }}
+            >
+              Go to next
+            </Button>
+          </div>
         </div>
         <div className="mt-12 text-sm font-medium text-center text-gray-500 dark:text-gray-300">
           <p>
