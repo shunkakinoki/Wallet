@@ -1,5 +1,7 @@
+import clsx from "clsx";
 import { Page } from "konsta/react";
 import { useEffect, useMemo, useState } from "react";
+// eslint-disable-next-line import/no-named-as-default
 import ReactConfetti from "react-confetti";
 import create from "zustand";
 import { persist } from "zustand/middleware";
@@ -103,10 +105,16 @@ export default function Home() {
             </span>
           </div>
           <div className="my-5 text-center">
-            <h1 className="text-2xl font-bold">
+            <h1
+              className={clsx(
+                "text-2xl font-bold",
+                isEnabled && "text-emerald-300",
+              )}
+            >
               {step === 1 && "Enable the extension"}
               {step === 2 && "Allow website permissions"}
-              {step === 3 && "Test wallet connection"}
+              {step === 3 && isEnabled && "Success!"}
+              {step === 3 && !isEnabled && "Test wallet connection"}
             </h1>
           </div>
           {(step === 1 || step === 2) && (
@@ -134,7 +142,7 @@ export default function Home() {
                 if (step === 1 || step === 2) {
                   setStep(step + 1);
                 } else {
-                  if (window.ethereum && window.ethereum.isLight) {
+                  if (window.ethereum) {
                     try {
                       const accounts = await window?.ethereum.request({
                         method: "eth_requestAccounts",
@@ -143,6 +151,7 @@ export default function Home() {
                         if (isEnabled) {
                           setStep(1);
                           setIsEnabled(false);
+                          window.location.reload();
                         }
                         setIsEnabled(true);
                       }
@@ -155,7 +164,8 @@ export default function Home() {
             >
               {step === 1 && "I've enabled the extension"}
               {step === 2 && "I've allowed website permissions"}
-              {step === 3 && "Testing wallet connection"}
+              {step === 3 && isEnabled && "Success! Take me back"}
+              {step === 3 && !isEnabled && "Testing wallet connection"}
             </button>
           </div>
           <p>
