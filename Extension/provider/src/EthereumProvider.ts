@@ -7,8 +7,11 @@ import { BaseProvider } from "./base_provider";
 import { ProviderRpcError } from "./error";
 import { IdMapping } from "./id_mapping";
 import { RPCServer } from "./rpc";
-import { rpcMapping } from "./rpc_mapping";
 import { Utils } from "./utils";
+
+// Modified from Tokenary & Trust Wallet's EthereumProvider at
+// https://github.com/zeriontech/Tokenary/tree/develop/Safari%20Shared/web3-provider
+// https://github.com/trustwallet/trust-web3-provider/blob/master/src/ethereum_provider.js
 
 export class EthereumProvider extends BaseProvider {
   idMapping: IdMapping;
@@ -69,21 +72,6 @@ export class EthereumProvider extends BaseProvider {
     const lowerAddress = (address || "").toLowerCase();
     this.address = lowerAddress;
     this.ready = !!address;
-
-    this.logger(`setAddress: ${this.address}`);
-    this.logger(`setAddress: ${this.ready}`);
-
-    try {
-      for (var i = 0; i < window.frames.length; i++) {
-        const frame = window.frames[i];
-        if (frame.ethereum?.isLight) {
-          frame.ethereum.address = lowerAddress;
-          frame.ethereum.ready = !!address;
-        }
-      }
-    } catch (error) {
-      this.logger(error);
-    }
   }
 
   setConfig(config) {
@@ -92,6 +80,27 @@ export class EthereumProvider extends BaseProvider {
     this.networkVersion = "" + config.chainId;
     this.chainId = "0x" + (config.chainId || 1).toString(16);
     this.rpc = new RPCServer(config.rpcUrl);
+  }
+
+  updateAccount(eventName, address, chainId, rpcUrl) {
+    window.ethereum.setAddress(address);
+
+    if (eventName == "switchAccount") {
+      window.ethereum.emit("accountsChanged", address);
+    }
+
+    if (window.ethereum.rpc.rpcUrl != rpcUrl) {
+      this.rpc = new RPCServer(rpcUrl);
+    }
+
+    if (window.ethereum.chainId != chainId) {
+      window.ethereum.chainId = chainId;
+      window.ethereum.networkVersion = this.net_version();
+      if (eventName != "didLoadLatestConfiguration") {
+        window.ethereum.emit("chainChanged", chainId);
+        window.ethereum.emit("networkChanged", window.ethereum.net_version());
+      }
+    }
   }
 
   request(payload) {
@@ -414,6 +423,14 @@ export class EthereumProvider extends BaseProvider {
       case "cancel":
         this.sendResponse(id, response);
         break;
+      case "didLoadLatestConfiguration":
+        this.updateAccount(
+          "didLoadLatestConfiguration",
+          response.address,
+          response.chainId,
+          response.rpcUrl,
+        );
+        break;
       case "signTransaction":
         if (!response.startsWith("0x")) {
           this.sendError(id, "Transaction Failed");
@@ -472,7 +489,7 @@ export class EthereumProvider extends BaseProvider {
         const chainId = response.chainId;
         this.chainId = chainId;
         this.networkVersion = parseInt(chainId, 16).toString();
-        this.rpc = new RPCServer(rpcMapping[chainId]);
+        this.rpc = new RPCServer(response.rpcUrl);
         window.ethereum.emit("chainChanged", chainId);
         window.ethereum.emit("networkChanged", window.ethereum.net_version());
         this.sendResponse(id, response);

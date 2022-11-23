@@ -15,4 +15,10 @@ const Template: Story = args => {
   return <Page id={1} type="ConnectWallet" params={""} method="" />;
 };
 
+export const Phishing: Story = args => {
+  return (
+    <Page id={2} type="ConnectWallet" params={{ isPhishing: true }} method="" />
+  );
+};
+
 export const Default = Template.bind({});
