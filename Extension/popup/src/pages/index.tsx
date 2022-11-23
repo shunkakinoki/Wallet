@@ -378,7 +378,9 @@ export default function Home() {
                     ) : (
                       <img
                         //@ts-expect-error
-                        src={`https://defillama.com/chain-icons/rsz_${ChainNames[chainId]}.jpg`}
+                        src={`https://defillama.com/chain-icons/rsz_${ChainNames[
+                          chainId
+                        ].toLowerCase()}.jpg`}
                         className="w-5 h-5 rounded-full"
                         onError={() => {
                           return setIsFallback(true);

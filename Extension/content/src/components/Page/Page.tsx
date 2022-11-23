@@ -27,6 +27,7 @@ import { SignTransactionDescription } from "../SignTransaction/SignTransaction";
 import { SignTypedMessage } from "../SignTypedMessage";
 import { SignTypedDescription } from "../SignTypedMessage/SignTypedMessage";
 import { SwitchEthereumChain } from "../SwitchEthereumChain";
+import { SwitchEthereumChainDescription } from "../SwitchEthereumChain/SwitchEthereumChain";
 
 import {
   PageContainer,
@@ -230,6 +231,9 @@ export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
         )}
         {type === "SignTypedMessage" && (
           <SignTypedDescription params={params} />
+        )}
+        {type === "SwitchEthereumChain" && (
+          <SwitchEthereumChainDescription params={params} />
         )}
         {!error && (
           <PageDescriptionInfoContainer>

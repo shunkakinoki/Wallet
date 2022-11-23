@@ -1,12 +1,21 @@
-import { RpcMapping } from "@lightdotso/chain";
+import { RpcMapping, ChainNames } from "@lightdotso/chain";
 import type { FC } from "react";
+import { useState } from "react";
 
 import { useShowDrawer } from "../../hooks/useShowDrawer";
+import { ArrowRightIcon } from "../../icons/ArrowRightIcon";
 import { getFavicon } from "../../services/getFavicon";
 import { getTitle } from "../../services/getTitle";
 import { sendToEthereum } from "../../services/sendToEthereum";
 import { storeHostConfiguration } from "../../services/storeHostConfiguration";
+import { shortenName } from "../../utils/shortenName";
 import { ConfirmButton } from "../Base/ConfirmButton";
+
+import {
+  ChainIconImage,
+  ChainIconSpan,
+  SwitchEthereumChainContainer,
+} from "./SwitchEthereumChain.styles";
 
 type SwitchEthereumChainParams = {
   id: number;
@@ -41,5 +50,47 @@ export const SwitchEthereumChain: FC<SwitchEthereumChainParams> = ({
         closeDrawer();
       }}
     />
+  );
+};
+
+export const SwitchEthereumChainDescription: FC<
+  Pick<SwitchEthereumChainParams, "params">
+> = ({ params }) => {
+  return (
+    <SwitchEthereumChainContainer>
+      <ChainIcon chainId={window.ethereum.chainId} />
+      &nbsp;
+      <ArrowRightIcon />
+      &nbsp;
+      <ChainIcon chainId={params.chainId} />
+    </SwitchEthereumChainContainer>
+  );
+};
+
+type ChainIconParams = {
+  chainId: string;
+};
+
+export const ChainIcon: FC<ChainIconParams> = ({ chainId }) => {
+  const [isFallback, setIsFallback] = useState(false);
+
+  return (
+    <div>
+      {isFallback ? (
+        <ChainIconSpan>
+          {shortenName(ChainNames[chainId] ?? "Undefined")}
+        </ChainIconSpan>
+      ) : (
+        // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
+        <ChainIconImage
+          src={`https://defillama.com/chain-icons/rsz_${ChainNames[
+            chainId
+          ].toLowerCase()}.jpg`}
+          onError={() => {
+            return setIsFallback(true);
+          }}
+        />
+      )}
+    </div>
   );
 };
