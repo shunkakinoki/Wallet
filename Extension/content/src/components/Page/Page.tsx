@@ -190,15 +190,17 @@ export const PageBanner: FC<PageBannerProps> = ({ type }) => {
             &nbsp;
             {isMounted && window.ethereum && chains[window.ethereum.chainId]}
           </LinkContainer>
-          <LinkContainer>
-            <LinkButton>
-              <WalletIcon />
-            </LinkButton>
-            &nbsp;
-            {isMounted &&
-              window.ethereum &&
-              splitAddress(window.ethereum.address)}
-          </LinkContainer>
+          {window.ethereum.address && (
+            <LinkContainer>
+              <LinkButton>
+                <WalletIcon />
+              </LinkButton>
+              &nbsp;
+              {isMounted &&
+                window.ethereum &&
+                splitAddress(window.ethereum.address)}
+            </LinkContainer>
+          )}
         </PageBannerDataContainer>
       </PageBannerContainer>
     </>
