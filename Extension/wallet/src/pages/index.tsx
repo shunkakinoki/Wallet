@@ -122,9 +122,10 @@ export default function Home() {
             // eslint-disable-next-line jsx-a11y/media-has-caption
             <video
               autoPlay
+              playsInline
               loop
               src={`/step_${step}.mov`}
-              className="rounded-md"
+              className="rounded-md pointer-events-none"
             />
           )}
           {step === 3 && (
