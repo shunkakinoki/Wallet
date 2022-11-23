@@ -90,7 +90,7 @@ export const ConnectWalletDescription: FC<
         <SignTransactionErrorContainer>
           <AlertIcon />
           <br />
-          {`Warning! Detected malisious site at https://${window.location.host}`}
+          {`Warning! Detected malicious site at https://${window.location.host}`}
         </SignTransactionErrorContainer>
       </SignTransactionContainer>
     );
