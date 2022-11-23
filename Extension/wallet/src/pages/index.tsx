@@ -1,9 +1,37 @@
 import { Page } from "konsta/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import create from "zustand";
+import { persist } from "zustand/middleware";
+
+interface StepState {
+  step: number;
+  setStep: (newStep: number) => void;
+}
+
+export const useUserStep = create(
+  persist<StepState>(
+    (set, get) => {
+      return {
+        step: 1,
+        setStep: newStep => {
+          return set(() => {
+            return { step: newStep };
+          });
+        },
+      };
+    },
+    {
+      name: "@lightdotso/wallet",
+    },
+  ),
+);
 
 export default function Home() {
   const [isSafari, setIsSafari] = useState(false);
-  const [step, setStep] = useState(1);
+  const [isMounted, setIsMounted] = useState(false);
+  const [sstep, setStep] = useUserStep(state => {
+    return [state.step, state.setStep];
+  });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -15,6 +43,17 @@ export default function Home() {
       setIsSafari(safariAgent);
     }
   }, []);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const step = useMemo(() => {
+    if (isMounted) {
+      return sstep;
+    }
+    return 1;
+  }, [isMounted, sstep]);
 
   return (
     <Page>
