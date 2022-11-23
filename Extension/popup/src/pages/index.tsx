@@ -440,8 +440,10 @@ export default function Home() {
                     <option value={"0x1"}>Ethereum</option>
                     <option value={"0x5"}>Goerli</option>
                     <option value={"0xa"}>Optimism</option>
+                    <option value={"0x38"}>BSC</option>
                     <option value={"0x89"}>Polygon</option>
                     <option value={"0xa4b1"}>Arbitrum</option>
+                    <option value={"0xa86a"}>Avalanche</option>
                   </select>
                   <ChevronUpChevrondown />
                 </div>
