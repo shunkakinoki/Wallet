@@ -4,8 +4,11 @@ import { Page } from "konsta/react";
 import { useEffect, useMemo, useState } from "react";
 // eslint-disable-next-line import/no-named-as-default
 import ReactConfetti from "react-confetti";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import create from "zustand";
 import { persist } from "zustand/middleware";
+
+import { CarouselButton } from "../components/CarouselButton";
 
 interface StepState {
   step: number;
@@ -16,7 +19,7 @@ export const useUserStep = create(
   persist<StepState>(
     (set, get) => {
       return {
-        step: 1,
+        step: 0,
         setStep: newStep => {
           return set(() => {
             return { step: newStep };
@@ -58,7 +61,7 @@ export default function Home() {
     if (isMounted) {
       return sstep;
     }
-    return 1;
+    return 0;
   }, [isMounted, sstep]);
 
   return (
@@ -102,7 +105,7 @@ export default function Home() {
               >
                 <circle cx={4} cy={4} r={3} />
               </svg>
-              Step {step}
+              Step {step + 1}
             </span>
           </div>
           <div className="my-5 text-center">
@@ -112,28 +115,60 @@ export default function Home() {
                 isEnabled && "text-emerald-300",
               )}
             >
-              {step === 1 && "Enable the extension"}
-              {step === 2 && "Allow website permissions"}
-              {step === 3 && isEnabled && "Success!"}
-              {step === 3 && !isEnabled && "Test wallet connection"}
+              {step === 0 && "Enable the extension"}
+              {step === 1 && "Allow website permissions"}
+              {step === 2 && isEnabled && "Success!"}
+              {step === 2 && !isEnabled && "Test wallet connection"}
             </h1>
           </div>
-          {(step === 1 || step === 2) && (
-            // eslint-disable-next-line jsx-a11y/media-has-caption
-            <video
-              autoPlay
-              playsInline
+          <div className="block relative w-full">
+            <Swiper
               loop
-              src={`/step_${step}.mov`}
-              className="rounded-md pointer-events-none"
-            />
-          )}
-          {step === 3 && (
-            <div className="flex justify-center">
-              {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
-              <img src="/logo.png" className="w-52 rounded-full" />
-            </div>
-          )}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              scrollbar={{ draggable: true }}
+              mousewheel={{
+                forceToAxis: true,
+              }}
+              onSlideChange={s => {
+                setStep(s.realIndex);
+              }}
+            >
+              <SwiperSlide key={0}>
+                <div className="block shrink-0 px-3.5">
+                  {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                  <video
+                    autoPlay
+                    loop
+                    width={1270}
+                    height={760}
+                    src={`/step_1.mov`}
+                    className="rounded-md pointer-events-none"
+                  />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide key={1}>
+                <div className="block shrink-0 px-3.5">
+                  {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                  <video
+                    autoPlay
+                    loop
+                    width={1270}
+                    height={760}
+                    src={`/step_2.mov`}
+                    className="rounded-md pointer-events-none"
+                  />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide key={2}>
+                <div className="flex shrink-0 justify-center px-3.5">
+                  {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
+                  <img src="/logo.png" className="w-52 rounded-full" />
+                </div>
+              </SwiperSlide>
+              <CarouselButton index={step} />
+            </Swiper>
+          </div>
         </div>
         <div className="mt-12 w-full text-sm font-medium text-center text-gray-500 dark:text-gray-300">
           <div className="flex justify-center mb-4 text-center">
@@ -141,7 +176,7 @@ export default function Home() {
               type="button"
               className="py-3 w-full text-lg text-indigo-700 bg-indigo-100 hover:bg-indigo-200 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               onClick={async () => {
-                if (step === 1 || step === 2) {
+                if (step === 0 || step === 1) {
                   setStep(step + 1);
                 } else {
                   if (window.ethereum) {
@@ -151,7 +186,7 @@ export default function Home() {
                       });
                       if (accounts && accounts.length > 0) {
                         if (isEnabled) {
-                          setStep(1);
+                          setStep(0);
                           setIsEnabled(false);
                           window.location.reload();
                         }
@@ -164,10 +199,10 @@ export default function Home() {
                 }
               }}
             >
-              {step === 1 && "I've enabled the extension"}
-              {step === 2 && "I've allowed website permissions"}
-              {step === 3 && isEnabled && "Success! Take me back"}
-              {step === 3 && !isEnabled && "Testing wallet connection"}
+              {step === 0 && "I've enabled the extension"}
+              {step === 1 && "I've allowed website permissions"}
+              {step === 2 && isEnabled && "Success! Take me back"}
+              {step === 2 && !isEnabled && "Testing wallet connection"}
             </button>
           </div>
           <p>
