@@ -86,11 +86,11 @@ export default function Home() {
               here
             </a>
           </h3>
-          <p className="mt-4 text-sm">
-            {isSafari
-              ? "That's step 1 done! You're almost there."
-              : "Please switch to iOS Safari to proceed."}
-          </p>
+          {!isSafari && (
+            <p className="mt-4 text-sm">
+              Please switch to iOS Safari to proceed.
+            </p>
+          )}
         </div>
         <div className="my-1">
           <div className="flex justify-center">
