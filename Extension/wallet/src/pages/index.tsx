@@ -76,10 +76,18 @@ export default function Home() {
               className="rounded-md"
             />
           )}
-          <div className="flex justify-center w-full">
-            <Button
-              outline
-              className="w-36"
+          {step === 3 && (
+            <div className="flex justify-center">
+              {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
+              <img src="/logo.png" className="w-52 rounded-full" />
+            </div>
+          )}
+        </div>
+        <div className="mt-12 w-full text-sm font-medium text-center text-gray-500 dark:text-gray-300">
+          <div className="flex justify-center mb-4 text-center">
+            <button
+              type="button"
+              className="py-3 w-full text-lg text-indigo-700 bg-indigo-100 hover:bg-indigo-200 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               onClick={() => {
                 if (step === 1 || step === 2) {
                   setStep(step + 1);
@@ -88,11 +96,11 @@ export default function Home() {
                 }
               }}
             >
-              Go to next
-            </Button>
+              {step === 1 && "I've enabled the extension"}
+              {step === 2 && "I've allowed website permissions"}
+              {step === 3 && "Testing wallet connection"}
+            </button>
           </div>
-        </div>
-        <div className="mt-12 text-sm font-medium text-center text-gray-500 dark:text-gray-300">
           <p>
             Trouble enabling Light Wallet Extension? <br />
             <a
