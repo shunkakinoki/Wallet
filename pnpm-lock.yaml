@@ -68,12 +68,19 @@ importers:
     devDependencies:
       typescript: 4.8.4
 
+  Extension/chain:
+    specifiers:
+      typescript: ^4.8.4
+    devDependencies:
+      typescript: 4.8.4
+
   Extension/content:
     specifiers:
       '@babel/core': ^7.19.6
       '@emotion/cache': ^11.10.3
       '@emotion/react': ^11.10.4
       '@emotion/styled': ^11.10.4
+      '@lightdotso/chain': workspace:*
       '@storybook/addon-actions': ^6.5.12
       '@storybook/addon-essentials': ^6.5.12
       '@storybook/addon-interactions': ^6.5.12
@@ -100,6 +107,7 @@ importers:
       '@emotion/cache': 11.10.3
       '@emotion/react': 11.10.4_d3zi5agmim5yvele7myolzagti
       '@emotion/styled': 11.10.4_2x444vlcug5ivaeavo4vxooctq
+      '@lightdotso/chain': link:../chain
       '@types/firefox-webext-browser': 94.0.1_mlsd6ev5ltf6gt3vi5qwa2sdxm
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
@@ -170,6 +178,7 @@ importers:
   Extension/popup:
     specifiers:
       '@heroicons/react': ^2.0.12
+      '@lightdotso/chain': workspace:*
       '@tailwindcss/line-clamp': ^0.4.2
       '@types/firefox-webext-browser': ^94.0.1
       '@types/node': ^18.8.4
@@ -187,6 +196,7 @@ importers:
       typescript: 4.8.4
     dependencies:
       '@heroicons/react': 2.0.12_react@18.2.0
+      '@lightdotso/chain': link:../chain
       '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.1.8
       '@types/firefox-webext-browser': 94.0.1_mlsd6ev5ltf6gt3vi5qwa2sdxm
       clsx: 1.2.1

@@ -1,3 +1,4 @@
+import { ChainNames } from "@lightdotso/chain";
 import type { FC } from "react";
 import { useEffect, useState, useCallback } from "react";
 
@@ -39,14 +40,6 @@ type SignTransactionParams = {
   id: number;
   method: string;
   params: any;
-};
-
-const chains = {
-  "0x1": "ethereum",
-  "0x5": "goerli",
-  "0xa": "optimism",
-  "0x89": "polygon",
-  "0xa4b1": "arbitrum",
 };
 
 export const SignTransaction: FC<SignTransactionParams> = ({
@@ -406,7 +399,7 @@ export const SignTransactionDescription: FC<
                           src={
                             change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER"
                               ? `https://defillama.com/chain-icons/rsz_${
-                                  chains[window.ethereum.chainId]
+                                  ChainNames[window.ethereum.chainId]
                                 }.jpg`
                               : change?.rawInfo?.kind === "ERC721_TRANSFER"
                               ? change?.rawInfo?.data?.metadata?.rawImageUrl

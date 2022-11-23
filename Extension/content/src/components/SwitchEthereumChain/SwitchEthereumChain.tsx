@@ -1,3 +1,4 @@
+import { RpcMapping } from "@lightdotso/chain";
 import type { FC } from "react";
 
 import { useShowDrawer } from "../../hooks/useShowDrawer";
@@ -5,7 +6,6 @@ import { getFavicon } from "../../services/getFavicon";
 import { getTitle } from "../../services/getTitle";
 import { sendToEthereum } from "../../services/sendToEthereum";
 import { storeHostConfiguration } from "../../services/storeHostConfiguration";
-import { rpcMapping } from "../../utils/rpcMapping";
 import { ConfirmButton } from "../Base/ConfirmButton";
 
 type SwitchEthereumChainParams = {
@@ -29,7 +29,7 @@ export const SwitchEthereumChain: FC<SwitchEthereumChainParams> = ({
       onConfirmText="Switch"
       onConfirmClick={() => {
         sendToEthereum(
-          { ...params, rpcUrl: rpcMapping[params.chainId] },
+          { ...params, rpcUrl: RpcMapping[params.chainId] },
           id,
           method,
         );

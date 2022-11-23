@@ -1,3 +1,5 @@
+import { RpcMapping } from "@lightdotso/chain";
+
 import { injectComponent } from "./App";
 import { Page } from "./components/Page";
 
@@ -15,7 +17,6 @@ import { sendToEthereum } from "./services/sendToEthereum";
 import { storeHostConfiguration } from "./services/storeHostConfiguration";
 import { allowedDomainCheck } from "./utils/allowedDomainCheck";
 import { genId } from "./utils/genId";
-import { rpcMapping } from "./utils/rpcMapping";
 
 let address: string;
 let accounts;
@@ -115,7 +116,7 @@ document.addEventListener("readystatechange", () => {
             {
               address: address,
               chainId: item.chainId,
-              rpcUrl: rpcMapping[item.chainId],
+              rpcUrl: RpcMapping[item.chainId],
             },
             genId(),
             "didLoadLatestConfiguration",
@@ -132,7 +133,7 @@ document.addEventListener("readystatechange", () => {
             {
               address: "",
               chainId: "0x1",
-              rpcUrl: rpcMapping["0x1"],
+              rpcUrl: RpcMapping["0x1"],
             },
             genId(),
             "didLoadLatestConfiguration",

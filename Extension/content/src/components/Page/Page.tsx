@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
+import { ChainNames } from "@lightdotso/chain";
 import type { FC } from "react";
 import { useEffect } from "react";
 
@@ -26,14 +27,6 @@ import { SignTransactionDescription } from "../SignTransaction/SignTransaction";
 import { SignTypedMessage } from "../SignTypedMessage";
 import { SignTypedDescription } from "../SignTypedMessage/SignTypedMessage";
 import { SwitchEthereumChain } from "../SwitchEthereumChain";
-
-const chains = {
-  "0x1": "Ethereum",
-  "0x5": "Goerli",
-  "0xa": "Optimism",
-  "0x89": "Polygon",
-  "0xa4b1": "Arbitrum",
-};
 
 import {
   PageContainer,
@@ -189,7 +182,9 @@ export const PageBanner: FC<PageBannerProps> = ({ type }) => {
               <ChainIcon />
             </LinkButton>
             &nbsp;
-            {isMounted && window.ethereum && chains[window.ethereum.chainId]}
+            {isMounted &&
+              window.ethereum &&
+              ChainNames[window.ethereum.chainId]}
           </LinkContainer>
           {window.ethereum.address && (
             <LinkContainer>

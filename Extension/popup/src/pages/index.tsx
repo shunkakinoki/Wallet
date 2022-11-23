@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
+import { ChainNames } from "@lightdotso/chain";
 import {
   ListItem,
   List,
@@ -22,14 +23,6 @@ import { Trash } from "../icons/trash";
 import { logPopup } from "../utils/log";
 import { shortenName } from "../utils/shortenName";
 import { splitAddress } from "../utils/splitAddress";
-
-const chains = {
-  "0x1": "ethereum",
-  "0x5": "goerli",
-  "0xa": "optimism",
-  "0x89": "polygon",
-  "0xa4b1": "arbitrum",
-};
 
 export default function Home() {
   const [tabId, setTabId] = useState<null | number>(null);
@@ -158,7 +151,7 @@ export default function Home() {
             browser.tabs.sendMessage(tab.id, chainIdPayload).then(value => {
               logPopup(`<== sendingMessageContent: ${JSON.stringify(value)}`);
               //@ts-expect-error
-              setShadowChainIdOption(chains[value]);
+              setShadowChainIdOption(ChainNames[value]);
               setChainId(value);
             });
           }
@@ -380,12 +373,12 @@ export default function Home() {
                     {isFallback ? (
                       <span className="flex justify-center items-center w-5 h-5 text-xs font-semibold leading-none text-gray-400 bg-gray-200 rounded-full border dark:border-0 border-gray-400">
                         {/* @ts-expect-error */}
-                        {shortenName(chains[chainId] ?? "Undefined")}
+                        {shortenName(ChainNames[chainId] ?? "Undefined")}
                       </span>
                     ) : (
                       <img
                         //@ts-expect-error
-                        src={`https://defillama.com/chain-icons/rsz_${chains[chainId]}.jpg`}
+                        src={`https://defillama.com/chain-icons/rsz_${ChainNames[chainId]}.jpg`}
                         className="w-5 h-5 rounded-full"
                         onError={() => {
                           return setIsFallback(true);
