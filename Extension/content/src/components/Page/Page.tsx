@@ -17,6 +17,7 @@ import { logContent } from "../../services/log";
 import { sendToEthereum } from "../../services/sendToEthereum";
 import { splitAddress } from "../../utils/splitAddress";
 import { ConnectWallet } from "../ConnectWallet";
+import { ConnectWalletDescription } from "../ConnectWallet/ConnectWallet";
 import { Drawer } from "../Drawer";
 import { PersonalSign } from "../PersonalSign";
 import { PersonalSignDescription } from "../PersonalSign/PersonalSign";
@@ -225,6 +226,9 @@ export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
   return (
     <>
       <PageDescriptionContainer error={error}>
+        {type === "ConnectWallet" && (
+          <ConnectWalletDescription params={params} />
+        )}
         {type === "PersonalSign" && <PersonalSignDescription params={params} />}
         {type === "SignTransaction" && (
           <SignTransactionDescription params={params} />
