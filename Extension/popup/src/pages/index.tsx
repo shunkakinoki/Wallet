@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import { ChainNames } from "@lightdotso/chain";
 import {
@@ -14,6 +13,7 @@ import {
   ListInput,
 } from "konsta/react";
 import { useEffect, useState, useRef } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 import { Avatar } from "../components/Avatar";
 import { ChevronUpChevrondown } from "../icons/chevron.up.chevron.down";
@@ -453,6 +453,20 @@ export default function Home() {
             }
             media={<div className="w-3 h-3 bg-blue-400 rounded-full" />}
           />
+          <ListItem
+            title="Wallet Address"
+            media={<div className="w-3 h-3 bg-red-400 rounded-full" />}
+            after={
+              chainId && (
+                <div className="flex items-center fill-gray-300">
+                  {accountId}
+                </div>
+              )
+            }
+            onClick={() => {
+              toast.success("Copied!");
+            }}
+          />
         </List>
         <Block className="mt-2 mb-0 ml-4">
           <p className="text-xs font-medium text-gray-400">
@@ -540,20 +554,25 @@ export default function Home() {
                 <DialogButton
                   strong
                   onClick={() => {
-                    fetch("https://wallet.light.so/api/report", {
-                      method: "POST",
-                      body: JSON.stringify({
-                        host,
-                        issue,
-                        contact,
-                        handle,
-                      }),
-                      headers: new Headers({
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                      }),
-                    });
-                    return setReportOpened(false);
+                    try {
+                      fetch("https://wallet.light.so/api/report", {
+                        method: "POST",
+                        body: JSON.stringify({
+                          host,
+                          issue,
+                          contact,
+                          handle,
+                        }),
+                        headers: new Headers({
+                          "Content-Type": "application/json",
+                          Accept: "application/json",
+                        }),
+                      });
+                      toast.success("Reported!");
+                      return setReportOpened(false);
+                    } catch (error) {
+                      toast.error(`Error: ${error}`);
+                    }
                   }}
                 >
                   Report
@@ -819,6 +838,7 @@ export default function Home() {
                     },
                   );
                 }
+                toast.success("Forgot!");
                 return setForgetOpened(false);
               }}
             >
@@ -878,6 +898,7 @@ export default function Home() {
                     },
                   );
                 }
+                toast.success("Forgot!");
                 return setHistoryOpened(false);
               }}
             >
@@ -889,6 +910,7 @@ export default function Home() {
           return setHistoryOpened(false);
         }}
       />
+      <Toaster />
     </div>
   );
 }

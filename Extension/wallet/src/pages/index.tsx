@@ -4,6 +4,7 @@ import { Page } from "konsta/react";
 import { useEffect, useMemo, useState } from "react";
 // eslint-disable-next-line import/no-named-as-default
 import ReactConfetti from "react-confetti";
+// eslint-disable-next-line import/no-named-as-default
 import toast, { Toaster } from "react-hot-toast";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import create from "zustand";
