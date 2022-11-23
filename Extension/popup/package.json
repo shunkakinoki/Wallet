@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@lightdotso/chain": "workspace:*",
     "@heroicons/react": "^2.0.12",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/firefox-webext-browser": "^94.0.1",

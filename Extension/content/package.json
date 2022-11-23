@@ -14,6 +14,7 @@
     "@emotion/cache": "^11.10.3",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@lightdotso/chain": "workspace:*",
     "@types/firefox-webext-browser": "^94.0.1",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
