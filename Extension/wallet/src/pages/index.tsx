@@ -1,10 +1,9 @@
-import { Page, Button } from "konsta/react";
+import { Page } from "konsta/react";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const [isSafari, setIsSafari] = useState(false);
   const [step, setStep] = useState(1);
-  const [isEnabled, setIsEnabled] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
