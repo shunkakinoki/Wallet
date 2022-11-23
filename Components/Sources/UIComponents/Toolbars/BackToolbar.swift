@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Commons
 
 public struct BackToolbar: ToolbarContent {
 
@@ -12,7 +13,7 @@ public struct BackToolbar: ToolbarContent {
     public var body: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
             Button(action: back) {
-                Image("InverseBack").tabBar()
+                Image(systemName: "chevron.backward").tabBar()
             }
         }
     }

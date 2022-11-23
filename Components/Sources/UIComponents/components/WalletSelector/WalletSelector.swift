@@ -25,9 +25,9 @@ public struct WalletSelector: View {
                 Text(walletName)
                     .font(.custom(font: .inter, size: 18, weight: .bold))
                     .foregroundColor(Color(Colors.Label.primary))
-                Image("WalletSelector")
+                Image(systemName: "chevron.up.chevron.down")
                     .frame(width: 24, height: 24)
-                    .foregroundColor(Color(.darkGray))
+                    .foregroundColor(Color(Colors.Label.primary))
             }
             Text(walletAddress)
                 .foregroundColor(Color(Colors.Label.secondary))
@@ -36,4 +36,3 @@ public struct WalletSelector: View {
         }
     }
 }
-
