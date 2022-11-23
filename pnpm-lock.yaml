@@ -246,6 +246,7 @@ importers:
       react: ^18.2.0
       react-confetti: ^6.1.0
       react-dom: ^18.2.0
+      react-hot-toast: ^2.4.0
       swiper: ^8.4.5
       tailwindcss: ^3.1.8
       telegraf: ^4.10.0
@@ -260,6 +261,7 @@ importers:
       react: 18.2.0
       react-confetti: 6.1.0_react@18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-hot-toast: 2.4.0_biqbaboplfbrettd7655fr4n2y
       swiper: 8.4.5
       telegraf: 4.10.0
       zustand: 4.1.2_react@18.2.0
@@ -10494,6 +10496,12 @@ packages:
       - supports-color
     dev: true
 
+  /goober/2.1.11:
+    resolution: {integrity: sha512-5SS2lmxbhqH0u9ABEWq7WPU69a4i2pYcHeCxqaNq6Cw3mnrF0ghWNM4tEGid4dKy8XNIAUbuThuozDHHKJVh3A==}
+    peerDependencies:
+      csstype: ^3.0.10
+    dev: false
+
   /got/12.5.1:
     resolution: {integrity: sha512-sD16AK8cCyUoPtKr/NMvLTFFa+T3i3S+zoiuvhq0HP2YiqBZA9AtlBjAdsQBsLBK7slPuvmfE0OxhGi7N5dD4w==}
     engines: {node: '>=14.16'}
@@ -14429,6 +14437,20 @@ packages:
       react-dom: 18.2.0_react@18.2.0
       react-is: 17.0.2
     dev: true
+
+  /react-hot-toast/2.4.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-qnnVbXropKuwUpriVVosgo8QrB+IaPJCpL8oBI6Ov84uvHZ5QQcTp2qg6ku2wNfgJl6rlQXJIQU5q+5lmPOutA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      goober: 2.1.11
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    transitivePeerDependencies:
+      - csstype
+    dev: false
 
   /react-inspector/5.1.1_react@18.2.0:
     resolution: {integrity: sha512-GURDaYzoLbW8pMGXwYPDBIv6nqei4kK7LPRZ9q9HCZF54wqXz/dnylBp/kfE9XmekBhHvLDdcYeyIwSrvtOiWg==}

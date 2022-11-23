@@ -4,6 +4,7 @@ import { Page } from "konsta/react";
 import { useEffect, useMemo, useState } from "react";
 // eslint-disable-next-line import/no-named-as-default
 import ReactConfetti from "react-confetti";
+import toast, { Toaster } from "react-hot-toast";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import create from "zustand";
 import { persist } from "zustand/middleware";
@@ -189,11 +190,14 @@ export default function Home() {
                           setStep(0);
                           setIsEnabled(false);
                           window.location.reload();
+                        } else {
+                          setIsEnabled(true);
+                          toast.success("Success!");
                         }
-                        setIsEnabled(true);
                       }
                     } catch (error) {
                       console.error(error);
+                      toast.error(`Error: ${error}`);
                     }
                   }
                 }
@@ -218,6 +222,7 @@ export default function Home() {
           </p>
         </div>
       </div>
+      <Toaster />
     </Page>
   );
 }
