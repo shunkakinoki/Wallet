@@ -9,6 +9,10 @@ import { IdMapping } from "./id_mapping";
 import { RPCServer } from "./rpc";
 import { Utils } from "./utils";
 
+// Modified from Tokenary & Trust Wallet's EthereumProvider at
+// https://github.com/zeriontech/Tokenary/tree/develop/Safari%20Shared/web3-provider
+// https://github.com/trustwallet/trust-web3-provider/blob/master/src/ethereum_provider.js
+
 export class EthereumProvider extends BaseProvider {
   idMapping: IdMapping;
   wrapResults: Map<any, any>;
