@@ -1,11 +1,5 @@
-import { clsx } from "clsx";
-import { Page } from "konsta/react";
-import Image from "next/future/image";
+import { Page, Button } from "konsta/react";
 import { useEffect, useState } from "react";
-
-import { CheckIcon } from "../components/CheckIcon";
-import { CircleIcon } from "../components/CircleIcon";
-import { ExtensionIcon } from "../components/ExtensionIcon";
 
 export default function Home() {
   const [isSafari, setIsSafari] = useState(false);
@@ -26,7 +20,7 @@ export default function Home() {
   return (
     <Page>
       <title>Light Wallet</title>
-      <div className="container flex flex-col justify-center px-3 my-12 mx-auto max-w-md max-h-screen">
+      <div className="container flex flex-col justify-center px-3 mx-auto max-w-md h-screen max-h-screen">
         <div className="my-8 text-center">
           <h1 className="text-3xl font-bold">
             Enabling the{" "}
@@ -53,8 +47,34 @@ export default function Home() {
               : "Please switch to Safari to proceed."}
           </p>
         </div>
-        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-        <video autoPlay loop src={`/step_${step}.mov`} />
+        <div className="my-20">
+          <div className="flex justify-center">
+            <span className="inline-flex items-center py-0.5 px-2.5 text-sm font-medium text-indigo-800 bg-indigo-100 rounded-md">
+              <svg
+                className="mr-1.5 -ml-0.5 w-2 h-2 text-indigo-600"
+                fill="currentColor"
+                viewBox="0 0 8 8"
+              >
+                <circle cx={4} cy={4} r={3} />
+              </svg>
+              Step {step}
+            </span>
+          </div>
+          <div className="my-5 text-center">
+            <h1 className="text-2xl font-bold">
+              {step === 1 && "Enable the extension"}
+            </h1>
+          </div>
+          {(step === 1 || step === 2) && (
+            // eslint-disable-next-line jsx-a11y/media-has-caption
+            <video
+              autoPlay
+              loop
+              src={`/step_${step}.mov`}
+              className="rounded-md"
+            />
+          )}
+        </div>
         <div className="mt-12 text-sm font-medium text-center text-gray-500 dark:text-gray-300">
           <p>
             Trouble enabling Light Wallet Extension? <br />
