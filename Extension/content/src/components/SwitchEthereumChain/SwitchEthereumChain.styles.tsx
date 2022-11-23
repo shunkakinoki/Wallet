@@ -4,8 +4,8 @@ export const SwitchEthereumChainContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 0.4rem;
-  padding-bottom: 0.4rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 `;
 
 export const ChainIconImage = styled.img`
