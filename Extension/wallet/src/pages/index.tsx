@@ -63,7 +63,7 @@ export default function Home() {
   return (
     <Page>
       <title>Light Wallet</title>
-      <div className="container flex flex-col justify-center px-3 mx-auto max-w-md h-screen max-h-screen">
+      <div className="container flex flex-col justify-between px-3 mx-auto max-w-md h-screen xl:h-4/6 max-h-screen">
         {isEnabled && <ReactConfetti />}
         <div className="my-8 text-center">
           <h1 className="text-3xl font-bold">
@@ -91,7 +91,7 @@ export default function Home() {
               : "Please switch to Safari to proceed."}
           </p>
         </div>
-        <div className="my-20">
+        <div className="my-12">
           <div className="flex justify-center">
             <span className="inline-flex items-center py-0.5 px-2.5 text-sm font-medium text-indigo-800 bg-indigo-100 rounded-md">
               <svg
