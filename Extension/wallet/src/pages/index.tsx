@@ -1,16 +1,43 @@
-import { clsx } from "clsx";
+// eslint-disable-next-line import/no-named-as-default
+import clsx from "clsx";
 import { Page } from "konsta/react";
-import Image from "next/future/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+// eslint-disable-next-line import/no-named-as-default
+import ReactConfetti from "react-confetti";
+import create from "zustand";
+import { persist } from "zustand/middleware";
 
-import { CheckIcon } from "../components/CheckIcon";
-import { CircleIcon } from "../components/CircleIcon";
-import { ExtensionIcon } from "../components/ExtensionIcon";
+interface StepState {
+  step: number;
+  setStep: (newStep: number) => void;
+}
+
+export const useUserStep = create(
+  persist<StepState>(
+    (set, get) => {
+      return {
+        step: 1,
+        setStep: newStep => {
+          return set(() => {
+            return { step: newStep };
+          });
+        },
+      };
+    },
+    {
+      name: "@lightdotso/wallet",
+    },
+  ),
+);
 
 export default function Home() {
   const [isSafari, setIsSafari] = useState(false);
-  const [isButton, setIsButton] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
+
+  const [sstep, setStep] = useUserStep(state => {
+    return [state.step, state.setStep];
+  });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -23,11 +50,23 @@ export default function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const step = useMemo(() => {
+    if (isMounted) {
+      return sstep;
+    }
+    return 1;
+  }, [isMounted, sstep]);
+
   return (
     <Page>
       <title>Light Wallet</title>
-      <div className="container px-3 my-12 mx-auto max-w-md">
-        <div className="my-8 text-center">
+      <div className="container flex flex-col justify-between px-3 mx-auto max-w-md h-[85vh] xl:h-4/6 max-h-screen">
+        {isEnabled && <ReactConfetti />}
+        <div className="mt-8 text-center">
           <h1 className="text-3xl font-bold">
             Enabling the{" "}
             <strong className="font-extrabold text-indigo-400">
@@ -36,163 +75,103 @@ export default function Home() {
             <br />
             Safari extension
           </h1>
-          <p className="mt-2 text-sm">
+          <h3 className="mt-3">
+            Install the Testflight{" "}
+            <a
+              className="font-extrabold text-indigo-400 hover:underline"
+              href={"https://testflight.apple.com/join/4bbpvn9a"}
+              target="_blank"
+              rel="noreferrer"
+            >
+              here
+            </a>
+          </h3>
+          <p className="mt-4 text-sm">
             {isSafari
               ? "That's step 1 done! You're almost there."
-              : "Please switch to Safari to proceed."}
+              : "Please switch to iOS Safari to proceed."}
           </p>
         </div>
-        <div className="flex my-6">
-          {isSafari ? (
-            <div className="flex shrink-0 justify-center items-center p-0.5 mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-gray-400 rounded-full border-2 border-gray-400">
-              <CheckIcon />
-            </div>
-          ) : (
-            <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
-              <p>1</p>
+        <div className="my-1">
+          <div className="flex justify-center">
+            <span className="inline-flex items-center py-0.5 px-2.5 text-sm font-medium text-indigo-800 bg-indigo-100 rounded-md">
+              <svg
+                className="mr-1.5 -ml-0.5 w-2 h-2 text-indigo-600"
+                fill="currentColor"
+                viewBox="0 0 8 8"
+              >
+                <circle cx={4} cy={4} r={3} />
+              </svg>
+              Step {step}
+            </span>
+          </div>
+          <div className="my-5 text-center">
+            <h1
+              className={clsx(
+                "text-2xl font-bold",
+                isEnabled && "text-emerald-300",
+              )}
+            >
+              {step === 1 && "Enable the extension"}
+              {step === 2 && "Allow website permissions"}
+              {step === 3 && isEnabled && "Success!"}
+              {step === 3 && !isEnabled && "Test wallet connection"}
+            </h1>
+          </div>
+          {(step === 1 || step === 2) && (
+            // eslint-disable-next-line jsx-a11y/media-has-caption
+            <video
+              autoPlay
+              playsInline
+              loop
+              src={`/step_${step}.mov`}
+              className="rounded-md pointer-events-none"
+            />
+          )}
+          {step === 3 && (
+            <div className="flex justify-center">
+              {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
+              <img src="/logo.png" className="w-52 rounded-full" />
             </div>
           )}
-          <div className={clsx(isSafari && "text-gray-600")}>
-            {isSafari ? "Open Safari - That's done!" : "Open Safari Browser"}
-          </div>
         </div>
-        <div className="flex my-6">
-          <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
-            <p>2</p>
+        <div className="mt-12 w-full text-sm font-medium text-center text-gray-500 dark:text-gray-300">
+          <div className="flex justify-center mb-4 text-center">
+            <button
+              type="button"
+              className="py-3 w-full text-lg text-indigo-700 bg-indigo-100 hover:bg-indigo-200 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              onClick={async () => {
+                if (step === 1 || step === 2) {
+                  setStep(step + 1);
+                } else {
+                  if (window.ethereum) {
+                    try {
+                      const accounts = await window?.ethereum.request({
+                        method: "eth_requestAccounts",
+                      });
+                      if (accounts && accounts.length > 0) {
+                        if (isEnabled) {
+                          setStep(1);
+                          setIsEnabled(false);
+                          window.location.reload();
+                        }
+                        setIsEnabled(true);
+                      }
+                    } catch (error) {
+                      console.error(error);
+                    }
+                  }
+                }
+              }}
+            >
+              {step === 1 && "I've enabled the extension"}
+              {step === 2 && "I've allowed website permissions"}
+              {step === 3 && isEnabled && "Success! Take me back"}
+              {step === 3 && !isEnabled && "Testing wallet connection"}
+            </button>
           </div>
-          <div>
-            Tap the <span className="font-bold text-indigo-400">aA</span> or{" "}
-            <ExtensionIcon />
-            in the address bar
-            <div>
-              <Image
-                className="mt-4 rounded-md ring-4 ring-gray-300 shadow"
-                src="/extension_button.jpg"
-                alt="Extension Button"
-                height={45}
-                width={300}
-              />
-            </div>
-            <div className="mt-2 text-sm">
-              Can&apos;t find the <ExtensionIcon /> button? You may have to use
-              the <CircleIcon />
-              or <span className="font-bold text-indigo-400">aA</span> button
-              instead.{" "}
-              <button
-                className="text-indigo-400 underline"
-                onClick={() => {
-                  setIsButton(!isButton);
-                }}
-              >
-                Read more.
-              </button>
-            </div>
-            {isButton && (
-              <div className="py-3 px-5 mt-2 text-sm bg-gray-300 dark:bg-gray-700 rounded-md">
-                Depending on your screen size and Safari settings, the{" "}
-                <ExtensionIcon /> may be replaced by either a{" "}
-                <span className="font-bold text-indigo-400">aA</span> or{" "}
-                <CircleIcon /> that shows up in the same place, the right of the
-                address bar. Use that button instead, the other steps will
-                remain the same.
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="flex my-6">
-          <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
-            <p>3</p>
-          </div>
-          <div>
-            Tap{" "}
-            <strong className="text-indigo-400">
-              Manage Extensions <ExtensionIcon />
-            </strong>
-            from the toolbar
-            <div>
-              <Image
-                className="mt-4 rounded-md ring-4 ring-gray-300 shadow"
-                src="/manage_extensions.jpg"
-                alt="Manage Extensions"
-                height={45}
-                width={300}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="flex my-6">
-          <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
-            <p>4</p>
-          </div>
-          <div>
-            Enable <strong className="text-indigo-400">Light Wallet</strong> and
-            tap <strong className="text-indigo-400">Done</strong>
-            <div className="mt-2 text-sm">
-              Is the Light toggle disabled and grayed out? You may have to
-              briefly turn off Web Restrictions.{" "}
-              <button
-                className="text-indigo-400 underline"
-                onClick={() => {
-                  setIsEnabled(!isEnabled);
-                }}
-              >
-                Read more.
-              </button>
-            </div>
-            {isEnabled && (
-              <div className="py-3 px-5 mt-2 text-sm bg-gray-300 dark:bg-gray-700 rounded-md">
-                iOS doesn’t let you enable Safari Extensions when Web
-                Restrictions are enabled. You can check if you have these
-                enabled in the{" "}
-                <span className="bg-gray-400 dark:bg-gray-800">
-                  Settings app &gt; Screen Time &gt; Content & Privacy
-                  Restrictions &gt; Content Restrictions &gt; Web Content
-                </span>
-                .
-                <br />
-                <br />
-                If possible, please briefly turn these restrictions off, and
-                enable Light. You can then safely turn the web restrictions back
-                on, Light will keep working.
-                <br />
-                <br /> If this doesn&apos;t work or if you&apos;d like more
-                info, please{" "}
-                <a
-                  className="text-indigo-400 underline"
-                  target="_blank"
-                  href="https://twitter.com/Light_Wallet"
-                  rel="noreferrer"
-                >
-                  contact Support
-                </a>
-                .
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="flex my-6">
-          <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
-            <p>5</p>
-          </div>
-          <div>
-            Tap <strong className="text-indigo-400">Light Wallet</strong>
-          </div>
-        </div>
-        <div className="flex my-6">
-          <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
-            <p>6</p>
-          </div>
-          <div>
-            Tap <strong className="text-indigo-400">Always Allow...</strong> and
-            then{" "}
-            <strong className="text-indigo-400">
-              Always Allow on Every Website
-            </strong>
-          </div>
-        </div>
-        <div className="mt-5 text-sm font-medium text-center text-gray-500 dark:text-gray-300">
           <p>
-            Troube enabling Light Wallet Extension? <br />
+            Trouble enabling Light Wallet Extension? <br />
             <a
               className="underline"
               target="_blank"

@@ -234,10 +234,12 @@ importers:
       next: ^12.3.1
       postcss: ^8.4.17
       react: ^18.2.0
+      react-confetti: ^6.1.0
       react-dom: ^18.2.0
       tailwindcss: ^3.1.8
       telegraf: ^4.10.0
       typescript: 4.8.4
+      zustand: ^4.1.2
     dependencies:
       '@heroicons/react': 2.0.12_react@18.2.0
       clsx: 1.2.1
@@ -245,8 +247,10 @@ importers:
       konsta: 1.0.2
       next: 12.3.1_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
+      react-confetti: 6.1.0_react@18.2.0
       react-dom: 18.2.0_react@18.2.0
       telegraf: 4.10.0
+      zustand: 4.1.2_react@18.2.0
     devDependencies:
       '@types/node': 18.8.4
       '@types/react': 18.0.21
@@ -14351,6 +14355,16 @@ packages:
       minimist: 1.2.6
       strip-json-comments: 2.0.1
 
+  /react-confetti/6.1.0_react@18.2.0:
+    resolution: {integrity: sha512-7Ypx4vz0+g8ECVxr88W9zhcQpbeujJAVqL14ZnXJ3I23mOI9/oBVTQ3dkJhUmB0D6XOtCZEM6N0Gm9PMngkORw==}
+    engines: {node: '>=10.18'}
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      tween-functions: 1.2.0
+    dev: false
+
   /react-docgen-typescript/2.2.2:
     resolution: {integrity: sha512-tvg2ZtOpOi6QDwsb3GZhOjDkkX0h8Z2gipvTg6OVMUyoYoURhEiRNePT8NZItTVCDh39JJHnLdfCOkzoLbFnTg==}
     peerDependencies:
@@ -16387,6 +16401,10 @@ packages:
       turbo-windows-64: 1.5.6
       turbo-windows-arm64: 1.5.6
     dev: true
+
+  /tween-functions/1.2.0:
+    resolution: {integrity: sha512-PZBtLYcCLtEcjL14Fzb1gSxPBeL7nWvGhO5ZFPGqziCcr8uvHp0NDmdjBchp6KHL+tExcg0m3NISmKxhU394dA==}
+    dev: false
 
   /tweetnacl-util/0.15.1:
     resolution: {integrity: sha512-RKJBIj8lySrShN4w6i/BonWp2Z/uxwC3h4y7xsRrpP59ZboCd0GpEVsOnMDYLMmKBpYhb5TgHzZXy7wTfYFBRw==}
