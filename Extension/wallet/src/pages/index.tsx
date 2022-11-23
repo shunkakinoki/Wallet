@@ -29,6 +29,8 @@ export const useUserStep = create(
 export default function Home() {
   const [isSafari, setIsSafari] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(false);
+
   const [sstep, setStep] = useUserStep(state => {
     return [state.step, state.setStep];
   });
@@ -126,11 +128,25 @@ export default function Home() {
             <button
               type="button"
               className="py-3 w-full text-lg text-indigo-700 bg-indigo-100 hover:bg-indigo-200 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              onClick={() => {
+              onClick={async () => {
                 if (step === 1 || step === 2) {
                   setStep(step + 1);
                 } else {
-                  setStep(1);
+                  if (window.ethereum) {
+                    try {
+                      const accounts = await window?.ethereum.request({
+                        method: "eth_requestAccounts",
+                      });
+                      if (accounts && accounts.length > 0) {
+                        if (isEnabled) {
+                          setStep(1);
+                        }
+                        setIsEnabled(true);
+                      }
+                    } catch (error) {
+                      console.error(error);
+                    }
+                  }
                 }
               }}
             >
