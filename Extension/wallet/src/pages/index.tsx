@@ -1,5 +1,6 @@
 import { Page } from "konsta/react";
 import { useEffect, useMemo, useState } from "react";
+import ReactConfetti from "react-confetti";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -61,6 +62,7 @@ export default function Home() {
     <Page>
       <title>Light Wallet</title>
       <div className="container flex flex-col justify-center px-3 mx-auto max-w-md h-screen max-h-screen">
+        {isEnabled && <ReactConfetti />}
         <div className="my-8 text-center">
           <h1 className="text-3xl font-bold">
             Enabling the{" "}
@@ -140,6 +142,7 @@ export default function Home() {
                       if (accounts && accounts.length > 0) {
                         if (isEnabled) {
                           setStep(1);
+                          setIsEnabled(false);
                         }
                         setIsEnabled(true);
                       }
