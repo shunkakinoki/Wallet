@@ -134,7 +134,7 @@ export default function Home() {
                 if (step === 1 || step === 2) {
                   setStep(step + 1);
                 } else {
-                  if (window.ethereum) {
+                  if (window.ethereum && window.ethereum.isLight) {
                     try {
                       const accounts = await window?.ethereum.request({
                         method: "eth_requestAccounts",
