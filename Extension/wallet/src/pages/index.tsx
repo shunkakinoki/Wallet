@@ -145,6 +145,7 @@ export default function Home() {
               <SwiperSlide key={0}>
                 {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
                 <video
+                  playsInline
                   autoPlay
                   muted
                   loop
@@ -155,6 +156,7 @@ export default function Home() {
               <SwiperSlide key={1}>
                 {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
                 <video
+                  playsInline
                   autoPlay
                   muted
                   loop
