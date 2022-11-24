@@ -127,7 +127,7 @@ export default function Home() {
           </div>
           <div className="block relative w-full">
             <Swiper
-              initialSlide={0}
+              initialSlide={sstep}
               slidesPerView={1}
               pagination={{ clickable: true }}
               scrollbar={{ draggable: true }}
