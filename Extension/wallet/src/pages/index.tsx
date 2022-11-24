@@ -143,33 +143,27 @@ export default function Home() {
               }}
             >
               <SwiperSlide key={0}>
-                <div className="block shrink-0 px-3.5">
-                  {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-                  <video
-                    autoPlay
-                    loop
-                    width={1270}
-                    height={760}
-                    src={`/step_1.mov`}
-                    className="rounded-md pointer-events-none"
-                  />
-                </div>
+                {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                <video
+                  autoPlay
+                  loop
+                  controls
+                  src={`/step_1.mov`}
+                  className="rounded-md"
+                />
               </SwiperSlide>
               <SwiperSlide key={1}>
-                <div className="block shrink-0 px-3.5">
-                  {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-                  <video
-                    autoPlay
-                    loop
-                    width={1270}
-                    height={760}
-                    src={`/step_2.mov`}
-                    className="rounded-md pointer-events-none"
-                  />
-                </div>
+                {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                <video
+                  autoPlay
+                  loop
+                  controls
+                  src={`/step_2.mov`}
+                  className="rounded-md"
+                />
               </SwiperSlide>
               <SwiperSlide key={2}>
-                <div className="flex shrink-0 justify-center px-3.5">
+                <div className="flex shrink-0 justify-center">
                   {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
                   <img src="/logo.png" className="w-52 rounded-full" />
                 </div>
