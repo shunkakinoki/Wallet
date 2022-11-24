@@ -146,20 +146,20 @@ export default function Home() {
                 {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
                 <video
                   autoPlay
+                  muted
                   loop
-                  controls
                   src={`/step_1.mov`}
-                  className="rounded-md"
+                  className="rounded-md pointer-events-none"
                 />
               </SwiperSlide>
               <SwiperSlide key={1}>
                 {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
                 <video
                   autoPlay
+                  muted
                   loop
-                  controls
                   src={`/step_2.mov`}
-                  className="rounded-md"
+                  className="rounded-md pointer-events-none"
                 />
               </SwiperSlide>
               <SwiperSlide key={2}>
