@@ -1,6 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import { GlobeAltIcon } from "@heroicons/react/24/outline";
+import {
+  ClipboardDocumentIcon,
+  GlobeAltIcon,
+} from "@heroicons/react/24/outline";
 import { ChainNames } from "@lightdotso/chain";
 import {
   ListItem,
@@ -454,12 +457,13 @@ export default function Home() {
             media={<div className="w-3 h-3 bg-blue-400 rounded-full" />}
           />
           <ListItem
-            title="Wallet Address"
+            title="Address"
             media={<div className="w-3 h-3 bg-red-400 rounded-full" />}
             after={
               chainId && (
                 <div className="flex items-center fill-gray-300">
-                  {accountId}
+                  {accountId && splitAddress(accountId)}
+                  <ClipboardDocumentIcon className="ml-1.5 w-4 h-4" />
                 </div>
               )
             }
