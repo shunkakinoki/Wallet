@@ -17,6 +17,8 @@
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.0",
+    "swiper": "^8.4.5",
     "telegraf": "^4.10.0",
     "zustand": "^4.1.2"
   },

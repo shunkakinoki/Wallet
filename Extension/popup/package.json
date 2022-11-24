@@ -8,8 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@lightdotso/chain": "workspace:*",
     "@heroicons/react": "^2.0.12",
+    "@lightdotso/chain": "workspace:*",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/firefox-webext-browser": "^94.0.1",
     "clsx": "^1.2.1",
@@ -17,7 +17,8 @@
     "konsta": "^1.0.2",
     "next": "^12.3.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.0"
   },
   "devDependencies": {
     "@types/node": "^18.8.4",
