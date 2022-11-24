@@ -204,6 +204,8 @@ export default function Home() {
                       console.error(error);
                       toast.error(`Error: ${error}`);
                     }
+                  } else {
+                    toast.error(`Wallet not found!`);
                   }
                 }
               }}
