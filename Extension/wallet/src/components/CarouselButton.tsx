@@ -19,7 +19,7 @@ export const CarouselButton: FC<{ index: number }> = ({
           index === 1 && "bg-gray-400",
         )}
         onClick={() => {
-          return swiper.slideTo(1);
+          return swiper.slideTo(0);
         }}
       />
       <button
@@ -29,7 +29,7 @@ export const CarouselButton: FC<{ index: number }> = ({
           index === 2 && "bg-gray-400",
         )}
         onClick={() => {
-          return swiper.slideTo(2);
+          return swiper.slideTo(1);
         }}
       />
       <button
@@ -39,7 +39,7 @@ export const CarouselButton: FC<{ index: number }> = ({
           index === 3 && "bg-gray-400",
         )}
         onClick={() => {
-          return swiper.slideTo(0);
+          return swiper.slideTo(2);
         }}
       />
     </div>

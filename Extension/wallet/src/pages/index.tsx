@@ -44,6 +44,8 @@ export default function Home() {
     return [state.step, state.setStep];
   });
 
+  const [swiper, setSwiper] = useState(undefined);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       let chromeAgent = window.navigator.userAgent.indexOf("Chrome") > -1;
@@ -125,12 +127,16 @@ export default function Home() {
           </div>
           <div className="block relative w-full">
             <Swiper
-              loop
+              initialSlide={0}
               slidesPerView={1}
               pagination={{ clickable: true }}
               scrollbar={{ draggable: true }}
               mousewheel={{
                 forceToAxis: true,
+              }}
+              onSwiper={swiper => {
+                //@ts-expect-error
+                setSwiper(swiper);
               }}
               onSlideChange={s => {
                 setStep(s.realIndex);
@@ -179,7 +185,8 @@ export default function Home() {
               className="py-3 w-full text-lg text-indigo-700 bg-indigo-100 hover:bg-indigo-200 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               onClick={async () => {
                 if (step === 0 || step === 1) {
-                  setStep(step + 1);
+                  //@ts-expect-error
+                  swiper?.slideTo(step + 1);
                 } else {
                   if (window.ethereum) {
                     try {
@@ -188,7 +195,8 @@ export default function Home() {
                       });
                       if (accounts && accounts.length > 0) {
                         if (isEnabled) {
-                          setStep(0);
+                          //@ts-expect-error
+                          swiper?.slideTo(0);
                           setIsEnabled(false);
                           window.location.reload();
                         } else {
