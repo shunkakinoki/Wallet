@@ -11,7 +11,6 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 2A4993442821E2C100346628 /* Build configuration list for PBXAggregateTarget "Lint" */;
 			buildPhases = (
-				2A4993452821E2CB00346628 /* Run Swiftlint */,
 			);
 			dependencies = (
 			);
@@ -451,7 +450,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Light Safari Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development: Created via API (C9D4454S76)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 261;
+				CURRENT_PROJECT_VERSION = 262;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -487,7 +486,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Light Safari Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 261;
+				CURRENT_PROJECT_VERSION = 262;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -657,7 +656,7 @@
 				CODE_SIGN_ENTITLEMENTS = Light/Light.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: Created via API (C9D4454S76)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 261;
+				CURRENT_PROJECT_VERSION = 262;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Light/Resources/Info.plist;
@@ -693,7 +692,7 @@
 				CODE_SIGN_ENTITLEMENTS = Light/Light.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 261;
+				CURRENT_PROJECT_VERSION = 262;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;

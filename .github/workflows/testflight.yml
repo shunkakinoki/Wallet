@@ -40,3 +40,5 @@ jobs:
           ITMSTRANSPORTER_FORCE_ITMS_PACKAGE_UPLOAD: true
       - if: always()
         uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          push_options: "--force"
