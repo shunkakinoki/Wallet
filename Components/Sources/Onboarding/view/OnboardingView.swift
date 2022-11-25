@@ -25,17 +25,28 @@ public struct OnboardingView: View {
                 Text("Start by adding your wallet, a new home for your web3 activites.").font(.system(size: 16)).foregroundColor(Color(Colors.Label.secondary))
             }.padding(.horizontal, 20)
             
-            Form {
-                Section {
-                    HStack(spacing: 16) {
+            VStack(spacing: 0) {
+                ZStack {
+                    HStack(spacing: 10) {
                         ColoredIconView(imageName: "plus.circle", foregroundColor: Color(.white), backgroundColor: Color(Colors.System.green))
-                            .frame(width: 30, height: 30)
+                            .padding([.top, .bottom], 7)
                         Text("Create New Wallet")
-                            .font(.custom(font: .inter, size: 17, weight: .regular))
+                            .font(Font.system(size: 17, weight: .regular))
+                            .foregroundColor(Color(Colors.Label.primary))
+                            ._lineHeightMultiple(1.08)
+                        Spacer()
                     }.onTapGesture {
                         self.viewModel.createMainWallet()
                     }
-                    
+                }
+                .padding([.leading], 16)
+                .contentShape(Rectangle())
+                .frame(maxWidth: .infinity)
+                Rectangle()
+                    .fill(Color(Colors.Separator.transparency))
+                    .frame(height: 0.5)
+                    .padding(.leading, 54)
+                ZStack {
                     NavigationLink(destination: ScrollView {
                         VStack(spacing: 0) {
                             HStack {
@@ -57,14 +68,27 @@ public struct OnboardingView: View {
                         }
                         .navigationBarTitle("Import or Restore Wallet", displayMode: .inline)
                     }) {
-                        HStack(spacing: 16) {
+                        HStack(spacing: 10) {
                             ColoredIconView(imageName: "square.and.arrow.down", foregroundColor: Color(.white), backgroundColor: Color(Colors.System.blue))
-                            Text("Import Existing Wallet")
-                                .font(.custom(font: .inter, size: 17, weight: .regular))
+                                .padding([.top, .bottom], 7)
+                            Text("Import Wallet")
+                                .font(Font.system(size: 17, weight: .regular))
+                                .foregroundColor(Color(Colors.Label.primary))
+                                ._lineHeightMultiple(1.08)
+                            Spacer()
                         }
                     }
-                }.listRowBackground(Color(Colors.Background.primary))
+                }
+                .padding([.leading], 16)
+                .contentShape(Rectangle())
+                .frame(maxWidth: .infinity)
             }
+            .background(Color(Colors.System.secondary))
+            .cornerRadius(14)
+            .padding([.leading, .trailing], 16)
+            .padding(.top, 30)
+
+            Spacer()
         }.sheet(isPresented: $isPresentingEditView) {
             VStack(alignment: .leading, spacing: 0) {
                 VStack(alignment: .leading, spacing: 12) {
@@ -85,7 +109,7 @@ public struct OnboardingView: View {
                 Button(action: {isPresentingEditView=false}){
                     Text("Get Started")
                         .foregroundColor(.white)
-                        .font(.system(size: 15, weight: .medium))
+                        .font(.system(size: 18, weight: .medium))
                         .frame(maxWidth: .infinity, maxHeight: 60.0)
                         .background(Color.blue)
                         .cornerRadius(15)
@@ -127,9 +151,9 @@ struct FeatureDetail: View {
             
             
             VStack(alignment: .leading) {
-                Text(title).bold().font(.system(size: 18)).padding([.bottom], 1.0)
+                Text(title).bold().font(.system(size: 21)).padding([.bottom], 1.0)
                 
-                Text(description).font(.system(size: 12)).foregroundColor(Color(Colors.Label.secondary))
+                Text(description).font(.system(size: 15)).foregroundColor(Color(Colors.Label.secondary))
             }
             
         }.padding([.leading, .trailing], 20.0).padding([.top], 20.0)
