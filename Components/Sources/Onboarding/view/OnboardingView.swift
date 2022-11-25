@@ -79,8 +79,7 @@ public struct OnboardingView: View {
             Button(action: {isPresentingEditView=false}){
                 Text("Get Started")
                     .foregroundColor(.white)
-                    .font(.headline)
-                    .font(.system(size: 28))
+                    .font(.system(size: 20, weight: .medium))
                     .frame(maxWidth: .infinity, maxHeight: 60.0)
                     .background(Color.blue)
                     .cornerRadius(15)
