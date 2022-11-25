@@ -28,8 +28,6 @@ public struct ImportPrivateKeyView: View {
             importButton
         }
         .navigationBarTitle("Import with Private Key", displayMode: .inline)
-        .toolbar { BackToolbar { presentationMode.wrappedValue.dismiss() } }
-        .navigationBarBackButtonHidden(true)
     }
 
     var textField: some View {

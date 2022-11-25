@@ -4,6 +4,7 @@ import Session
 import Domain
 import Keychain
 import Commons
+import UIComponents
 
 public struct WalletBackupView: View {
 

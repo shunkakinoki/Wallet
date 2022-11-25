@@ -3,7 +3,7 @@ import Keychain
 import Domain
 import Commons
 
-final public class OnboardingViewModel {
+public final class OnboardingViewModel: ObservableObject {
 
     private let generateMnemonic: GenerateMnemonic
     private let importWallet: ImportWallet

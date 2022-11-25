@@ -1,8 +1,14 @@
 import Foundation
 import UIKit
+import Session
+import SwiftUI
 
 public struct OnboardingFactory {
     public static func retrieve() -> UIViewController {
-        return OnboardingView()
+        return UINavigationController(
+            rootViewController: UIHostingController(
+                rootView: OnboardingView()
+            )
+        )
     }
 }
