@@ -6,4 +6,7 @@
   .h-screen {
     height: -webkit-fill-available;
   }
+  .max-h-screen {
+    max-height: -webkit-fill-available;
+  }
 }
