@@ -20,7 +20,7 @@ public struct OnboardingView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text("Add to Light Wallet")
                     .fontWeight(.bold)
-                    .font(.system(size: 40))
+                    .font(.system(size: 35))
                 
                 Text("Start by adding your wallet, a new home for your web3 activites.").font(.system(size: 16)).foregroundColor(Color(Colors.Label.secondary))
             }.padding(.horizontal, 20)
@@ -66,29 +66,33 @@ public struct OnboardingView: View {
                 }.listRowBackground(Color(Colors.Background.primary))
             }
         }.sheet(isPresented: $isPresentingEditView) {
-            Text("Getting Started in Light Wallet")
-                .fontWeight(.bold)
-                .font(.system(size: 45))
-                .padding([.top], 60)
-            
-            VStack(alignment: .leading) {
-                FeatureDetail(image: "safari.fill", title: "Safari Extension", description: "Instant access to all dapps, at the convenience of your fingertips inside the Safari browser.")
-                FeatureDetail(image: "lock.shield.fill", title: "Security", description: "Secure your funds & assets using Apple's native Secure Encalve.")
-                FeatureDetail(image: "checkmark.seal.fill", title: "Open Source & Native", description: "We believe in a privacy focused, open & transparent, native wallet infrastructure for Ethereum.")
-            }
-            
-            Spacer()
-            
-            Button(action: {isPresentingEditView=false}){
-                Text("Get Started")
-                    .foregroundColor(.white)
-                    .font(.system(size: 20, weight: .medium))
-                    .frame(maxWidth: .infinity, maxHeight: 60.0)
-                    .background(Color.blue)
-                    .cornerRadius(15)
-                    .padding(.top, 50)
-                    .padding(.horizontal, 30)
-                    .padding(.bottom, 20)
+            VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Getting Started in Light Wallet")
+                        .fontWeight(.bold)
+                        .font(.system(size: 35))
+                    
+                }.padding(.horizontal, 20).padding(.top, 60).padding(.bottom, 30)
+                
+                VStack(alignment: .leading) {
+                    FeatureDetail(image: "safari.fill", title: "Safari Extension", description: "Instant access to all dapps, at the convenience of your fingertips inside the Safari browser.")
+                    FeatureDetail(image: "lock.shield.fill", title: "Security", description: "Secure your funds & assets using Apple's native Secure Encalve.")
+                    FeatureDetail(image: "checkmark.seal.fill", title: "Open Source & Native", description: "We believe in a privacy focused, open & transparent, native wallet infrastructure for Ethereum.")
+                }
+                
+                Spacer()
+                
+                Button(action: {isPresentingEditView=false}){
+                    Text("Get Started")
+                        .foregroundColor(.white)
+                        .font(.system(size: 15, weight: .medium))
+                        .frame(maxWidth: .infinity, maxHeight: 60.0)
+                        .background(Color.blue)
+                        .cornerRadius(15)
+                        .padding(.top, 50)
+                        .padding(.horizontal, 30)
+                        .padding(.bottom, 20)
+                }
             }
         }
     }
@@ -121,13 +125,13 @@ struct FeatureDetail: View {
                 .padding([.top], 2.0)
                 .padding([.trailing], 8.0)
             
-
+            
             VStack(alignment: .leading) {
-                Text(title).bold().font(.system(size: 21)).padding([.bottom], 1.0)
+                Text(title).bold().font(.system(size: 18)).padding([.bottom], 1.0)
                 
-                Text(description).font(.system(size: 16)).foregroundColor(Color(Colors.Label.secondary))
+                Text(description).font(.system(size: 12)).foregroundColor(Color(Colors.Label.secondary))
             }
-        
+            
         }.padding([.leading, .trailing], 20.0).padding([.top], 20.0)
     }
 }
