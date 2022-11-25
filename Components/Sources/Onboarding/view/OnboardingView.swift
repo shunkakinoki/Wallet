@@ -16,13 +16,16 @@ public struct OnboardingView: View {
     
     public var body: some View {
         
-        VStack {
-            Text("Add to Light Wallet")
-                .fontWeight(.heavy)
-                .font(.system(size: 45))
-                .padding(4.0)
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Add to Light Wallet")
+                    .fontWeight(.bold)
+                    .font(.system(size: 40))
+                
+                Text("Start by adding your wallet, a new home for your web3 activites.").font(.system(size: 16)).foregroundColor(Color(Colors.Label.secondary))
+            }.padding(.horizontal, 20)
             
-            Form {
+            VStack {
                 Section {
                     HStack(spacing: 16) {
                         ColoredIconView(imageName: "plus.circle", foregroundColor: Color(.white), backgroundColor: Color(Colors.System.green))
@@ -61,7 +64,7 @@ public struct OnboardingView: View {
                         }
                     }
                 }
-            }
+            }.background(Color(Colors.Background.primary))
         }.sheet(isPresented: $isPresentingEditView) {
             Text("Getting Started in Light Wallet")
                 .fontWeight(.bold)
