@@ -35,7 +35,7 @@ public struct OnboardingView: View {
                             .foregroundColor(Color(Colors.Label.primary))
                             ._lineHeightMultiple(1.08)
                         Spacer()
-                    }.onTapGesture {
+                    }.contentShape(Rectangle()).onTapGesture {
                         self.viewModel.createMainWallet()
                     }
                 }
@@ -86,7 +86,7 @@ public struct OnboardingView: View {
             .background(Color(Colors.System.secondary))
             .cornerRadius(14)
             .padding([.leading, .trailing], 16)
-            .padding(.top, 30)
+            .padding(.top, 45)
 
             Spacer()
         }.sheet(isPresented: $isPresentingEditView) {
