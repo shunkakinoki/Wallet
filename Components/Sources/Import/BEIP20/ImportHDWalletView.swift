@@ -33,8 +33,6 @@ public struct ImportHDWalletView: View {
             importButton
         }
         .navigationBarTitle("Import with Seed Phrase", displayMode: .inline)
-        .toolbar { BackToolbar { presentationMode.wrappedValue.dismiss() } }
-        .navigationBarBackButtonHidden(true)
     }
 
     var textField: some View {
