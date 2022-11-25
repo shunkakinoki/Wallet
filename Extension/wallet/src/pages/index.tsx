@@ -71,7 +71,7 @@ export default function Home() {
   return (
     <Page>
       <title>Light Wallet</title>
-      <div className="container flex flex-col justify-between px-3 mx-auto max-w-md lg:h-4/6">
+      <div className="container flex flex-col justify-between px-3 mx-auto max-w-md h-screen lg:h-4/6">
         {isEnabled && <ReactConfetti />}
         <div className="mt-8 text-center">
           <h1 className="text-3xl font-bold">
