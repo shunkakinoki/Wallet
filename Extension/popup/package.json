@@ -13,6 +13,7 @@
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/firefox-webext-browser": "^94.0.1",
     "clsx": "^1.2.1",
+    "copy-to-clipboard": "^3.3.3",
     "ethers": "^5.7.2",
     "konsta": "^1.0.2",
     "next": "^12.3.1",
