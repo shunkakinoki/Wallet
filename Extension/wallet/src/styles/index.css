@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-  min-height: -webkit-fill-available;
   max-height: -webkit-fill-available;
 }
 
