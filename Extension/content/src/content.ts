@@ -37,7 +37,11 @@ browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         (window as Window).location = "lightdotso://";
         break;
       case "write_windowChainId":
-        sendToEthereum(message.params, genId(), "changeChainId");
+        sendToEthereum(
+          { ...message.params, rpcUrl: RpcMapping[message.params.chainId] },
+          genId(),
+          "changeChainId",
+        );
         storeHostConfiguration({
           name: getTitle(),
           favicon: getFavicon(),
