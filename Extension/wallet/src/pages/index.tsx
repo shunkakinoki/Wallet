@@ -174,7 +174,7 @@ export default function Home() {
             </Swiper>
           </div>
         </div>
-        <div className="mt-12 w-full text-sm font-medium text-center text-gray-500 dark:text-gray-300">
+        <div className="w-full text-sm font-medium text-center text-gray-500 dark:text-gray-300">
           <div className="flex justify-center mb-4 text-center">
             <button
               type="button"
