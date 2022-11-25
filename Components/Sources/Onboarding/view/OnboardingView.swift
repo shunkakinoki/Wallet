@@ -63,28 +63,30 @@ public struct OnboardingView: View {
                 }
             }
         }.sheet(isPresented: $isPresentingEditView) {
-            Spacer()
             Text("Getting Started in Light Wallet")
-                .fontWeight(.heavy)
-                .font(.system(size: 50))
-            
+                .fontWeight(.bold)
+                .font(.system(size: 45))
+                .padding([.top], 60)
             
             VStack(alignment: .leading) {
-                FeatureDetail(image: "heart.fill", imageColor: .pink, title: "Safari Extension", description: "Experience access to all dappsat the convenience of your fingertips.")
-                FeatureDetail(image: "paperclip", imageColor: .red, title: "Security", description: "Secure your funds using Apple's native Secure Encalve.")
-                FeatureDetail(image: "play.rectangle.fill", imageColor: .blue, title: "Open Source & Native", description: "We believe in a privacy focused, open & transparent, native wallet infrastructure for Ethereum.")
+                FeatureDetail(image: "safari.fill", title: "Safari Extension", description: "Instant access to all dapps, at the convenience of your fingertips inside the Safari browser.")
+                FeatureDetail(image: "lock.shield.fill", title: "Security", description: "Secure your funds & assets using Apple's native Secure Encalve.")
+                FeatureDetail(image: "checkmark.seal.fill", title: "Open Source & Native", description: "We believe in a privacy focused, open & transparent, native wallet infrastructure for Ethereum.")
             }
             
             Spacer()
             
             Button(action: {isPresentingEditView=false}){
-                Text("Next")
+                Text("Get Started")
                     .foregroundColor(.white)
                     .font(.headline)
-                    .frame(width: 350, height: 60)
+                    .font(.system(size: 28))
+                    .frame(maxWidth: .infinity, maxHeight: 60.0)
                     .background(Color.blue)
                     .cornerRadius(15)
                     .padding(.top, 50)
+                    .padding(.horizontal, 30)
+                    .padding(.bottom, 20)
             }
         }
     }
@@ -101,26 +103,29 @@ public struct OnboardingView: View {
 
 struct FeatureDetail: View {
     var image: String
-    var imageColor: Color
     var title: String
     var description: String
     
     var body: some View {
-        HStack(alignment: .center) {
-            HStack {
-                Image(systemName: image)
-                    .font(.system(size: 50))
-                    .frame(width: 50)
-                    .foregroundColor(Color(Colors.Label.primary))
-                    .padding()
+        HStack(alignment: .top) {
+            Image(systemName: image)
+                .resizable()
+                .scaledToFit()
+                .padding(10.0)
+                .frame(width: 48, height: 48)
+                .foregroundColor(Color(Colors.Background.primary))
+                .background(Color(Colors.Label.primary))
+                .cornerRadius(.infinity)
+                .padding([.top], 2.0)
+                .padding([.trailing], 8.0)
+            
+
+            VStack(alignment: .leading) {
+                Text(title).bold().font(.system(size: 21)).padding([.bottom], 1.0)
                 
-                VStack(alignment: .leading) {
-                    Text(title).bold()
-                    
-                    Text(description)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            }.frame(width: 340, height: 100)
-        }
+                Text(description).font(.system(size: 16)).foregroundColor(Color(Colors.Label.secondary))
+            }
+        
+        }.padding([.leading, .trailing], 20.0).padding([.top], 30.0)
     }
 }
