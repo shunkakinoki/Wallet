@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import {
   ClipboardDocumentIcon,
+  ClipboardDocumentCheckIcon,
   GlobeAltIcon,
 } from "@heroicons/react/24/outline";
 import { ChainNames } from "@lightdotso/chain";
@@ -19,6 +20,7 @@ import { useEffect, useState, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 import { Avatar } from "../components/Avatar";
+import { useCopy } from "../hooks/useCopy";
 import { ChevronUpChevrondown } from "../icons/chevron.up.chevron.down";
 import { EntryLeverKeypadTrianglebadgeExclamationmark } from "../icons/entry.lever.keypad.trianglebadge.exclamationmark";
 import { ExclamationMarkBubble } from "../icons/exclamationmark.bubble";
@@ -75,6 +77,7 @@ export default function Home() {
   const [handle, setHandle] = useState("");
 
   const [isFallback, setIsFallback] = useState(false);
+  const [isCopied, copy] = useCopy();
 
   useEffect(() => {
     setIsFallback(false);
@@ -463,11 +466,16 @@ export default function Home() {
               chainId && (
                 <div className="flex items-center fill-gray-300">
                   {accountId && splitAddress(accountId)}
-                  <ClipboardDocumentIcon className="ml-1.5 w-4 h-4" />
+                  {!isCopied ? (
+                    <ClipboardDocumentIcon className="ml-1.5 w-4 h-4" />
+                  ) : (
+                    <ClipboardDocumentCheckIcon className="ml-1.5 w-4 h-4" />
+                  )}
                 </div>
               )
             }
             onClick={() => {
+              copy(accountId ?? "");
               toast.success("Copied!");
             }}
           />
