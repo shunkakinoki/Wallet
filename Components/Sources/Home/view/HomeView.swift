@@ -30,6 +30,17 @@ struct HomeView: View {
                     Spacer()
                     settingsButton
                 }
+                
+                HStack {
+                    Text("CA$34.45")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundColor(Color(.white))
+                        .padding(.top, 2)
+                        .padding(.bottom, 2)
+
+                    Spacer()
+                }
+                
                 HStack(spacing: 24) {
                     Button {
                         UIPasteboard.general.setValue(
@@ -46,7 +57,7 @@ struct HomeView: View {
                                 .background(Color(Colors.Background.secondary))
                                 .clipShape(Circle())
                                 .padding(.top, 25)
-                            Text("Buy")
+                            Text("Troll")
                                 .font(.body)
                                 .foregroundColor(Color(Colors.Label.primary))
                         }
