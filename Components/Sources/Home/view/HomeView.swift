@@ -19,6 +19,9 @@ struct HomeView: View {
     private var showingQR = false
     
     @State
+    private var showToast = false
+    
+    @State
     private var showingSettings = false
     
     var body: some View {
@@ -76,7 +79,7 @@ struct HomeView: View {
                                     viewModel.selectedRawAddress,
                                     forPasteboardType: "public.plain-text"
                                 )
-                                AlertToast(type: .loading)
+                                showToast.toggle()
                             }) {
                                 Label("Copy Address", systemImage: "doc.on.clipboard")
                             }
@@ -205,6 +208,9 @@ struct HomeView: View {
             }
             .padding([.leading, .trailing, .top], 16)
             Spacer()
+        }
+        .toast(isPresenting: $showToast){
+            AlertToast(type: .complete(Color(.green)), title: "Copied!")
         }
         .refreshable {}
     }
