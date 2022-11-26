@@ -19,9 +19,7 @@ export const ChainIconSpan = styled.span`
   background-color: #e5e7eb;
   color: #9ca3af;
   font-size: 1.5rem;
-  line-height: 1rem;
   font-weight: 600;
-  line-height: 1;
   justify-content: center;
   align-items: center;
   width: 3rem;

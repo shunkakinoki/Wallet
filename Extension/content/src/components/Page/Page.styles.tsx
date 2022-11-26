@@ -51,7 +51,6 @@ export const PageBannerContainer = styled.div`
   padding: 10px 14px 12px 20px;
   font-size: 20px;
   font-weight: 300;
-  line-height: 1.75rem;
   color: #2b2929;
 `;
 
@@ -59,7 +58,6 @@ export const PageBannerDataContainer = styled.div`
   padding: 10px 0px;
   font-size: 20px;
   font-weight: 300;
-  line-height: 1.75rem;
   color: #2b2929;
 `;
 
@@ -70,6 +68,7 @@ export const LinkContainer = styled.div`
 
   font-size: 18px;
   font-weight: 500;
+  padding-top: 1.5px;
 `;
 
 export const LinkButton = styled.span`
@@ -108,7 +107,6 @@ export const PageDescriptionInfoContainer = styled.div`
   align-items: center;
   font-size: 14px;
   font-weight: 500;
-  line-height: 1.2rem;
   color: #5f5b5b;
 `;
 

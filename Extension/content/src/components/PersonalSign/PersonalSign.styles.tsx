@@ -5,6 +5,5 @@ export const PersonalSignDescriptionContainer = styled.div`
   word-break: break-all;
   font-size: 18px;
   font-weight: 700;
-  line-height: 1.6rem;
   color: #544949;
 `;

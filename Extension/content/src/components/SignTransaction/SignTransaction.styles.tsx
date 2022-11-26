@@ -5,7 +5,6 @@ export const SignTransactionDescriptionContainer = styled.div`
   word-break: break-all;
   font-size: 18px;
   font-weight: 700;
-  line-height: 1.6rem;
   color: #544949;
 `;
 
@@ -18,13 +17,11 @@ export const SignTransactionGasContainer = styled.div`
 export const SignTransactionGasEstimateContainer = styled.div`
   font-size: 18px;
   font-weight: 600;
-  line-height: 1.6rem;
 `;
 
 export const SignTransactionGasEstimateFeeContainer = styled.div`
   font-size: 12px;
   font-weight: 500;
-  line-height: 1rem;
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -52,7 +49,6 @@ export const SignTransactionGasSimulationContainer = styled.div`
   padding-bottom: 1.25rem;
   font-size: 18px;
   font-weight: 600;
-  line-height: 1.6rem;
 
   word-break: keep-all;
 `;
@@ -67,7 +63,6 @@ export const SignTransactionGasSelectAccordionContainer = styled.div`
   justify-content: space-between;
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.25;
   cursor: pointer;
 
   padding-bottom: 1.25rem;
@@ -91,7 +86,6 @@ export const SignTransactionGasSelectTransferContainer = styled.div`
 export const SignTransactionGasSelectTransferErrorContainer = styled.div`
   font-size: 21px;
   font-weight: 700;
-  line-height: 1.4rem;
 
   padding-top: 0.75rem;
   padding-bottom: 0.25rem;
@@ -137,7 +131,6 @@ export const SignTransactionGasSelectTransferFallbackImageContainer = styled.spa
 export const SignTransactionGasSelectTransferBalanceContainer = styled.div`
   font-size: 18px;
   font-weight: 600;
-  line-height: 1.6rem;
 
   text-align: right;
 `;
@@ -145,7 +138,6 @@ export const SignTransactionGasSelectTransferBalanceContainer = styled.div`
 export const SignTransactionGasSelectTransferBalanceExpansionContainer = styled.div`
   font-size: 15px;
   font-weight: 400;
-  line-height: 1.2rem;
 
   text-align: right;
 
@@ -155,7 +147,6 @@ export const SignTransactionGasSelectTransferBalanceExpansionContainer = styled.
 export const SignTransactionGasSelectTransferBalanceContainerSpan = styled.span`
   font-size: 12px;
   font-weight: 400;
-  line-height: 1.2rem;
 
   padding-bottom: 0.75rem;
 `;
