@@ -51,7 +51,6 @@ export const PageBannerContainer = styled.div`
   padding: 10px 14px 12px 20px;
   font-size: 20px;
   font-weight: 300;
-  line-height: 1.75rem;
   color: #2b2929;
 `;
 

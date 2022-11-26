@@ -22,7 +22,6 @@ export const SignTransactionGasEstimateContainer = styled.div`
 export const SignTransactionGasEstimateFeeContainer = styled.div`
   font-size: 12px;
   font-weight: 500;
-  line-height: 1rem;
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -87,7 +86,6 @@ export const SignTransactionGasSelectTransferContainer = styled.div`
 export const SignTransactionGasSelectTransferErrorContainer = styled.div`
   font-size: 21px;
   font-weight: 700;
-  line-height: 1.4rem;
 
   padding-top: 0.75rem;
   padding-bottom: 0.25rem;
@@ -133,7 +131,6 @@ export const SignTransactionGasSelectTransferFallbackImageContainer = styled.spa
 export const SignTransactionGasSelectTransferBalanceContainer = styled.div`
   font-size: 18px;
   font-weight: 600;
-  line-height: 1.6rem;
 
   text-align: right;
 `;
@@ -141,7 +138,6 @@ export const SignTransactionGasSelectTransferBalanceContainer = styled.div`
 export const SignTransactionGasSelectTransferBalanceExpansionContainer = styled.div`
   font-size: 15px;
   font-weight: 400;
-  line-height: 1.2rem;
 
   text-align: right;
 
@@ -151,7 +147,6 @@ export const SignTransactionGasSelectTransferBalanceExpansionContainer = styled.
 export const SignTransactionGasSelectTransferBalanceContainerSpan = styled.span`
   font-size: 12px;
   font-weight: 400;
-  line-height: 1.2rem;
 
   padding-bottom: 0.75rem;
 `;
