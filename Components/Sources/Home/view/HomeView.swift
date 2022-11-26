@@ -3,8 +3,7 @@ import Commons
 import SDWebImageSwiftUI
 import UIComponents
 import Settings
-
-
+import AlertToast
 
 struct HomeView: View {
     @ObservedObject
@@ -77,6 +76,7 @@ struct HomeView: View {
                                     viewModel.selectedRawAddress,
                                     forPasteboardType: "public.plain-text"
                                 )
+                                AlertToast(type: .loading)
                             }) {
                                 Label("Copy Address", systemImage: "doc.on.clipboard")
                             }
