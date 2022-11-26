@@ -37,6 +37,7 @@
 		2AE391FC2800D8F000E19495 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE391FB2800D8F000E19495 /* SceneDelegate.swift */; };
 		2AE392032800D8F100E19495 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AE392022800D8F100E19495 /* Assets.xcassets */; };
 		2AE392062800D8F100E19495 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AE392042800D8F100E19495 /* LaunchScreen.storyboard */; };
+		A65EB4A32931DE2E00E1B0F2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = A65EB4A22931DE2E00E1B0F2 /* AlertToast */; };
 		A686724E28F618A800F812B6 /* popup in Resources */ = {isa = PBXBuildFile; fileRef = A686724D28F618A800F812B6 /* popup */; };
 		A686724F28F618A800F812B6 /* popup in Resources */ = {isa = PBXBuildFile; fileRef = A686724D28F618A800F812B6 /* popup */; };
 		A69B427F290F82F000F30677 /* inpage.js in Resources */ = {isa = PBXBuildFile; fileRef = A69B427E290F82F000F30677 /* inpage.js */; };
@@ -123,6 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AABA2FE2810A20A001BDB6F /* Core in Frameworks */,
+				A65EB4A32931DE2E00E1B0F2 /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +299,7 @@
 			name = Light;
 			packageProductDependencies = (
 				2AABA2FD2810A20A001BDB6F /* Core */,
+				A65EB4A22931DE2E00E1B0F2 /* AlertToast */,
 			);
 			productName = Light;
 			productReference = 2AE391F62800D8F000E19495 /* Light Dev.app */;
@@ -332,6 +335,9 @@
 				Base,
 			);
 			mainGroup = 2AE391ED2800D8F000E19495;
+			packageReferences = (
+				A65EB4A12931DE2E00E1B0F2 /* XCRemoteSwiftPackageReference "AlertToast" */,
+			);
 			productRefGroup = 2AE391F72800D8F000E19495 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -762,6 +768,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		A65EB4A12931DE2E00E1B0F2 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		2A77A40428E4066C00863CC4 /* Extension */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -770,6 +787,11 @@
 		2AABA2FD2810A20A001BDB6F /* Core */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Core;
+		};
+		A65EB4A22931DE2E00E1B0F2 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A65EB4A12931DE2E00E1B0F2 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -56,7 +56,7 @@ If you want to contribute, you can use our [main telegram](https://t.me/Light_Wa
 
 ## 📚 Acknowledgements
 
-- Heavily inspired by the works of [Balance](https://github.com/balance-io).
+- Heavily inspired by the works of [Balance](https://github.com/balance-io) & [Glow](https://glow.app).
 - Light Wallet is a clean-room rewrite of [Tokenary](https://github.com/zeriontech/Tokenary).
 - The Extension Ethereum Provider is a fork of [Trust Web3 Provider](https://github.com/trustwallet/trust-web3-provider).
 - All the other [contributors](https://github.com/LightDotSo/Wallet/graphs/contributors).
