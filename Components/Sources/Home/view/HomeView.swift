@@ -3,8 +3,7 @@ import Commons
 import SDWebImageSwiftUI
 import UIComponents
 import Settings
-
-
+import AlertToast
 
 struct HomeView: View {
     @ObservedObject
@@ -18,6 +17,9 @@ struct HomeView: View {
     
     @State
     private var showingQR = false
+    
+    @State
+    private var showToast = false
     
     @State
     private var showingSettings = false
@@ -77,6 +79,7 @@ struct HomeView: View {
                                     viewModel.selectedRawAddress,
                                     forPasteboardType: "public.plain-text"
                                 )
+                                showToast.toggle()
                             }) {
                                 Label("Copy Address", systemImage: "doc.on.clipboard")
                             }
@@ -205,6 +208,9 @@ struct HomeView: View {
             }
             .padding([.leading, .trailing, .top], 16)
             Spacer()
+        }
+        .toast(isPresenting: $showToast){
+            AlertToast(type: .complete(Color(.green)), title: "Copied!")
         }
         .refreshable {}
     }
