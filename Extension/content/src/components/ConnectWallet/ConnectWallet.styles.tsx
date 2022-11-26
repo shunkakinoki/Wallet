@@ -5,7 +5,6 @@ export const SignTransactionContainer = styled.div`
   padding-bottom: 1.25rem;
   font-size: 18px;
   font-weight: 600;
-  line-height: 1.6rem;
 
   word-break: keep-all;
 `;

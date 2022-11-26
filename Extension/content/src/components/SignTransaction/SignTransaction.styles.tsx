@@ -5,7 +5,6 @@ export const SignTransactionDescriptionContainer = styled.div`
   word-break: break-all;
   font-size: 18px;
   font-weight: 700;
-  line-height: 1.6rem;
   color: #544949;
 `;
 
@@ -18,7 +17,6 @@ export const SignTransactionGasContainer = styled.div`
 export const SignTransactionGasEstimateContainer = styled.div`
   font-size: 18px;
   font-weight: 600;
-  line-height: 1.6rem;
 `;
 
 export const SignTransactionGasEstimateFeeContainer = styled.div`
@@ -52,7 +50,6 @@ export const SignTransactionGasSimulationContainer = styled.div`
   padding-bottom: 1.25rem;
   font-size: 18px;
   font-weight: 600;
-  line-height: 1.6rem;
 
   word-break: keep-all;
 `;
@@ -67,7 +64,6 @@ export const SignTransactionGasSelectAccordionContainer = styled.div`
   justify-content: space-between;
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.25;
   cursor: pointer;
 
   padding-bottom: 1.25rem;
