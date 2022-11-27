@@ -211,8 +211,6 @@ export const SignTransactionDescription: FC<
     if (
       params?.from &&
       params?.to &&
-      params?.value &&
-      params?.data &&
       (window.ethereum.chainId == "0x1" ||
         window.ethereum.chainId == "0x5" ||
         window.ethereum.chainId == "0x89")

@@ -25,6 +25,7 @@
     "react-modal": "^3.16.1",
     "react-transition-state": "^2.0.2",
     "storybook": "^6.5.12",
+    "swr": "^2.0.0-rc.1",
     "zustand": "^4.1.2"
   },
   "devDependencies": {

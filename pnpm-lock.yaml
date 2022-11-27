@@ -102,6 +102,7 @@ importers:
       react-modal: ^3.16.1
       react-transition-state: ^2.0.2
       storybook: ^6.5.12
+      swr: ^2.0.0-rc.1
       zustand: ^4.1.2
     dependencies:
       '@emotion/cache': 11.10.3
@@ -118,6 +119,7 @@ importers:
       react-modal: 3.16.1_biqbaboplfbrettd7655fr4n2y
       react-transition-state: 2.0.2_biqbaboplfbrettd7655fr4n2y
       storybook: 6.5.12_biqbaboplfbrettd7655fr4n2y
+      swr: 2.0.0-rc.1_react@18.2.0
       zustand: 4.1.2_react@18.2.0
     devDependencies:
       '@babel/core': 7.19.6
@@ -15955,6 +15957,16 @@ packages:
     dependencies:
       dom7: 4.0.4
       ssr-window: 4.0.2
+    dev: false
+
+  /swr/2.0.0-rc.1_react@18.2.0:
+    resolution: {integrity: sha512-GHKO88VK7aQ8PQMewcQMhNhBnSrrXsg5wxtLpHvsfFHwiil9eMumUhfocf4ew2DaOkVZQm/O5rKi2oeJ5qBX+g==}
+    engines: {pnpm: '7'}
+    peerDependencies:
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
   /symbol.prototype.description/1.0.5:
