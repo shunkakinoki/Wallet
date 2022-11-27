@@ -17,7 +17,7 @@ export const useCoinUSD = () => {
   );
 
   return {
-    data,
+    coinUSD: data && data?.USD ? Number(data?.USD) : null,
     error,
     isLoading,
     isValidating,

@@ -178,7 +178,7 @@ export const SignTransactionDescription: FC<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config]);
 
-  const { data } = useCoinUSD();
+  const { coinUSD } = useCoinUSD();
 
   useEffect(() => {
     if (result?.simulationResults && !result?.simulationResults?.error) {
@@ -278,10 +278,12 @@ export const SignTransactionDescription: FC<
   }, [result?.warnings]);
 
   useEffect(() => {
-    setGasEstimationDollar(
-      (Number(data?.USD) * gasEstimationFee).toFixed(2).toString(),
-    );
-  }, [data, gasEstimationFee]);
+    if (coinUSD) {
+      setGasEstimationDollar(
+        (coinUSD * gasEstimationFee).toFixed(2).toString(),
+      );
+    }
+  }, [coinUSD, gasEstimationFee]);
 
   const [isExpanded, setIsExpand] = useState<boolean>();
 
