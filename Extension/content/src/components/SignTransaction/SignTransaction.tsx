@@ -2,6 +2,7 @@ import { ChainNames } from "@lightdotso/chain";
 import type { FC } from "react";
 import { useEffect, useState, useCallback } from "react";
 
+import { useCoinUSD } from "../../hooks/useCoinUSD";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
 
@@ -177,6 +178,8 @@ export const SignTransactionDescription: FC<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config]);
 
+  const { data } = useCoinUSD();
+
   useEffect(() => {
     if (result?.simulationResults && !result?.simulationResults?.error) {
       result?.simulationResults?.expectedStateChanges.map(change => {
@@ -275,27 +278,10 @@ export const SignTransactionDescription: FC<
   }, [result?.warnings]);
 
   useEffect(() => {
-    fetch(
-      `https://min-api.cryptocompare.com/data/price?fsym=${
-        window.ethereum.chainId == "0x89" ? "MATIC" : "ETH"
-      }&tsyms=USD`,
-      {
-        method: "GET",
-      },
-    )
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        logContent(`Gas dollar result: ${JSON.stringify(data)}`);
-        setGasEstimationDollar(
-          (Number(data.USD) * gasEstimationFee).toFixed(2).toString(),
-        );
-      })
-      .catch(err => {
-        logContent(`Error scan: ${JSON.stringify(err)}`);
-      });
-  }, [gasEstimationFee]);
+    setGasEstimationDollar(
+      (Number(data?.USD) * gasEstimationFee).toFixed(2).toString(),
+    );
+  }, [data, gasEstimationFee]);
 
   const [isExpanded, setIsExpand] = useState<boolean>();
 
