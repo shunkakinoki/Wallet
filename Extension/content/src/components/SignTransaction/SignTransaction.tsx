@@ -3,6 +3,8 @@ import type { FC } from "react";
 import { useEffect, useState, useCallback } from "react";
 
 import { useCoinUSD } from "../../hooks/useCoinUSD";
+import { useGasFallback } from "../../hooks/useGasFallback";
+import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
 
@@ -96,89 +98,23 @@ export const SignTransactionDescription: FC<
   Pick<SignTransactionParams, "params">
 > = ({ params }) => {
   const [result, setResult] = useState(null);
-  const [isFallback, setIsFallback] = useState(false);
   const [gasEstimationDollar, setGasEstimationDollar] = useState("");
   const [gasEstimationFee, setGasEstimationFee] = useState(0.01);
 
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
   });
-  const [gasPrice, setGasPrice] = useTransactionGasPrice(state => {
-    return [state.gasPrice, state.setGasPrice];
-  });
 
   const [setError] = useTransactionError(state => {
     return [state.setError];
   });
 
-  const fetchGasPrice = () => {
-    fetch(`https://wallet.light.so/api/gas/${window.ethereum.chainId}`, {
-      method: "POST",
-      body: JSON.stringify({
-        isLegacy: true,
-        legacySpeed: config.legacySpeed,
-      }),
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      }),
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        logContent(`GasPrice result: ${JSON.stringify(data)}`);
-        if (
-          !data?.gasPrice ||
-          Number.isNaN(data?.gasPrice) ||
-          data?.gasPrice === 0
-        ) {
-          throw "No gasPrice";
-        }
-        setGasPrice(data.gasPrice);
-      })
-      .catch(err => {
-        logContent(`Error gas: ${JSON.stringify(err)}`);
-        if (window.ethereum.storybook) {
-          setGasPrice("0x69");
-          return;
-        }
-        setIsFallback(true);
-        window.ethereum.rpc
-          .call({
-            jsonrpc: "2.0",
-            method: "eth_gasPrice",
-            params: [],
-            id: 1,
-          })
-          .then(response => {
-            setGasPrice(response.result);
-          });
-      });
-  };
-
-  useEffect(() => {
-    logContent(`Config: ${JSON.stringify(config)}`);
-
-    if (config) {
-      fetchGasPrice();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (config) {
-        fetchGasPrice();
-      }
-    }, 3000);
-    return () => {
-      return clearInterval(interval);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config]);
+  const [isGasFallback] = useGasFallback(state => {
+    return [state.isGasFallback];
+  });
 
   const { coinUSD } = useCoinUSD();
+  const { gasPrice } = useGasPrice();
 
   useEffect(() => {
     if (result?.simulationResults && !result?.simulationResults?.error) {
@@ -264,10 +200,11 @@ export const SignTransactionDescription: FC<
   }, []);
 
   useEffect(() => {
-    setGasEstimationFee(
-      (parseInt(gasPrice, 16) * (21_000 + 68 * (params?.data?.length / 2))) /
-        10e18,
-    );
+    if (gasPrice) {
+      setGasEstimationFee(
+        (gasPrice * (21_000 + 68 * (params?.data?.length / 2))) / 10e18,
+      );
+    }
   }, [gasPrice, params?.data]);
 
   useEffect(() => {
@@ -518,7 +455,7 @@ export const SignTransactionDescription: FC<
             }}
           >
             <option value="standard">🚗 Standard</option>
-            {!isFallback && (
+            {!isGasFallback && (
               <>
                 <option value="instant">🚨 Instant</option>
                 <option value="fast">🏄‍♂️ Fast</option>
