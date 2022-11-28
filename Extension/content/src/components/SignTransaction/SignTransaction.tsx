@@ -114,7 +114,7 @@ export const SignTransactionDescription: FC<
   });
 
   const { coinUSD } = useCoinUSD();
-  const { gasPrice } = useGasPrice();
+  const { gasPrice, error: errorGasPrice } = useGasPrice();
 
   useEffect(() => {
     if (result?.simulationResults && !result?.simulationResults?.error) {
@@ -200,12 +200,15 @@ export const SignTransactionDescription: FC<
   }, []);
 
   useEffect(() => {
+    if (errorGasPrice) {
+      setGasEstimationFee(0.03);
+    }
     if (gasPrice) {
       setGasEstimationFee(
         (gasPrice * (21_000 + 68 * (params?.data?.length / 2))) / 10e18,
       );
     }
-  }, [gasPrice, params?.data]);
+  }, [errorGasPrice, gasPrice, params?.data]);
 
   useEffect(() => {
     if (typeof result?.warnings !== "undefined" && result?.warnings.length) {
@@ -228,7 +231,7 @@ export const SignTransactionDescription: FC<
     setIsExpand(!isExpanded);
   }, [isExpanded]);
 
-  if (params?.from && params?.to && params?.value && params?.data) {
+  if (params?.from && params?.to) {
     if (result?.simulationResults && result?.simulationResults?.error) {
       return (
         <SignTransactionGasSimulationContainer
