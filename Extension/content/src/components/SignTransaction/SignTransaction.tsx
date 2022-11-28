@@ -14,6 +14,7 @@ import { BlowfishIcon } from "../../icons/BlowfishIcon";
 import { WarningIcon } from "../../icons/WarningIcon";
 import { logContent } from "../../services/log";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
+import { shortenName } from "../../utils/shortenName";
 import { ConfirmButton } from "../Base/ConfirmButton";
 
 import {
@@ -472,10 +473,6 @@ export const SignTransactionDescription: FC<
   }
 
   return null;
-};
-
-export const shortenName = (name: string) => {
-  return name.match(/\b\w/g)?.join("").toUpperCase().substring(0, 3);
 };
 
 export const SignTransactionGasSelectTransferImage = ({
