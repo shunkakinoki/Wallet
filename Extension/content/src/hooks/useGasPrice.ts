@@ -18,10 +18,27 @@ export const useGasPrice = () => {
         isLegacy: true,
         legacySpeed: legacySpeed,
       }),
-    }).then(res => {
-      setGasFallback(false);
-      return res.json();
-    });
+    })
+      .then(res => {
+        setGasFallback(false);
+        return res.json();
+      })
+      .catch(err => {
+        setGasFallback(true);
+        if (window.ethereum.storybook) {
+          return { gasPrice: "0x69" };
+        }
+        window.ethereum.rpc
+          .call({
+            jsonrpc: "2.0",
+            method: "eth_gasPrice",
+            params: [],
+            id: 1,
+          })
+          .then(response => {
+            return response.result;
+          });
+      });
   };
 
   const { data, error, isLoading, isValidating } = useSWR(
