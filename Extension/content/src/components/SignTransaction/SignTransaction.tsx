@@ -116,11 +116,7 @@ export const SignTransactionDescription: FC<
   });
 
   const { coinUSD } = useCoinUSD();
-  const {
-    gasPrice,
-    error: errorGasPrice,
-    isValidating: isGasPriceValidating,
-  } = useGasPrice();
+  const { gasPrice, isValidating: isGasPriceValidating } = useGasPrice();
 
   useEffect(() => {
     if (result?.simulationResults && !result?.simulationResults?.error) {
@@ -206,15 +202,12 @@ export const SignTransactionDescription: FC<
   }, []);
 
   useEffect(() => {
-    if (errorGasPrice) {
-      setGasEstimationFee(0.03);
-    }
     if (gasPrice) {
       setGasEstimationFee(
         (gasPrice * (21_000 + 68 * (params?.data?.length / 2))) / 10e18,
       );
     }
-  }, [errorGasPrice, gasPrice, params?.data]);
+  }, [gasPrice, params?.data]);
 
   useEffect(() => {
     if (typeof result?.warnings !== "undefined" && result?.warnings.length) {
@@ -453,8 +446,13 @@ export const SignTransactionDescription: FC<
             </SignTransactionGasEstimateFeeSecondsContainer>
             <br />
             <SignTransactionGasEstimateFeeContainer>
-              Estimated Fee: {gasEstimationFee.toFixed(6)}{" "}
-              {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
+              Estimated Fee:{" "}
+              {gasEstimationFee < 0.000001
+                ? "< 0.000001"
+                : gasEstimationFee.toFixed(6)}{" "}
+              {gasEstimationFee && window.ethereum.chainId === "0x89"
+                ? "MATIC"
+                : "ETH"}
               {isGasPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimateFeeContainer>
           </SignTransactionGasEstimateContainer>
