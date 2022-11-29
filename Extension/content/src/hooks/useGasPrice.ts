@@ -36,7 +36,7 @@ export const useGasPrice = () => {
             id: 1,
           })
           .then(response => {
-            return response.result;
+            return { gasPrice: response.result };
           });
       });
   };
