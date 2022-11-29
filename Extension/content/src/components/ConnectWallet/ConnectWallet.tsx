@@ -1,7 +1,5 @@
 import type { FC } from "react";
 
-import { useEffect, useState } from "react";
-
 import { useBlowfishDomain } from "../../hooks/useBlowfishDomain";
 
 import { useTransactionError } from "../../hooks/useTransactionError";
@@ -45,18 +43,7 @@ export const ConnectWallet: FC<ConnectWalletParams> = ({
 export const ConnectWalletDescription: FC<
   Pick<ConnectWalletParams, "params">
 > = ({ params }) => {
-  const [setError] = useTransactionError(state => {
-    return [state.setError];
-  });
-
   const { result } = useBlowfishDomain(params);
-
-  useEffect(() => {
-    if (result && result[0]?.risk_score > 0.3) {
-      setError(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result]);
 
   if (result && result[0]?.risk_score > 0.3) {
     return (
