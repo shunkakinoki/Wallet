@@ -121,36 +121,6 @@ export const SignTransactionDescription: FC<
   const { result } = useBlowfishTx(params);
 
   useEffect(() => {
-    if (result?.simulationResults && !result?.simulationResults?.error) {
-      result?.simulationResults?.expectedStateChanges.map(change => {
-        if (
-          change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
-          change?.rawInfo?.kind === "ERC20_TRANSFER"
-        ) {
-          fetch(
-            `https://min-api.cryptocompare.com/data/price?fsym=${change?.rawInfo.data?.symbol}&tsyms=USD`,
-            {
-              method: "GET",
-            },
-          )
-            .then(response => {
-              return response.json();
-            })
-            .then(data => {
-              logContent(
-                `${
-                  change?.rawInfo.data?.symbol
-                } dollar result: ${JSON.stringify(data)}`,
-              );
-              change.rawInfo.data.value = data.USD;
-            });
-        }
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result?.simulationResults]);
-
-  useEffect(() => {
     if (gasPrice) {
       setGasEstimationFee(
         (gasPrice * (21_000 + 68 * (params?.data?.length / 2))) / 10e18,

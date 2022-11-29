@@ -36,14 +36,40 @@ const fetcher = params => {
 };
 
 export const useBlowfishTx = params => {
-  const { data, error, isLoading, isValidating } = useSWR(params, fetcher, {
+  const {
+    data: result,
+    error,
+    isLoading,
+    isValidating,
+  } = useSWR(params, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
 
+  if (result?.simulationResults && !result?.simulationResults?.error) {
+    result?.simulationResults?.expectedStateChanges.map(change => {
+      if (
+        change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
+        change?.rawInfo?.kind === "ERC20_TRANSFER"
+      ) {
+        fetch(
+          `https://min-api.cryptocompare.com/data/price?fsym=${change?.rawInfo.data?.symbol}&tsyms=USD`,
+          {
+            method: "GET",
+          },
+        )
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            change.rawInfo.data.value = data.USD;
+          });
+      }
+    });
+  }
   return {
-    result: data,
+    result,
     error,
     isLoading,
     isValidating,
