@@ -14,7 +14,6 @@ import { useTransactionGasPrice } from "../../hooks/useTransactionGasPrice";
 
 import { BlowfishIcon } from "../../icons/BlowfishIcon";
 import { WarningIcon } from "../../icons/WarningIcon";
-import { logContent } from "../../services/log";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
 import { shortenName } from "../../utils/shortenName";
 import { ConfirmButton } from "../Base/ConfirmButton";
@@ -106,10 +105,6 @@ export const SignTransactionDescription: FC<
 
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
-  });
-
-  const [setError] = useTransactionError(state => {
-    return [state.setError];
   });
 
   const [isGasFallback] = useGasFallback(state => {
