@@ -2,6 +2,8 @@ import { ChainNames } from "@lightdotso/chain";
 import type { FC } from "react";
 import { useEffect, useState, useCallback } from "react";
 
+import { useBlowfishTx } from "../../hooks/useBlowfishTx";
+
 import { useCoinUSD } from "../../hooks/useCoinUSD";
 import { useGasFallback } from "../../hooks/useGasFallback";
 import { useGasPrice } from "../../hooks/useGasPrice";
@@ -99,7 +101,6 @@ export const SignTransaction: FC<SignTransactionParams> = ({
 export const SignTransactionDescription: FC<
   Pick<SignTransactionParams, "params">
 > = ({ params }) => {
-  const [result, setResult] = useState(null);
   const [gasEstimationDollar, setGasEstimationDollar] = useState("");
   const [gasEstimationFee, setGasEstimationFee] = useState(0.01);
 
@@ -117,6 +118,7 @@ export const SignTransactionDescription: FC<
 
   const { coinUSD } = useCoinUSD();
   const { gasPrice, isValidating: isGasPriceValidating } = useGasPrice();
+  const { result } = useBlowfishTx(params);
 
   useEffect(() => {
     if (result?.simulationResults && !result?.simulationResults?.error) {
@@ -147,59 +149,6 @@ export const SignTransactionDescription: FC<
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result?.simulationResults]);
-
-  useEffect(() => {
-    if (
-      params?.from &&
-      params?.to &&
-      (window.ethereum.chainId == "0x1" ||
-        window.ethereum.chainId == "0x5" ||
-        window.ethereum.chainId == "0x89")
-    ) {
-      logContent("Starting fetch...");
-      fetch(
-        `https://wallet.light.so/api/blowfish/${
-          window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x5"
-            ? "ethereum"
-            : "polygon"
-        }/v0/${
-          window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x89"
-            ? "mainnet"
-            : "goerli"
-        }/scan/transaction`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            metadata: {
-              origin: `https://${
-                window.location.host.startsWith("localhost")
-                  ? "https://wallet.light.so"
-                  : window.location.host
-              }`,
-            },
-            userAccount: params.from,
-            txObject: {
-              from: params.from,
-              to: params.to,
-              data: params?.data ?? "0x",
-              value: params?.value ?? "0x0",
-            },
-          }),
-        },
-      )
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          logContent(`Scan message result: ${JSON.stringify(data)}`);
-          return setResult(data);
-        })
-        .catch(err => {
-          logContent(`Error scan: ${JSON.stringify(err)}`);
-        });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (gasPrice) {
