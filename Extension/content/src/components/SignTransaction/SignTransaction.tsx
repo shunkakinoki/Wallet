@@ -20,6 +20,7 @@ import { ConfirmButton } from "../Base/ConfirmButton";
 import {
   InfoButton,
   ChevronIcon,
+  LoadingSpinner,
   SignTransactionDescriptionContainer,
   SignTransactionGasContainer,
   SignTransactionGasSelect,
@@ -115,7 +116,11 @@ export const SignTransactionDescription: FC<
   });
 
   const { coinUSD } = useCoinUSD();
-  const { gasPrice, error: errorGasPrice } = useGasPrice();
+  const {
+    gasPrice,
+    error: errorGasPrice,
+    isValidating: isGasPriceValidating,
+  } = useGasPrice();
 
   useEffect(() => {
     if (result?.simulationResults && !result?.simulationResults?.error) {
@@ -448,8 +453,9 @@ export const SignTransactionDescription: FC<
             </SignTransactionGasEstimateFeeSecondsContainer>
             <br />
             <SignTransactionGasEstimateFeeContainer>
-              Estimated Fee: {gasEstimationFee.toFixed(9)}{" "}
+              Estimated Fee: {gasEstimationFee.toFixed(6)}{" "}
               {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
+              {isGasPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimateFeeContainer>
           </SignTransactionGasEstimateContainer>
           <SignTransactionGasSelect

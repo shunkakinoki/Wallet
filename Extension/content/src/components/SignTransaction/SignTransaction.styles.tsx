@@ -1,3 +1,4 @@
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const SignTransactionDescriptionContainer = styled.div`
@@ -20,6 +21,9 @@ export const SignTransactionGasEstimateContainer = styled.div`
 `;
 
 export const SignTransactionGasEstimateFeeContainer = styled.div`
+  display: flex;
+  align-items: center;
+
   font-size: 12px;
   font-weight: 500;
 
@@ -172,6 +176,31 @@ export const SignTransactionGasSelect = styled.select`
 
 export const InfoButton = styled.span`
   flex-shrink: 1;
+`;
+
+const rotate360 = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const LoadingSpinner = styled.div`
+  animation: ${rotate360} 1s linear infinite;
+  transform: translateZ(0);
+
+  border-top: 1px solid grey;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  border-left: 1px solid black;
+  background: transparent;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+
+  margin-left: 2px;
 `;
 
 type DirectionType = "top" | "right" | "bottom" | "left";
