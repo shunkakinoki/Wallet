@@ -101,7 +101,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
 export const SignTransactionDescription: FC<
   Pick<SignTransactionParams, "params">
 > = ({ params }) => {
-  const [gasEstimationDollar, setGasEstimationDollar] = useState("");
+  const [gasEstimationDollar, setGasEstimationDollar] = useState(0);
   const [gasEstimationFee, setGasEstimationFee] = useState(0.01);
 
   const [config, setConfig] = useTransactionGasConfig(state => {
@@ -126,9 +126,7 @@ export const SignTransactionDescription: FC<
 
   useEffect(() => {
     if (coinPrice) {
-      setGasEstimationDollar(
-        (coinPrice * gasEstimationFee).toFixed(2).toString(),
-      );
+      setGasEstimationDollar(coinPrice * gasEstimationFee);
     }
   }, [coinPrice, gasEstimationFee]);
 
@@ -325,7 +323,9 @@ export const SignTransactionDescription: FC<
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>
             <SignTransactionGasEstimatePriceContainer>
-              ${gasEstimationDollar ?? 0}
+              {gasEstimationDollar < 0.01
+                ? "< $0.01"
+                : gasEstimationDollar.toFixed(4)}
               &nbsp;
               <SignTransactionGasEstimateFeeSecondsContainer>
                 ~
