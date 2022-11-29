@@ -5,6 +5,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useBlowfishTx } from "../../hooks/useBlowfishTx";
 
 import { useCoinPrice } from "../../hooks/useCoinPrice";
+import { useGasEstimation } from "../../hooks/useGasEstimation";
 import { useGasFallback } from "../../hooks/useGasFallback";
 import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
@@ -102,7 +103,6 @@ export const SignTransactionDescription: FC<
   Pick<SignTransactionParams, "params">
 > = ({ params }) => {
   const [gasEstimationDollar, setGasEstimationDollar] = useState(0);
-  const [gasEstimationFee, setGasEstimationFee] = useState(0.01);
 
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
@@ -114,21 +114,14 @@ export const SignTransactionDescription: FC<
 
   const { coinPrice, isValidating: isCoinPriceValidating } = useCoinPrice();
   const { gasPrice, isValidating: isGasPriceValidating } = useGasPrice();
+  const { gasEstimation } = useGasEstimation(params);
   const { result } = useBlowfishTx(params);
 
   useEffect(() => {
-    if (gasPrice) {
-      setGasEstimationFee(
-        (gasPrice * (21_000 + 68 * (params?.data?.length / 2))) / 10e18,
-      );
+    if (coinPrice && gasEstimation) {
+      setGasEstimationDollar(coinPrice * gasEstimation);
     }
-  }, [gasPrice, params?.data]);
-
-  useEffect(() => {
-    if (coinPrice) {
-      setGasEstimationDollar(coinPrice * gasEstimationFee);
-    }
-  }, [coinPrice, gasEstimationFee]);
+  }, [coinPrice, gasEstimation, gasPrice]);
 
   const [isExpanded, setIsExpand] = useState<boolean>();
 
@@ -325,7 +318,7 @@ export const SignTransactionDescription: FC<
             <SignTransactionGasEstimatePriceContainer>
               {gasEstimationDollar < 0.01
                 ? "< $0.01"
-                : gasEstimationDollar.toFixed(4)}
+                : `$ ${gasEstimationDollar.toFixed(3)}`}
               &nbsp;
               <SignTransactionGasEstimateFeeSecondsContainer>
                 ~
@@ -358,10 +351,8 @@ export const SignTransactionDescription: FC<
             </SignTransactionGasEstimatePriceContainer>
             <SignTransactionGasEstimateFeeContainer>
               Estimated Fee:{" "}
-              {gasEstimationFee < 0.000001
-                ? "< 0.000001"
-                : gasEstimationFee.toFixed(6)}{" "}
-              {gasEstimationFee && window.ethereum.chainId === "0x89"
+              {gasEstimation < 0.000001 ? "< 0.000001" : gasEstimation}{" "}
+              {gasEstimation && window.ethereum.chainId === "0x89"
                 ? "MATIC"
                 : "ETH"}
               {isGasPriceValidating && <LoadingSpinner />}
