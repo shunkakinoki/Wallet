@@ -10,14 +10,17 @@ const fetcher = chainId => {
   });
 };
 
-export const useCoinUSD = () => {
+export const useCoinPrice = () => {
   const { data, error, isLoading, isValidating } = useSWR(
     window.ethereum.chainId,
     fetcher,
+    {
+      refreshInterval: 300,
+    },
   );
 
   return {
-    coinUSD: data && data?.USD ? Number(data?.USD) : null,
+    coinPrice: data && data?.USD ? Number(data?.USD) : null,
     error,
     isLoading,
     isValidating,

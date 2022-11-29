@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 
 import { useBlowfishTx } from "../../hooks/useBlowfishTx";
 
-import { useCoinUSD } from "../../hooks/useCoinUSD";
+import { useCoinPrice } from "../../hooks/useCoinPrice";
 import { useGasFallback } from "../../hooks/useGasFallback";
 import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
@@ -28,6 +28,7 @@ import {
   SignTransactionGasSelectAccordionContainer,
   SignTransactionGasEstimateContainer,
   SignTransactionGasEstimateFeeContainer,
+  SignTransactionGasEstimatePriceContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
   SignTransactionGasSimulationContainer,
   SignTransactionGasSimulationBlowfishContainer,
@@ -111,7 +112,7 @@ export const SignTransactionDescription: FC<
     return [state.isGasFallback];
   });
 
-  const { coinUSD } = useCoinUSD();
+  const { coinPrice, isValidating: isCoinPriceValidating } = useCoinPrice();
   const { gasPrice, isValidating: isGasPriceValidating } = useGasPrice();
   const { result } = useBlowfishTx(params);
 
@@ -124,12 +125,12 @@ export const SignTransactionDescription: FC<
   }, [gasPrice, params?.data]);
 
   useEffect(() => {
-    if (coinUSD) {
+    if (coinPrice) {
       setGasEstimationDollar(
-        (coinUSD * gasEstimationFee).toFixed(2).toString(),
+        (coinPrice * gasEstimationFee).toFixed(2).toString(),
       );
     }
-  }, [coinUSD, gasEstimationFee]);
+  }, [coinPrice, gasEstimationFee]);
 
   const [isExpanded, setIsExpand] = useState<boolean>();
 
@@ -323,35 +324,38 @@ export const SignTransactionDescription: FC<
         </SignTransactionGasSimulationContainer>
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>
-            ${gasEstimationDollar ?? 0}{" "}
-            <SignTransactionGasEstimateFeeSecondsContainer>
-              ~
-              {window.ethereum.chainId === "0x1"
-                ? config.legacySpeed === "instant"
-                  ? 12
+            <SignTransactionGasEstimatePriceContainer>
+              ${gasEstimationDollar ?? 0}
+              &nbsp;
+              <SignTransactionGasEstimateFeeSecondsContainer>
+                ~
+                {window.ethereum.chainId === "0x1"
+                  ? config.legacySpeed === "instant"
+                    ? 12
+                    : config.legacySpeed === "fast"
+                    ? 30
+                    : config.legacySpeed === "standard"
+                    ? 45
+                    : 60
+                  : window.ethereum.chainId === "0x89"
+                  ? config.legacySpeed === "instant"
+                    ? 2
+                    : config.legacySpeed === "fast"
+                    ? 10
+                    : config.legacySpeed === "standard"
+                    ? 15
+                    : 20
+                  : config.legacySpeed === "instant"
+                  ? 3
                   : config.legacySpeed === "fast"
-                  ? 30
+                  ? 5
                   : config.legacySpeed === "standard"
-                  ? 45
-                  : 60
-                : window.ethereum.chainId === "0x89"
-                ? config.legacySpeed === "instant"
-                  ? 2
-                  : config.legacySpeed === "fast"
-                  ? 10
-                  : config.legacySpeed === "standard"
-                  ? 15
-                  : 20
-                : config.legacySpeed === "instant"
-                ? 3
-                : config.legacySpeed === "fast"
-                ? 5
-                : config.legacySpeed === "standard"
-                ? 8
-                : 20}{" "}
-              sec.
-            </SignTransactionGasEstimateFeeSecondsContainer>
-            <br />
+                  ? 8
+                  : 20}{" "}
+                sec.
+              </SignTransactionGasEstimateFeeSecondsContainer>{" "}
+              {isCoinPriceValidating && <LoadingSpinner />}
+            </SignTransactionGasEstimatePriceContainer>
             <SignTransactionGasEstimateFeeContainer>
               Estimated Fee:{" "}
               {gasEstimationFee < 0.000001

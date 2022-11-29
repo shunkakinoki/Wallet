@@ -20,6 +20,11 @@ export const SignTransactionGasEstimateContainer = styled.div`
   font-weight: 600;
 `;
 
+export const SignTransactionGasEstimatePriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const SignTransactionGasEstimateFeeContainer = styled.div`
   display: flex;
   align-items: center;
