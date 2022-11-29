@@ -13,23 +13,15 @@ const fetcher = params => {
       window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x89"
         ? "mainnet"
         : "goerli"
-    }/scan/transaction`,
+    }/scan/message`,
     {
       method: "POST",
       body: JSON.stringify({
-        metadata: {
-          origin: `https://${
-            window.location.host.startsWith("localhost")
-              ? "https://wallet.light.so"
-              : window.location.host
-          }`,
-        },
+        metadata: { origin: `https://${window.location.host}` },
         userAccount: params.from,
-        txObject: {
-          from: params.from,
-          to: params.to,
-          data: params?.data ?? "0x",
-          value: params?.value ?? "0x0",
+        message: {
+          kind: "SIGN_TYPED_DATA",
+          data: JSON.parse(params.raw),
         },
       }),
     },
@@ -38,7 +30,7 @@ const fetcher = params => {
   });
 };
 
-export const useBlowfishTx = params => {
+export const useBlowfishMessage = params => {
   const setError = useTransactionError(state => {
     return state.setError;
   });
@@ -82,6 +74,7 @@ export const useBlowfishTx = params => {
       }
     });
   }
+
   return {
     result,
     error,

@@ -129,13 +129,6 @@ export const SignTransactionDescription: FC<
   }, [gasPrice, params?.data]);
 
   useEffect(() => {
-    if (typeof result?.warnings !== "undefined" && result?.warnings.length) {
-      setError(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result?.warnings]);
-
-  useEffect(() => {
     if (coinUSD) {
       setGasEstimationDollar(
         (coinUSD * gasEstimationFee).toFixed(2).toString(),

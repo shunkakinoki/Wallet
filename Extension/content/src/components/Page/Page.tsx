@@ -214,11 +214,6 @@ export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
     return [state.error, state.setError];
   });
 
-  useEffect(() => {
-    setError(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
       <PageDescriptionContainer error={error}>

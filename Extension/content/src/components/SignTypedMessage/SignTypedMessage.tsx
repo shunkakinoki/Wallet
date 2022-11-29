@@ -1,8 +1,9 @@
 import type { FC } from "react";
+import { useEffect } from "react";
 
-import { useEffect, useState } from "react";
+import { useBlowfishMessage } from "../../hooks/useBlowfishMessage";
+import { useTransactionError } from "../../hooks/useTransactionError";
 
-import { logContent } from "../../services/log";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
 import { ConfirmButton } from "../Base/ConfirmButton";
 
@@ -33,52 +34,19 @@ export const SignTypedMessage: FC<SignTypedMessageParams> = ({
 export const SignTypedDescription: FC<
   Pick<SignTypedMessageParams, "params">
 > = ({ params }) => {
-  let [result, setResult] = useState(null);
+  const [setError] = useTransactionError(state => {
+    return [state.setError];
+  });
+
+  const { result } = useBlowfishMessage(params);
 
   useEffect(() => {
-    if (
-      params?.from &&
-      params?.raw &&
-      (window.ethereum.chainId == "0x1" ||
-        window.ethereum.chainId == "0x5" ||
-        window.ethereum.chainId == "0x89")
-    ) {
-      logContent("Starting fetch...");
-      fetch(
-        `https://wallet.light.so/api/blowfish/${
-          window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x5"
-            ? "ethereum"
-            : "polygon"
-        }/v0/${
-          window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x89"
-            ? "mainnet"
-            : "goerli"
-        }/scan/message`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            metadata: { origin: `https://${window.location.host}` },
-            userAccount: params.from,
-            message: {
-              kind: "SIGN_TYPED_DATA",
-              data: JSON.parse(params.raw),
-            },
-          }),
-        },
-      )
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          logContent(`Scan message result: ${JSON.stringify(data)}`);
-          return setResult(data);
-        })
-        .catch(err => {
-          logContent(`Error scan: ${JSON.stringify(err)}`);
-        });
+    if (typeof result?.warnings !== "undefined" && result?.warnings.length) {
+      return setError(true);
     }
+    setError(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [result?.warnings]);
 
   if (params.raw && params?.from) {
     return (

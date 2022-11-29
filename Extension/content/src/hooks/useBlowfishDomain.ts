@@ -38,8 +38,9 @@ export const useBlowfishDomain = params => {
 
   useEffect(() => {
     if (result && result[0]?.risk_score > 0.3) {
-      setError(true);
+      return setError(true);
     }
+    return setError(false);
   }, [result, setError]);
 
   return {
