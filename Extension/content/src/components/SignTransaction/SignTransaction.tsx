@@ -318,6 +318,8 @@ export const SignTransactionDescription: FC<
             <SignTransactionGasEstimatePriceContainer>
               {gasEstimationDollar < 0.01
                 ? "< $0.01"
+                : gasEstimationDollar > 10e3
+                ? `$ ${gasEstimationDollar.toLocaleString()}`
                 : `$ ${gasEstimationDollar.toFixed(3)}`}
               &nbsp;
               <SignTransactionGasEstimateFeeSecondsContainer>
