@@ -27,7 +27,7 @@ export const useCoinPrice = () => {
     },
     {
       use: [laggy],
-      refreshInterval: 1500,
+      refreshInterval: 30000,
     },
   );
 
