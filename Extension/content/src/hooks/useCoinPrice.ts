@@ -7,9 +7,16 @@ const fetcher = chainId => {
     `https://min-api.cryptocompare.com/data/price?fsym=${
       chainId == "0x89" ? "MATIC" : "ETH"
     }&tsyms=USD`,
-  ).then(res => {
-    return res.json();
-  });
+  )
+    .then(res => {
+      return res.json();
+    })
+    .then(json => {
+      if (!json.USD) {
+        throw new Error("USD Empty !!!");
+      }
+      return json;
+    });
 };
 
 export const useCoinPrice = () => {
