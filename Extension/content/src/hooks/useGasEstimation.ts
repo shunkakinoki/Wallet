@@ -37,8 +37,8 @@ export const useGasEstimation = params => {
 
   return {
     gasEstimation:
-      data && data?.gasEstimation && gasPrice
-        ? (parseInt(data?.gasEstimation, 16) * gasPrice) / 1e18
+      data && data?.gasEstimation
+        ? (parseInt(data?.gasEstimation) * gasPrice) / 1e18
         : null,
     error,
     isLoading,
