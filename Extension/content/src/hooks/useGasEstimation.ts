@@ -26,8 +26,12 @@ const fetcher = params => {
 export const useGasEstimation = params => {
   const { gasPrice } = useGasPrice();
   const { data, error, isLoading, isValidating } = useSWR(
-    gasPrice ? ["/gas/estimation", { ...params, gasPrice }] : null,
-    ([key, params]) => {
+    () => {
+      return gasPrice
+        ? ["/gas/estimation", gasPrice, { ...params, gasPrice }]
+        : null;
+    },
+    ([key, gasPrice, params]) => {
       return fetcher(params);
     },
     {
