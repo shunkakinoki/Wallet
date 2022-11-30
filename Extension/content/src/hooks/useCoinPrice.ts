@@ -14,8 +14,10 @@ const fetcher = chainId => {
 
 export const useCoinPrice = () => {
   const { data, error, isLoading, isValidating } = useSWR(
-    window.ethereum.chainId,
-    fetcher,
+    ["/blowfish/transaction", window.ethereum.chainId],
+    ([key, chainId]) => {
+      return fetcher(chainId);
+    },
     {
       use: [laggy],
       refreshInterval: 300,

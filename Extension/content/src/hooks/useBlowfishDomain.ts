@@ -30,11 +30,17 @@ export const useBlowfishDomain = params => {
     error,
     isLoading,
     isValidating,
-  } = useSWR(params, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  } = useSWR(
+    ["/blowfish/domains", params],
+    ([key, params]) => {
+      return fetcher(params);
+    },
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
+  );
 
   useEffect(() => {
     if (result && result[0]?.risk_score > 0.3) {

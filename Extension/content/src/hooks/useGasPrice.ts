@@ -44,10 +44,13 @@ export const useGasPrice = () => {
   };
 
   const { data, error, isLoading, isValidating } = useSWR(
-    [window.ethereum.chainId, config.legacySpeed],
-    fetcher,
+    ["/gas/price", window.ethereum.chainId, config.legacySpeed],
+    ([key, chainId, speed]) => {
+      return fetcher(chainId, speed);
+    },
     {
-      refreshInterval: 300,
+      errorRetryCount: 3,
+      refreshInterval: 1500,
       use: [laggy],
     },
   );

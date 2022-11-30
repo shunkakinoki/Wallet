@@ -136,10 +136,10 @@ export const SignTransactionDescription: FC<
           <SignTransactionGasSelectTransferErrorContainer>
             {result?.warnings.map(warning => {
               return (
-                <>
-                  <div key={warning?.kind}>{warning?.message}</div>
+                <div key={warning?.kind}>
+                  <>{warning?.message}</>
                   <br />
-                </>
+                </div>
               );
             })}
             {result?.simulationResults?.error?.humanReadableError}

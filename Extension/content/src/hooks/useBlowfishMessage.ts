@@ -40,11 +40,17 @@ export const useBlowfishMessage = params => {
     error,
     isLoading,
     isValidating,
-  } = useSWR(params, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  } = useSWR(
+    ["/blowfish/message", params],
+    ([key, params]) => {
+      return fetcher(params);
+    },
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
+  );
 
   useEffect(() => {
     if (typeof result?.warnings !== "undefined" && result?.warnings.length) {

@@ -26,8 +26,10 @@ const fetcher = params => {
 export const useGasEstimation = params => {
   const { gasPrice } = useGasPrice();
   const { data, error, isLoading, isValidating } = useSWR(
-    { ...params, gasPrice },
-    fetcher,
+    ["/gas/estimation", { ...params, gasPrice }],
+    ([key, params]) => {
+      return fetcher(params);
+    },
     {
       use: [laggy],
       revalidateIfStale: false,
