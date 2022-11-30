@@ -62,8 +62,7 @@ export const useGasPrice = () => {
   );
 
   return {
-    data,
-    gasPrice: data && data?.gasPrice ? parseInt(data?.gasPrice) : null,
+    gasPrice: data?.gasPrice,
     error,
     isLoading,
     isValidating,

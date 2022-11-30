@@ -53,7 +53,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
   method,
   params,
 }) => {
-  const { data } = useGasPrice();
+  const { gasPrice } = useGasPrice();
   const [error] = useTransactionError(state => {
     return [state.error];
   });
@@ -85,7 +85,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
                 data: params?.data ?? "0x",
                 value: params?.value ?? "0x0",
                 chainId: window.ethereum.chainId,
-                gasPrice: data?.gasPrice,
+                gasPrice: gasPrice,
                 nonce: nonceVar,
               },
             });
@@ -346,7 +346,9 @@ export const SignTransactionDescription: FC<
             {gasEstimation ? (
               <SignTransactionGasEstimateFeeContainer>
                 Estimated Fee:{" "}
-                {gasEstimation < 0.000001 ? "< 0.000001" : gasEstimation}{" "}
+                {gasEstimation < 0.000001
+                  ? "< 0.000001"
+                  : gasEstimation.toFixed(6)}{" "}
                 {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
                 {isGasPriceValidating && <LoadingSpinner />}
               </SignTransactionGasEstimateFeeContainer>
