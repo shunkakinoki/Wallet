@@ -1,3 +1,5 @@
+/* eslint-disable func-style */
+import { useEffect, useRef, useCallback } from "react";
 import useSWR from "swr";
 
 import { useGasPrice } from "./useGasPrice";
@@ -20,11 +22,42 @@ const fetcher = params => {
     });
 };
 
+function laggy(useSWRNext) {
+  return (key, fetcher, config) => {
+    const laggyDataRef = useRef();
+
+    const swr = useSWRNext(key, fetcher, config);
+
+    useEffect(() => {
+      if (swr.data !== undefined) {
+        laggyDataRef.current = swr.data;
+      }
+    }, [swr.data]);
+
+    const resetLaggy = useCallback(() => {
+      laggyDataRef.current = undefined;
+    }, []);
+
+    const dataOrLaggyData =
+      swr.data === undefined ? laggyDataRef.current : swr.data;
+
+    const isLagging =
+      swr.data === undefined && laggyDataRef.current !== undefined;
+
+    return Object.assign({}, swr, {
+      data: dataOrLaggyData,
+      isLagging,
+      resetLaggy,
+    });
+  };
+}
+
 export const useGasEstimation = params => {
   const { gasPrice } = useGasPrice();
   const { data, error, isLoading, isValidating } = useSWR(
     { ...params, gasPrice },
     fetcher,
+    { use: [laggy] },
   );
 
   return {

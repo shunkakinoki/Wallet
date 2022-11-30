@@ -1,6 +1,6 @@
 import { ChainNames } from "@lightdotso/chain";
 import type { FC } from "react";
-import { useEffect, useState, useCallback } from "react";
+import { useMemo, useEffect, useState, useCallback } from "react";
 
 import { useBlowfishTx } from "../../hooks/useBlowfishTx";
 
@@ -102,8 +102,6 @@ export const SignTransaction: FC<SignTransactionParams> = ({
 export const SignTransactionDescription: FC<
   Pick<SignTransactionParams, "params">
 > = ({ params }) => {
-  const [gasEstimationDollar, setGasEstimationDollar] = useState(0);
-
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
   });
@@ -113,15 +111,13 @@ export const SignTransactionDescription: FC<
   });
 
   const { coinPrice, isValidating: isCoinPriceValidating } = useCoinPrice();
-  const { gasPrice, isValidating: isGasPriceValidating } = useGasPrice();
+  const { isValidating: isGasPriceValidating } = useGasPrice();
   const { gasEstimation } = useGasEstimation(params);
   const { result } = useBlowfishTx(params);
 
-  useEffect(() => {
-    if (coinPrice && gasEstimation) {
-      setGasEstimationDollar(coinPrice * gasEstimation);
-    }
-  }, [coinPrice, gasEstimation, gasPrice]);
+  const gasEstimationDollar = useMemo(() => {
+    return coinPrice * gasEstimation;
+  }, [coinPrice, gasEstimation]);
 
   const [isExpanded, setIsExpand] = useState<boolean>();
 
@@ -354,9 +350,7 @@ export const SignTransactionDescription: FC<
             <SignTransactionGasEstimateFeeContainer>
               Estimated Fee:{" "}
               {gasEstimation < 0.000001 ? "< 0.000001" : gasEstimation}{" "}
-              {gasEstimation && window.ethereum.chainId === "0x89"
-                ? "MATIC"
-                : "ETH"}
+              {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
               {isGasPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimateFeeContainer>
           </SignTransactionGasEstimateContainer>
