@@ -31,6 +31,9 @@ export const injectComponent = (children: ReactNode) => {
     <CacheProvider value={myCache}>
       <SWRConfig
         value={{
+          onSuccess(data, key, config) {
+            logContent(`${key}: ${JSON.stringify(data)}`);
+          },
           onError: (err, key, config) => {
             logContent(`${key}: ${err}`);
           },

@@ -28,7 +28,12 @@ export const useGasEstimation = params => {
   const { data, error, isLoading, isValidating } = useSWR(
     { ...params, gasPrice },
     fetcher,
-    { use: [laggy] },
+    {
+      use: [laggy],
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
   );
 
   return {
