@@ -347,12 +347,18 @@ export const SignTransactionDescription: FC<
               </SignTransactionGasEstimateFeeSecondsContainer>{" "}
               {isCoinPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimatePriceContainer>
-            <SignTransactionGasEstimateFeeContainer>
-              Estimated Fee:{" "}
-              {gasEstimation < 0.000001 ? "< 0.000001" : gasEstimation}{" "}
-              {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
-              {isGasPriceValidating && <LoadingSpinner />}
-            </SignTransactionGasEstimateFeeContainer>
+            {gasEstimation ? (
+              <SignTransactionGasEstimateFeeContainer>
+                Estimated Fee:{" "}
+                {gasEstimation < 0.000001 ? "< 0.000001" : gasEstimation}{" "}
+                {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
+                {isGasPriceValidating && <LoadingSpinner />}
+              </SignTransactionGasEstimateFeeContainer>
+            ) : (
+              <SignTransactionGasEstimateFeeContainer>
+                Empty gasEstimation
+              </SignTransactionGasEstimateFeeContainer>
+            )}
           </SignTransactionGasEstimateContainer>
           <SignTransactionGasSelect
             value={config.legacySpeed}
