@@ -17,6 +17,8 @@ import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
 import { shortenName } from "../../utils/shortenName";
 import { ConfirmButton } from "../Base/ConfirmButton";
 
+import { Skeleton } from "../Base/Skeleton";
+
 import {
   InfoButton,
   ChevronIcon,
@@ -341,13 +343,17 @@ export const SignTransactionDescription: FC<
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>
             <SignTransactionGasEstimatePriceContainer>
-              {gasEstimationDollar
-                ? gasEstimationDollar < 0.01
-                  ? "< $0.01"
-                  : gasEstimationDollar > 10e3
-                  ? `$${gasEstimationDollar.toLocaleString()}`
-                  : `$${gasEstimationDollar.toFixed(2)}`
-                : "Empty"}
+              {gasEstimationDollar ? (
+                gasEstimationDollar < 0.01 ? (
+                  "< $0.01"
+                ) : gasEstimationDollar > 10e3 ? (
+                  `$${gasEstimationDollar.toLocaleString()}`
+                ) : (
+                  `$${gasEstimationDollar.toFixed(2)}`
+                )
+              ) : (
+                <Skeleton width="30%" />
+              )}
               &nbsp;
               <SignTransactionGasEstimateFeeSecondsContainer>
                 ~
@@ -378,20 +384,20 @@ export const SignTransactionDescription: FC<
               </SignTransactionGasEstimateFeeSecondsContainer>{" "}
               {isCoinPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimatePriceContainer>
-            {gasEstimationFee ? (
-              <SignTransactionGasEstimateFeeContainer>
-                Estimated Fee:{" "}
-                {gasEstimationFee < 0.000001
-                  ? "< 0.000001"
-                  : gasEstimationFee.toFixed(6)}{" "}
-                {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
-                {isGasPriceValidating && <LoadingSpinner />}
-              </SignTransactionGasEstimateFeeContainer>
-            ) : (
-              <SignTransactionGasEstimateFeeContainer>
-                Empty gasEstimation
-              </SignTransactionGasEstimateFeeContainer>
-            )}
+            <SignTransactionGasEstimateFeeContainer>
+              <span>Estimated Fee:</span>&nbsp;
+              {gasEstimationFee ? (
+                <>
+                  {gasEstimationFee < 0.000001
+                    ? "< 0.000001"
+                    : gasEstimationFee.toFixed(6)}{" "}
+                  {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
+                </>
+              ) : (
+                <Skeleton width="24px" height="12px" />
+              )}
+              {isGasPriceValidating && <LoadingSpinner />}
+            </SignTransactionGasEstimateFeeContainer>
           </SignTransactionGasEstimateContainer>
           <SignTransactionGasSelect
             value={config.legacySpeed}

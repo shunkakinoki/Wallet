@@ -16,6 +16,7 @@ export const SignTransactionGasContainer = styled.div`
 `;
 
 export const SignTransactionGasEstimateContainer = styled.div`
+  width: 100%;
   font-size: 18px;
   font-weight: 600;
 `;
@@ -34,9 +35,6 @@ export const SignTransactionGasEstimateFeeContainer = styled.div`
 
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
 `;
 
 export const SignTransactionGasEstimateFeeSecondsContainer = styled.span`
