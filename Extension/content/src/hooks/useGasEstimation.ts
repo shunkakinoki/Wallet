@@ -1,10 +1,6 @@
 /* eslint-disable func-style */
 import useSWR from "swr";
 
-import { laggy } from "../middlwares/laggy";
-
-import { useGasPrice } from "./useGasPrice";
-
 const fetcher = params => {
   return window.ethereum.rpc
     .call({
@@ -24,22 +20,20 @@ const fetcher = params => {
 };
 
 export const useGasEstimation = params => {
-  const { gasPrice } = useGasPrice();
   const { data, error, isLoading, isValidating } = useSWR(
-    ["/gas/estimation", gasPrice],
+    ["/gas/estimation", params],
     ([key, params]) => {
-      return fetcher({ ...params, gasPrice });
+      return fetcher(params);
     },
     {
-      use: [laggy],
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
     },
   );
 
   return {
-    gasEstimation:
-      data && data?.gasEstimation
-        ? (parseInt(data?.gasEstimation) * parseInt(gasPrice)) / 1e18
-        : null,
+    gasEstimation: data?.gasEstimation,
     error,
     isLoading,
     isValidating,

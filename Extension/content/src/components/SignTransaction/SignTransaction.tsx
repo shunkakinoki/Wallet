@@ -107,13 +107,17 @@ export const SignTransactionDescription: FC<
   });
 
   const { coinPrice, isValidating: isCoinPriceValidating } = useCoinPrice();
-  const { isValidating: isGasPriceValidating } = useGasPrice();
+  const { gasPrice, isValidating: isGasPriceValidating } = useGasPrice();
   const { gasEstimation } = useGasEstimation(params);
   const { result } = useBlowfishTx(params);
 
+  const gasEstimationFee = useMemo(() => {
+    return (parseInt(gasEstimation) * parseInt(gasPrice)) / 1e18;
+  }, [gasEstimation, gasPrice]);
+
   const gasEstimationDollar = useMemo(() => {
-    return coinPrice * gasEstimation;
-  }, [coinPrice, gasEstimation]);
+    return coinPrice * gasEstimationFee;
+  }, [coinPrice, gasEstimationFee]);
 
   const [isExpanded, setIsExpand] = useState<boolean>();
 
@@ -343,12 +347,12 @@ export const SignTransactionDescription: FC<
               </SignTransactionGasEstimateFeeSecondsContainer>{" "}
               {isCoinPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimatePriceContainer>
-            {gasEstimation ? (
+            {gasEstimationFee ? (
               <SignTransactionGasEstimateFeeContainer>
                 Estimated Fee:{" "}
-                {gasEstimation < 0.000001
+                {gasEstimationFee < 0.000001
                   ? "< 0.000001"
-                  : gasEstimation.toFixed(6)}{" "}
+                  : gasEstimationFee.toFixed(6)}{" "}
                 {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
                 {isGasPriceValidating && <LoadingSpinner />}
               </SignTransactionGasEstimateFeeContainer>
