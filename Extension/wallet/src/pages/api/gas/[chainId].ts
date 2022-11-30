@@ -25,7 +25,7 @@ export default async function handler(
   if (chainId) {
     const oracle = new GasPriceOracle({ chainId: chainId });
 
-    const result = await oracle.getTxGasParams(req.body);
+    const result = await oracle.getTxGasParams({ ...req.body, isLegacy: true });
 
     res.status(200);
     return res.send(result);
