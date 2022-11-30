@@ -5,12 +5,12 @@ import { useMemo, useEffect, useState, useCallback } from "react";
 import { useBlowfishTx } from "../../hooks/useBlowfishTx";
 
 import { useCoinPrice } from "../../hooks/useCoinPrice";
+import { useConfirmLoading } from "../../hooks/useConfirmLoading";
 import { useGasEstimation } from "../../hooks/useGasEstimation";
 import { useGasFallback } from "../../hooks/useGasFallback";
 import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
-
 import { BlowfishIcon } from "../../icons/BlowfishIcon";
 import { WarningIcon } from "../../icons/WarningIcon";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
@@ -57,11 +57,15 @@ export const SignTransaction: FC<SignTransactionParams> = ({
   const [error] = useTransactionError(state => {
     return [state.error];
   });
+  const [isConfirmLoading] = useConfirmLoading(state => {
+    return [state.isConfirmLoading];
+  });
 
   return (
     <ConfirmButton
       id={id}
       disabled={error}
+      loading={isConfirmLoading}
       onConfirmText="Approve"
       onConfirmClick={() => {
         let nonceVar: any;
@@ -111,6 +115,10 @@ export const SignTransactionDescription: FC<
   const { gasEstimation } = useGasEstimation(params);
   const { result } = useBlowfishTx(params);
 
+  const [setConfirmLoading] = useConfirmLoading(state => {
+    return [state.setConfirmLoading];
+  });
+
   const gasEstimationFee = useMemo(() => {
     return (parseInt(gasEstimation) * parseInt(gasPrice)) / 1e18;
   }, [gasEstimation, gasPrice]);
@@ -124,6 +132,14 @@ export const SignTransactionDescription: FC<
   const handleExpandToggle = useCallback(() => {
     setIsExpand(!isExpanded);
   }, [isExpanded]);
+
+  useEffect(() => {
+    if (!gasEstimationFee || !gasPrice || isCoinPriceValidating) {
+      setConfirmLoading(true);
+    } else {
+      setConfirmLoading(false);
+    }
+  }, [gasEstimationFee, gasPrice, isCoinPriceValidating, setConfirmLoading]);
 
   if (params?.from && params?.to) {
     if (result?.simulationResults && result?.simulationResults?.error) {
