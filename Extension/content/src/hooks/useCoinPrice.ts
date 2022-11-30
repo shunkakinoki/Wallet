@@ -14,13 +14,13 @@ const fetcher = chainId => {
 
 export const useCoinPrice = () => {
   const { data, error, isLoading, isValidating } = useSWR(
-    ["/blowfish/transaction", window.ethereum.chainId],
+    ["/coin/price", window.ethereum.chainId],
     ([key, chainId]) => {
       return fetcher(chainId);
     },
     {
       use: [laggy],
-      refreshInterval: 300,
+      refreshInterval: 1500,
     },
   );
 

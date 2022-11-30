@@ -31,7 +31,7 @@ export const useBlowfishDomain = params => {
     isLoading,
     isValidating,
   } = useSWR(
-    ["/blowfish/domains", params],
+    ["/blowfish/domain", params],
     ([key, params]) => {
       return fetcher(params);
     },
