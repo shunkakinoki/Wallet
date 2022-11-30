@@ -203,10 +203,8 @@ export const SignTransactionDescription: FC<
                 change?.rawInfo?.kind === "ERC1155_TRANSFER"
               ) {
                 return (
-                  <>
-                    <SignTransactionGasSelectTransferContainer
-                      key={change?.humanReadableDiff}
-                    >
+                  <div key={change?.humanReadableDiff}>
+                    <SignTransactionGasSelectTransferContainer>
                       <SignTransactionGasSelectTransferNameContainer>
                         <SignTransactionGasSelectTransferImage
                           name={
@@ -299,7 +297,7 @@ export const SignTransactionDescription: FC<
                           </SignTransactionGasSelectTransferBalanceExpansionContainer>
                         </>
                       )}
-                  </>
+                  </div>
                 );
               }
             })}
@@ -312,11 +310,13 @@ export const SignTransactionDescription: FC<
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>
             <SignTransactionGasEstimatePriceContainer>
-              {gasEstimationDollar < 0.01
-                ? "< $0.01"
-                : gasEstimationDollar > 10e3
-                ? `$ ${gasEstimationDollar.toLocaleString()}`
-                : `$ ${gasEstimationDollar.toFixed(3)}`}
+              {gasEstimationDollar
+                ? gasEstimationDollar < 0.01
+                  ? "< $0.01"
+                  : gasEstimationDollar > 10e3
+                  ? `$ ${gasEstimationDollar.toLocaleString()}`
+                  : `$ ${gasEstimationDollar.toFixed(3)}`
+                : "Empty"}
               &nbsp;
               <SignTransactionGasEstimateFeeSecondsContainer>
                 ~
