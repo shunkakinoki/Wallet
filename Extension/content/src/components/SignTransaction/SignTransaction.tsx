@@ -386,16 +386,15 @@ export const SignTransactionDescription: FC<
             </SignTransactionGasEstimatePriceContainer>
             <SignTransactionGasEstimateFeeContainer>
               <span>Estimated Fee:</span>&nbsp;
-              {gasEstimationFee ? (
+              {gasPrice && gasEstimationFee && (
                 <>
                   {gasEstimationFee < 0.000001
                     ? "< 0.000001"
                     : gasEstimationFee.toFixed(6)}{" "}
                   {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
                 </>
-              ) : (
-                <Skeleton width="24px" height="12px" />
               )}
+              {isGasPriceLoading && <Skeleton width="24px" height="12px" />}
               {isGasPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimateFeeContainer>
           </SignTransactionGasEstimateContainer>
