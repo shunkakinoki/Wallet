@@ -122,9 +122,7 @@ export const SignTransactionGasSelectTransferFallbackImageContainer = styled.spa
 
   justify-content: center;
   align-items: center;
-  min-width: 1.15rem;
-  min-height: 1.15rem;
-  padding: 0.3rem;
+  padding: 0.25rem;
 
   width: 1.15rem;
   height: 1.15rem;

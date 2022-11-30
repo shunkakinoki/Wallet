@@ -111,9 +111,13 @@ export const SignTransactionDescription: FC<
   });
 
   const { coinPrice, isValidating: isCoinPriceValidating } = useCoinPrice();
-  const { gasPrice, isValidating: isGasPriceValidating } = useGasPrice();
+  const {
+    gasPrice,
+    isValidating: isGasPriceValidating,
+    isLoading: isGasPriceLoading,
+  } = useGasPrice();
   const { gasEstimation } = useGasEstimation(params);
-  const { result } = useBlowfishTx(params);
+  const { result, isLoading: isBlowfishLoading } = useBlowfishTx(params);
 
   const [setConfirmLoading] = useConfirmLoading(state => {
     return [state.setConfirmLoading];
@@ -134,12 +138,23 @@ export const SignTransactionDescription: FC<
   }, [isExpanded]);
 
   useEffect(() => {
-    if (!gasEstimationFee || !gasPrice || isCoinPriceValidating) {
+    if (
+      !gasEstimationFee ||
+      !gasPrice ||
+      isBlowfishLoading ||
+      isBlowfishLoading
+    ) {
       setConfirmLoading(true);
     } else {
       setConfirmLoading(false);
     }
-  }, [gasEstimationFee, gasPrice, isCoinPriceValidating, setConfirmLoading]);
+  }, [
+    gasEstimationFee,
+    gasPrice,
+    isBlowfishLoading,
+    isCoinPriceValidating,
+    setConfirmLoading,
+  ]);
 
   if (params?.from && params?.to) {
     if (result?.simulationResults && result?.simulationResults?.error) {
@@ -330,8 +345,8 @@ export const SignTransactionDescription: FC<
                 ? gasEstimationDollar < 0.01
                   ? "< $0.01"
                   : gasEstimationDollar > 10e3
-                  ? `$ ${gasEstimationDollar.toLocaleString()}`
-                  : `$ ${gasEstimationDollar.toFixed(3)}`
+                  ? `$${gasEstimationDollar.toLocaleString()}`
+                  : `$${gasEstimationDollar.toFixed(2)}`
                 : "Empty"}
               &nbsp;
               <SignTransactionGasEstimateFeeSecondsContainer>
