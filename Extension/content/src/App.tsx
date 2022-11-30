@@ -3,6 +3,7 @@ import { CacheProvider } from "@emotion/react";
 import React from "react";
 import type { ReactNode } from "react";
 import { createRoot } from "react-dom/client";
+import { SWRConfig } from "swr";
 
 import { logContent } from "./services/log";
 
@@ -26,7 +27,22 @@ export const injectComponent = (children: ReactNode) => {
   shadowRoot.appendChild(rootElement);
   const root = createRoot(rootElement!);
 
-  root.render(<CacheProvider value={myCache}>{children}</CacheProvider>);
+  root.render(
+    <CacheProvider value={myCache}>
+      <SWRConfig
+        value={{
+          onSuccess(data, key, config) {
+            logContent(`${key}: ${JSON.stringify(data)}`);
+          },
+          onError: (err, key, config) => {
+            logContent(`${key}: ${err}`);
+          },
+        }}
+      >
+        {children}
+      </SWRConfig>
+    </CacheProvider>,
+  );
 
   logContent(`injectComponent: complete`);
 };

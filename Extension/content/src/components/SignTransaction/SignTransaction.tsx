@@ -1,27 +1,35 @@
 import { ChainNames } from "@lightdotso/chain";
 import type { FC } from "react";
-import { useEffect, useState, useCallback } from "react";
+import { useMemo, useEffect, useState, useCallback } from "react";
 
+import { useBlowfishTx } from "../../hooks/useBlowfishTx";
+
+import { useCoinPrice } from "../../hooks/useCoinPrice";
+import { useConfirmLoading } from "../../hooks/useConfirmLoading";
+import { useGasEstimation } from "../../hooks/useGasEstimation";
+import { useGasFallback } from "../../hooks/useGasFallback";
+import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
-
-import { useTransactionGasPrice } from "../../hooks/useTransactionGasPrice";
-
 import { BlowfishIcon } from "../../icons/BlowfishIcon";
 import { WarningIcon } from "../../icons/WarningIcon";
-import { logContent } from "../../services/log";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
+import { shortenName } from "../../utils/shortenName";
 import { ConfirmButton } from "../Base/ConfirmButton";
+
+import { Skeleton } from "../Base/Skeleton";
 
 import {
   InfoButton,
   ChevronIcon,
+  LoadingSpinner,
   SignTransactionDescriptionContainer,
   SignTransactionGasContainer,
   SignTransactionGasSelect,
   SignTransactionGasSelectAccordionContainer,
   SignTransactionGasEstimateContainer,
   SignTransactionGasEstimateFeeContainer,
+  SignTransactionGasEstimatePriceContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
   SignTransactionGasSimulationContainer,
   SignTransactionGasSimulationBlowfishContainer,
@@ -47,17 +55,19 @@ export const SignTransaction: FC<SignTransactionParams> = ({
   method,
   params,
 }) => {
-  const [gasPrice] = useTransactionGasPrice(state => {
-    return [state.gasPrice];
-  });
+  const { gasPrice } = useGasPrice();
   const [error] = useTransactionError(state => {
     return [state.error];
+  });
+  const [isConfirmLoading] = useConfirmLoading(state => {
+    return [state.isConfirmLoading];
   });
 
   return (
     <ConfirmButton
       id={id}
       disabled={error}
+      loading={isConfirmLoading}
       onConfirmText="Approve"
       onConfirmClick={() => {
         let nonceVar: any;
@@ -94,210 +104,34 @@ export const SignTransaction: FC<SignTransactionParams> = ({
 export const SignTransactionDescription: FC<
   Pick<SignTransactionParams, "params">
 > = ({ params }) => {
-  const [result, setResult] = useState(null);
-  const [isFallback, setIsFallback] = useState(false);
-  const [gasEstimationDollar, setGasEstimationDollar] = useState("");
-  const [gasEstimationFee, setGasEstimationFee] = useState(0.01);
-
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
   });
-  const [gasPrice, setGasPrice] = useTransactionGasPrice(state => {
-    return [state.gasPrice, state.setGasPrice];
+
+  const [isGasFallback] = useGasFallback(state => {
+    return [state.isGasFallback];
   });
 
-  const [setError] = useTransactionError(state => {
-    return [state.setError];
+  const { coinPrice, isValidating: isCoinPriceValidating } = useCoinPrice();
+  const {
+    gasPrice,
+    isValidating: isGasPriceValidating,
+    isLoading: isGasPriceLoading,
+  } = useGasPrice();
+  const { gasEstimation } = useGasEstimation(params);
+  const { result, isLoading: isBlowfishLoading } = useBlowfishTx(params);
+
+  const [setConfirmLoading] = useConfirmLoading(state => {
+    return [state.setConfirmLoading];
   });
 
-  const fetchGasPrice = () => {
-    fetch(`https://wallet.light.so/api/gas/${window.ethereum.chainId}`, {
-      method: "POST",
-      body: JSON.stringify({
-        isLegacy: true,
-        legacySpeed: config.legacySpeed,
-      }),
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      }),
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        logContent(`GasPrice result: ${JSON.stringify(data)}`);
-        if (
-          !data?.gasPrice ||
-          Number.isNaN(data?.gasPrice) ||
-          data?.gasPrice === 0
-        ) {
-          throw "No gasPrice";
-        }
-        setGasPrice(data.gasPrice);
-      })
-      .catch(err => {
-        logContent(`Error gas: ${JSON.stringify(err)}`);
-        if (window.ethereum.storybook) {
-          setGasPrice("0x69");
-          return;
-        }
-        setIsFallback(true);
-        window.ethereum.rpc
-          .call({
-            jsonrpc: "2.0",
-            method: "eth_gasPrice",
-            params: [],
-            id: 1,
-          })
-          .then(response => {
-            setGasPrice(response.result);
-          });
-      });
-  };
+  const gasEstimationFee = useMemo(() => {
+    return (parseInt(gasEstimation) * parseInt(gasPrice)) / 1e18;
+  }, [gasEstimation, gasPrice]);
 
-  useEffect(() => {
-    logContent(`Config: ${JSON.stringify(config)}`);
-
-    if (config) {
-      fetchGasPrice();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (config) {
-        fetchGasPrice();
-      }
-    }, 3000);
-    return () => {
-      return clearInterval(interval);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config]);
-
-  useEffect(() => {
-    if (result?.simulationResults && !result?.simulationResults?.error) {
-      result?.simulationResults?.expectedStateChanges.map(change => {
-        if (
-          change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
-          change?.rawInfo?.kind === "ERC20_TRANSFER"
-        ) {
-          fetch(
-            `https://min-api.cryptocompare.com/data/price?fsym=${change?.rawInfo.data?.symbol}&tsyms=USD`,
-            {
-              method: "GET",
-            },
-          )
-            .then(response => {
-              return response.json();
-            })
-            .then(data => {
-              logContent(
-                `${
-                  change?.rawInfo.data?.symbol
-                } dollar result: ${JSON.stringify(data)}`,
-              );
-              change.rawInfo.data.value = data.USD;
-            });
-        }
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result?.simulationResults]);
-
-  useEffect(() => {
-    if (
-      params?.from &&
-      params?.to &&
-      params?.value &&
-      params?.data &&
-      (window.ethereum.chainId == "0x1" ||
-        window.ethereum.chainId == "0x5" ||
-        window.ethereum.chainId == "0x89")
-    ) {
-      logContent("Starting fetch...");
-      fetch(
-        `https://wallet.light.so/api/blowfish/${
-          window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x5"
-            ? "ethereum"
-            : "polygon"
-        }/v0/${
-          window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x89"
-            ? "mainnet"
-            : "goerli"
-        }/scan/transaction`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            metadata: {
-              origin: `https://${
-                window.location.host.startsWith("localhost")
-                  ? "https://wallet.light.so"
-                  : window.location.host
-              }`,
-            },
-            userAccount: params.from,
-            txObject: {
-              from: params.from,
-              to: params.to,
-              data: params?.data ?? "0x",
-              value: params?.value ?? "0x0",
-            },
-          }),
-        },
-      )
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          logContent(`Scan message result: ${JSON.stringify(data)}`);
-          return setResult(data);
-        })
-        .catch(err => {
-          logContent(`Error scan: ${JSON.stringify(err)}`);
-        });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    setGasEstimationFee(
-      (parseInt(gasPrice, 16) * (21_000 + 68 * (params?.data?.length / 2))) /
-        10e18,
-    );
-  }, [gasPrice, params?.data]);
-
-  useEffect(() => {
-    if (typeof result?.warnings !== "undefined" && result?.warnings.length) {
-      setError(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result?.warnings]);
-
-  useEffect(() => {
-    fetch(
-      `https://min-api.cryptocompare.com/data/price?fsym=${
-        window.ethereum.chainId == "0x89" ? "MATIC" : "ETH"
-      }&tsyms=USD`,
-      {
-        method: "GET",
-      },
-    )
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        logContent(`Gas dollar result: ${JSON.stringify(data)}`);
-        setGasEstimationDollar(
-          (Number(data.USD) * gasEstimationFee).toFixed(2).toString(),
-        );
-      })
-      .catch(err => {
-        logContent(`Error scan: ${JSON.stringify(err)}`);
-      });
-  }, [gasEstimationFee]);
+  const gasEstimationDollar = useMemo(() => {
+    return coinPrice * gasEstimationFee;
+  }, [coinPrice, gasEstimationFee]);
 
   const [isExpanded, setIsExpand] = useState<boolean>();
 
@@ -305,7 +139,26 @@ export const SignTransactionDescription: FC<
     setIsExpand(!isExpanded);
   }, [isExpanded]);
 
-  if (params?.from && params?.to && params?.value && params?.data) {
+  useEffect(() => {
+    if (
+      !gasEstimationFee ||
+      !gasPrice ||
+      isBlowfishLoading ||
+      isBlowfishLoading
+    ) {
+      setConfirmLoading(true);
+    } else {
+      setConfirmLoading(false);
+    }
+  }, [
+    gasEstimationFee,
+    gasPrice,
+    isBlowfishLoading,
+    isCoinPriceValidating,
+    setConfirmLoading,
+  ]);
+
+  if (params?.from && params?.to) {
     if (result?.simulationResults && result?.simulationResults?.error) {
       return (
         <SignTransactionGasSimulationContainer
@@ -316,10 +169,10 @@ export const SignTransactionDescription: FC<
           <SignTransactionGasSelectTransferErrorContainer>
             {result?.warnings.map(warning => {
               return (
-                <>
-                  <div key={warning?.kind}>{warning?.message}</div>
+                <div key={warning?.kind}>
+                  <>{warning?.message}</>
                   <br />
-                </>
+                </div>
               );
             })}
             {result?.simulationResults?.error?.humanReadableError}
@@ -383,10 +236,8 @@ export const SignTransactionDescription: FC<
                 change?.rawInfo?.kind === "ERC1155_TRANSFER"
               ) {
                 return (
-                  <>
-                    <SignTransactionGasSelectTransferContainer
-                      key={change?.humanReadableDiff}
-                    >
+                  <div key={change?.humanReadableDiff}>
+                    <SignTransactionGasSelectTransferContainer>
                       <SignTransactionGasSelectTransferNameContainer>
                         <SignTransactionGasSelectTransferImage
                           name={
@@ -479,7 +330,7 @@ export const SignTransactionDescription: FC<
                           </SignTransactionGasSelectTransferBalanceExpansionContainer>
                         </>
                       )}
-                  </>
+                  </div>
                 );
               }
             })}
@@ -491,38 +342,60 @@ export const SignTransactionDescription: FC<
         </SignTransactionGasSimulationContainer>
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>
-            ${gasEstimationDollar ?? 0}{" "}
-            <SignTransactionGasEstimateFeeSecondsContainer>
-              ~
-              {window.ethereum.chainId === "0x1"
-                ? config.legacySpeed === "instant"
-                  ? 12
+            <SignTransactionGasEstimatePriceContainer>
+              {gasEstimationDollar ? (
+                gasEstimationDollar < 0.01 ? (
+                  "< $0.01"
+                ) : gasEstimationDollar > 10e3 ? (
+                  `$${gasEstimationDollar.toLocaleString()}`
+                ) : (
+                  `$${gasEstimationDollar.toFixed(2)}`
+                )
+              ) : (
+                <Skeleton width="30%" />
+              )}
+              &nbsp;
+              <SignTransactionGasEstimateFeeSecondsContainer>
+                ~
+                {window.ethereum.chainId === "0x1"
+                  ? config.legacySpeed === "instant"
+                    ? 12
+                    : config.legacySpeed === "fast"
+                    ? 30
+                    : config.legacySpeed === "standard"
+                    ? 45
+                    : 60
+                  : window.ethereum.chainId === "0x89"
+                  ? config.legacySpeed === "instant"
+                    ? 2
+                    : config.legacySpeed === "fast"
+                    ? 10
+                    : config.legacySpeed === "standard"
+                    ? 15
+                    : 20
+                  : config.legacySpeed === "instant"
+                  ? 3
                   : config.legacySpeed === "fast"
-                  ? 30
+                  ? 5
                   : config.legacySpeed === "standard"
-                  ? 45
-                  : 60
-                : window.ethereum.chainId === "0x89"
-                ? config.legacySpeed === "instant"
-                  ? 2
-                  : config.legacySpeed === "fast"
-                  ? 10
-                  : config.legacySpeed === "standard"
-                  ? 15
-                  : 20
-                : config.legacySpeed === "instant"
-                ? 3
-                : config.legacySpeed === "fast"
-                ? 5
-                : config.legacySpeed === "standard"
-                ? 8
-                : 20}{" "}
-              sec.
-            </SignTransactionGasEstimateFeeSecondsContainer>
-            <br />
+                  ? 8
+                  : 20}{" "}
+                sec.
+              </SignTransactionGasEstimateFeeSecondsContainer>{" "}
+              {isCoinPriceValidating && <LoadingSpinner />}
+            </SignTransactionGasEstimatePriceContainer>
             <SignTransactionGasEstimateFeeContainer>
-              Estimated Fee: {gasEstimationFee.toFixed(9)}{" "}
-              {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
+              <span>Estimated Fee:</span>&nbsp;
+              {gasPrice && gasEstimationFee && (
+                <>
+                  {gasEstimationFee < 0.000001
+                    ? "< 0.000001"
+                    : gasEstimationFee.toFixed(6)}{" "}
+                  {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
+                </>
+              )}
+              {isGasPriceLoading && <Skeleton width="24px" height="12px" />}
+              {isGasPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimateFeeContainer>
           </SignTransactionGasEstimateContainer>
           <SignTransactionGasSelect
@@ -532,7 +405,7 @@ export const SignTransactionDescription: FC<
             }}
           >
             <option value="standard">🚗 Standard</option>
-            {!isFallback && (
+            {!isGasFallback && (
               <>
                 <option value="instant">🚨 Instant</option>
                 <option value="fast">🏄‍♂️ Fast</option>
@@ -546,10 +419,6 @@ export const SignTransactionDescription: FC<
   }
 
   return null;
-};
-
-export const shortenName = (name: string) => {
-  return name.match(/\b\w/g)?.join("").toUpperCase().substring(0, 3);
 };
 
 export const SignTransactionGasSelectTransferImage = ({

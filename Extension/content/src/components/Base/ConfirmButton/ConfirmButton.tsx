@@ -8,6 +8,7 @@ import { ConfirmButtonContainer, Button } from "./ConfirmButton.styles";
 type ConfirmButtonParams = {
   id: number;
   disabled?: boolean;
+  loading?: boolean;
   onCancelText?: string;
   onCancelClick?: () => void;
   onConfirmText: string;
@@ -16,6 +17,7 @@ type ConfirmButtonParams = {
 
 export const ConfirmButton: FC<ConfirmButtonParams> = ({
   id,
+  loading = false,
   disabled = false,
   onCancelText = "Cancel",
   onCancelClick,
@@ -57,8 +59,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
       </Button>
       <div style={{ width: "24px" }} />
       <Button
-        disabled={disabled}
-        option="approve"
+        option={loading ? "loading" : "approve"}
         onClick={() => {
           closeDrawer();
           onConfirmClick();
