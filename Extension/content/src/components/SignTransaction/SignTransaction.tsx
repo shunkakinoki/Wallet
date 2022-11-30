@@ -11,8 +11,6 @@ import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
 
-import { useTransactionGasPrice } from "../../hooks/useTransactionGasPrice";
-
 import { BlowfishIcon } from "../../icons/BlowfishIcon";
 import { WarningIcon } from "../../icons/WarningIcon";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
@@ -55,9 +53,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
   method,
   params,
 }) => {
-  const [gasPrice] = useTransactionGasPrice(state => {
-    return [state.gasPrice];
-  });
+  const { data } = useGasPrice();
   const [error] = useTransactionError(state => {
     return [state.error];
   });
@@ -89,7 +85,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
                 data: params?.data ?? "0x",
                 value: params?.value ?? "0x0",
                 chainId: window.ethereum.chainId,
-                gasPrice: gasPrice,
+                gasPrice: data?.gasPrice,
                 nonce: nonceVar,
               },
             });
