@@ -32,16 +32,13 @@ export const useGasEstimation = params => {
     },
     {
       use: [laggy],
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
     },
   );
 
   return {
     gasEstimation:
       data && data?.gasEstimation && gasPrice
-        ? (parseInt(data?.gasEstimation, 16) * gasPrice) / 1e9
+        ? (parseInt(data?.gasEstimation, 16) * gasPrice) / 1e18
         : null,
     error,
     isLoading,
