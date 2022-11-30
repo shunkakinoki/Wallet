@@ -25,6 +25,12 @@ export const useGasPrice = () => {
         setGasFallback(false);
         return res.json();
       })
+      .then(json => {
+        if (!json.gasPrice) {
+          throw new Error("gasPrice Empty !!!");
+        }
+        return json;
+      })
       .catch(err => {
         setGasFallback(true);
         if (window.ethereum.storybook) {
