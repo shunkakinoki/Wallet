@@ -1,5 +1,7 @@
 import useSWR from "swr";
 
+import { laggy } from "../middlwares/laggy";
+
 const fetcher = chainId => {
   return fetch(
     `https://min-api.cryptocompare.com/data/price?fsym=${
@@ -15,6 +17,7 @@ export const useCoinPrice = () => {
     window.ethereum.chainId,
     fetcher,
     {
+      use: [laggy],
       refreshInterval: 300,
     },
   );

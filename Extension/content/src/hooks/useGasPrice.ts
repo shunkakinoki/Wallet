@@ -1,5 +1,7 @@
 import useSWR from "swr";
 
+import { laggy } from "../middlwares/laggy";
+
 import { useGasFallback } from "./useGasFallback";
 import { useTransactionGasConfig } from "./useTransactionGasConfig";
 
@@ -46,6 +48,7 @@ export const useGasPrice = () => {
     fetcher,
     {
       refreshInterval: 300,
+      use: [laggy],
     },
   );
 
