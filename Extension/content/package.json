@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "build": "concurrently 'pnpm:build:*'",
-    "build:content": "node ./esbuild.config.js",
+    "build:content": "cross-env NODE_ENV=production node ./esbuild.config.js",
+    "build:dev": "cross-env NODE_ENV=development node ./esbuild.config.js",
     "build:storybook": "node -e \"if (process.env.CI === '1'){process.exit(1)} \" || build-storybook -o public",
     "dev": "concurrently 'pnpm:dev:*'",
     "dev:storybook": "start-storybook",

@@ -62,12 +62,16 @@ importers:
   Extension/background:
     specifiers:
       '@types/firefox-webext-browser': ^94.0.1
+      '@types/node': ^18.8.4
+      cross-env: ^7.0.3
       dotenv: ^16.0.3
       typescript: ^4.8.4
     dependencies:
       '@types/firefox-webext-browser': 94.0.1_mlsd6ev5ltf6gt3vi5qwa2sdxm
+      cross-env: 7.0.3
       dotenv: 16.0.3
     devDependencies:
+      '@types/node': 18.8.4
       typescript: 4.8.4
 
   Extension/chain:
@@ -148,6 +152,7 @@ importers:
       '@types/firefox-webext-browser': ^94.0.1
       '@types/node': ^18.8.4
       buffer: ^6.0.3
+      cross-env: ^7.0.3
       dotenv: ^16.0.3
       events: ^3.3.0
       isutf8: ^4.0.0
@@ -157,6 +162,7 @@ importers:
       '@metamask/eth-sig-util': 5.0.0
       '@types/firefox-webext-browser': 94.0.1_mlsd6ev5ltf6gt3vi5qwa2sdxm
       buffer: 6.0.3
+      cross-env: 7.0.3
       dotenv: 16.0.3
       events: 3.3.0
       isutf8: 4.0.0
@@ -171,6 +177,7 @@ importers:
       '@types/firefox-webext-browser': ^94.0.1
       '@types/node': ^18.8.4
       buffer: ^6.0.3
+      cross-env: ^7.0.3
       dotenv: ^16.0.3
       events: ^3.3.0
       isutf8: ^4.0.0
@@ -180,6 +187,7 @@ importers:
       '@metamask/eth-sig-util': 5.0.0
       '@types/firefox-webext-browser': 94.0.1_mlsd6ev5ltf6gt3vi5qwa2sdxm
       buffer: 6.0.3
+      cross-env: 7.0.3
       dotenv: 16.0.3
       events: 3.3.0
       isutf8: 4.0.0
@@ -199,6 +207,7 @@ importers:
       autoprefixer: ^10.4.12
       clsx: ^1.2.1
       copy-to-clipboard: ^3.3.3
+      cross-env: ^7.0.3
       ethers: ^5.7.2
       konsta: ^1.0.2
       next: ^12.3.1
@@ -215,6 +224,7 @@ importers:
       '@types/firefox-webext-browser': 94.0.1_mlsd6ev5ltf6gt3vi5qwa2sdxm
       clsx: 1.2.1
       copy-to-clipboard: 3.3.3
+      cross-env: 7.0.3
       ethers: 5.7.2
       konsta: 1.0.2
       next: 12.3.1_biqbaboplfbrettd7655fr4n2y
@@ -7796,7 +7806,6 @@ packages:
     hasBin: true
     dependencies:
       cross-spawn: 7.0.3
-    dev: true
 
   /cross-spawn/5.1.0:
     resolution: {integrity: sha512-pTgQJ5KC0d2hcY8eyL1IzlBPYjTkyH72XRZPnLyKus2mBfNjQs3klqbJU2VILqZryAZUt9JOb3h/mWMy23/f5A==}

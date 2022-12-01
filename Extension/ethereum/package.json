@@ -3,13 +3,15 @@
   "private": false,
   "version": "0.0.1",
   "scripts": {
-    "build": "node ./esbuild.config.js"
+    "build": "cross-env NODE_ENV=production node ./esbuild.config.js",
+    "build:dev": "cross-env NODE_ENV=development node ./esbuild.config.js"
   },
   "dependencies": {
     "@lightdotso/provider": "workspace:*",
     "@metamask/eth-sig-util": "^5.0.0",
     "@types/firefox-webext-browser": "^94.0.1",
     "buffer": "^6.0.3",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "events": "^3.3.0",
     "isutf8": "^4.0.0"
