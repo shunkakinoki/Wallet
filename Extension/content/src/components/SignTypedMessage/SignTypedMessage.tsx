@@ -21,6 +21,7 @@ export const SignTypedMessage: FC<SignTypedMessageParams> = ({
   return (
     <ConfirmButton
       id={id}
+      method={method}
       onConfirmText="Sign"
       onConfirmClick={() => {
         sendMessageToNativeApp({ id, method, params });

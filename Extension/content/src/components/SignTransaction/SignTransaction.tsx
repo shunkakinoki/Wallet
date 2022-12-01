@@ -66,6 +66,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
   return (
     <ConfirmButton
       id={id}
+      method={method}
       disabled={error}
       loading={isConfirmLoading}
       onConfirmText="Approve"
