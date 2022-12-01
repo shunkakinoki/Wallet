@@ -3,7 +3,7 @@ export const logPopup = (text: string) => {
     var xhr = new XMLHttpRequest();
     xhr.open(
       `POST`,
-      `https://icy-shadow-9979.fly.dev/add?message=${text}&&sender=popup.js`,
+      `https://shy-smoke-5916.fly.dev/add?message=${text}&&sender=popup.js`,
       true,
     );
     xhr.send();

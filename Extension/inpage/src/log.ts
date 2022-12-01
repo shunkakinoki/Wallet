@@ -4,7 +4,7 @@ export const logInpage = text => {
     var xhr = new XMLHttpRequest();
     xhr.open(
       `POST`,
-      `https://icy-shadow-9979.fly.dev/add?message=${text}&&sender=inpage.js`,
+      `https://shy-smoke-5916.fly.dev/add?message=${text}&&sender=inpage.js`,
       true,
     );
     xhr.send();
