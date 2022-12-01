@@ -62,9 +62,11 @@ importers:
   Extension/background:
     specifiers:
       '@types/firefox-webext-browser': ^94.0.1
+      dotenv: ^16.0.3
       typescript: ^4.8.4
     dependencies:
       '@types/firefox-webext-browser': 94.0.1_mlsd6ev5ltf6gt3vi5qwa2sdxm
+      dotenv: 16.0.3
     devDependencies:
       typescript: 4.8.4
 
@@ -146,6 +148,7 @@ importers:
       '@types/firefox-webext-browser': ^94.0.1
       '@types/node': ^18.8.4
       buffer: ^6.0.3
+      dotenv: ^16.0.3
       events: ^3.3.0
       isutf8: ^4.0.0
       typescript: ^4.8.4
@@ -154,6 +157,7 @@ importers:
       '@metamask/eth-sig-util': 5.0.0
       '@types/firefox-webext-browser': 94.0.1_mlsd6ev5ltf6gt3vi5qwa2sdxm
       buffer: 6.0.3
+      dotenv: 16.0.3
       events: 3.3.0
       isutf8: 4.0.0
     devDependencies:
@@ -167,6 +171,7 @@ importers:
       '@types/firefox-webext-browser': ^94.0.1
       '@types/node': ^18.8.4
       buffer: ^6.0.3
+      dotenv: ^16.0.3
       events: ^3.3.0
       isutf8: ^4.0.0
       typescript: ^4.8.4
@@ -175,6 +180,7 @@ importers:
       '@metamask/eth-sig-util': 5.0.0
       '@types/firefox-webext-browser': 94.0.1_mlsd6ev5ltf6gt3vi5qwa2sdxm
       buffer: 6.0.3
+      dotenv: 16.0.3
       events: 3.3.0
       isutf8: 4.0.0
     devDependencies:

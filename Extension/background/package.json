@@ -3,10 +3,11 @@
   "private": false,
   "version": "0.0.1",
   "scripts": {
-    "build": "esbuild ./src/background.ts  --bundle --outdir='../../Application/Light Safari Extension/Resources'"
+    "build": "node ./esbuild.config.js"
   },
   "dependencies": {
-    "@types/firefox-webext-browser": "^94.0.1"
+    "@types/firefox-webext-browser": "^94.0.1",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "typescript": "^4.8.4"
