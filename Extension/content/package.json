@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "build": "concurrently 'pnpm:build:*'",
-    "build:content": "esbuild ./src/content.ts  --bundle --outdir='../../Application/Light Safari Extension/Resources' --tsconfig=tsconfig.build.json",
+    "build:content": "node ./build.js",
     "build:storybook": "node -e \"if (process.env.CI === '1'){process.exit(1)} \" || build-storybook -o public",
     "dev": "concurrently 'pnpm:dev:*'",
     "dev:storybook": "start-storybook",

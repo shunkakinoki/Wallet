@@ -1,17 +1,15 @@
 const { build } = require("esbuild");
 require("dotenv").config();
 
-const define = {};
-
-for (const k in process.env) {
-  define[`process.env.${k}`] = JSON.stringify(process.env[k]);
-}
-
 const options = {
   entryPoints: ["./src/content.ts"],
   outdir: "../../Application/Light Safari Extension/Resources",
   tsconfig: "tsconfig.build.json",
-  define,
+  bundle: true,
+  minify: true,
+  define: {
+    "process.env.JITSU_JS_KEY": JSON.stringify(process.env.JITSU_JS_KEY),
+  },
 };
 
 build(options).catch(() => {
