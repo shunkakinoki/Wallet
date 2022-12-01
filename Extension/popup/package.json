@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export -o '../../Application/Light Safari Extension/Resources/popup' && cp '../../Application/Light Safari Extension/Resources/popup/index.html' '../../Application/Light Safari Extension/Resources/popup.html'",
+    "build": "cross-env NODE_ENV=production next build && next export -o '../../Application/Light Safari Extension/Resources/popup' && cp '../../Application/Light Safari Extension/Resources/popup/index.html' '../../Application/Light Safari Extension/Resources/popup.html'",
+    "build:dev": "cross-env NODE_ENV=development next build && next export -o '../../Application/Light Safari Extension/Resources/popup' && cp '../../Application/Light Safari Extension/Resources/popup/index.html' '../../Application/Light Safari Extension/Resources/popup.html'",
     "start": "next start"
   },
   "dependencies": {
@@ -14,6 +15,7 @@
     "@types/firefox-webext-browser": "^94.0.1",
     "clsx": "^1.2.1",
     "copy-to-clipboard": "^3.3.3",
+    "cross-env": "^7.0.3",
     "ethers": "^5.7.2",
     "konsta": "^1.0.2",
     "next": "^12.3.1",

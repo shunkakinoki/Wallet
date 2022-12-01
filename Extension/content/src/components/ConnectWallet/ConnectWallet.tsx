@@ -31,6 +31,7 @@ export const ConnectWallet: FC<ConnectWalletParams> = ({
   return (
     <ConfirmButton
       id={id}
+      method="connectWallet"
       disabled={error}
       onConfirmText="Connect"
       onConfirmClick={() => {

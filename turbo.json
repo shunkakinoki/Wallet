@@ -4,7 +4,15 @@
     "build": {
       "dependsOn": ["^build"]
     },
+    "build:dev": {
+      "dependsOn": ["^build:dev"]
+    },
     "@lightdotso/background#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": ["../../Application/Light Safari Extension/Resources/background.js"]
+    },
+    "@lightdotso/background#build:dev": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "outputs": ["../../Application/Light Safari Extension/Resources/background.js"]
@@ -15,8 +23,16 @@
       "env": ["CI"],
       "outputs": [
         "public",
-        "../../Application/Light Safari Extension/Resources/content.js",
-        "../../Application/Light Safari Extension/Resources/light.css"
+        "../../Application/Light Safari Extension/Resources/content.js"
+      ]
+    },
+    "@lightdotso/content#build:dev": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "env": ["CI"],
+      "outputs": [
+        "public",
+        "../../Application/Light Safari Extension/Resources/content.js"
       ]
     },
     "@lightdotso/ethereum#build": {
@@ -26,7 +42,21 @@
         "../../Application/Light Safari Extension/Resources/ethereum.js"
       ]
     },
+    "@lightdotso/ethereum#build:dev": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": [
+        "../../Application/Light Safari Extension/Resources/ethereum.js"
+      ]
+    },
     "@lightdotso/inpage#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": [
+        "../../Application/Light Safari Extension/Resources/inpage.js"
+      ]
+    },
+    "@lightdotso/inpage#build:dev": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "outputs": [
@@ -42,7 +72,16 @@
         "../../Application/Light Safari Extension/Resources/popup.html"
       ]
     },
-    "@lightdotso/website#build": {
+    "@lightdotso/popup#build:dev": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": [
+        ".next",
+        "../../Application/Light Safari Extension/Resources/popup/**",
+        "../../Application/Light Safari Extension/Resources/popup.html"
+      ]
+    },
+    "@lightdotso/wallet#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "outputs": [

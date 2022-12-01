@@ -1,5 +1,7 @@
 import type { FC } from "react";
+import { useEffect } from "react";
 
+import { useJitsu } from "../../../hooks/useJitsu";
 import { useShowDrawer } from "../../../hooks/useShowDrawer";
 import { sendToEthereum } from "../../../services/sendToEthereum";
 
@@ -7,6 +9,7 @@ import { ConfirmButtonContainer, Button } from "./ConfirmButton.styles";
 
 type ConfirmButtonParams = {
   id: number;
+  method: string;
   disabled?: boolean;
   loading?: boolean;
   onCancelText?: string;
@@ -17,6 +20,7 @@ type ConfirmButtonParams = {
 
 export const ConfirmButton: FC<ConfirmButtonParams> = ({
   id,
+  method,
   loading = false,
   disabled = false,
   onCancelText = "Cancel",
@@ -24,8 +28,13 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
   onConfirmText,
   onConfirmClick,
 }) => {
+  const { track } = useJitsu();
   const [closeDrawer] = useShowDrawer(state => {
     return [state.closeDrawer];
+  });
+
+  useEffect(() => {
+    track(method, { action: "open" });
   });
 
   if (disabled) {
@@ -35,6 +44,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
           option="cancel"
           onClick={() => {
             sendToEthereum(null, id, "cancel");
+            track(method, { action: "cancelDisabled" });
             closeDrawer();
             onCancelClick();
           }}
@@ -51,6 +61,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
         option="cancel"
         onClick={() => {
           sendToEthereum(null, id, "cancel");
+          track(method, { action: "cancel" });
           closeDrawer();
           onCancelClick();
         }}
@@ -63,6 +74,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
         onClick={() => {
           closeDrawer();
           onConfirmClick();
+          track(method, { action: "confirm" });
         }}
       >
         {onConfirmText}

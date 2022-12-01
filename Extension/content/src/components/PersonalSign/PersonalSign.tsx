@@ -20,6 +20,7 @@ export const PersonalSign: FC<PersonalSignParams> = ({
   return (
     <ConfirmButton
       id={id}
+      method={method}
       onConfirmText="Sign"
       onConfirmClick={() => {
         sendMessageToNativeApp({ id, method, params });

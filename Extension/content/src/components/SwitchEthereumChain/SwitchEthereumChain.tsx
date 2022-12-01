@@ -35,6 +35,7 @@ export const SwitchEthereumChain: FC<SwitchEthereumChainParams> = ({
   return (
     <ConfirmButton
       id={id}
+      method={method}
       onConfirmText="Switch"
       onConfirmClick={() => {
         sendToEthereum(

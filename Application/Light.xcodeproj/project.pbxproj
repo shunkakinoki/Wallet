@@ -289,7 +289,6 @@
 				2AE391F32800D8F000E19495 /* Frameworks */,
 				2AE391F42800D8F000E19495 /* Resources */,
 				2A0108DB28E245E800611300 /* Embed Foundation Extensions */,
-				A68E21CF29206A5000D4964A /* Run Pnpm build */,
 			);
 			buildRules = (
 			);
@@ -386,28 +385,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		A68E21CF29206A5000D4964A /* Run Pnpm build */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Pnpm build";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd \"$PROJECT_DIR\"/..\n\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which pnpm > /dev/null; then\n    pnpm install\n    pnpm run build\nelse\n    echo \"warning: pnpm is not installed! Try `brew install pnpm`\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2A0108BE28E245E700611300 /* Sources */ = {
