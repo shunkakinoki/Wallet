@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 import { useTransition } from "react-transition-state";
 
+import { useJitsu } from "../../hooks/useJitsu";
 import { useShowDrawer } from "../../hooks/useShowDrawer";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { ChainIcon } from "../../icons/ChainIcon";
@@ -93,6 +94,12 @@ export const PageLogger: FC<PageProps> = ({ id, type, method, params }) => {
     logContent(
       `injecting page: ${JSON.stringify({ id, type, method, params })}`,
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const { track } = useJitsu();
+
+  useEffect(() => {
+    track("modalOpen");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -80,6 +80,7 @@ importers:
       '@emotion/cache': ^11.10.3
       '@emotion/react': ^11.10.4
       '@emotion/styled': ^11.10.4
+      '@jitsu/sdk-js': ^3.1.3
       '@lightdotso/chain': workspace:*
       '@storybook/addon-actions': ^6.5.12
       '@storybook/addon-essentials': ^6.5.12
@@ -95,6 +96,7 @@ importers:
       '@types/react': ^18.0.21
       '@types/react-dom': ^18.0.6
       babel-loader: ^8.2.5
+      dotenv: ^16.0.3
       framer-motion: ^7.6.1
       next: ^12.3.1
       react: ^18.2.0
@@ -108,10 +110,12 @@ importers:
       '@emotion/cache': 11.10.3
       '@emotion/react': 11.10.4_d3zi5agmim5yvele7myolzagti
       '@emotion/styled': 11.10.4_2x444vlcug5ivaeavo4vxooctq
+      '@jitsu/sdk-js': 3.1.3
       '@lightdotso/chain': link:../chain
       '@types/firefox-webext-browser': 94.0.1_mlsd6ev5ltf6gt3vi5qwa2sdxm
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
+      dotenv: 16.0.3
       framer-motion: 7.6.1_biqbaboplfbrettd7655fr4n2y
       next: 12.3.1_qtpcxnaaarbm4ws7ughq6oxfve
       react: 18.2.0
@@ -2761,6 +2765,10 @@ packages:
       '@types/yargs': 16.0.4
       chalk: 4.1.2
     dev: true
+
+  /@jitsu/sdk-js/3.1.3:
+    resolution: {integrity: sha512-hFFo0PQb/zm5Qvs8pPsiJpDdOG7A1s5jc1IENWS0cIncNfbjZzi6EcK8iPhUsAXFU4g6xPpi8MHgVQtCMdocsA==}
+    dev: false
 
   /@jridgewell/gen-mapping/0.1.1:
     resolution: {integrity: sha512-sQXCasFk+U8lWYEe66WxRDOE9PjVz4vSM51fTu3Hw+ClTpUSQb718772vH3pyS5pShp6lvQM7SxgIDXXXmOX7w==}
@@ -8334,6 +8342,11 @@ packages:
 
   /dotenv-expand/5.1.0:
     resolution: {integrity: sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==}
+
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
+    dev: false
 
   /dotenv/8.6.0:
     resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}

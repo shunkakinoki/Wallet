@@ -1,5 +1,6 @@
 import type { FC } from "react";
 
+import { useJitsu } from "../../../hooks/useJitsu";
 import { useShowDrawer } from "../../../hooks/useShowDrawer";
 import { sendToEthereum } from "../../../services/sendToEthereum";
 
@@ -24,6 +25,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
   onConfirmText,
   onConfirmClick,
 }) => {
+  const { track } = useJitsu();
   const [closeDrawer] = useShowDrawer(state => {
     return [state.closeDrawer];
   });
@@ -35,6 +37,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
           option="cancel"
           onClick={() => {
             sendToEthereum(null, id, "cancel");
+            track("cancelButton");
             closeDrawer();
             onCancelClick();
           }}
