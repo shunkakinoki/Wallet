@@ -34,7 +34,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
   });
 
   useEffect(() => {
-    track(method, { action: "open" });
+    track(method, { action: "open", chainId: window.ethereum.chainId });
   });
 
   if (disabled) {
@@ -44,7 +44,10 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
           option="cancel"
           onClick={() => {
             sendToEthereum(null, id, "cancel");
-            track(method, { action: "cancelDisabled" });
+            track(method, {
+              action: "cancelDisabled",
+              chainId: window.ethereum.chainId,
+            });
             closeDrawer();
             onCancelClick();
           }}
@@ -61,7 +64,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
         option="cancel"
         onClick={() => {
           sendToEthereum(null, id, "cancel");
-          track(method, { action: "cancel" });
+          track(method, { action: "cancel", chainId: window.ethereum.chainId });
           closeDrawer();
           onCancelClick();
         }}
@@ -74,7 +77,10 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
         onClick={() => {
           closeDrawer();
           onConfirmClick();
-          track(method, { action: "confirm" });
+          track(method, {
+            action: "confirm",
+            chainId: window.ethereum.chainId,
+          });
         }}
       >
         {onConfirmText}
