@@ -34,6 +34,29 @@ export const useUserStep = create(
   ),
 );
 
+interface InitialState {
+  isInitial: boolean;
+  setIsInitial: (newState: boolean) => void;
+}
+
+export const useIsInitial = create(
+  persist<InitialState>(
+    (set, get) => {
+      return {
+        isInitial: false,
+        setIsInitial: newState => {
+          return set(() => {
+            return { isInitial: newState };
+          });
+        },
+      };
+    },
+    {
+      name: "@lightdotso/initial",
+    },
+  ),
+);
+
 export default function Home() {
   const [isSafari, setIsSafari] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -41,6 +64,10 @@ export default function Home() {
 
   const [sstep, setStep] = useUserStep(state => {
     return [state.step, state.setStep];
+  });
+
+  const [isInitial, setIsInitial] = useIsInitial(state => {
+    return [state.isInitial, state.setIsInitial];
   });
 
   const [swiper, setSwiper] = useState(undefined);
@@ -67,11 +94,20 @@ export default function Home() {
     return 0;
   }, [isMounted, sstep]);
 
-  useEffect(() => {
-    if (step === 2 && isMounted) {
-      window.location.reload();
+  const sIsInitial = useMemo(() => {
+    if (isMounted) {
+      return isInitial;
     }
-  }, [isMounted, step]);
+    return 0;
+  }, [isMounted, isInitial]);
+
+  useEffect(() => {
+    if (step === 2 && !sIsInitial) {
+      window.location.reload();
+    } else {
+      setIsInitial(true);
+    }
+  }, [sIsInitial, setIsInitial, step]);
 
   return (
     <Page>
