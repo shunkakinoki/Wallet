@@ -76,6 +76,10 @@ export const SignTransactionGasSelectAccordionContainer = styled.div`
   padding-right: 0.3rem;
 `;
 
+export const SignTransactionSkeletonContainer = styled.div`
+  padding-bottom: 1rem;
+`;
+
 export const SignTransactionGasSelectApproveContainer = styled.div`
   display: flex;
   align-items: center;
