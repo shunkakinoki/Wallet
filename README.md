@@ -19,6 +19,7 @@
 - 🫰 **Best Dapp Experience** for making possible what dapps can enable people to do
 - 👨‍👩‍👧‍👦 **Open Source & Community Owned** for trustless web3 ethos
 - 🌐 **Safari Extension** to enable seamless dapp experiences on Safari
+- 🔐 **Privacy Focused** for preserving web3 users' anonymity. See tweet [here](https://twitter.com/Light_Wallet/status/1598500192000438272) and public dashboard at [https://wallet.light.so/open](https://wallet.light.so/open)
 - 🔑 **Secure Enclave** for secure transactions on mobile
 
 ## 📱 Demo
