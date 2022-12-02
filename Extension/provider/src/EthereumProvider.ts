@@ -78,7 +78,7 @@ export class EthereumProvider extends BaseProvider {
     this.setAddress(config.address);
 
     this.networkVersion = "" + config.chainId;
-    this.chainId = "0x" + (config.chainId || 1).toString(16);
+    this.chainId = config.chainId;
     this.rpc = new RPCServer(config.rpcUrl);
   }
 
