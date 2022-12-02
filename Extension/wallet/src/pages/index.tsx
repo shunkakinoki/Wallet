@@ -69,7 +69,7 @@ export default function Home() {
   }, [isMounted, sstep]);
 
   useEffect(() => {
-    if (step === 3) {
+    if (step === 2) {
       window.location.reload();
     }
   }, [step]);
