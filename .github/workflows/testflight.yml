@@ -24,7 +24,7 @@ jobs:
           bundle install
           pnpm install --frozen-lockfile
           pnpm turbo run build
-        env: |
+        env:
           JITSU_JS_KEY: ${{ secrets.JITSU_JS_KEY }}
       - run: |
           bundle exec fastlane internal
