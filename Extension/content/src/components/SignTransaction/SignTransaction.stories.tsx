@@ -79,6 +79,21 @@ export const NFTTransfer: Story = args => {
   );
 };
 
+export const SendEth: Story = args => {
+  return (
+    <Page
+      id={4}
+      type="SignTransaction"
+      params={{
+        from: "0xd77d7a55d10a9d26ee838453973d40a287322587",
+        to: "0x225e9b54f41f44f42150b6aaa730da5f2d23faf2",
+        value: "0x83e3ed8225fc3",
+      }}
+      method=""
+    />
+  );
+};
+
 export const SliceTransfer: Story = args => {
   return (
     <Page
