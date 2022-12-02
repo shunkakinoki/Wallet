@@ -1,12 +1,11 @@
-// eslint-disable-next-line import/no-named-as-default
+/* eslint-disable import/no-named-as-default */
+
 import clsx from "clsx";
 import { Page } from "konsta/react";
 import { useEffect, useMemo, useState } from "react";
-// eslint-disable-next-line import/no-named-as-default
 import ReactConfetti from "react-confetti";
-// eslint-disable-next-line import/no-named-as-default
 import toast, { Toaster } from "react-hot-toast";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -35,6 +34,29 @@ export const useUserStep = create(
   ),
 );
 
+interface InitialState {
+  isInitial: boolean;
+  setIsInitial: (newState: boolean) => void;
+}
+
+export const useIsInitial = create(
+  persist<InitialState>(
+    (set, get) => {
+      return {
+        isInitial: false,
+        setIsInitial: newState => {
+          return set(() => {
+            return { isInitial: newState };
+          });
+        },
+      };
+    },
+    {
+      name: "@lightdotso/initial",
+    },
+  ),
+);
+
 export default function Home() {
   const [isSafari, setIsSafari] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -42,6 +64,10 @@ export default function Home() {
 
   const [sstep, setStep] = useUserStep(state => {
     return [state.step, state.setStep];
+  });
+
+  const [isInitial, setIsInitial] = useIsInitial(state => {
+    return [state.isInitial, state.setIsInitial];
   });
 
   const [swiper, setSwiper] = useState(undefined);
@@ -68,10 +94,26 @@ export default function Home() {
     return 0;
   }, [isMounted, sstep]);
 
+  const sIsInitial = useMemo(() => {
+    if (isMounted) {
+      return isInitial;
+    }
+    return false;
+  }, [isMounted, isInitial]);
+
   useEffect(() => {
-    if (step === 3) {
+    if (isMounted && sIsInitial) {
+      setIsInitial(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
+
+  useEffect(() => {
+    if (step === 2 && sIsInitial) {
+      setIsInitial(false);
       window.location.reload();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
 
   return (
@@ -200,6 +242,7 @@ export default function Home() {
                           //@ts-expect-error
                           swiper?.slideTo(0);
                           setIsEnabled(false);
+                          setIsInitial(true);
                           window.location.reload();
                         } else {
                           setIsEnabled(true);
