@@ -405,7 +405,7 @@ export class EthereumProvider extends BaseProvider {
   }
 
   wallet_addEthereumChain(payload) {
-    this.postMessage("addEthereumChain", payload.id, payload.params[0]);
+    this.postMessage("switchEthereumChain", payload.id, payload.params[0]);
   }
 
   wallet_switchEthereumChain(payload) {
