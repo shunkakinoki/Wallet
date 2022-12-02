@@ -17,6 +17,7 @@ import {
   ListInput,
 } from "konsta/react";
 import { useEffect, useState, useRef } from "react";
+// eslint-disable-next-line import/no-named-as-default
 import toast, { Toaster } from "react-hot-toast";
 
 import { Avatar } from "../components/Avatar";

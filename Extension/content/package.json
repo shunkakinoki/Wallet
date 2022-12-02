@@ -8,8 +8,8 @@
     "build:dev": "cross-env NODE_ENV=development node ./esbuild.config.js",
     "build:storybook": "node -e \"if (process.env.CI === '1'){process.exit(1)} \" || build-storybook -o public",
     "dev": "concurrently 'pnpm:dev:*'",
-    "dev:storybook": "start-storybook",
-    "dev:next": "next dev"
+    "dev:storybook": "cross-env NODE_ENV=development start-storybook",
+    "dev:next": "cross-env NODE_ENV=development next dev"
   },
   "dependencies": {
     "@emotion/cache": "^11.10.3",
