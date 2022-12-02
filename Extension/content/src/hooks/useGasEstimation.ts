@@ -2,6 +2,9 @@
 import useSWR from "swr";
 
 const fetcher = params => {
+  if (window.ethereum.isStorybook) {
+    return { gasEstimation: "0x69" };
+  }
   return window.ethereum.rpc
     .call({
       jsonrpc: "2.0",

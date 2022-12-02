@@ -353,7 +353,7 @@ export const SignTransactionDescription: FC<
                   `$${gasEstimationDollar.toFixed(2)}`
                 )
               ) : (
-                <Skeleton width="30%" />
+                <Skeleton width="20%" />
               )}
               &nbsp;
               <SignTransactionGasEstimateFeeSecondsContainer>
@@ -395,7 +395,7 @@ export const SignTransactionDescription: FC<
                   {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
                 </>
               )}
-              {isGasPriceLoading && <Skeleton width="24px" height="12px" />}
+              {isGasPriceLoading && <Skeleton width="20px" height="12px" />}
               {isGasPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimateFeeContainer>
           </SignTransactionGasEstimateContainer>
