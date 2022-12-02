@@ -68,6 +68,12 @@ export default function Home() {
     return 0;
   }, [isMounted, sstep]);
 
+  useEffect(() => {
+    if (step === 3) {
+      window.location.reload();
+    }
+  }, [step]);
+
   return (
     <Page>
       <title>Light Wallet</title>
