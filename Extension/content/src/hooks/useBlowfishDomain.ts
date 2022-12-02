@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import useSWR from "swr";
 
+import { blowfishSupportedCheck } from "../utils/blowfishSupportedCheck";
+
 import { useTransactionError } from "./useTransactionError";
 
 const fetcher = params => {
@@ -31,7 +33,7 @@ export const useBlowfishDomain = params => {
     isLoading,
     isValidating,
   } = useSWR(
-    ["/blowfish/domain", params],
+    blowfishSupportedCheck() ? ["/blowfish/domain", params] : null,
     ([key, params]) => {
       return fetcher(params);
     },
