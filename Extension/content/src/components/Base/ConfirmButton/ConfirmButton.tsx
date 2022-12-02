@@ -35,7 +35,8 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
 
   useEffect(() => {
     track(method, { action: "open", chainId: window.ethereum.chainId });
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (disabled) {
     return (
