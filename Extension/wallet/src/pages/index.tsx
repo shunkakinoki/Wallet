@@ -5,7 +5,7 @@ import { Page } from "konsta/react";
 import { useEffect, useMemo, useState } from "react";
 import ReactConfetti from "react-confetti";
 import toast, { Toaster } from "react-hot-toast";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -68,10 +68,10 @@ export default function Home() {
   }, [isMounted, sstep]);
 
   useEffect(() => {
-    if (step === 2) {
+    if (step === 2 && isMounted) {
       window.location.reload();
     }
-  }, [step]);
+  }, [isMounted, step]);
 
   return (
     <Page>
