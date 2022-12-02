@@ -23,6 +23,7 @@ jobs:
       - run: |
           bundle install
           pnpm install --frozen-lockfile
+          printenv > ./Extension/content/.env
           pnpm turbo run build
         env:
           JITSU_JS_KEY: ${{ secrets.JITSU_JS_KEY }}

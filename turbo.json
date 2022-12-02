@@ -20,7 +20,7 @@
     "@lightdotso/content#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
-      "env": ["CI"],
+      "env": ["CI", "JITSU_JS_KEY"],
       "outputs": [
         "public",
         "../../Application/Light Safari Extension/Resources/content.js"
@@ -29,7 +29,7 @@
     "@lightdotso/content#build:dev": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
-      "env": ["CI"],
+      "env": ["CI", "JITSU_JS_KEY"],
       "outputs": [
         "public",
         "../../Application/Light Safari Extension/Resources/content.js"
