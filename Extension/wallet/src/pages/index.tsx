@@ -98,16 +98,23 @@ export default function Home() {
     if (isMounted) {
       return isInitial;
     }
-    return 0;
+    return false;
   }, [isMounted, isInitial]);
 
   useEffect(() => {
-    if (step === 2 && !sIsInitial) {
-      window.location.reload();
-    } else {
+    if (isMounted && sIsInitial) {
       setIsInitial(true);
     }
-  }, [sIsInitial, setIsInitial, step]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
+
+  useEffect(() => {
+    if (step === 2 && sIsInitial) {
+      setIsInitial(false);
+      window.location.reload();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
 
   return (
     <Page>
@@ -235,6 +242,7 @@ export default function Home() {
                           //@ts-expect-error
                           swiper?.slideTo(0);
                           setIsEnabled(false);
+                          setIsInitial(true);
                           window.location.reload();
                         } else {
                           setIsEnabled(true);
