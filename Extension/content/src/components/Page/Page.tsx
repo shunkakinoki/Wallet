@@ -114,6 +114,14 @@ export const PageHeader: FC<PageHeaderProps> = ({ id }) => {
   const closeDrawer = useShowDrawer(state => {
     return state.closeDrawer;
   });
+  const resetValue = useTransactionValue(state => {
+    return state.resetValue;
+  });
+
+  useEffect(() => {
+    resetValue();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   return (
     <PageHeaderContainer>
@@ -221,13 +229,9 @@ export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
   const [error, setError] = useTransactionError(state => {
     return [state.error, state.setError];
   });
-  const resetValue = useTransactionValue(state => {
-    return state.resetValue;
-  });
 
   useEffect(() => {
     setError(false);
-    resetValue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
