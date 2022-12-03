@@ -33,7 +33,7 @@ export const useGasPrice = () => {
       })
       .catch(err => {
         setGasFallback(true);
-        if (window.ethereum.storybook) {
+        if (window.ethereum.isStorybook) {
           return { gasPrice: "0x69" };
         }
         window.ethereum.rpc

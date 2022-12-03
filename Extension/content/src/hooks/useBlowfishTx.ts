@@ -6,6 +6,80 @@ import { blowfishSupportedCheck } from "../utils/blowfishSupportedCheck";
 import { useTransactionError } from "./useTransactionError";
 
 const fetcher = params => {
+  if (!params.data) {
+    if (window.ethereum.isStorybook) {
+      return {
+        action: "NONE",
+        simulationResults: {
+          error: null,
+          expectedStateChanges: [
+            {
+              humanReadableDiff: "Send 3.181 ETH",
+              rawInfo: {
+                data: {
+                  amount: {
+                    after: "998426264937289938488",
+                    before: "1001607264937289938488",
+                  },
+                  contract: {
+                    address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                    kind: "ACCOUNT",
+                  },
+                  decimals: 18,
+                  name: "Ether",
+                  symbol: "ETH",
+                },
+                kind: "NATIVE_ASSET_TRANSFER",
+              },
+            },
+          ],
+        },
+        warnings: [],
+      };
+    }
+
+    return window.ethereum.rpc
+      .call({
+        jsonrpc: "2.0",
+        method: "eth_getBalance",
+        params: [params.from, "latest"],
+        id: 1,
+      })
+      .then(response => {
+        const balance = parseInt(response.result, 16);
+        const value = parseInt(params.value, 16);
+        return {
+          action: "NONE",
+          simulationResults: {
+            error: null,
+            expectedStateChanges: [
+              {
+                humanReadableDiff: `Send ${(value / 1e18).toFixed(3)} ETH`,
+                rawInfo: {
+                  data: {
+                    amount: {
+                      after: balance - value,
+                      before: balance,
+                    },
+                    contract: {
+                      address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                      kind: "ACCOUNT",
+                    },
+                    decimals: 18,
+                    name: "Ether",
+                    symbol: "ETH",
+                  },
+                  kind: "NATIVE_ASSET_TRANSFER",
+                },
+              },
+            ],
+          },
+          warnings: [],
+        };
+      })
+      .catch(err => {});
+  }
+
   return fetch(
     `https://wallet.light.so/api/blowfish/${
       window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x5"
@@ -50,6 +124,7 @@ export const useBlowfishTx = params => {
     error,
     isLoading,
     isValidating,
+    mutate,
   } = useSWR(
     blowfishSupportedCheck() ? ["/blowfish/transaction", params] : null,
     ([key, params]) => {
@@ -93,6 +168,7 @@ export const useBlowfishTx = params => {
   return {
     result,
     error,
+    mutate,
     isLoading,
     isValidating,
   };

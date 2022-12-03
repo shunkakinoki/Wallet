@@ -79,10 +79,25 @@ export const NFTTransfer: Story = args => {
   );
 };
 
+export const SendETH: Story = args => {
+  return (
+    <Page
+      id={5}
+      type="SignTransaction"
+      params={{
+        from: "0xd77d7a55d10a9d26ee838453973d40a287322587",
+        to: "0x225e9b54f41f44f42150b6aaa730da5f2d23faf2",
+        value: "0x83e3ed8225fc3",
+      }}
+      method=""
+    />
+  );
+};
+
 export const SliceTransfer: Story = args => {
   return (
     <Page
-      id={4}
+      id={6}
       type="SignTransaction"
       params={{
         from: "0xdfd8e7d041c31261da027ebe8ce9ede05deae801",
@@ -98,7 +113,7 @@ export const SliceTransfer: Story = args => {
 export const ErrorTokenContractTransfer: Story = args => {
   return (
     <Page
-      id={5}
+      id={7}
       type="SignTransaction"
       params={{
         data: "0xa9059cbb000000000000000000000000b4fbf271143f4fbf7b91a5ded31805e42b2208d6000000000000000000000000000000000000000000000000002386f26fc10000",
