@@ -32,6 +32,7 @@ import {
   SignTransactionGasSelectAccordionContainer,
   SignTransactionGasEstimateContainer,
   SignTransactionGasEstimateFeeContainer,
+  SignTransactionGasEstimateFeeDescriptionContainer,
   SignTransactionGasEstimatePriceContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
   SignTransactionGasSimulationContainer,
@@ -413,26 +414,23 @@ export const SignTransactionDescription: FC<
             </SignTransactionGasEstimatePriceContainer>
             <SignTransactionGasEstimateFeeContainer>
               <span>Estimated Fee:</span>&nbsp;
-              {gasPrice && gasEstimationFee && (
-                <>
-                  {gasEstimationFee < 0.000001
-                    ? "< 0.000001"
-                    : gasEstimationFee.toFixed(6)}{" "}
-                  {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
-                </>
-              )}
-              {gasEstimationDollar ? (
-                gasEstimationDollar < 0.01 ? (
-                  "(< $0.01)"
-                ) : gasEstimationDollar > 10e3 ? (
-                  `($${gasEstimationDollar.toLocaleString()})`
-                ) : (
-                  `($${gasEstimationDollar.toFixed(2)})`
-                )
-              ) : (
-                <Skeleton width="20%" />
-              )}
               {isGasPriceLoading && <Skeleton width="20px" height="12px" />}
+              {gasEstimationDollar &&
+                (gasEstimationDollar < 0.01
+                  ? "$0.01"
+                  : gasEstimationDollar > 10e3
+                  ? `$${gasEstimationDollar.toLocaleString()}`
+                  : `$${gasEstimationDollar.toFixed(2)}`)}
+              &nbsp;
+              {gasPrice && gasEstimationFee && (
+                <SignTransactionGasEstimateFeeDescriptionContainer>
+                  (
+                  {gasEstimationFee < 0.001
+                    ? "< 0.001"
+                    : gasEstimationFee.toFixed(3)}{" "}
+                  {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"})
+                </SignTransactionGasEstimateFeeDescriptionContainer>
+              )}
               {isGasPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimateFeeContainer>
           </SignTransactionGasEstimateContainer>
