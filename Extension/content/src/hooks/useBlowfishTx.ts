@@ -6,6 +6,37 @@ import { blowfishSupportedCheck } from "../utils/blowfishSupportedCheck";
 import { useTransactionError } from "./useTransactionError";
 
 const fetcher = params => {
+  if (!params?.data) {
+    return {
+      action: "NONE",
+      simulationResults: {
+        error: null,
+        expectedStateChanges: [
+          {
+            humanReadableDiff: "Send 3.181 ETH",
+            rawInfo: {
+              data: {
+                amount: {
+                  after: "998426264937289938488",
+                  before: "1001607264937289938488",
+                },
+                contract: {
+                  address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                  kind: "ACCOUNT",
+                },
+                decimals: 18,
+                name: "Ether",
+                symbol: "ETH",
+              },
+              kind: "NATIVE_ASSET_TRANSFER",
+            },
+          },
+        ],
+      },
+      warnings: [],
+    };
+  }
+
   return fetch(
     `https://wallet.light.so/api/blowfish/${
       window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x5"
@@ -52,9 +83,7 @@ export const useBlowfishTx = params => {
     isValidating,
     mutate,
   } = useSWR(
-    params?.data && blowfishSupportedCheck()
-      ? ["/blowfish/transaction", params]
-      : null,
+    blowfishSupportedCheck() ? ["/blowfish/transaction", params] : null,
     ([key, params]) => {
       return fetcher(params);
     },

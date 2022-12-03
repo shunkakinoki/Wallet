@@ -146,43 +146,6 @@ export const SignTransactionDescription: FC<
   }, [isExpanded]);
 
   useEffect(() => {
-    if (!params?.data) {
-      mutate(
-        {
-          action: "NONE",
-          simulationResults: {
-            error: null,
-            expectedStateChanges: [
-              {
-                humanReadableDiff: "Send 3.181 ETH",
-                rawInfo: {
-                  data: {
-                    amount: {
-                      after: "998426264937289938488",
-                      before: "1001607264937289938488",
-                    },
-                    contract: {
-                      address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-                      kind: "ACCOUNT",
-                    },
-                    decimals: 18,
-                    name: "Ether",
-                    symbol: "ETH",
-                  },
-                  kind: "NATIVE_ASSET_TRANSFER",
-                },
-              },
-            ],
-          },
-          warnings: [],
-        },
-        { revalidate: false },
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     if (
       !gasEstimationFee ||
       !gasPrice ||
