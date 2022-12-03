@@ -50,6 +50,7 @@ export const useBlowfishTx = params => {
     error,
     isLoading,
     isValidating,
+    mutate,
   } = useSWR(
     params?.data && blowfishSupportedCheck()
       ? ["/blowfish/transaction", params]
@@ -95,6 +96,7 @@ export const useBlowfishTx = params => {
   return {
     result,
     error,
+    mutate,
     isLoading,
     isValidating,
   };
