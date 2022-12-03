@@ -9,6 +9,7 @@ import { useTransition } from "react-transition-state";
 import { useJitsu } from "../../hooks/useJitsu";
 import { useShowDrawer } from "../../hooks/useShowDrawer";
 import { useTransactionError } from "../../hooks/useTransactionError";
+import { useTransactionValue } from "../../hooks/useTransactionValue";
 import { ChainIcon } from "../../icons/ChainIcon";
 import { CloseIcon } from "../../icons/CloseIcon";
 import { InfoIcon } from "../../icons/InfoIcon";
@@ -220,9 +221,13 @@ export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
   const [error, setError] = useTransactionError(state => {
     return [state.error, state.setError];
   });
+  const resetValue = useTransactionValue(state => {
+    return state.resetValue;
+  });
 
   useEffect(() => {
     setError(false);
+    resetValue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

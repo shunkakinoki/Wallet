@@ -5,6 +5,7 @@ import { beautifyNumber } from "../utils/beautifyNumber";
 import { blowfishSupportedCheck } from "../utils/blowfishSupportedCheck";
 
 import { useTransactionError } from "./useTransactionError";
+import { useTransactionValue } from "./useTransactionValue";
 
 const fetcher = params => {
   if (!params.data) {
@@ -119,6 +120,9 @@ export const useBlowfishTx = params => {
   const setError = useTransactionError(state => {
     return state.setError;
   });
+  const addValue = useTransactionValue(state => {
+    return state.addValue;
+  });
 
   const {
     data: result,
@@ -145,27 +149,44 @@ export const useBlowfishTx = params => {
     return setError(false);
   }, [result?.warnings, setError]);
 
-  if (result?.simulationResults && !result?.simulationResults?.error) {
-    result?.simulationResults?.expectedStateChanges.map(change => {
-      if (
-        change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
-        change?.rawInfo?.kind === "ERC20_TRANSFER"
-      ) {
-        fetch(
-          `https://min-api.cryptocompare.com/data/price?fsym=${change?.rawInfo.data?.symbol}&tsyms=USD`,
-          {
-            method: "GET",
-          },
-        )
-          .then(response => {
-            return response.json();
-          })
-          .then(data => {
-            change.rawInfo.data.value = data.USD;
-          });
-      }
-    });
-  }
+  useEffect(() => {
+    if (result?.simulationResults && !result?.simulationResults?.error) {
+      result?.simulationResults?.expectedStateChanges.map(change => {
+        if (
+          change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
+          change?.rawInfo?.kind === "ERC20_TRANSFER"
+        ) {
+          fetch(
+            `https://min-api.cryptocompare.com/data/price?fsym=${change?.rawInfo.data?.symbol}&tsyms=USD`,
+            {
+              method: "GET",
+            },
+          )
+            .then(response => {
+              return response.json();
+            })
+            .then(data => {
+              change.rawInfo.data.value = data.USD;
+              if (
+                Number(change?.rawInfo?.data?.amount?.after) <
+                Number(change?.rawInfo?.data?.amount?.before)
+              ) {
+                const addedValue =
+                  (Math.abs(
+                    Number(change?.rawInfo?.data?.amount?.before) -
+                      Number(change?.rawInfo?.data?.amount?.after),
+                  ) /
+                    10 ** Number(change?.rawInfo?.data?.decimals)) *
+                  Number(change?.rawInfo?.data?.value);
+                addValue(addedValue);
+              }
+            });
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result?.simulationResults]);
+
   return {
     result,
     error,

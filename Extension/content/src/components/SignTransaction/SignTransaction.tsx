@@ -10,6 +10,7 @@ import { useGasFallback } from "../../hooks/useGasFallback";
 import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
+import { useTransactionValue } from "../../hooks/useTransactionValue";
 import { BlowfishIcon } from "../../icons/BlowfishIcon";
 import { WarningIcon } from "../../icons/WarningIcon";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
@@ -110,6 +111,9 @@ export const SignTransactionDescription: FC<
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
   });
+  const [value, addValue] = useTransactionValue(state => {
+    return [state.value, state.addValue];
+  });
 
   const [isGasFallback] = useGasFallback(state => {
     return [state.isGasFallback];
@@ -145,6 +149,16 @@ export const SignTransactionDescription: FC<
   const handleExpandToggle = useCallback(() => {
     setIsExpand(!isExpanded);
   }, [isExpanded]);
+
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!isLoaded && gasEstimationDollar) {
+      addValue(gasEstimationDollar);
+      setIsLoaded(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gasEstimationDollar, isLoaded]);
 
   useEffect(() => {
     if (
@@ -366,17 +380,7 @@ export const SignTransactionDescription: FC<
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>
             <SignTransactionGasEstimatePriceContainer>
-              {gasEstimationDollar ? (
-                gasEstimationDollar < 0.01 ? (
-                  "< $0.01"
-                ) : gasEstimationDollar > 10e3 ? (
-                  `$${gasEstimationDollar.toLocaleString()}`
-                ) : (
-                  `$${gasEstimationDollar.toFixed(2)}`
-                )
-              ) : (
-                <Skeleton width="20%" />
-              )}
+              {value ? `$${beautifyNumber(value)}` : <Skeleton width="20%" />}
               &nbsp;
               <SignTransactionGasEstimateFeeSecondsContainer>
                 ~
@@ -416,6 +420,17 @@ export const SignTransactionDescription: FC<
                     : gasEstimationFee.toFixed(6)}{" "}
                   {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
                 </>
+              )}
+              {gasEstimationDollar ? (
+                gasEstimationDollar < 0.01 ? (
+                  "(< $0.01)"
+                ) : gasEstimationDollar > 10e3 ? (
+                  `($${gasEstimationDollar.toLocaleString()})`
+                ) : (
+                  `($${gasEstimationDollar.toFixed(2)})`
+                )
+              ) : (
+                <Skeleton width="20%" />
               )}
               {isGasPriceLoading && <Skeleton width="20px" height="12px" />}
               {isGasPriceValidating && <LoadingSpinner />}
