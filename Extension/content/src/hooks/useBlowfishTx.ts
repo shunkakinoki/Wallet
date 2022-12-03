@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import useSWR from "swr";
 
+import { beautifyNumber } from "../utils/beautifyNumber";
 import { blowfishSupportedCheck } from "../utils/blowfishSupportedCheck";
 
 import { useTransactionError } from "./useTransactionError";
@@ -54,7 +55,7 @@ const fetcher = params => {
             error: null,
             expectedStateChanges: [
               {
-                humanReadableDiff: `Send ${(value / 1e18).toFixed(3)} ETH`,
+                humanReadableDiff: `Send ${beautifyNumber(value / 1e18)} ETH`,
                 rawInfo: {
                   data: {
                     amount: {

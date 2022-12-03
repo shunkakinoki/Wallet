@@ -3,7 +3,6 @@ import type { FC } from "react";
 import { useMemo, useEffect, useState, useCallback } from "react";
 
 import { useBlowfishTx } from "../../hooks/useBlowfishTx";
-
 import { useCoinPrice } from "../../hooks/useCoinPrice";
 import { useConfirmLoading } from "../../hooks/useConfirmLoading";
 import { useGasEstimation } from "../../hooks/useGasEstimation";
@@ -14,6 +13,8 @@ import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
 import { BlowfishIcon } from "../../icons/BlowfishIcon";
 import { WarningIcon } from "../../icons/WarningIcon";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
+import { beautifyNumber } from "../../utils/beautifyNumber";
+import { blowfishSupportedCheck } from "../../utils/blowfishSupportedCheck";
 import { shortenName } from "../../utils/shortenName";
 import { ConfirmButton } from "../Base/ConfirmButton";
 
@@ -297,7 +298,7 @@ export const SignTransactionDescription: FC<
                             {isExpanded && change?.rawInfo?.data?.value && (
                               <SignTransactionGasSelectTransferBalanceContainerSpan>
                                 ($
-                                {(
+                                {beautifyNumber(
                                   (Math.abs(
                                     Number(
                                       change?.rawInfo?.data?.amount?.before,
@@ -308,8 +309,8 @@ export const SignTransactionDescription: FC<
                                   ) /
                                     10 **
                                       Number(change?.rawInfo?.data?.decimals)) *
-                                  Number(change?.rawInfo?.data?.value)
-                                ).toFixed(2)}
+                                    Number(change?.rawInfo?.data?.value),
+                                )}
                                 )
                               </SignTransactionGasSelectTransferBalanceContainerSpan>
                             )}{" "}
@@ -326,25 +327,25 @@ export const SignTransactionDescription: FC<
                               <SignTransactionGasSelectTransferBalanceExpansionContainer>
                                 {"Before: "}
                                 <strong>
-                                  {(
+                                  {beautifyNumber(
                                     Number(
                                       change?.rawInfo?.data?.amount?.before,
                                     ) /
-                                    10 **
-                                      Number(change?.rawInfo?.data?.decimals)
-                                  ).toFixed(2)}{" "}
+                                      10 **
+                                        Number(change?.rawInfo?.data?.decimals),
+                                  )}{" "}
                                   {change?.rawInfo?.data?.symbol}
                                 </strong>
                                 <br />
                                 {"After: "}
                                 <strong>
-                                  {(
+                                  {beautifyNumber(
                                     Number(
                                       change?.rawInfo?.data?.amount?.after,
                                     ) /
-                                    10 **
-                                      Number(change?.rawInfo?.data?.decimals)
-                                  ).toFixed(2)}{" "}
+                                      10 **
+                                        Number(change?.rawInfo?.data?.decimals),
+                                  )}{" "}
                                   {change?.rawInfo?.data?.symbol}
                                 </strong>
                               </SignTransactionGasSelectTransferBalanceExpansionContainer>
@@ -354,7 +355,7 @@ export const SignTransactionDescription: FC<
                     );
                   }
                 })}
-              {isExpanded && (
+              {blowfishSupportedCheck() && params?.data && isExpanded && (
                 <SignTransactionGasSimulationBlowfishContainer>
                   <BlowfishIcon />
                 </SignTransactionGasSimulationBlowfishContainer>
