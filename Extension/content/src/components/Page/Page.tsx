@@ -217,9 +217,14 @@ export type PageDescriptionProps = {
 };
 
 export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
-  const [error] = useTransactionError(state => {
-    return [state.error];
+  const [error, setError] = useTransactionError(state => {
+    return [state.error, state.setError];
   });
+
+  useEffect(() => {
+    setError(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
