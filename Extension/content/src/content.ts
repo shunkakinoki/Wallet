@@ -10,6 +10,7 @@ import { getTitle } from "./services/getTitle";
 import { injectApp } from "./services/injectApp";
 import { injectEthereum } from "./services/injectEthereum";
 import { injectWagmi } from "./services/injectWagmi";
+import { client } from "./services/jitsuClient";
 import { logContent } from "./services/log";
 import { replaceMetamask } from "./services/replaceMetamask";
 import { sendMessageToNativeApp } from "./services/sendMessageToNativeApp";
@@ -18,11 +19,11 @@ import { storeHostConfiguration } from "./services/storeHostConfiguration";
 import { allowedDomainCheck } from "./utils/allowedDomainCheck";
 import { genId } from "./utils/genId";
 
+let initialLoad = false;
+
 let address: string;
 let accounts;
 let config;
-
-let initialLoad = false;
 
 browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   logContent(
@@ -146,7 +147,7 @@ document.addEventListener("readystatechange", () => {
           return null;
         }
       })
-      .then(() => {
+      .then(res => {
         getLightConfiguration().then(item => {
           logContent(
             `getLightConfiguration: ${address}: ${JSON.stringify(item)}`,
@@ -156,6 +157,9 @@ document.addEventListener("readystatechange", () => {
             accounts = item.accounts;
           }
         });
+        if (res) {
+          client.track("connectLoad");
+        }
       });
   }
 });
