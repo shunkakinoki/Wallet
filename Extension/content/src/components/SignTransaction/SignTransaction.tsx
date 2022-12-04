@@ -10,6 +10,7 @@ import { useGasFallback } from "../../hooks/useGasFallback";
 import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
+import { useTransactionGasValue } from "../../hooks/useTransactionGasValue";
 import { useTransactionTotalValue } from "../../hooks/useTransactionTotalValue";
 import { useTransactionValue } from "../../hooks/useTransactionValue";
 import { BlowfishIcon } from "../../icons/BlowfishIcon";
@@ -69,6 +70,14 @@ export const SignTransaction: FC<SignTransactionParams> = ({
     return [state.isConfirmLoading];
   });
 
+  const value = useTransactionValue(state => {
+    return state.value;
+  });
+
+  const gasValue = useTransactionGasValue(state => {
+    return state.gasValue;
+  });
+
   const totalValue = useTransactionTotalValue(state => {
     return state.totalValue;
   });
@@ -77,7 +86,13 @@ export const SignTransaction: FC<SignTransactionParams> = ({
     <ConfirmButton
       id={id}
       method={method}
-      customConfirmData={testnetCheck() && { value: totalValue }}
+      customConfirmData={
+        testnetCheck() && {
+          tx_value: value,
+          gas_value: gasValue,
+          total_value: totalValue,
+        }
+      }
       disabled={error}
       loading={isConfirmLoading}
       onConfirmText="Approve"
@@ -140,6 +155,10 @@ export const SignTransactionDescription: FC<
     return [state.setConfirmLoading];
   });
 
+  const setGasValue = useTransactionGasValue(state => {
+    return state.setGasValue;
+  });
+
   const setTotalValue = useTransactionTotalValue(state => {
     return state.setTotalValue;
   });
@@ -165,6 +184,10 @@ export const SignTransactionDescription: FC<
   useEffect(() => {
     setTotalValue(totalValue);
   }, [setTotalValue, totalValue]);
+
+  useEffect(() => {
+    setGasValue(gasEstimationDollar);
+  }, [setGasValue, gasEstimationDollar]);
 
   useEffect(() => {
     if (
