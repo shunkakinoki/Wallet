@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import { useJitsu } from "../../../hooks/useJitsu";
 import { useShowDrawer } from "../../../hooks/useShowDrawer";
+import { useTransactionValue } from "../../../hooks/useTransactionValue";
 import { sendToEthereum } from "../../../services/sendToEthereum";
 
 import { ConfirmButtonContainer, Button } from "./ConfirmButton.styles";
@@ -12,6 +13,7 @@ type ConfirmButtonParams = {
   method: string;
   disabled?: boolean;
   loading?: boolean;
+  value?: number;
   onCancelText?: string;
   onCancelClick?: () => void;
   onConfirmText: string;
@@ -32,6 +34,9 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
   const [closeDrawer] = useShowDrawer(state => {
     return [state.closeDrawer];
   });
+  const resetValue = useTransactionValue(state => {
+    return state.resetValue;
+  });
 
   useEffect(() => {
     track(method, { action: "open", chainId: window.ethereum.chainId });
@@ -50,6 +55,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
               chainId: window.ethereum.chainId,
             });
             closeDrawer();
+            resetValue();
             onCancelClick();
           }}
         >
@@ -67,6 +73,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
           sendToEthereum(null, id, "cancel");
           track(method, { action: "cancel", chainId: window.ethereum.chainId });
           closeDrawer();
+          resetValue();
           onCancelClick();
         }}
       >
@@ -77,6 +84,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
         option={loading ? "loading" : "approve"}
         onClick={() => {
           closeDrawer();
+          resetValue();
           onConfirmClick();
           track(method, {
             action: "confirm",

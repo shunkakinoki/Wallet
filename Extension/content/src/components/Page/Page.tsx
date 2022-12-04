@@ -132,6 +132,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ id }) => {
       <CloseButton
         onClick={() => {
           closeDrawer();
+          resetValue();
           sendToEthereum(null, id, "cancel");
         }}
       >

@@ -28,10 +28,6 @@ export const SwitchEthereumChain: FC<SwitchEthereumChainParams> = ({
   method,
   params,
 }) => {
-  const [closeDrawer] = useShowDrawer(state => {
-    return [state.closeDrawer];
-  });
-
   return (
     <ConfirmButton
       id={id}
@@ -48,7 +44,6 @@ export const SwitchEthereumChain: FC<SwitchEthereumChainParams> = ({
           favicon: getFavicon(),
           chainId: params.chainId,
         });
-        closeDrawer();
       }}
     />
   );
