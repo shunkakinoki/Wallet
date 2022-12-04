@@ -3,7 +3,6 @@ import type { FC } from "react";
 import { useMemo, useEffect, useState, useCallback } from "react";
 
 import { useBlowfishTx } from "../../hooks/useBlowfishTx";
-
 import { useCoinPrice } from "../../hooks/useCoinPrice";
 import { useConfirmLoading } from "../../hooks/useConfirmLoading";
 import { useGasEstimation } from "../../hooks/useGasEstimation";
@@ -11,10 +10,15 @@ import { useGasFallback } from "../../hooks/useGasFallback";
 import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
+import { useTransactionTotalValue } from "../../hooks/useTransactionTotalValue";
+import { useTransactionValue } from "../../hooks/useTransactionValue";
 import { BlowfishIcon } from "../../icons/BlowfishIcon";
 import { WarningIcon } from "../../icons/WarningIcon";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
+import { beautifyNumber } from "../../utils/beautifyNumber";
+import { blowfishSupportedCheck } from "../../utils/blowfishSupportedCheck";
 import { shortenName } from "../../utils/shortenName";
+import { testnetCheck } from "../../utils/testnetCheck";
 import { ConfirmButton } from "../Base/ConfirmButton";
 
 import { Skeleton } from "../Base/Skeleton";
@@ -30,6 +34,7 @@ import {
   SignTransactionGasSelectAccordionContainer,
   SignTransactionGasEstimateContainer,
   SignTransactionGasEstimateFeeContainer,
+  SignTransactionGasEstimateFeeDescriptionContainer,
   SignTransactionGasEstimatePriceContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
   SignTransactionGasSimulationContainer,
@@ -64,10 +69,15 @@ export const SignTransaction: FC<SignTransactionParams> = ({
     return [state.isConfirmLoading];
   });
 
+  const totalValue = useTransactionTotalValue(state => {
+    return state.totalValue;
+  });
+
   return (
     <ConfirmButton
       id={id}
       method={method}
+      customConfirmData={testnetCheck() && { value: totalValue }}
       disabled={error}
       loading={isConfirmLoading}
       onConfirmText="Approve"
@@ -109,6 +119,9 @@ export const SignTransactionDescription: FC<
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
   });
+  const [value] = useTransactionValue(state => {
+    return [state.value, state.addValue];
+  });
 
   const [isGasFallback] = useGasFallback(state => {
     return [state.isGasFallback];
@@ -121,14 +134,14 @@ export const SignTransactionDescription: FC<
     isLoading: isGasPriceLoading,
   } = useGasPrice();
   const { gasEstimation } = useGasEstimation(params);
-  const {
-    result,
-    mutate,
-    isLoading: isBlowfishLoading,
-  } = useBlowfishTx(params);
+  const { result, isLoading: isBlowfishLoading } = useBlowfishTx(params);
 
   const [setConfirmLoading] = useConfirmLoading(state => {
     return [state.setConfirmLoading];
+  });
+
+  const setTotalValue = useTransactionTotalValue(state => {
+    return state.setTotalValue;
   });
 
   const gasEstimationFee = useMemo(() => {
@@ -139,11 +152,19 @@ export const SignTransactionDescription: FC<
     return coinPrice * gasEstimationFee;
   }, [coinPrice, gasEstimationFee]);
 
+  const totalValue = useMemo(() => {
+    return gasEstimationDollar + value;
+  }, [gasEstimationDollar, value]);
+
   const [isExpanded, setIsExpand] = useState<boolean>();
 
   const handleExpandToggle = useCallback(() => {
     setIsExpand(!isExpanded);
   }, [isExpanded]);
+
+  useEffect(() => {
+    setTotalValue(totalValue);
+  }, [setTotalValue, totalValue]);
 
   useEffect(() => {
     if (
@@ -297,7 +318,7 @@ export const SignTransactionDescription: FC<
                             {isExpanded && change?.rawInfo?.data?.value && (
                               <SignTransactionGasSelectTransferBalanceContainerSpan>
                                 ($
-                                {(
+                                {beautifyNumber(
                                   (Math.abs(
                                     Number(
                                       change?.rawInfo?.data?.amount?.before,
@@ -308,8 +329,8 @@ export const SignTransactionDescription: FC<
                                   ) /
                                     10 **
                                       Number(change?.rawInfo?.data?.decimals)) *
-                                  Number(change?.rawInfo?.data?.value)
-                                ).toFixed(2)}
+                                    Number(change?.rawInfo?.data?.value),
+                                )}
                                 )
                               </SignTransactionGasSelectTransferBalanceContainerSpan>
                             )}{" "}
@@ -326,25 +347,25 @@ export const SignTransactionDescription: FC<
                               <SignTransactionGasSelectTransferBalanceExpansionContainer>
                                 {"Before: "}
                                 <strong>
-                                  {(
+                                  {beautifyNumber(
                                     Number(
                                       change?.rawInfo?.data?.amount?.before,
                                     ) /
-                                    10 **
-                                      Number(change?.rawInfo?.data?.decimals)
-                                  ).toFixed(2)}{" "}
+                                      10 **
+                                        Number(change?.rawInfo?.data?.decimals),
+                                  )}{" "}
                                   {change?.rawInfo?.data?.symbol}
                                 </strong>
                                 <br />
                                 {"After: "}
                                 <strong>
-                                  {(
+                                  {beautifyNumber(
                                     Number(
                                       change?.rawInfo?.data?.amount?.after,
                                     ) /
-                                    10 **
-                                      Number(change?.rawInfo?.data?.decimals)
-                                  ).toFixed(2)}{" "}
+                                      10 **
+                                        Number(change?.rawInfo?.data?.decimals),
+                                  )}{" "}
                                   {change?.rawInfo?.data?.symbol}
                                 </strong>
                               </SignTransactionGasSelectTransferBalanceExpansionContainer>
@@ -354,7 +375,7 @@ export const SignTransactionDescription: FC<
                     );
                   }
                 })}
-              {isExpanded && (
+              {blowfishSupportedCheck() && params?.data && isExpanded && (
                 <SignTransactionGasSimulationBlowfishContainer>
                   <BlowfishIcon />
                 </SignTransactionGasSimulationBlowfishContainer>
@@ -365,14 +386,8 @@ export const SignTransactionDescription: FC<
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>
             <SignTransactionGasEstimatePriceContainer>
-              {gasEstimationDollar ? (
-                gasEstimationDollar < 0.01 ? (
-                  "< $0.01"
-                ) : gasEstimationDollar > 10e3 ? (
-                  `$${gasEstimationDollar.toLocaleString()}`
-                ) : (
-                  `$${gasEstimationDollar.toFixed(2)}`
-                )
+              {totalValue ? (
+                `$${beautifyNumber(totalValue)}`
               ) : (
                 <Skeleton width="20%" />
               )}
@@ -408,15 +423,23 @@ export const SignTransactionDescription: FC<
             </SignTransactionGasEstimatePriceContainer>
             <SignTransactionGasEstimateFeeContainer>
               <span>Estimated Fee:</span>&nbsp;
-              {gasPrice && gasEstimationFee && (
-                <>
-                  {gasEstimationFee < 0.000001
-                    ? "< 0.000001"
-                    : gasEstimationFee.toFixed(6)}{" "}
-                  {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
-                </>
-              )}
               {isGasPriceLoading && <Skeleton width="20px" height="12px" />}
+              {gasEstimationDollar &&
+                (gasEstimationDollar < 0.01
+                  ? "$0.01"
+                  : gasEstimationDollar > 10e3
+                  ? `$${gasEstimationDollar.toLocaleString()}`
+                  : `$${gasEstimationDollar.toFixed(2)}`)}
+              &nbsp;
+              {gasPrice && gasEstimationFee && (
+                <SignTransactionGasEstimateFeeDescriptionContainer>
+                  (
+                  {gasEstimationFee < 0.001
+                    ? "< 0.001"
+                    : gasEstimationFee.toFixed(3)}{" "}
+                  {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"})
+                </SignTransactionGasEstimateFeeDescriptionContainer>
+              )}
               {isGasPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimateFeeContainer>
           </SignTransactionGasEstimateContainer>

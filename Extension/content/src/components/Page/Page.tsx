@@ -9,6 +9,7 @@ import { useTransition } from "react-transition-state";
 import { useJitsu } from "../../hooks/useJitsu";
 import { useShowDrawer } from "../../hooks/useShowDrawer";
 import { useTransactionError } from "../../hooks/useTransactionError";
+import { useTransactionValue } from "../../hooks/useTransactionValue";
 import { ChainIcon } from "../../icons/ChainIcon";
 import { CloseIcon } from "../../icons/CloseIcon";
 import { InfoIcon } from "../../icons/InfoIcon";
@@ -113,6 +114,14 @@ export const PageHeader: FC<PageHeaderProps> = ({ id }) => {
   const closeDrawer = useShowDrawer(state => {
     return state.closeDrawer;
   });
+  const resetValue = useTransactionValue(state => {
+    return state.resetValue;
+  });
+
+  useEffect(() => {
+    resetValue();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   return (
     <PageHeaderContainer>
@@ -123,6 +132,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ id }) => {
       <CloseButton
         onClick={() => {
           closeDrawer();
+          resetValue();
           sendToEthereum(null, id, "cancel");
         }}
       >
@@ -217,9 +227,14 @@ export type PageDescriptionProps = {
 };
 
 export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
-  const [error] = useTransactionError(state => {
-    return [state.error];
+  const [error, setError] = useTransactionError(state => {
+    return [state.error, state.setError];
   });
+
+  useEffect(() => {
+    setError(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

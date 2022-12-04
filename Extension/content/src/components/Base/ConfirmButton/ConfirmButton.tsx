@@ -10,8 +10,10 @@ import { ConfirmButtonContainer, Button } from "./ConfirmButton.styles";
 type ConfirmButtonParams = {
   id: number;
   method: string;
+  customConfirmData?: any;
   disabled?: boolean;
   loading?: boolean;
+  value?: number;
   onCancelText?: string;
   onCancelClick?: () => void;
   onConfirmText: string;
@@ -21,6 +23,7 @@ type ConfirmButtonParams = {
 export const ConfirmButton: FC<ConfirmButtonParams> = ({
   id,
   method,
+  customConfirmData,
   loading = false,
   disabled = false,
   onCancelText = "Cancel",
@@ -44,13 +47,13 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
         <Button
           option="cancel"
           onClick={() => {
+            closeDrawer();
             sendToEthereum(null, id, "cancel");
+            onCancelClick();
             track(method, {
               action: "cancelDisabled",
               chainId: window.ethereum.chainId,
             });
-            closeDrawer();
-            onCancelClick();
           }}
         >
           {onCancelText}
@@ -64,10 +67,10 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
       <Button
         option="cancel"
         onClick={() => {
-          sendToEthereum(null, id, "cancel");
-          track(method, { action: "cancel", chainId: window.ethereum.chainId });
           closeDrawer();
+          sendToEthereum(null, id, "cancel");
           onCancelClick();
+          track(method, { action: "cancel", chainId: window.ethereum.chainId });
         }}
       >
         {onCancelText}
@@ -79,6 +82,7 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
           closeDrawer();
           onConfirmClick();
           track(method, {
+            ...customConfirmData,
             action: "confirm",
             chainId: window.ethereum.chainId,
           });

@@ -31,10 +31,26 @@ export const UniswapGoerliWrap: Story = args => {
   );
 };
 
-export const UniswapDAIApproval: Story = args => {
+export const UniswapGoerliSwap: Story = args => {
   return (
     <Page
       id={3}
+      type="SignTransaction"
+      params={{
+        from: "0xd77d7a55d10a9d26ee838453973d40a287322587",
+        to: "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45",
+        data: "0x5ae401dc00000000000000000000000000000000000000000000000000000000638bf5e40000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000124b858183f00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000080000000000000000000000000d77d7a55d10a9d26ee838453973d40a287322587000000000000000000000000000000000000000000000000002386f26fc10000000000000000000000000000000000000000000000000000003e4dbc9069d3d00000000000000000000000000000000000000000000000000000000000000042b4fbf271143f4fbf7b91a5ded31805e42b2208d6000bb807865c6e87b9f70255377e024ace6630c1eaa37f000bb81f9840a85d5af5bf1d1762f925bdaddc4201f98400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        value: "0x2386f26fc10000",
+      }}
+      method=""
+    />
+  );
+};
+
+export const UniswapDAIApproval: Story = args => {
+  return (
+    <Page
+      id={4}
       type="SignTransaction"
       params={{
         from: "0xd77d7a55d10a9d26ee838453973d40a287322587",
@@ -50,7 +66,7 @@ export const UniswapDAIApproval: Story = args => {
 export const OpenseaSellApproval: Story = args => {
   return (
     <Page
-      id={4}
+      id={5}
       type="SignTransaction"
       params={{
         from: "0xdfd8e7d041c31261da027ebe8ce9ede05deae801",
@@ -66,7 +82,7 @@ export const OpenseaSellApproval: Story = args => {
 export const NFTTransfer: Story = args => {
   return (
     <Page
-      id={4}
+      id={6}
       type="SignTransaction"
       params={{
         from: "0xdfd8e7d041c31261da027ebe8ce9ede05deae801",
@@ -82,7 +98,7 @@ export const NFTTransfer: Story = args => {
 export const SendETH: Story = args => {
   return (
     <Page
-      id={5}
+      id={7}
       type="SignTransaction"
       params={{
         from: "0xd77d7a55d10a9d26ee838453973d40a287322587",
@@ -97,7 +113,7 @@ export const SendETH: Story = args => {
 export const SliceTransfer: Story = args => {
   return (
     <Page
-      id={6}
+      id={8}
       type="SignTransaction"
       params={{
         from: "0xdfd8e7d041c31261da027ebe8ce9ede05deae801",
@@ -113,7 +129,7 @@ export const SliceTransfer: Story = args => {
 export const ErrorTokenContractTransfer: Story = args => {
   return (
     <Page
-      id={7}
+      id={9}
       type="SignTransaction"
       params={{
         data: "0xa9059cbb000000000000000000000000b4fbf271143f4fbf7b91a5ded31805e42b2208d6000000000000000000000000000000000000000000000000002386f26fc10000",

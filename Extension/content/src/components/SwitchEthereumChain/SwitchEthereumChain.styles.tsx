@@ -24,7 +24,8 @@ export const ChainIconSpan = styled.span`
   align-items: center;
   width: 3rem;
   height: 3rem;
+  border-style: solid;
   border-radius: 9999px;
-  border-width: 1px;
-  border-color: #9ca3af;
+  border-width: 1.2px;
+  border-color: #656565;
 `;

@@ -2,15 +2,21 @@ import create from "zustand";
 
 interface TransactionValueState {
   value: number;
-  setValue: (state: number) => void;
+  addValue: (by: number) => void;
+  resetValue: () => void;
 }
 
 export const useTransactionValue = create<TransactionValueState>(set => {
   return {
     value: 0,
-    setValue: state => {
+    addValue: by => {
+      return set(state => {
+        return { value: state.value + by };
+      });
+    },
+    resetValue: () => {
       return set(() => {
-        return { value: state };
+        return { value: 0 };
       });
     },
   };

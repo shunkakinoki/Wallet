@@ -1,9 +1,12 @@
+import { CoinGeckoIds } from "@lightdotso/chain";
 import { useEffect } from "react";
 import useSWR from "swr";
 
+import { beautifyNumber } from "../utils/beautifyNumber";
 import { blowfishSupportedCheck } from "../utils/blowfishSupportedCheck";
 
 import { useTransactionError } from "./useTransactionError";
+import { useTransactionValue } from "./useTransactionValue";
 
 const fetcher = params => {
   if (!params.data) {
@@ -54,7 +57,7 @@ const fetcher = params => {
             error: null,
             expectedStateChanges: [
               {
-                humanReadableDiff: `Send ${(value / 1e18).toFixed(3)} ETH`,
+                humanReadableDiff: `Send ${beautifyNumber(value / 1e18)} ETH`,
                 rawInfo: {
                   data: {
                     amount: {
@@ -118,6 +121,9 @@ export const useBlowfishTx = params => {
   const setError = useTransactionError(state => {
     return state.setError;
   });
+  const addValue = useTransactionValue(state => {
+    return state.addValue;
+  });
 
   const {
     data: result,
@@ -144,27 +150,72 @@ export const useBlowfishTx = params => {
     return setError(false);
   }, [result?.warnings, setError]);
 
-  if (result?.simulationResults && !result?.simulationResults?.error) {
-    result?.simulationResults?.expectedStateChanges.map(change => {
-      if (
-        change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
-        change?.rawInfo?.kind === "ERC20_TRANSFER"
-      ) {
-        fetch(
-          `https://min-api.cryptocompare.com/data/price?fsym=${change?.rawInfo.data?.symbol}&tsyms=USD`,
-          {
-            method: "GET",
-          },
-        )
-          .then(response => {
-            return response.json();
-          })
-          .then(data => {
-            change.rawInfo.data.value = data.USD;
-          });
-      }
-    });
-  }
+  const addTotalValue = change => {
+    if (
+      Number(change?.rawInfo?.data?.amount?.after) <
+      Number(change?.rawInfo?.data?.amount?.before)
+    ) {
+      const addedValue =
+        (Math.abs(
+          Number(change?.rawInfo?.data?.amount?.before) -
+            Number(change?.rawInfo?.data?.amount?.after),
+        ) /
+          10 ** Number(change?.rawInfo?.data?.decimals)) *
+        Number(change?.rawInfo?.data?.value);
+      addValue(addedValue);
+    }
+  };
+
+  useEffect(() => {
+    if (result?.simulationResults && !result?.simulationResults?.error) {
+      result?.simulationResults?.expectedStateChanges.map(change => {
+        if (change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER") {
+          fetch(
+            `https://api.coingecko.com/api/v3/simple/price?ids=${
+              window.ethereum.chainId === "0x89" ? "matic-network" : "ethereum"
+            }&vs_currencies=usd`,
+            {
+              method: "GET",
+            },
+          )
+            .then(response => {
+              return response.json();
+            })
+            .then(data => {
+              change.rawInfo.data.value =
+                data[
+                  window.ethereum.chainId === "0x89"
+                    ? "matic-network"
+                    : "ethereum"
+                ].usd;
+              addTotalValue(change);
+            });
+        }
+        if (change?.rawInfo?.kind === "ERC20_TRANSFER") {
+          fetch(
+            `https://api.coingecko.com/api/v3/simple/token_price/${
+              CoinGeckoIds[window.ethereum.chainId]
+            }?contract_addresses=${
+              change?.rawInfo?.data?.contract?.address
+            }&vs_currencies=usd`,
+            {
+              method: "GET",
+            },
+          )
+            .then(response => {
+              return response.json();
+            })
+            .then(data => {
+              change.rawInfo.data.value =
+                data[change?.rawInfo?.data?.contract?.address].usd;
+              addTotalValue(change);
+            });
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result?.simulationResults]);
+
   return {
     result,
     error,
