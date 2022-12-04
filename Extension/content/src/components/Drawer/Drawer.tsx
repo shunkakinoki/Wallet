@@ -23,7 +23,7 @@ export const Drawer: FC<DrawerProps> = ({ id, children }) => {
   useEffect(() => {
     openDrawer(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, drawerId]);
+  }, []);
 
   useEffect(() => {
     const handleKeydown = e => {
