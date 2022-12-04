@@ -2,7 +2,6 @@ import { RpcMapping, ChainNames } from "@lightdotso/chain";
 import type { FC } from "react";
 import { useState } from "react";
 
-import { useShowDrawer } from "../../hooks/useShowDrawer";
 import { ArrowRightIcon } from "../../icons/ArrowRightIcon";
 import { getFavicon } from "../../services/getFavicon";
 import { getTitle } from "../../services/getTitle";
