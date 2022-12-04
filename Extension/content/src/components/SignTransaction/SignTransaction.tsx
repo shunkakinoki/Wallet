@@ -10,6 +10,7 @@ import { useGasFallback } from "../../hooks/useGasFallback";
 import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
+import { useTransactionTotalValue } from "../../hooks/useTransactionTotalValue";
 import { useTransactionValue } from "../../hooks/useTransactionValue";
 import { BlowfishIcon } from "../../icons/BlowfishIcon";
 import { WarningIcon } from "../../icons/WarningIcon";
@@ -67,10 +68,15 @@ export const SignTransaction: FC<SignTransactionParams> = ({
     return [state.isConfirmLoading];
   });
 
+  const totalValue = useTransactionTotalValue(state => {
+    return state.setTotalValue;
+  });
+
   return (
     <ConfirmButton
       id={id}
       method={method}
+      customConfirmData={{ value: totalValue }}
       disabled={error}
       loading={isConfirmLoading}
       onConfirmText="Approve"
@@ -127,14 +133,14 @@ export const SignTransactionDescription: FC<
     isLoading: isGasPriceLoading,
   } = useGasPrice();
   const { gasEstimation } = useGasEstimation(params);
-  const {
-    result,
-    mutate,
-    isLoading: isBlowfishLoading,
-  } = useBlowfishTx(params);
+  const { result, isLoading: isBlowfishLoading } = useBlowfishTx(params);
 
   const [setConfirmLoading] = useConfirmLoading(state => {
     return [state.setConfirmLoading];
+  });
+
+  const setTotalValue = useTransactionTotalValue(state => {
+    return state.setTotalValue;
   });
 
   const gasEstimationFee = useMemo(() => {
@@ -145,21 +151,19 @@ export const SignTransactionDescription: FC<
     return coinPrice * gasEstimationFee;
   }, [coinPrice, gasEstimationFee]);
 
+  const totalValue = useMemo(() => {
+    return gasEstimationDollar + value;
+  }, [gasEstimationDollar, value]);
+
   const [isExpanded, setIsExpand] = useState<boolean>();
 
   const handleExpandToggle = useCallback(() => {
     setIsExpand(!isExpanded);
   }, [isExpanded]);
 
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
   useEffect(() => {
-    if (!isLoaded && gasEstimationDollar) {
-      addValue(gasEstimationDollar);
-      setIsLoaded(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gasEstimationDollar, isLoaded]);
+    setTotalValue(totalValue);
+  }, [setTotalValue, totalValue]);
 
   useEffect(() => {
     if (
@@ -381,7 +385,11 @@ export const SignTransactionDescription: FC<
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>
             <SignTransactionGasEstimatePriceContainer>
-              {value ? `$${beautifyNumber(value)}` : <Skeleton width="20%" />}
+              {totalValue ? (
+                `$${beautifyNumber(totalValue)}`
+              ) : (
+                <Skeleton width="20%" />
+              )}
               &nbsp;
               <SignTransactionGasEstimateFeeSecondsContainer>
                 ~

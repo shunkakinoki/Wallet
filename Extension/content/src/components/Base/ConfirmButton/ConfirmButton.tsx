@@ -3,7 +3,6 @@ import { useEffect } from "react";
 
 import { useJitsu } from "../../../hooks/useJitsu";
 import { useShowDrawer } from "../../../hooks/useShowDrawer";
-import { useTransactionValue } from "../../../hooks/useTransactionValue";
 import { sendToEthereum } from "../../../services/sendToEthereum";
 
 import { ConfirmButtonContainer, Button } from "./ConfirmButton.styles";
@@ -11,6 +10,7 @@ import { ConfirmButtonContainer, Button } from "./ConfirmButton.styles";
 type ConfirmButtonParams = {
   id: number;
   method: string;
+  customConfirmData?: any;
   disabled?: boolean;
   loading?: boolean;
   value?: number;
@@ -23,6 +23,7 @@ type ConfirmButtonParams = {
 export const ConfirmButton: FC<ConfirmButtonParams> = ({
   id,
   method,
+  customConfirmData,
   loading = false,
   disabled = false,
   onCancelText = "Cancel",
@@ -33,9 +34,6 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
   const { track } = useJitsu();
   const [closeDrawer] = useShowDrawer(state => {
     return [state.closeDrawer];
-  });
-  const resetValue = useTransactionValue(state => {
-    return state.resetValue;
   });
 
   useEffect(() => {
@@ -50,7 +48,6 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
           option="cancel"
           onClick={() => {
             closeDrawer();
-            resetValue();
             sendToEthereum(null, id, "cancel");
             onCancelClick();
             track(method, {
@@ -71,7 +68,6 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
         option="cancel"
         onClick={() => {
           closeDrawer();
-          resetValue();
           sendToEthereum(null, id, "cancel");
           onCancelClick();
           track(method, { action: "cancel", chainId: window.ethereum.chainId });
@@ -84,9 +80,9 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
         option={loading ? "loading" : "approve"}
         onClick={() => {
           closeDrawer();
-          resetValue();
           onConfirmClick();
           track(method, {
+            ...customConfirmData,
             action: "confirm",
             chainId: window.ethereum.chainId,
           });

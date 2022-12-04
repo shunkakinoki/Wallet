@@ -2,7 +2,6 @@ import type { FC, ReactNode } from "react";
 import { useEffect } from "react";
 
 import { useShowDrawer } from "../../hooks/useShowDrawer";
-import { useTransactionValue } from "../../hooks/useTransactionValue";
 import { sendToEthereum } from "../../services/sendToEthereum";
 
 import { DrawerBackground, DrawerContent } from "./Drawer.styles";
@@ -16,9 +15,6 @@ export const Drawer: FC<DrawerProps> = ({ id, children }) => {
   const [drawerId, closeDrawer, openDrawer] = useShowDrawer(state => {
     return [state.id, state.closeDrawer, state.openDrawer];
   });
-  const resetValue = useTransactionValue(state => {
-    return state.resetValue;
-  });
 
   useEffect(() => {
     openDrawer(id);
@@ -29,7 +25,6 @@ export const Drawer: FC<DrawerProps> = ({ id, children }) => {
     const handleKeydown = e => {
       if (e.key === "Escape") {
         closeDrawer();
-        resetValue();
         sendToEthereum(null, id, "cancel");
       }
     };
@@ -41,7 +36,7 @@ export const Drawer: FC<DrawerProps> = ({ id, children }) => {
     return () => {
       document.removeEventListener("keydown", handleKeydown);
     };
-  }, [closeDrawer, id, drawerId, resetValue]);
+  }, [closeDrawer, id, drawerId]);
 
   if (!drawerId || id !== drawerId) {
     return null;
