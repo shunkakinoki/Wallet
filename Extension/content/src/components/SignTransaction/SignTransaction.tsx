@@ -69,14 +69,16 @@ export const SignTransaction: FC<SignTransactionParams> = ({
   });
 
   const totalValue = useTransactionTotalValue(state => {
-    return state.setTotalValue;
+    return state.totalValue;
   });
 
   return (
     <ConfirmButton
       id={id}
       method={method}
-      customConfirmData={{ value: totalValue }}
+      customConfirmData={
+        window.ethereum.chainId !== "0x5" && { value: totalValue }
+      }
       disabled={error}
       loading={isConfirmLoading}
       onConfirmText="Approve"
