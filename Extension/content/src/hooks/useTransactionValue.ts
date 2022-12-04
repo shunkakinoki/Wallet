@@ -15,7 +15,9 @@ export const useTransactionValue = create<TransactionValueState>(set => {
       });
     },
     resetValue: () => {
-      return { value: 0 };
+      return set(state => {
+        return { value: 0 };
+      });
     },
   };
 });
