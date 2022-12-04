@@ -49,14 +49,14 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
         <Button
           option="cancel"
           onClick={() => {
+            closeDrawer();
+            resetValue();
             sendToEthereum(null, id, "cancel");
+            onCancelClick();
             track(method, {
               action: "cancelDisabled",
               chainId: window.ethereum.chainId,
             });
-            closeDrawer();
-            resetValue();
-            onCancelClick();
           }}
         >
           {onCancelText}
@@ -70,11 +70,11 @@ export const ConfirmButton: FC<ConfirmButtonParams> = ({
       <Button
         option="cancel"
         onClick={() => {
-          sendToEthereum(null, id, "cancel");
-          track(method, { action: "cancel", chainId: window.ethereum.chainId });
           closeDrawer();
           resetValue();
+          sendToEthereum(null, id, "cancel");
           onCancelClick();
+          track(method, { action: "cancel", chainId: window.ethereum.chainId });
         }}
       >
         {onCancelText}
