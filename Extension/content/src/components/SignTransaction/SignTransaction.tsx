@@ -18,6 +18,7 @@ import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
 import { beautifyNumber } from "../../utils/beautifyNumber";
 import { blowfishSupportedCheck } from "../../utils/blowfishSupportedCheck";
 import { shortenName } from "../../utils/shortenName";
+import { testnetCheck } from "../../utils/testnetCheck";
 import { ConfirmButton } from "../Base/ConfirmButton";
 
 import { Skeleton } from "../Base/Skeleton";
@@ -76,9 +77,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
     <ConfirmButton
       id={id}
       method={method}
-      customConfirmData={
-        window.ethereum.chainId !== "0x5" && { value: totalValue }
-      }
+      customConfirmData={testnetCheck() && { value: totalValue }}
       disabled={error}
       loading={isConfirmLoading}
       onConfirmText="Approve"
@@ -120,7 +119,7 @@ export const SignTransactionDescription: FC<
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
   });
-  const [value, addValue] = useTransactionValue(state => {
+  const [value] = useTransactionValue(state => {
     return [state.value, state.addValue];
   });
 
