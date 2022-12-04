@@ -1,3 +1,4 @@
+import { CoinGeckoIds } from "@lightdotso/chain";
 import { useEffect } from "react";
 import useSWR from "swr";
 
@@ -149,15 +150,30 @@ export const useBlowfishTx = params => {
     return setError(false);
   }, [result?.warnings, setError]);
 
+  const addTotalValue = change => {
+    if (
+      Number(change?.rawInfo?.data?.amount?.after) <
+      Number(change?.rawInfo?.data?.amount?.before)
+    ) {
+      const addedValue =
+        (Math.abs(
+          Number(change?.rawInfo?.data?.amount?.before) -
+            Number(change?.rawInfo?.data?.amount?.after),
+        ) /
+          10 ** Number(change?.rawInfo?.data?.decimals)) *
+        Number(change?.rawInfo?.data?.value);
+      addValue(addedValue);
+    }
+  };
+
   useEffect(() => {
     if (result?.simulationResults && !result?.simulationResults?.error) {
       result?.simulationResults?.expectedStateChanges.map(change => {
-        if (
-          change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
-          change?.rawInfo?.kind === "ERC20_TRANSFER"
-        ) {
+        if (change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER") {
           fetch(
-            `https://min-api.cryptocompare.com/data/price?fsym=${change?.rawInfo.data?.symbol}&tsyms=USD`,
+            `https://api.coingecko.com/api/v3/simple/price?ids=${
+              window.ethereum.chainId === "0x89" ? "matic-network" : "ethereum"
+            }&vs_currencies=usd`,
             {
               method: "GET",
             },
@@ -166,20 +182,33 @@ export const useBlowfishTx = params => {
               return response.json();
             })
             .then(data => {
-              change.rawInfo.data.value = data.USD;
-              if (
-                Number(change?.rawInfo?.data?.amount?.after) <
-                Number(change?.rawInfo?.data?.amount?.before)
-              ) {
-                const addedValue =
-                  (Math.abs(
-                    Number(change?.rawInfo?.data?.amount?.before) -
-                      Number(change?.rawInfo?.data?.amount?.after),
-                  ) /
-                    10 ** Number(change?.rawInfo?.data?.decimals)) *
-                  Number(change?.rawInfo?.data?.value);
-                addValue(addedValue);
-              }
+              change.rawInfo.data.value =
+                data[
+                  window.ethereum.chainId === "0x89"
+                    ? "matic-network"
+                    : "ethereum"
+                ].usd;
+              addTotalValue(change);
+            });
+        }
+        if (change?.rawInfo?.kind === "ERC20_TRANSFER") {
+          fetch(
+            `https://api.coingecko.com/api/v3/simple/token_price/${
+              CoinGeckoIds[window.ethereum.chainId]
+            }?contract_addresses=${
+              change?.rawInfo?.data?.contract?.address
+            }&vs_currencies=usd`,
+            {
+              method: "GET",
+            },
+          )
+            .then(response => {
+              return response.json();
+            })
+            .then(data => {
+              change.rawInfo.data.value =
+                data[change?.rawInfo?.data?.contract?.address].usd;
+              addTotalValue(change);
             });
         }
       });

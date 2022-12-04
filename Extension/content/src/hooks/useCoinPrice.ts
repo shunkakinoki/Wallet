@@ -4,18 +4,20 @@ import { laggy } from "../middlwares/laggy";
 
 const fetcher = chainId => {
   return fetch(
-    `https://min-api.cryptocompare.com/data/price?fsym=${
-      chainId == "0x89" ? "MATIC" : "ETH"
-    }&tsyms=USD`,
+    `https://api.coingecko.com/api/v3/simple/price?ids=${
+      window.ethereum.chainId === "0x89" ? "matic-network" : "ethereum"
+    }&vs_currencies=usd`,
   )
     .then(res => {
       return res.json();
     })
     .then(json => {
-      if (!json.USD) {
+      if (!json) {
         throw new Error("USD Empty !!!");
       }
-      return json;
+      return json[
+        window.ethereum.chainId === "0x89" ? "matic-network" : "ethereum"
+      ].usd;
     });
 };
 
@@ -32,7 +34,7 @@ export const useCoinPrice = () => {
   );
 
   return {
-    coinPrice: data && data?.USD ? Number(data?.USD) : null,
+    coinPrice: data ? Number(data) : null,
     error,
     isLoading,
     isValidating,
