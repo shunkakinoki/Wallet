@@ -2,10 +2,12 @@
   "$schema": "https://turborepo.org/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "env": ["NODE_ENV"]
     },
     "build:dev": {
-      "dependsOn": ["^build:dev"]
+      "dependsOn": ["^build:dev"],
+      "env": ["NODE_ENV"]
     },
     "@lightdotso/background#build": {
       "dependsOn": ["^build"],
@@ -66,6 +68,7 @@
     "@lightdotso/popup#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
+      "env": ["CI", "JITSU_JS_KEY"],
       "outputs": [
         ".next",
         "../../Application/Light Safari Extension/Resources/popup/**",
@@ -75,6 +78,7 @@
     "@lightdotso/popup#build:dev": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
+      "env": ["CI", "JITSU_JS_KEY"],
       "outputs": [
         ".next",
         "../../Application/Light Safari Extension/Resources/popup/**",
