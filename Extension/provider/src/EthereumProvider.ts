@@ -18,6 +18,7 @@ export class EthereumProvider extends BaseProvider {
   wrapResults: Map<any, any>;
   chainId: any;
   address: string;
+  name: string;
   ready: boolean;
   networkVersion: string;
   rpc: RPCServer;
@@ -84,7 +85,7 @@ export class EthereumProvider extends BaseProvider {
     this.rpc = new RPCServer(config.rpcUrl);
   }
 
-  updateAccount(eventName, address, chainId, rpcUrl) {
+  updateAccount(eventName, address, chainId, rpcUrl, name) {
     window.ethereum.setAddress(address);
 
     if (eventName == "switchAccount") {
@@ -102,6 +103,10 @@ export class EthereumProvider extends BaseProvider {
         window.ethereum.emit("chainChanged", chainId);
         window.ethereum.emit("networkChanged", window.ethereum.net_version());
       }
+    }
+
+    if (window.ethereum.name != name) {
+      this.name = name;
     }
   }
 
@@ -431,6 +436,7 @@ export class EthereumProvider extends BaseProvider {
           response.address,
           response.chainId,
           response.rpcUrl,
+          response.name,
         );
         break;
       case "signTransaction":

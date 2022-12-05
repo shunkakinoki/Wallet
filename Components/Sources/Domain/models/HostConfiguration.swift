@@ -43,7 +43,7 @@ public struct HostConfigurationImp: HostConfiguration {
             if let selectedAccount: EthereumWallet = try ethereumAccount.fetchSelectedWallet() {
                 let hostConfigurations: [HostConfigurationModel] = try hostsDirectory.retrieve(objectType: HostConfigurationModel.self, at: "hostsDirectory").compactMap { $0 }
                 let hostParameters = hostConfigurations.first?.configuration.first(where: { $0.key == selectedAccount.address.eip55Description })?.value.first(where: { $0.host == host })
-                return HostConfigurationResolve(address: selectedAccount.address.eip55Description, chainId: hostParameters?.chainId)
+                return HostConfigurationResolve(address: selectedAccount.address.eip55Description, chainId: hostParameters?.chainId, name: selectedAccount.name.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? "" )
             }
         } catch {
             if let selectedAccount: EthereumWallet = try? ethereumAccount.fetchSelectedWallet() {

@@ -111,7 +111,7 @@ document.addEventListener("readystatechange", () => {
 
     getHostConfiguration()
       .then(item => {
-        logContent(`getHostConfiguration: ${JSON.stringify(item)}`);
+        logContent(`<== getHostConfiguration: ${JSON.stringify(item)}`);
 
         if (item?.address) {
           address = item.address;
@@ -122,6 +122,7 @@ document.addEventListener("readystatechange", () => {
               address: address,
               chainId: item.chainId,
               rpcUrl: RpcMapping[item.chainId],
+              name: item?.name ?? "Wallet",
             },
             genId(),
             "didLoadLatestConfiguration",
@@ -150,7 +151,7 @@ document.addEventListener("readystatechange", () => {
       .then(res => {
         getLightConfiguration().then(item => {
           logContent(
-            `getLightConfiguration: ${address}: ${JSON.stringify(item)}`,
+            `<== getLightConfiguration: ${address}: ${JSON.stringify(item)}`,
           );
           if (item.accounts) {
             config = item;
@@ -170,8 +171,13 @@ window.addEventListener("message", event => {
       switch (event.data.message.method) {
         case "requestAccounts":
           getHostConfiguration().then(item => {
+            logContent(`<== getHostConfiguration: ${JSON.stringify(item)}`);
+
             if (item?.address) {
               address = item.address;
+            }
+            if (item?.name) {
+              logContent(item?.name);
             }
             if (item?.chainId) {
               sendToEthereum(address, event.data.message.id, "requestAccounts");

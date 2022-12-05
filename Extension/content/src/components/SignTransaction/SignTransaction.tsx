@@ -446,7 +446,9 @@ export const SignTransactionDescription: FC<
             </SignTransactionGasEstimatePriceContainer>
             <SignTransactionGasEstimateFeeContainer>
               <span>Estimated Fee:</span>&nbsp;
-              {isGasPriceLoading && <Skeleton width="20px" height="12px" />}
+              {!gasEstimationDollar && isGasPriceLoading && (
+                <Skeleton width="20px" height="12px" />
+              )}
               {gasEstimationDollar &&
                 (gasEstimationDollar < 0.01
                   ? "$0.01"
@@ -497,6 +499,12 @@ export const SignTransactionGasSelectTransferImage = ({
   src: string;
 }) => {
   const [isFallback, setIsFallback] = useState(false);
+
+  useEffect(() => {
+    if (!src) {
+      setIsFallback(true);
+    }
+  }, [src]);
 
   if (isFallback) {
     return (
