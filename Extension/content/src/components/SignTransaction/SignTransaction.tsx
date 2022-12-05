@@ -82,6 +82,8 @@ export const SignTransaction: FC<SignTransactionParams> = ({
     return state.totalValue;
   });
 
+  const { gasEstimation } = useGasEstimation(params);
+
   return (
     <ConfirmButton
       id={id}
@@ -117,6 +119,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
                 ...params,
                 data: params?.data ?? "0x",
                 value: params?.value ?? "0x0",
+                gas: params?.gas ?? gasEstimation,
                 chainId: window.ethereum.chainId,
                 gasPrice: gasPrice,
                 nonce: nonceVar,
