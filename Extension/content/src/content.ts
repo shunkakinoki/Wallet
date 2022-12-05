@@ -111,7 +111,7 @@ document.addEventListener("readystatechange", () => {
 
     getHostConfiguration()
       .then(item => {
-        logContent(`getHostConfiguration: ${JSON.stringify(item)}`);
+        logContent(`<== getHostConfiguration: ${JSON.stringify(item)}`);
 
         if (item?.address) {
           address = item.address;
@@ -150,7 +150,7 @@ document.addEventListener("readystatechange", () => {
       .then(res => {
         getLightConfiguration().then(item => {
           logContent(
-            `getLightConfiguration: ${address}: ${JSON.stringify(item)}`,
+            `<== getLightConfiguration: ${address}: ${JSON.stringify(item)}`,
           );
           if (item.accounts) {
             config = item;
@@ -170,7 +170,7 @@ window.addEventListener("message", event => {
       switch (event.data.message.method) {
         case "requestAccounts":
           getHostConfiguration().then(item => {
-            logContent(`getHostConfiguration: ${JSON.stringify(item)}`);
+            logContent(`<== getHostConfiguration: ${JSON.stringify(item)}`);
 
             if (item?.address) {
               address = item.address;

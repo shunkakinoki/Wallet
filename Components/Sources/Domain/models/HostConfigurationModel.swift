@@ -29,6 +29,7 @@ public struct HostConfigurationModel: Codable {
 public struct HostConfigurationResolve: Codable {
     var address: String
     var chainId: String?
+    var name: String?
     var option: String?
     var favicon: String?
 }
