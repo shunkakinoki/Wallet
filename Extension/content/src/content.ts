@@ -122,6 +122,7 @@ document.addEventListener("readystatechange", () => {
               address: address,
               chainId: item.chainId,
               rpcUrl: RpcMapping[item.chainId],
+              name: item?.name ?? "Wallet",
             },
             genId(),
             "didLoadLatestConfiguration",
