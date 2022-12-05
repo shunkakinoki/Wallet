@@ -500,6 +500,12 @@ export const SignTransactionGasSelectTransferImage = ({
 }) => {
   const [isFallback, setIsFallback] = useState(false);
 
+  useEffect(() => {
+    if (!src) {
+      setIsFallback(true);
+    }
+  }, [src]);
+
   if (isFallback) {
     return (
       <SignTransactionGasSelectTransferFallbackImageContainer>
