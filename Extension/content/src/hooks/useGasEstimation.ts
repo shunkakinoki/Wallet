@@ -1,7 +1,4 @@
-/* eslint-disable func-style */
 import useSWR from "swr";
-
-import { logContent } from "../services/log";
 
 const fetcher = params => {
   if (window.ethereum.isStorybook) {
@@ -40,7 +37,7 @@ export const useGasEstimation = params => {
   );
 
   return {
-    gasEstimation: data,
+    gasEstimation: !error ? data : "0x5208",
     error,
     isLoading,
     isValidating,
