@@ -1,5 +1,5 @@
 export const logPopup = (text: string) => {
-  if (process.env.NEXT_PUBLIC_VERCEL_ENV !== "production") {
+  if (process.env.NODE_ENV !== "production") {
     var xhr = new XMLHttpRequest();
     xhr.open(
       `POST`,
