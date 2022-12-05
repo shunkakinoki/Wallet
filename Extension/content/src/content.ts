@@ -170,8 +170,13 @@ window.addEventListener("message", event => {
       switch (event.data.message.method) {
         case "requestAccounts":
           getHostConfiguration().then(item => {
+            logContent(`getHostConfiguration: ${JSON.stringify(item)}`);
+
             if (item?.address) {
               address = item.address;
+            }
+            if (item?.name) {
+              logContent(item?.name);
             }
             if (item?.chainId) {
               sendToEthereum(address, event.data.message.id, "requestAccounts");

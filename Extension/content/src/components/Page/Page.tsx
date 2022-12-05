@@ -210,6 +210,7 @@ export const PageBanner: FC<PageBannerProps> = ({ type }) => {
                 <WalletIcon />
               </LinkButton>
               &nbsp;
+              {isMounted && window.ethereum && window.ethereum.name}
               {isMounted &&
                 window.ethereum &&
                 splitAddress(window.ethereum.address)}
