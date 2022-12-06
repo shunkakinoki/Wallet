@@ -12,7 +12,7 @@ const fetcher = params => {
     .call({
       jsonrpc: "2.0",
       method: "eth_getBlockByNumber",
-      params: ["latest", true],
+      params: ["latest", false],
       id: "1",
     })
     .then(res => {
@@ -56,7 +56,7 @@ const fetcher = params => {
           if (estimatedGasLimit > upperGasLimit) {
             return intToHex(estimatedGasLimit);
           }
-          if (bufferedGasLimit > upperGasLimit) {
+          if (bufferedGasLimit < upperGasLimit) {
             return intToHex(bufferedGasLimit);
           }
 
