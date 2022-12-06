@@ -7,6 +7,7 @@ import { useCoinPrice } from "../../hooks/useCoinPrice";
 import { useConfirmLoading } from "../../hooks/useConfirmLoading";
 import { useGasEstimation } from "../../hooks/useGasEstimation";
 import { useGasFallback } from "../../hooks/useGasFallback";
+import { useGasLimit } from "../../hooks/useGasLimit";
 import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
@@ -82,7 +83,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
     return state.totalValue;
   });
 
-  const { gasEstimation } = useGasEstimation(params);
+  const { gasLimit } = useGasLimit(params);
 
   return (
     <ConfirmButton
@@ -119,7 +120,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
                 ...params,
                 data: params?.data ?? "0x",
                 value: params?.value ?? "0x0",
-                gas: params?.gas ?? gasEstimation,
+                gas: params?.gas ?? gasLimit,
                 chainId: window.ethereum.chainId,
                 gasPrice: gasPrice,
                 nonce: nonceVar,
@@ -152,6 +153,7 @@ export const SignTransactionDescription: FC<
     isLoading: isGasPriceLoading,
   } = useGasPrice();
   const { gasEstimation } = useGasEstimation(params);
+  const { gasLimit } = useGasLimit(params);
   const { result, isLoading: isBlowfishLoading } = useBlowfishTx(params);
 
   const [setConfirmLoading] = useConfirmLoading(state => {
@@ -195,6 +197,7 @@ export const SignTransactionDescription: FC<
   useEffect(() => {
     if (
       !gasEstimationFee ||
+      !gasLimit ||
       !gasPrice ||
       isBlowfishLoading ||
       isBlowfishLoading
@@ -204,6 +207,7 @@ export const SignTransactionDescription: FC<
       setConfirmLoading(false);
     }
   }, [
+    gasLimit,
     gasEstimationFee,
     gasPrice,
     isBlowfishLoading,
