@@ -1,5 +1,6 @@
 import useSWR from "swr";
 
+// Gas Estimation is taken from Metamask's tx-gas-utils https://github.com/MetaMask/metamask-extension/blob/2434c435b449bab8236dfdffb0a7734d291b5d1c/app/scripts/controllers/transactions/tx-gas-utils.js
 const fetcher = params => {
   if (!params.data) {
     return "0x5208";
