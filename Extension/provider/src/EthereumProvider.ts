@@ -455,6 +455,10 @@ export class EthereumProvider extends BaseProvider {
             this.logger(`signTransaction error: ${err}`);
             this.sendError(id, err);
 
+            this.postMessage("errorMessage", Utils.genId(), {
+              err: err.message,
+            });
+
             fetch("https://wallet.light.so/api/report", {
               method: "POST",
               body: JSON.stringify({

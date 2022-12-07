@@ -169,6 +169,16 @@ window.addEventListener("message", event => {
   if (event.source == window && event.data) {
     if (event.data.direction == "from-page-script") {
       switch (event.data.message.method) {
+        case "errorReport":
+          injectComponent(
+            Page({
+              type: "PersonalSign",
+              id: event.data.message.id,
+              method: event.data.message.method,
+              params: event.data.message.params,
+            }),
+          );
+          break;
         case "requestAccounts":
           getHostConfiguration().then(item => {
             logContent(`<== getHostConfiguration: ${JSON.stringify(item)}`);
