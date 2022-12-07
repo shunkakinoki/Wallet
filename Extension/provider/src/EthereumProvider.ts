@@ -458,18 +458,6 @@ export class EthereumProvider extends BaseProvider {
             this.postMessage("errorMessage", Utils.genId(), {
               err: err.message,
             });
-
-            fetch("https://wallet.light.so/api/report", {
-              method: "POST",
-              body: JSON.stringify({
-                host: window.location.host,
-                error: err.message,
-              }),
-              headers: new Headers({
-                "Content-Type": "application/json",
-                Accept: "application/json",
-              }),
-            });
           });
         break;
       case "signPersonalMessage":

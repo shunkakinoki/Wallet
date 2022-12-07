@@ -169,10 +169,10 @@ window.addEventListener("message", event => {
   if (event.source == window && event.data) {
     if (event.data.direction == "from-page-script") {
       switch (event.data.message.method) {
-        case "errorReport":
+        case "errorMessage":
           injectComponent(
             Page({
-              type: "PersonalSign",
+              type: "ErrorMessage",
               id: event.data.message.id,
               method: event.data.message.method,
               params: event.data.message.params,
