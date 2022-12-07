@@ -22,6 +22,8 @@ import { splitAddress } from "../../utils/splitAddress";
 import { ConnectWallet } from "../ConnectWallet";
 import { ConnectWalletDescription } from "../ConnectWallet/ConnectWallet";
 import { Drawer } from "../Drawer";
+import { ErrorMessage } from "../ErrorMessage";
+import { ErrorMessageDescription } from "../ErrorMessage/ErrorMessage";
 import { PersonalSign } from "../PersonalSign";
 import { PersonalSignDescription } from "../PersonalSign/PersonalSign";
 import { SignTransaction } from "../SignTransaction";
@@ -55,6 +57,7 @@ type PageProps = {
 
 type PageType =
   | "ConnectWallet"
+  | "ErrorMessage"
   | "SwitchEthereumChain"
   | "PersonalSign"
   | "SignTransaction"
@@ -70,6 +73,9 @@ export const Page: FC<PageProps> = ({ id, type, method, params }) => {
         <PageTypeContainer>
           {type === "ConnectWallet" && (
             <ConnectWallet id={id} method={method} params={params} />
+          )}
+          {type === "ErrorMessage" && (
+            <ErrorMessage id={id} method={method} params={params} />
           )}
           {type === "SwitchEthereumChain" && (
             <SwitchEthereumChain id={id} method={method} params={params} />
@@ -156,6 +162,29 @@ export const PageBanner: FC<PageBannerProps> = ({ type }) => {
   useEffect(() => {
     toggle(true);
   }, [toggle]);
+
+  if (type === "ErrorMessage") {
+    return (
+      <>
+        <PageBannerContainer>
+          <strong>Sorry! </strong>We encountered an{" "}
+          <strong>
+            <span>error</span>
+          </strong>{" "}
+          while processing the transaction
+          <PageBannerDataContainer>
+            <LinkContainer>
+              <LinkButton>
+                <LinkIcon />
+              </LinkButton>
+              &nbsp;
+              {isMounted && window.location.host}
+            </LinkContainer>
+          </PageBannerDataContainer>
+        </PageBannerContainer>
+      </>
+    );
+  }
 
   return (
     <>
@@ -245,6 +274,7 @@ export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
         {type === "ConnectWallet" && (
           <ConnectWalletDescription params={params} />
         )}
+        {type === "ErrorMessage" && <ErrorMessageDescription params={params} />}
         {type === "PersonalSign" && <PersonalSignDescription params={params} />}
         {type === "SignTransaction" && (
           <SignTransactionDescription params={params} />
@@ -262,6 +292,8 @@ export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
             </InfoButton>
             {type === "ConnectWallet" &&
               "When you click connect, you will allow this dapp to view your public wallet address, token balances & previous transactions."}
+            {type === "ErrorMessage" &&
+              "When you click report, you will allow this dapp to send an anonymous report of what went wrong so we can work on a fix."}
             {type === "PersonalSign" &&
               "When you click sign, you will passing a message back to the dapp that it can use to authenticate your wallet."}
             {type === "SwitchEthereumChain" &&
