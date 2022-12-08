@@ -1,46 +1,47 @@
-import Foundation
-import Keychain
 import Commons
 import Domain
+import Foundation
+import Keychain
 
 class ImportHDWalletViewModel: ObservableObject {
 
-    @Published public var isValid = false
+  @Published public var isValid = false
 
-    private let validateMnemonic: ValidateMnemonic
-    private let importWallet: ImportWallet
+  private let validateMnemonic: ValidateMnemonic
+  private let importWallet: ImportWallet
 
-    convenience init() {
-        self.init(validateMnemonic: ValidateMnemonicImp(), importWallet: ImportWalletImp())
+  convenience init() {
+    self.init(validateMnemonic: ValidateMnemonicImp(), importWallet: ImportWalletImp())
+  }
+
+  init(validateMnemonic: ValidateMnemonic, importWallet: ImportWallet) {
+    self.validateMnemonic = validateMnemonic
+    self.importWallet = importWallet
+  }
+
+  func importKey(with mnemonic: String, primary: Bool = true) {
+    do {
+      let seedPhrase = sanitize(wallet: mnemonic)
+      try importWallet.import(seedPhrase.bytes(), type: primary ? .primaryMnemonic : .mnemonic)
+      AppOrchestra.home()
+    } catch {
+      print(error)
     }
+  }
 
-    init(validateMnemonic: ValidateMnemonic, importWallet: ImportWallet) {
-        self.validateMnemonic = validateMnemonic
-        self.importWallet = importWallet
+  func checkSeed(_ seed: String?) {
+    guard let seed = seed?.lowercased(), let _ = try? isValidMnemonic(seed: seed) else {
+      return
     }
+    self.isValid = true
+  }
 
-    func importKey(with mnemonic: String, primary: Bool = true) {
-        do {
-            let seedPhrase = sanitize(wallet: mnemonic)
-            try importWallet.import(seedPhrase.bytes(), type: primary ? .primaryMnemonic : .mnemonic)
-            AppOrchestra.home()
-        } catch {
-            print(error)
-        }
-    }
+  func sanitize(wallet: String) -> String {
+    wallet.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: " ").joined(
+      separator: " ")
+  }
 
-    func checkSeed(_ seed: String?) {
-        guard let seed = seed?.lowercased(), let _ = try? isValidMnemonic(seed: seed) else {
-            return
-        }
-        self.isValid = true
-    }
-
-    func sanitize(wallet: String) -> String {
-        wallet.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: " ").joined(separator: " ")
-    }
-
-    func isValidMnemonic(seed: String) throws {
-        try validateMnemonic.validate(seed)
-    }
+  func isValidMnemonic(seed: String) throws {
+    try validateMnemonic.validate(seed)
+  }
 }

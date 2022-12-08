@@ -1,6 +1,8 @@
-import Foundation
 import Commons
+import Foundation
 
 public protocol SecureSigning {
-    func signature(hash _hash: Array<UInt8>, privateKey: Data) throws -> (v: UInt, r: ByteArray, s: ByteArray)
+  func signature(hash _hash: [UInt8], privateKey: Data) throws -> (
+    v: UInt, r: ByteArray, s: ByteArray
+  )
 }

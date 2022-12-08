@@ -1,9 +1,9 @@
 import Foundation
 
 public struct DeleteHostConfigurationRequest {
-    public let host: String
+  public let host: String
 
-    public init(host: String) {
-        self.host = host
-    }
+  public init(host: String) {
+    self.host = host
+  }
 }

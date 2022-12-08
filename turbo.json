@@ -6,8 +6,7 @@
       "env": ["NODE_ENV"]
     },
     "build:dev": {
-      "dependsOn": ["^build:dev"],
-      "env": ["NODE_ENV"]
+      "dependsOn": ["^build"]
     },
     "@lightdotso/background#build": {
       "dependsOn": ["^build"],

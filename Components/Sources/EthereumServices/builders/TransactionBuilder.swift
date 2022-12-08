@@ -1,6 +1,6 @@
-import Foundation
 import Commons
 import Domain
+import Foundation
 import Keychain
 
 //struct TransactionBuilder {
