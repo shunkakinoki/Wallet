@@ -4,6 +4,9 @@ const fetcher = params => {
   if (window.ethereum.isStorybook) {
     return "0x69";
   }
+  if (!params.data) {
+    return "0x5208";
+  }
   return window.ethereum.rpc
     .call({
       jsonrpc: "2.0",
