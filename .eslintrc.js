@@ -1,7 +1,7 @@
 module.exports = {
   ignorePatterns: [
     "Application/Light Safari Extension/Resources/**/*.js",
-    "Extension/provider/dist/**/*.js",
+    "**/dist/**/*.js",
   ],
   extends: "@lightdotso",
   rules: {
