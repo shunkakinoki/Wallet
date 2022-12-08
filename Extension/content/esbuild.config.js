@@ -8,7 +8,7 @@ const options = {
   bundle: true,
   minify: true,
   define: {
-    "process.env.JITSU_JS_KEY": JSON.stringify(process.env.JITSU_JS_KEY),
+    "process.env.JITSU_JS_KEY": JSON.stringify(process.env.JITSU_JS_KEY ?? ""),
     "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
   },
 };
