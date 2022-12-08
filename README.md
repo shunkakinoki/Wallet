@@ -53,9 +53,8 @@ If you want to contribute, you can use our [main telegram](https://t.me/Light_Wa
 ## 🚀 Getting Started
 
 1. Download XCode: https://developer.apple.com/xcode/
-2. Install Cocoapods: https://cocoapods.org/
-3. Install Pnpm: https://pnpm.io/
-4. Run `pod install && pnpm install && pnpm run build`
+2. Install Yarn: https://yarnpkg.com/
+3. Run `yarn install && yarn run build`
 
 ## 📚 Acknowledgements
 

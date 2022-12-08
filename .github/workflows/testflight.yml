@@ -19,12 +19,11 @@ jobs:
         with:
           ruby-version: "2.7.6"
       - uses: actions/setup-node@v3
-      - uses: pnpm/action-setup@v2
       - run: |
           bundle install
-          pnpm install --frozen-lockfile
+          yarn install --frozen-lockfile
           printenv > ./Extension/content/.env
-          pnpm turbo run build
+          yarn turbo run build
         env:
           JITSU_JS_KEY: ${{ secrets.JITSU_JS_KEY }}
       - run: |

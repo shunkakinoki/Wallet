@@ -1,5 +1,5 @@
 module.exports = {
-  "*.{js,ts,tsx}": ["pnpm run eslint:cmd --fix"],
-  "*.{md,json,yml}": ["pnpm run prettier:cmd --write"],
-  "package.json": ["pnpm run prettier:cmd --write"],
+  "*.{js,ts,tsx}": ["yarn run eslint:cmd --fix"],
+  "*.{md,json,yml}": ["yarn run prettier:cmd --write"],
+  "package.json": ["yarn run prettier:cmd --write"],
 };

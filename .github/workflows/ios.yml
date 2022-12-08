@@ -16,11 +16,10 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
-      - uses: pnpm/action-setup@v2
       - run: |
-          pnpm install --frozen-lockfile
+          yarn install --frozen-lockfile
       - run: |
-          pnpm run build
+          yarn run build
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: "14"
@@ -28,4 +27,4 @@ jobs:
         with:
           ruby-version: "2.7.6"
       - run: bundle install
-      - run: pnpm run fastlane:test
+      - run: yarn run fastlane:test

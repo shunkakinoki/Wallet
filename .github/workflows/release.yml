@@ -15,15 +15,14 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
-      - uses: pnpm/action-setup@v2
       - run: |
-          pnpm install --frozen-lockfile
+          yarn install --frozen-lockfile
       - run: |
-          pnpm run build
+          yarn run build
       - uses: changesets/action@v1
         with:
           createGithubReleases: false
-          publish: pnpm release -r
+          publish: yarn run release -r
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
