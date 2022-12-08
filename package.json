@@ -26,6 +26,7 @@
     "prettier:lint": "prettier --check .",
     "release": "changeset publish",
     "release:root": "cross-env HUSKY=0 yarn run release-it",
+    "swift-format:cmd": "mint run swift-format --in-place --recursive --parallel --ignore-unparsable-files",
     "swift-format:fix": "mint run swift-format --in-place --recursive --parallel --ignore-unparsable-files .",
     "swift-format:lint": "mint run swift-format --recursive --parallel --ignore-unparsable-files .",
     "test": "echo \"Error: no test specified\" && exit 1"
