@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.13",
-    "@lightwallet/chain": "*",
+    "@lightwallet/chains": "*",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/firefox-webext-browser": "^94.0.1",
     "clsx": "^1.2.1",

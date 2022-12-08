@@ -5,7 +5,7 @@ import {
   ClipboardDocumentCheckIcon,
   GlobeAltIcon,
 } from "@heroicons/react/24/outline";
-import { ChainNames } from "@lightwallet/chain";
+import { ChainNames } from "@lightwallet/chains";
 import {
   ListItem,
   List,

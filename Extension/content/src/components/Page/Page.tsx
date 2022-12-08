@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import { ChainNames } from "@lightwallet/chain";
+import { ChainNames } from "@lightwallet/chains";
 import type { FC } from "react";
 import { useEffect } from "react";
 
