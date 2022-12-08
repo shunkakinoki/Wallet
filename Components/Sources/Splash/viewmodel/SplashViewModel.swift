@@ -1,33 +1,33 @@
+import Combine
 import Foundation
 import Session
-import Combine
 
 protocol SplashViewModel {
-    func invoke()
+  func invoke()
 }
 
 public final class SplashViewModelImp: SplashViewModel {
 
-    private let isSigned: IsSigned
+  private let isSigned: IsSigned
 
-    public init(isSigned: IsSigned) {
-        self.isSigned = isSigned
-    }
+  public init(isSigned: IsSigned) {
+    self.isSigned = isSigned
+  }
 
-    func invoke() {
-        if isSigned.get() {
-            syncDataModels()
-        } else {
-            logOut()
-        }
+  func invoke() {
+    if isSigned.get() {
+      syncDataModels()
+    } else {
+      logOut()
     }
+  }
 }
 
 extension SplashViewModelImp {
-    private func syncDataModels() {
-        NotificationCenter.default.post(name: .lightLogIn, object: nil)
-    }
-    private func logOut() {
-        NotificationCenter.default.post(name: .lightLogOut, object: nil)
-    }
+  private func syncDataModels() {
+    NotificationCenter.default.post(name: .lightLogIn, object: nil)
+  }
+  private func logOut() {
+    NotificationCenter.default.post(name: .lightLogOut, object: nil)
+  }
 }

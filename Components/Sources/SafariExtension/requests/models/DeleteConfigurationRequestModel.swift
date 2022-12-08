@@ -1,5 +1,5 @@
 import Foundation
 
 struct DeleteConfigurationRequestModel: Decodable {
-    let host: String
+  let host: String
 }

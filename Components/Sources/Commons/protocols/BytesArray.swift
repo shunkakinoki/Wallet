@@ -1,13 +1,13 @@
-import Foundation
 import CryptoSwift
+import Foundation
 
 public typealias ByteArray = [UInt8]
 
-public extension ByteArray {
-    func data() -> Data {
-        Data(bytes: self, count: self.count)
-    }
-    func hex() -> String {
-        return "0x\(self.toHexString())"
-    }
+extension ByteArray {
+  public func data() -> Data {
+    Data(bytes: self, count: self.count)
+  }
+  public func hex() -> String {
+    return "0x\(self.toHexString())"
+  }
 }

@@ -1,23 +1,23 @@
-import Foundation
 import Combine
+import Foundation
 
 public protocol GetTransactionCount {
-    func count(using address: String) async throws -> String
+  func count(using address: String) async throws -> String
 }
 
 public class GetTransactionCountImp: GetTransactionCount {
 
-    private let repository: EthereumRepository
+  private let repository: EthereumRepository
 
-    convenience public init() {
-        self.init(repository: EthereumRepositoryImp())
-    }
+  convenience public init() {
+    self.init(repository: EthereumRepositoryImp())
+  }
 
-    private init(repository: EthereumRepository) {
-        self.repository = repository
-    }
+  private init(repository: EthereumRepository) {
+    self.repository = repository
+  }
 
-    public func count(using address: String) async throws -> String {
-        try await repository.getTransactionCount(address: address)
-    }
+  public func count(using address: String) async throws -> String {
+    try await repository.getTransactionCount(address: address)
+  }
 }
