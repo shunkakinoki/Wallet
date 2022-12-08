@@ -28,8 +28,18 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
+      - id: mint
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/mint
+          key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
+          restore-keys: ${{ runner.os }}-mint-
       - run: |
-          brew install mint
+          brew upgrade mint || brew install mint || true
+      - if: steps.mint.outputs.cache-hit != 'true'
+        run: |
+          mint bootstrap
+      - run: |
           mint install apple/swift-format
       - run: |
           yarn install --frozen-lockfile
