@@ -1,4 +1,4 @@
-# @lightdotso/popup
+# @lightwallet/popup
 
 ## 0.0.1
 

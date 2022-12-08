@@ -1,4 +1,4 @@
-import { EthereumProvider } from "@lightdotso/provider";
+import { EthereumProvider } from "@lightwallet/provider";
 
 import { logInpage } from "./log";
 

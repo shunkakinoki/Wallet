@@ -1,4 +1,4 @@
-# @lightdotso/background
+# @lightwallet/background
 
 ## 0.0.1
 

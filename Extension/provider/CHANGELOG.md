@@ -1,4 +1,4 @@
-# @lightdotso/ethereum
+# @lightwallet/ethereum
 
 ## 0.0.1
 
