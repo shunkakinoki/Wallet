@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@lightdotso/provider": "*",
-    "@metamask/eth-sig-util": "^5.0.0",
+    "@metamask/eth-sig-util": "^5.0.2",
     "@types/firefox-webext-browser": "^94.0.1",
     "buffer": "^6.0.3",
     "cross-env": "^7.0.3",
@@ -17,8 +17,8 @@
     "isutf8": "^4.0.0"
   },
   "devDependencies": {
-    "@types/node": "^18.8.4",
-    "typescript": "^4.8.4"
+    "@types/node": "^18.11.11",
+    "typescript": "^4.9.4"
   },
   "publishConfig": {
     "access": "public",

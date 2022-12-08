@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { Page } from "konsta/react";
-import Image from "next/future/image";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { CheckIcon } from "../components/CheckIcon";
