@@ -4,4 +4,4 @@
 [ -n "$CI" ] && exit 0
 
 git diff --cached --name-status
-pnpm lint-staged --allow-empty
+yarn run lint-staged --allow-empty
