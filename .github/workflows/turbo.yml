@@ -35,7 +35,7 @@ jobs:
           key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
           restore-keys: ${{ runner.os }}-mint-
       - run: |
-          brew upgrade mint || brew install mint || true
+          brew install mint
       - if: steps.mint.outputs.cache-hit != 'true'
         run: |
           mint bootstrap
