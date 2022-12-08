@@ -1,4 +1,4 @@
-import { RpcMapping, ChainNames } from "@lightdotso/chain";
+import { RpcMapping, ChainNames } from "@lightwallet/chain";
 import type { FC } from "react";
 import { useState } from "react";
 

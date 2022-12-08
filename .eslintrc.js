@@ -72,7 +72,7 @@ module.exports = {
         pathGroups: [
           {
             group: "internal",
-            pattern: "@lightdotso/**",
+            pattern: "@lightwallet/**",
             position: "after",
           },
         ],

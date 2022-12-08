@@ -1,4 +1,4 @@
-# @lightdotso/inpage
+# @lightwallet/inpage
 
 ## 0.0.1
 

@@ -1,4 +1,4 @@
-import { RpcMapping } from "@lightdotso/chain";
+import { RpcMapping } from "@lightwallet/chain";
 
 import { injectComponent } from "./App";
 import { Page } from "./components/Page";

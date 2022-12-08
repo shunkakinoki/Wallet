@@ -29,7 +29,7 @@ export const useUserStep = create(
       };
     },
     {
-      name: "@lightdotso/wallet",
+      name: "@lightwallet/wallet",
     },
   ),
 );
@@ -52,7 +52,7 @@ export const useIsInitial = create(
       };
     },
     {
-      name: "@lightdotso/initial",
+      name: "@lightwallet/initial",
     },
   ),
 );
@@ -119,7 +119,7 @@ export default function Home() {
   return (
     <Page>
       <title>Light Wallet</title>
-      <div className="container flex flex-col justify-between px-3 mx-auto max-w-md lg:h-4/6">
+      <div className="container mx-auto flex max-w-md flex-col justify-between px-3 lg:h-4/6">
         {isEnabled && <ReactConfetti />}
         <div className="mt-8 text-center">
           <h1 className="text-3xl font-bold">
@@ -149,9 +149,9 @@ export default function Home() {
         </div>
         <div className="my-4">
           <div className="flex justify-center">
-            <span className="inline-flex items-center py-0.5 px-2.5 text-sm font-medium text-indigo-800 bg-indigo-100 rounded-md">
+            <span className="inline-flex items-center rounded-md bg-indigo-100 py-0.5 px-2.5 text-sm font-medium text-indigo-800">
               <svg
-                className="mr-1.5 -ml-0.5 w-2 h-2 text-indigo-600"
+                className="mr-1.5 -ml-0.5 h-2 w-2 text-indigo-600"
                 fill="currentColor"
                 viewBox="0 0 8 8"
               >
@@ -173,7 +173,7 @@ export default function Home() {
               {step === 2 && !isEnabled && "Test wallet connection"}
             </h1>
           </div>
-          <div className="block relative w-full">
+          <div className="relative block w-full">
             <Swiper
               initialSlide={sstep}
               slidesPerView={1}
@@ -198,7 +198,7 @@ export default function Home() {
                   muted
                   loop
                   src={`/step_1.mov`}
-                  className="rounded-md pointer-events-none"
+                  className="pointer-events-none rounded-md"
                 />
               </SwiperSlide>
               <SwiperSlide key={1}>
@@ -209,7 +209,7 @@ export default function Home() {
                   muted
                   loop
                   src={`/step_2.mov`}
-                  className="rounded-md pointer-events-none"
+                  className="pointer-events-none rounded-md"
                 />
               </SwiperSlide>
               <SwiperSlide key={2}>
@@ -222,11 +222,11 @@ export default function Home() {
             </Swiper>
           </div>
         </div>
-        <div className="w-full text-sm font-medium text-center text-gray-500 dark:text-gray-300">
-          <div className="flex justify-center mb-4 text-center">
+        <div className="w-full text-center text-sm font-medium text-gray-500 dark:text-gray-300">
+          <div className="mb-4 flex justify-center text-center">
             <button
               type="button"
-              className="py-3 w-full text-lg text-indigo-700 bg-indigo-100 hover:bg-indigo-200 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="w-full rounded-md border border-transparent bg-indigo-100 py-3 text-lg text-indigo-700 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               onClick={async () => {
                 if (step === 0 || step === 1) {
                   //@ts-expect-error
