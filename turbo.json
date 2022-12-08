@@ -11,11 +11,13 @@
     },
     "@lightdotso/background#build": {
       "dependsOn": ["^build"],
+      "env": ["NODE_ENV"],
       "inputs": ["**"],
       "outputs": ["../../Application/Light Safari Extension/Resources/background.js"]
     },
     "@lightdotso/background#build:dev": {
       "dependsOn": ["^build"],
+      "env": ["NODE_ENV"],
       "inputs": ["**"],
       "outputs": ["../../Application/Light Safari Extension/Resources/background.js"]
     },
@@ -68,7 +70,7 @@
     "@lightdotso/popup#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
-      "env": ["CI", "JITSU_JS_KEY"],
+      "env": ["CI", "JITSU_JS_KEY", "VERCEL"],
       "outputs": [
         ".next",
         "../../Application/Light Safari Extension/Resources/popup/**",
@@ -78,7 +80,7 @@
     "@lightdotso/popup#build:dev": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
-      "env": ["CI", "JITSU_JS_KEY"],
+      "env": ["CI", "JITSU_JS_KEY", "VERCEL"],
       "outputs": [
         ".next",
         "../../Application/Light Safari Extension/Resources/popup/**",
