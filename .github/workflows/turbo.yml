@@ -16,11 +16,10 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
-      - uses: pnpm/action-setup@v2
       - run: |
-          pnpm install --frozen-lockfile
+          yarn install --frozen-lockfile
       - run: |
-          pnpm turbo run build
+          yarn turbo run build
   lint:
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -29,8 +28,7 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
-      - uses: pnpm/action-setup@v2
       - run: |
-          pnpm install --frozen-lockfile
+          yarn install --frozen-lockfile
       - run: |
-          pnpm turbo run lint
+          yarn run turbo run lint
