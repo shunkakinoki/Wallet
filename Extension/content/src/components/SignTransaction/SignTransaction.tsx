@@ -1,4 +1,4 @@
-import { ChainNames } from "@lightwallet/chain";
+import { ChainNames } from "@lightwallet/chains";
 import type { FC } from "react";
 import { useMemo, useEffect, useState, useCallback } from "react";
 

@@ -1,4 +1,4 @@
-import { CoinGeckoIds } from "@lightwallet/chain";
+import { CoinGeckoIds } from "@lightwallet/chains";
 import { useEffect } from "react";
 import useSWR from "swr";
 
