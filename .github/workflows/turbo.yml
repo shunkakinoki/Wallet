@@ -40,8 +40,6 @@ jobs:
         run: |
           mint bootstrap
       - run: |
-          mint install apple/swift-format
-      - run: |
           yarn install --frozen-lockfile
       - run: |
           yarn run turbo run lint
