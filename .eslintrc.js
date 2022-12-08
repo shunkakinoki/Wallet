@@ -9,6 +9,7 @@ module.exports = {
     "import/default": "off",
     "no-console": "off",
     "no-restricted-imports": "off",
+    "prettier/prettier": "off",
   },
   globals: {
     browser: true,
