@@ -19,17 +19,17 @@ struct TransactionDataModel: Decodable {
     public let successful: Bool?
     public let assetsReceived: [Assets]?
 
+    public struct ActionClass: Decodable {
+      public let verb: String?
+      public let object: String?
+    }
+
     public struct Assets: Decodable {
       public let from: String
       public let to: String
       public let amount: Double
-      public let action: ActionClass
+      public let action: String
       public let asset: Asset
-    }
-
-    public struct ActionClass: Decodable {
-      public let verb: String?
-      public let object: String
     }
 
     public struct Asset: Decodable {
