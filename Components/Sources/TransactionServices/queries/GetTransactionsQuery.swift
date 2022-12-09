@@ -1,7 +1,7 @@
 import Foundation
 import Networking
 
-public struct GetTokensQuery: Query {
+public struct GetTransactionsQuery: Query {
   public var headers: [String: String]? {
     nil
   }

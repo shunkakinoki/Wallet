@@ -22,7 +22,7 @@ final class TokenDataSourceImp: TokenDataSource {
   }
 
   func fetch(from address: String) -> AnyPublisher<[Token], Error> {
-    let query = GetTokensQuery(
+    let query = GetTransactionsQuery(
       address: address
     )
     let request: AnyPublisher<[TokenDataModel], Error> = socketClient.performRequest(to: query)

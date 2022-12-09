@@ -69,6 +69,7 @@ let package = Package(
       dependencies: [
         "Keychain",
         "EthereumServices",
+        "UIComponents",
       ]),
     .target(
       name: "Keychain",
