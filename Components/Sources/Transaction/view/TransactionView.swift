@@ -21,10 +21,13 @@ public struct TransactionView: View {
     self.viewModel = viewModel
   }
   public var body: some View {
-    VStack {
-      walletSelectorButton
-      if viewModel.transactions.count > 0 {
-        ScrollView(.vertical, showsIndicators: false) {
+    ScrollView(.vertical, showsIndicators: false) {
+      VStack {
+        HStack(alignment: .center) {
+          walletSelectorButton
+          Spacer()
+        }
+        if viewModel.transactions.count > 0 {
           VStack(spacing: 0) {
             ForEach(viewModel.transactions) { asset in
               TransactionItem(transaction: asset)
@@ -38,9 +41,6 @@ public struct TransactionView: View {
           .clipShape(RoundedRectangle(cornerRadius: 8))
           .padding(.top, 15)
         }
-        .padding(.horizontal, 10)
-      } else {
-        Text("Transactions Empty")
       }
     }
     .background(Color(Colors.Background.secondary))
