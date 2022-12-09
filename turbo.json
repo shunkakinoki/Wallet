@@ -6,20 +6,21 @@
       "env": ["NODE_ENV"]
     },
     "build:dev": {
-      "dependsOn": ["^build:dev"],
-      "env": ["NODE_ENV"]
+      "dependsOn": ["^build"]
     },
-    "@lightdotso/background#build": {
+    "@lightwallet/background#build": {
       "dependsOn": ["^build"],
+      "env": ["NODE_ENV"],
       "inputs": ["**"],
       "outputs": ["../../Application/Light Safari Extension/Resources/background.js"]
     },
-    "@lightdotso/background#build:dev": {
+    "@lightwallet/background#build:dev": {
       "dependsOn": ["^build"],
+      "env": ["NODE_ENV"],
       "inputs": ["**"],
       "outputs": ["../../Application/Light Safari Extension/Resources/background.js"]
     },
-    "@lightdotso/content#build": {
+    "@lightwallet/content#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "env": ["CI", "JITSU_JS_KEY"],
@@ -28,7 +29,7 @@
         "../../Application/Light Safari Extension/Resources/content.js"
       ]
     },
-    "@lightdotso/content#build:dev": {
+    "@lightwallet/content#build:dev": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "env": ["CI", "JITSU_JS_KEY"],
@@ -37,55 +38,55 @@
         "../../Application/Light Safari Extension/Resources/content.js"
       ]
     },
-    "@lightdotso/ethereum#build": {
+    "@lightwallet/ethereum#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "outputs": [
         "../../Application/Light Safari Extension/Resources/ethereum.js"
       ]
     },
-    "@lightdotso/ethereum#build:dev": {
+    "@lightwallet/ethereum#build:dev": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "outputs": [
         "../../Application/Light Safari Extension/Resources/ethereum.js"
       ]
     },
-    "@lightdotso/inpage#build": {
+    "@lightwallet/inpage#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "outputs": [
         "../../Application/Light Safari Extension/Resources/inpage.js"
       ]
     },
-    "@lightdotso/inpage#build:dev": {
+    "@lightwallet/inpage#build:dev": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "outputs": [
         "../../Application/Light Safari Extension/Resources/inpage.js"
       ]
     },
-    "@lightdotso/popup#build": {
+    "@lightwallet/popup#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
-      "env": ["CI", "JITSU_JS_KEY"],
+      "env": ["CI", "JITSU_JS_KEY", "VERCEL"],
       "outputs": [
         ".next",
         "../../Application/Light Safari Extension/Resources/popup/**",
         "../../Application/Light Safari Extension/Resources/popup.html"
       ]
     },
-    "@lightdotso/popup#build:dev": {
+    "@lightwallet/popup#build:dev": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
-      "env": ["CI", "JITSU_JS_KEY"],
+      "env": ["CI", "JITSU_JS_KEY", "VERCEL"],
       "outputs": [
         ".next",
         "../../Application/Light Safari Extension/Resources/popup/**",
         "../../Application/Light Safari Extension/Resources/popup.html"
       ]
     },
-    "@lightdotso/wallet#build": {
+    "@lightwallet/wallet#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "outputs": [

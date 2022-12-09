@@ -19,7 +19,6 @@ jobs:
         with:
           ruby-version: "2.7.6"
       - uses: actions/setup-node@v3
-      - run: npm install -g yarn
       - run: |
           bundle install
           yarn install --frozen-lockfile

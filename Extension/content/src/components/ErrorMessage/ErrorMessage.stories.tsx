@@ -1,5 +1,4 @@
 import type { Story, Meta } from "@storybook/react";
-import React from "react";
 
 import { Page } from "../Page";
 

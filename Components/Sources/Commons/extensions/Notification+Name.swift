@@ -1,8 +1,8 @@
 import Foundation
 
-public extension Notification.Name {
-    static let lightLogIn = NSNotification.Name("lightLogIn")
-    static let lightLogOut = NSNotification.Name("lightLogOut")
-    static let changeLightTheme = NSNotification.Name("changeLightTheme")
-    static let changeDarkTheme = NSNotification.Name("changeDarkTheme")
+extension Notification.Name {
+  public static let lightLogIn = NSNotification.Name("lightLogIn")
+  public static let lightLogOut = NSNotification.Name("lightLogOut")
+  public static let changeLightTheme = NSNotification.Name("changeLightTheme")
+  public static let changeDarkTheme = NSNotification.Name("changeDarkTheme")
 }

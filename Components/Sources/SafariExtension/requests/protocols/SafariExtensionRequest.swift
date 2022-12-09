@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol SafariExtensionRequest {
-    var response: String? { get }
+  var response: String? { get }
 }
