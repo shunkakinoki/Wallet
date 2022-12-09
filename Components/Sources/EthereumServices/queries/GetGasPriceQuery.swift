@@ -25,7 +25,7 @@ struct GetGasPriceQuery: Query {
     ].toData()
   }
 
-  var service: Service {
+  var service: EthereumService {
     return .alchemy
   }
 }

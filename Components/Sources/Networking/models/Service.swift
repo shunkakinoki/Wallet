@@ -1,8 +1,8 @@
-public enum Service {
+public enum EthereumService {
   case alchemy
 }
 
-extension Service {
+extension EthereumService {
   var baseUrl: String {
     switch self {
     case .alchemy:

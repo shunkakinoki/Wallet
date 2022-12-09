@@ -6,13 +6,13 @@ public protocol Client {
 }
 
 public final class APIClient: Client {
-  public let networkProvider: NetworkProvider
+  public let networkProvider: EthereumNetworkProvider
 
   public convenience init() {
     self.init(networkProvider: RPCNetworkProvider())
   }
 
-  private init(networkProvider: NetworkProvider) {
+  private init(networkProvider: EthereumNetworkProvider) {
     self.networkProvider = networkProvider
   }
 
