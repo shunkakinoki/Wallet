@@ -19,6 +19,9 @@ let package = Package(
     .package(url: "https://github.com/SDWebImage/SDWebImage", from: "5.12.5"),
     .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI", from: "2.0.2"),
     .package(url: "https://github.com/SDWebImage/SDWebImageSVGCoder.git", from: "1.6.1"),
+    .package(
+      url: "https://github.com/socketio/socket.io-client-swift",
+      .revision("a1ed825835a2d8c2555938e96557ccc05e4bebf3")),
     .package(url: "https://github.com/kean/Nuke", .branch("master")),
     .package(url: "https://github.com/krzyzanowskim/CryptoSwift", from: "1.5.1"),
     .package(url: "https://github.com/GigaBitcoin/secp256k1.swift", .branch("main")),
@@ -84,7 +87,12 @@ let package = Package(
     .target(
       name: "Main",
       dependencies: [
-        "Home", "Onboarding", "Commons", "SnapKit", "Splash", "UIComponents",
+        "Home", "Onboarding", "Commons", "SnapKit", "Splash", "UIComponents", "Tokens",
+      ]),
+    .target(
+      name: "Networking",
+      dependencies: [
+        .product(name: "SocketIO", package: "socket.io-client-swift")
       ]),
     .target(
       name: "Onboarding",
@@ -124,6 +132,21 @@ let package = Package(
         "Session",
         "SnapKit",
         "SDWebImageSVGCoder",
+      ]),
+    .target(
+      name: "TokenServices",
+      dependencies: [
+        "Commons",
+        "Networking",
+        "Session",
+      ]),
+    .target(
+      name: "Tokens",
+      dependencies: [
+        "Commons",
+        "SDWebImageSwiftUI",
+        "TokenServices",
+        "UIComponents",
       ]),
     .target(
       name: "UIComponents",

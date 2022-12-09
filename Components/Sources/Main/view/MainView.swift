@@ -1,5 +1,6 @@
 import Home
 import SwiftUI
+import Tokens
 
 struct MainView: View {
   @State var tabSelection = 1
@@ -7,6 +8,11 @@ struct MainView: View {
   @ViewBuilder
   func fetchHomeView() -> some View {
     return HomeFactory.view()
+  }
+
+  @ViewBuilder
+  func fetchTokensView() -> some View {
+    return TokenFactory.view()
   }
 
   var body: some View {
@@ -21,12 +27,6 @@ struct MainView: View {
         .tag(1)
         .tabItem {
           Label("Explore", systemImage: "safari")
-        }
-
-      fetchHomeView()
-        .tag(2)
-        .tabItem {
-          Label("Transactions", systemImage: "mail.stack.fill")
         }
     }
   }
