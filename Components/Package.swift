@@ -87,7 +87,7 @@ let package = Package(
     .target(
       name: "Main",
       dependencies: [
-        "Home", "Onboarding", "Commons", "SnapKit", "Splash", "UIComponents", "Tokens",
+        "Home", "Onboarding", "Commons", "SnapKit", "Splash", "UIComponents", "Transactions",
       ]),
     .target(
       name: "Networking",
@@ -141,7 +141,7 @@ let package = Package(
         "Session",
       ]),
     .target(
-      name: "Tokens",
+      name: "Transactions",
       dependencies: [
         "Commons",
         "SDWebImageSwiftUI",
