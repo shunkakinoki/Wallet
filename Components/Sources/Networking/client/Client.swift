@@ -8,13 +8,8 @@ public protocol Client {
 public final class APIClient: Client {
   public let networkProvider: NetworkProvider
 
-  public convenience init(with layer: Layer) {
-    switch layer {
-    case .rest:
-      self.init(networkProvider: RestAPINetowkrProvider())
-    case .rpc:
-      self.init(networkProvider: RPCNetworkProvider())
-    }
+  public convenience init() {
+    self.init(networkProvider: RPCNetworkProvider())
   }
 
   private init(networkProvider: NetworkProvider) {

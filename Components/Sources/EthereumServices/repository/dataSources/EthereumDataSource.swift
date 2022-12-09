@@ -19,7 +19,7 @@ public final class EthereumDataSourceImp: EthereumDataSource {
   private let client: Client
 
   public convenience init() {
-    self.init(client: APIClient(with: .rpc))
+    self.init(client: APIClient())
   }
 
   init(client: Client) {
