@@ -11,7 +11,7 @@ public struct GetTransactionsQuery: Query {
   }
 
   public var query: String {
-    "\(address)"
+    "v1/address/\(address)/transactions"
   }
 
   public var body: Data? {
@@ -19,7 +19,7 @@ public struct GetTransactionsQuery: Query {
   }
 
   public var service: Service {
-    return .zerion
+    return .coherent
   }
 
   private let address: String

@@ -9,45 +9,42 @@ public protocol TransactionDataSource {
 
 final class TransactionDataSourceImp: TransactionDataSource {
 
-  private let socketClient: Client
+  private let restClient: Client
 
   public convenience init() {
     self.init(
-      socketClient: APIClient(with: .socket)
+      restClient: APIClient(with: .rest)
     )
   }
 
-  init(socketClient: Client) {
-    self.socketClient = socketClient
+  init(restClient: Client) {
+    self.restClient = restClient
   }
 
   func fetch(from address: String) -> AnyPublisher<[TransactionStruct], Error> {
     let query = GetTransactionsQuery(
       address: address
     )
-    let request: AnyPublisher<[TransactionDataModel], Error> = socketClient.performRequest(
+    let request: AnyPublisher<[TransactionDataModel], Error> = restClient.performRequest(
       to: query)
     return request.map {
-      $0.first!.payload.assets
-        .filter { $0.value.asset.decimals != 0 }
-        .map { $0.value.toDomain() }
-        .sorted { $0.value > $1.value }
+      $0.first!.transactions
+        .map { $0.toDomain() }
     }.eraseToAnyPublisher()
+
   }
 }
 
-extension TransactionDataModel.DynamicAsset {
+extension TransactionDataModel.Transaction {
   func toDomain() -> TransactionStruct {
-    let quantity = (Double(self.quantity) ?? 0) / pow(10, 18)
-    let value = self.asset.price?.value ?? 0
-    let price = quantity * value
     return TransactionStruct(
-      id: UUID().uuidString,
-      name: self.asset.name,
-      image: self.asset.icon_url ?? "",
-      quantity: String(format: "%.1f", quantity),
-      assetCode: self.asset.symbol,
-      value: price
+      id: self.txHash,
+      name: self.action.verb?.hashValue,
+      image: "",
+      quantity: String(format: "%.1f", 0),
+      assetCode: self.action.object.rawValue,
+      value: 1.0
     )
   }
+
 }
