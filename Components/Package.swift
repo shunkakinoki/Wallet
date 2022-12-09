@@ -139,6 +139,7 @@ let package = Package(
       dependencies: [
         "Commons",
         "Networking",
+        "Keychain",
         "Session",
       ]),
     .target(

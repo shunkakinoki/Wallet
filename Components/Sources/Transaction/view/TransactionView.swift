@@ -1,4 +1,5 @@
 import Commons
+import Home
 import SDWebImageSwiftUI
 import SwiftUI
 import TransactionServices
@@ -11,6 +12,9 @@ public struct TransactionView: View {
   @Environment(\.presentationMode)
   var presentationMode
 
+  @State
+  private var visibleAccount = false
+
   public init(
     viewModel: TransactionViewModel
   ) {
@@ -18,6 +22,7 @@ public struct TransactionView: View {
   }
   public var body: some View {
     VStack {
+      walletSelectorButton
       if viewModel.transactions.count > 0 {
         ScrollView(.vertical, showsIndicators: false) {
           VStack(spacing: 0) {
@@ -40,4 +45,19 @@ public struct TransactionView: View {
     }
     .background(Color(Colors.Background.secondary))
   }
+
+  var walletSelectorButton: some View {
+    Button(action: { visibleAccount.toggle() }) {
+      WalletSelectorIcon(
+        walletColor: viewModel.color)
+    }
+    .sheet(isPresented: $visibleAccount, onDismiss: onDismiss) {
+      ProfileSelectorView()
+    }
+  }
+
+  private func onDismiss() {
+    viewModel.getWalletSelected()
+  }
+
 }

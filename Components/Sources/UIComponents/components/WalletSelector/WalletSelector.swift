@@ -15,11 +15,7 @@ public struct WalletSelector: View {
   }
 
   public var body: some View {
-    Image(walletColor)
-      .resizable()
-      .aspectRatio(contentMode: .fill)
-      .frame(width: 48, height: 48)
-      .clipShape(Circle())
+    WalletSelectorIcon(walletColor: walletColor)
     VStack(alignment: .leading, spacing: 1) {
       HStack {
         Text(walletName)
