@@ -13,6 +13,12 @@ struct HomeView: View {
   private var visibleAccount = false
 
   @State
+  private var showTokensDetail = false
+
+  @State
+  private var showAppsDetail = false
+
+  @State
   private var showingMore = false
 
   @State
@@ -147,70 +153,26 @@ struct HomeView: View {
           .cornerRadius(14)
           .padding(.top, 16)
         }
-        HStack {
-          Text("Apps")
-            .font(.system(size: 15, weight: .semibold))
-            .foregroundColor(Color(Colors.Label.secondary))
-            .padding(.top, 16)
-            .opacity(viewModel.configurations.count == 0 ? 0 : 1)
-          Spacer()
-        }
-        VStack(spacing: 0) {
-          ForEach(viewModel.configurations, id: \.self) { configuration in
-            Link(destination: URL(string: "https://\(configuration.host)")!) {
-              HStack {
-                WebImage(
-                  url: URL(
-                    string:
-                      "https://\(configuration.host)/\(configuration.favicon ?? "favicon.ico")")
-                )
-                .resizable()
-                .frame(width: 36, height: 36)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                VStack(alignment: .leading, spacing: 0) {
-                  Text(configuration.host)
-                    .foregroundColor(Color(Colors.Label.primary))
-                    .font(Font.system(size: 17, weight: .regular))
-                    ._lineHeightMultiple(1.09)
-                  Text(configuration.host)
-                    .foregroundColor(Color(Colors.Label.secondary))
-                    .font(Font.system(size: 12, weight: .regular))
-                    ._lineHeightMultiple(1.12)
-                }
-                .padding([.bottom], 2)
-                Spacer()
-                Image(viewModel.getChainImage(chainId: configuration.chainId))
-                  .frame(width: 24, height: 24)
-                  .padding(.trailing, 24)
-                  .foregroundColor(Color(Colors.System.red))
-              }
-              .contentShape(Rectangle())
-              .frame(maxWidth: .infinity)
-              .padding([.top, .bottom], 8).padding(.leading, 16)
-            }
-            if configuration != viewModel.configurations.last {
-              Rectangle()
-                .fill(Color(Colors.Separator.transparency))
-                .frame(height: 0.5)
-                .padding(.leading, 54)
-            }
-          }
-        }
-        .background(Color(Colors.System.secondary))
-        .cornerRadius(14)
-        .padding(.top, 6)
-        .padding(.bottom, 16)
-
+        tokenList()
+        appsList()
         Spacer()
       }
       .onReceive(
         NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
       ) { _ in
         viewModel.getConfiguration()
+        refreshTokens()
       }
       .onAppear {
         viewModel.getWalletSelected()
         viewModel.getConfiguration()
+        refreshTokens()
+      }
+      .sheet(isPresented: $showTokensDetail) {
+        tokenDetail
+      }
+      .sheet(isPresented: $showAppsDetail) {
+        appsDetail
       }
       .padding([.leading, .trailing, .top], 16)
       Spacer()
@@ -219,6 +181,18 @@ struct HomeView: View {
       AlertToast(type: .complete(Color(.green)), title: "Copied!")
     }
     .refreshable {}
+  }
+
+  var tokenDetail: some View {
+    ModalPresenter {
+      tokenList(isDetail: true)
+    }
+  }
+
+  var appsDetail: some View {
+    ModalPresenter {
+      appsList(isDetail: true)
+    }
   }
 
   var walletSelectorButton: some View {
@@ -250,5 +224,112 @@ struct HomeView: View {
   private func onDismiss() {
     viewModel.getWalletSelected()
     viewModel.getConfiguration()
+    refreshTokens()
+  }
+
+  private func refreshTokens() {
+    Task {
+      await viewModel.getTokensList()
+    }
+  }
+}
+
+extension HomeView {
+  func tokenList(isDetail: Bool = false) -> some View {
+    VStack {
+      if !isDetail {
+        HStack(alignment: .center) {
+          Text("Tokens")
+            .font(.system(size: 15, weight: .semibold))
+            .foregroundColor(Color(Colors.Label.secondary))
+            .padding(.top, 16)
+            .opacity(viewModel.tokens.count == 0 ? 0 : 1)
+          Spacer()
+          Button {
+            showTokensDetail.toggle()
+          } label: {
+            Text("More")
+              .font(.system(size: 15, weight: .semibold))
+              .foregroundColor(Color(Colors.Label.secondary))
+              .padding(.top, 16)
+              .opacity(viewModel.tokens.count == 0 ? 0 : 1)
+          }
+        }
+      }
+      VStack(spacing: 0) {
+        ForEach(isDetail == true ? viewModel.tokens : Array(viewModel.tokens.prefix(5)), id: \.self) { token in
+          TokenItem(token: token)
+        }
+      }
+    }
+  }
+
+  func appsList(isDetail: Bool = false) -> some View {
+    VStack {
+      if !isDetail {
+        HStack {
+          Text("Apps")
+            .font(.system(size: 15, weight: .semibold))
+            .foregroundColor(Color(Colors.Label.secondary))
+            .padding(.top, 16)
+            .opacity(viewModel.configurations.count == 0 ? 0 : 1)
+          Spacer()
+          Button {
+            showAppsDetail.toggle()
+          } label: {
+            Text("More")
+              .font(.system(size: 15, weight: .semibold))
+              .foregroundColor(Color(Colors.Label.secondary))
+              .padding(.top, 16)
+              .opacity(viewModel.configurations.count == 0 ? 0 : 1)
+          }
+        }
+      }
+      VStack(spacing: 0) {
+        ForEach(isDetail == true ? viewModel.configurations : Array(viewModel.configurations.prefix(5)), id: \.self) { configuration in
+          Link(destination: URL(string: "https://\(configuration.host)")!) {
+            HStack {
+              WebImage(
+                url: URL(
+                  string:
+                    "https://\(configuration.host)/\(configuration.favicon ?? "favicon.ico")")
+              )
+              .resizable()
+              .frame(width: 36, height: 36)
+              .clipShape(RoundedRectangle(cornerRadius: 8))
+              VStack(alignment: .leading, spacing: 0) {
+                Text(configuration.host)
+                  .foregroundColor(Color(Colors.Label.primary))
+                  .font(Font.system(size: 17, weight: .regular))
+                  ._lineHeightMultiple(1.09)
+                Text(configuration.host)
+                  .foregroundColor(Color(Colors.Label.secondary))
+                  .font(Font.system(size: 12, weight: .regular))
+                  ._lineHeightMultiple(1.12)
+              }
+              .padding([.bottom], 2)
+              Spacer()
+              Image(viewModel.getChainImage(chainId: configuration.chainId))
+                .frame(width: 24, height: 24)
+                .padding(.trailing, 24)
+                .foregroundColor(Color(Colors.System.red))
+            }
+            .contentShape(Rectangle())
+            .frame(maxWidth: .infinity)
+            .padding([.top, .bottom], 8).padding(.leading, 16)
+          }
+          if configuration != viewModel.configurations.last {
+            Rectangle()
+              .fill(Color(Colors.Separator.transparency))
+              .frame(height: 0.5)
+              .padding(.leading, 54)
+          }
+        }
+      }
+      .background(Color(Colors.System.secondary))
+      .cornerRadius(14)
+      .padding(.top, 6)
+      .padding(.bottom, 16)
+    }
   }
 }

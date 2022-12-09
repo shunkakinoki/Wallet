@@ -21,10 +21,6 @@ public final class APIClient: Client {
     self.networkProvider = networkProvider
   }
 
-  public func performRequest<T: Decodable>(to query: Query) -> AnyPublisher<T, Error> {
-    Empty().eraseToAnyPublisher()
-  }
-
   public func performRequest<T: Decodable>(to query: Query) async throws -> T {
     try await networkProvider.performRequest(to: query)
   }
