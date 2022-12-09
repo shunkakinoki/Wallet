@@ -22,7 +22,7 @@ class TransactionRequestSignatureTests: XCTestCase {
       "gas": "0x2a94c",
       "to": "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45",
     ]
-    let ps = PostTransactionafariRequest(
+    let ps = PostTransactionSafariRequest(
       parameters: parameters,
       getWallet: GetWalletMock(),
       signature: signature)
