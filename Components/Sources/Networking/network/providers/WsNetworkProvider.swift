@@ -17,17 +17,16 @@ public final class WsNetworkProvider: NetworkProvider {
   public init(networkSession: URLSession) {
     self.networkSession = networkSession
     self.socketManager = SocketManager(
-      socketURL: URL(string: "wss://api-v4.zerion.io")!,
+      socketURL: URL(string: "wss://ws.coherent.sh")!,
       config: [
         .log(false),
-        .extraHeaders(["Origin": "https://light.so"]),
+        .extraHeaders(["x-api-key": "b920e8ab-0498-4caa-9060-04b54a78ded5"]),
         .forceWebsockets(true),
-        .connectParams(["api_token": "Light.naTLgmR7DH1LLlZZXWLtqh6xRZ7D6wa6"]),
         .version(.two),
         .secure(true),
       ]
     )
-    self.socketClient = socketManager.socket(forNamespace: "/address")
+    self.socketClient = socketManager.socket(forNamespace: "/v1/transactions")
     self.socketClient.connect()
   }
 
