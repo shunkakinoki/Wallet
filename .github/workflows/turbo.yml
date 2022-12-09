@@ -16,6 +16,8 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
+      - run: npm install -g yarn
+      - uses: borales/actions-yarn@v4
       - run: |
           yarn install --frozen-lockfile
       - run: |
@@ -28,6 +30,7 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
+      - run: npm install -g yarn
       - run: |
           yarn install --frozen-lockfile
       - run: |
