@@ -25,13 +25,12 @@ final class TransactionDataSourceImp: TransactionDataSource {
     let query = GetTransactionsQuery(
       address: address
     )
-    let request: AnyPublisher<[TransactionDataModel], Error> = restClient.performRequest(
+    let request: AnyPublisher<TransactionDataModel, Error> = restClient.performRequest(
       to: query)
-    return request.map {
-      $0.first!.transactions
-        .map { $0.toDomain() }
-    }.eraseToAnyPublisher()
-
+    return
+      request
+      .map { $0.transactions.map { $0.toDomain() } }
+      .eraseToAnyPublisher()
   }
 }
 
@@ -43,8 +42,7 @@ extension TransactionDataModel.Transaction {
       image: "https://picsum.photos/200",
       quantity: "23",
       assetCode: "code",
-      value: 1.0
+      value: "value"
     )
   }
-
 }

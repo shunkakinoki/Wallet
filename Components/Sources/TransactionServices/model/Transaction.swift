@@ -8,10 +8,10 @@ public struct TransactionStruct: Hashable, Identifiable, Equatable {
   public let image: String
   public let quantity: String
   public let assetCode: String
-  public let value: Double
+  public let value: String
 
   public init(
-    id: String, name: String, image: String, quantity: String, assetCode: String, value: Double
+    id: String, name: String, image: String, quantity: String, assetCode: String, value: String
   ) {
     self.id = id
     self.name = name
