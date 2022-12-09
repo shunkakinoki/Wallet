@@ -43,10 +43,11 @@ let package = Package(
       dependencies: [
         "Commons"
       ]),
+    .target(name: "EthereumNetworking"),
     .target(
       name: "EthereumServices",
       dependencies: [
-        "Networking",
+        "EthereumNetworking",
         "Domain",
         "Keychain",
       ]),
@@ -85,7 +86,6 @@ let package = Package(
       dependencies: [
         "Home", "Onboarding", "Commons", "SnapKit", "Splash", "UIComponents",
       ]),
-    .target(name: "Networking"),
     .target(
       name: "Onboarding",
       dependencies: [

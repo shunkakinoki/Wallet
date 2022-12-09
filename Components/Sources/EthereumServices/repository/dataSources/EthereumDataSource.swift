@@ -1,6 +1,6 @@
 import Combine
+import EthereumNetworking
 import Foundation
-import Networking
 
 public struct RPCResult<T: Decodable>: Decodable {
   public let id: Int?

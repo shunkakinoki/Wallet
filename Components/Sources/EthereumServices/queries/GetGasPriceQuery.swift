@@ -1,5 +1,5 @@
+import EthereumNetworking
 import Foundation
-import Networking
 
 struct GetGasPriceQuery: Query {
   var headers: [String: String]? {

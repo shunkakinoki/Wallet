@@ -1,5 +1,5 @@
+import EthereumNetworking
 import Foundation
-import Networking
 
 struct SendRawTransactionQuery: Query {
   var headers: [String: String]? {

@@ -1,5 +1,5 @@
+import EthereumNetworking
 import Foundation
-import Networking
 
 struct GetTransactionCountQuery: Query {
   var headers: [String: String]? {
