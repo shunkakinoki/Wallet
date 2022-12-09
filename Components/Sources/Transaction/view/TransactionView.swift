@@ -42,6 +42,10 @@ public struct TransactionView: View {
           .padding(.top, 15)
         }
       }
+      .onAppear {
+        viewModel.getWalletSelected()
+      }
+
     }
     .background(Color(Colors.Background.secondary))
   }
@@ -59,5 +63,4 @@ public struct TransactionView: View {
   private func onDismiss() {
     viewModel.getWalletSelected()
   }
-
 }
