@@ -4,7 +4,7 @@ import Foundation
 import Networking
 
 public protocol TransactionDataSource {
-  func fetch(from address: String) -> AnyPublisher<[Token], Error>
+  func fetch(from address: String) -> AnyPublisher<[TransactionStruct], Error>
 }
 
 final class TransactionDataSourceImp: TransactionDataSource {
@@ -21,7 +21,7 @@ final class TransactionDataSourceImp: TransactionDataSource {
     self.socketClient = socketClient
   }
 
-  func fetch(from address: String) -> AnyPublisher<[Token], Error> {
+  func fetch(from address: String) -> AnyPublisher<[TransactionStruct], Error> {
     let query = GetTransactionsQuery(
       address: address
     )
@@ -37,11 +37,11 @@ final class TransactionDataSourceImp: TransactionDataSource {
 }
 
 extension TransactionDataModel.DynamicAsset {
-  func toDomain() -> Token {
+  func toDomain() -> TransactionStruct {
     let quantity = (Double(self.quantity) ?? 0) / pow(10, 18)
     let value = self.asset.price?.value ?? 0
     let price = quantity * value
-    return Token(
+    return TransactionStruct(
       id: UUID().uuidString,
       name: self.asset.name,
       image: self.asset.icon_url ?? "",

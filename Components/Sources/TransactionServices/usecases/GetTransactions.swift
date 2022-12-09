@@ -2,8 +2,8 @@ import Combine
 import Foundation
 
 public protocol GetTransactions {
-  func invoke() -> AnyPublisher<[Token], Error>
-  func retrieve(with address: String) -> AnyPublisher<[Token], Error>
+  func invoke() -> AnyPublisher<[TransactionStruct], Error>
+  func retrieve(with address: String) -> AnyPublisher<[TransactionStruct], Error>
 }
 
 public struct GetTransactionsImp: GetTransactions {
@@ -18,11 +18,11 @@ public struct GetTransactionsImp: GetTransactions {
     self.repository = repository
   }
 
-  public func invoke() -> AnyPublisher<[Token], Error> {
+  public func invoke() -> AnyPublisher<[TransactionStruct], Error> {
     repository.get().eraseToAnyPublisher()
   }
 
-  public func retrieve(with address: String) -> AnyPublisher<[Token], Error> {
+  public func retrieve(with address: String) -> AnyPublisher<[TransactionStruct], Error> {
     repository.get(with: address)
   }
 }

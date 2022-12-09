@@ -3,7 +3,7 @@ import Foundation
 import TransactionServices
 
 public final class TransactionViewModel: ObservableObject {
-  @Published var tokens = [Token]()
+  @Published var transactions = [TransactionStruct]()
   private var subscriptions = Set<AnyCancellable>()
   var closeAction: () -> Void = {}
 
@@ -15,7 +15,7 @@ public final class TransactionViewModel: ObservableObject {
           print(error)
         },
         receiveValue: { value in
-          self.tokens = value
+          self.transactions = value
         }
       )
       .store(in: &subscriptions)

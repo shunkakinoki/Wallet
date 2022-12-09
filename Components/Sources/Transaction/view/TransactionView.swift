@@ -18,11 +18,11 @@ public struct TransactionView: View {
   }
   public var body: some View {
     VStack {
-      if viewModel.tokens.count > 0 {
+      if viewModel.transactions.count > 0 {
         ScrollView(.vertical, showsIndicators: false) {
           VStack(spacing: 0) {
-            ForEach(viewModel.tokens) { asset in
-              TokenItem(token: asset)
+            ForEach(viewModel.transactions) { asset in
+              TransactionItem(transaction: asset)
                 .frame(height: 64.5)
               Rectangle()
                 .fill(.white.opacity(0.12))

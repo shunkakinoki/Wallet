@@ -1,6 +1,8 @@
 import Foundation
 
-public struct Token: Hashable, Identifiable, Equatable {
+// TransactionStruct since Transaction clashes with SwiftUI's native Transaction
+// https://developer.apple.com/documentation/swiftui/transaction
+public struct TransactionStruct: Hashable, Identifiable, Equatable {
   public let id: String
   public let name: String
   public let image: String
@@ -23,7 +25,7 @@ public struct Token: Hashable, Identifiable, Equatable {
     hasher.combine(id)
   }
 
-  public static func == (lhs: Token, rhs: Token) -> Bool {
+  public static func == (lhs: TransactionStruct, rhs: TransactionStruct) -> Bool {
     return lhs.id == rhs.id
   }
 }
