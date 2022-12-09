@@ -100,8 +100,9 @@
       "dependsOn": [],
       "outputs": [],
       "inputs": [
-        "Application/**/*.swift",
-        "Components/**/*.swift",
+        "Application/**/Sources/**/*.swift",
+        "Components/**/Sources/**/*.swift",
+        "Components/**/Tests/**/*.swift",
         "Extension/**/src/**/*.ts",
         "Extension/**/src/**/*.tsx"
       ]
