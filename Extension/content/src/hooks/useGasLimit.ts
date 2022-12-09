@@ -42,7 +42,7 @@ const fetcher = params => {
             return intToHex(saferGasLimit);
           }
           const estimatedGasLimit = parseInt(response.result, 16);
-          const bufferedGasLimit = estimatedGasLimit * 1.5;
+          const bufferedGasLimit = estimatedGasLimit * 4;
           const upperGasLimit = blockGasLimit * 0.9;
 
           logContent(
