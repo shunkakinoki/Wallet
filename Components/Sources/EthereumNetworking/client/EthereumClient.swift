@@ -1,11 +1,11 @@
 import Combine
 import Foundation
 
-public protocol Client {
+public protocol EthereumClient {
   func performRequest<T: Decodable>(to query: Query) async throws -> T
 }
 
-public final class APIClient: Client {
+public final class RPCEthereumClient: EthereumClient {
   public let networkProvider: EthereumNetworkProvider
 
   public convenience init() {

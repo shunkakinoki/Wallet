@@ -16,13 +16,15 @@ public protocol EthereumDataSource {
 
 public final class EthereumDataSourceImp: EthereumDataSource {
 
-  private let client: Client
+  private let client: EthereumClient
 
   public convenience init() {
-    self.init(client: APIClient())
+    self.init(client: RPCEthereumClient())
   }
 
-  init(client: Client) {
+  init(
+    client: EthereumClient
+  ) {
     self.client = client
   }
 
