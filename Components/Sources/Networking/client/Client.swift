@@ -11,7 +11,7 @@ public final class APIClient: Client {
   public convenience init(with layer: Layer) {
     switch layer {
     case .rest:
-      self.init(networkProvider: RestAPINetowkrProvider())
+      self.init(networkProvider: RestAPINetworkProvider())
     case .graphql:
       self.init(networkProvider: GraphQLNetworkProvider())
     case .socket:

@@ -15,6 +15,7 @@ public struct TokensFactory {
   }
 
   public static func view() -> some View {
-    return HomeView()
+    let vm = TokensViewModel()
+    return TokensView(viewModel: vm)
   }
 }

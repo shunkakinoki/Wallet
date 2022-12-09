@@ -12,7 +12,7 @@ struct MainView: View {
 
   @ViewBuilder
   func fetchTokensView() -> some View {
-    return TokenFactory.view()
+    return TokensFactory.view()
   }
 
   var body: some View {
@@ -23,7 +23,7 @@ struct MainView: View {
           Label("Home", systemImage: "house.fill")
         }
 
-      fetchHomeView()
+      fetchTokensView()
         .tag(1)
         .tabItem {
           Label("Explore", systemImage: "safari")

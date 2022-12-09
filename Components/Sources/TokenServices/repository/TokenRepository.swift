@@ -30,7 +30,7 @@ public class TokenRepositoryImp: TokenRepository {
   }
 
   public func get() -> AnyPublisher<[Token], Error> {
-    guard let address = session.getSelected().address else {
+    guard let address = try? session.getSelected().address else {
       return Empty().eraseToAnyPublisher()
     }
     return dataSource.fetch(from: address.eip55Description).eraseToAnyPublisher()
@@ -41,7 +41,7 @@ public class TokenRepositoryImp: TokenRepository {
   }
 
   public func refresh() -> AnyPublisher<[Token], Never> {
-    guard let address = session.getSelected().address else {
+    guard let address = try? session.getSelected().address else {
       return Empty().eraseToAnyPublisher()
     }
     return dataSource.fetch(from: address.eip55Description)
