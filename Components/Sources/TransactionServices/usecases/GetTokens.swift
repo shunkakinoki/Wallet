@@ -8,13 +8,13 @@ public protocol GetTokens {
 
 public struct GetTokensImp: GetTokens {
 
-  private let repository: TokenRepository
+  private let repository: TransactionRepository
 
   public init() {
-    self.init(repository: TokenRepositoryImp())
+    self.init(repository: TransactionRepositoryImp())
   }
 
-  private init(repository: TokenRepository) {
+  private init(repository: TransactionRepository) {
     self.repository = repository
   }
 

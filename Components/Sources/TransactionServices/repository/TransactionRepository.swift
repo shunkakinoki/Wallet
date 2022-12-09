@@ -3,13 +3,13 @@ import Commons
 import Foundation
 import Session
 
-public protocol TokenRepository {
+public protocol TransactionRepository {
   func get() -> AnyPublisher<[Token], Error>
   func get(with address: String) -> AnyPublisher<[Token], Error>
   func refresh() -> AnyPublisher<[Token], Never>
 }
 
-public class TokenRepositoryImp: TokenRepository {
+public class TransactionRepositoryImp: TransactionRepository {
 
   private let dataSource: TransactionDataSource
   private let session: SessionRepository
