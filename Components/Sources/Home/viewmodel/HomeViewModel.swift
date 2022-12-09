@@ -62,10 +62,11 @@ public final class HomeViewModel: ObservableObject {
   }
 
   @MainActor
-  public func getTokensList() {
-    Task {
-      print(try await getTokens.get())
+  public func getTokensList() async {
+    do {
       self.tokens = try await getTokens.get()
+    } catch {
+      self.tokens = []
     }
   }
 

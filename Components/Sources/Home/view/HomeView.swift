@@ -13,6 +13,12 @@ struct HomeView: View {
   private var visibleAccount = false
 
   @State
+  private var showTokensDetail = false
+
+  @State
+  private var showAppsDetail = false
+
+  @State
   private var showingMore = false
 
   @State
@@ -147,8 +153,8 @@ struct HomeView: View {
           .cornerRadius(14)
           .padding(.top, 16)
         }
-        tokenList
-        appsList
+        tokenList()
+        appsList()
         Spacer()
       }
       .onReceive(
@@ -162,6 +168,12 @@ struct HomeView: View {
         viewModel.getConfiguration()
         refreshTokens()
       }
+      .sheet(isPresented: $showTokensDetail) {
+        tokenDetail
+      }
+      .sheet(isPresented: $showAppsDetail) {
+        appsDetail
+      }
       .padding([.leading, .trailing, .top], 16)
       Spacer()
     }
@@ -171,46 +183,110 @@ struct HomeView: View {
     .refreshable {}
   }
 
-  var tokenList: some View {
+  var tokenDetail: some View {
+    ModalPresenter {
+      tokenList(isDetail: true)
+    }
+  }
+
+  var appsDetail: some View {
+    ModalPresenter {
+      appsList(isDetail: true)
+    }
+  }
+
+  var walletSelectorButton: some View {
+    Button(action: { visibleAccount.toggle() }) {
+      WalletSelector(
+        walletColor: viewModel.color, walletName: viewModel.name,
+        walletAddress: viewModel.selectedAddress)
+    }
+    .sheet(isPresented: $visibleAccount, onDismiss: onDismiss) {
+      ProfileSelectorView()
+    }
+  }
+
+  var settingsButton: some View {
+    Button(action: { showingSettings.toggle() }) {
+      Image(systemName: "gearshape.fill")
+        .resizable()
+        .frame(width: 20, height: 20)
+        .foregroundColor(Color(Colors.Label.primary))
+        .padding(8)
+        .background(Color(Colors.Surface.overlay))
+        .clipShape(Circle())
+    }
+    .sheet(isPresented: $showingSettings, onDismiss: onDismiss) {
+      SettingsView()
+    }
+  }
+
+  private func onDismiss() {
+    viewModel.getWalletSelected()
+    viewModel.getConfiguration()
+    refreshTokens()
+  }
+
+  private func refreshTokens() {
+    Task {
+      await viewModel.getTokensList()
+    }
+  }
+}
+
+extension HomeView {
+  func tokenList(isDetail: Bool = false) -> some View {
     VStack {
-      HStack(alignment: .center) {
-        Text("Tokens")
-          .font(.system(size: 15, weight: .semibold))
-          .foregroundColor(Color(Colors.Label.secondary))
-          .padding(.top, 16)
-          .opacity(viewModel.tokens.count == 0 ? 0 : 1)
-        Spacer()
-        Text("More")
-          .font(.system(size: 15, weight: .semibold))
-          .foregroundColor(Color(Colors.Label.secondary))
-          .padding(.top, 16)
-          .opacity(viewModel.tokens.count == 0 ? 0 : 1)
+      if !isDetail {
+        HStack(alignment: .center) {
+          Text("Tokens")
+            .font(.system(size: 15, weight: .semibold))
+            .foregroundColor(Color(Colors.Label.secondary))
+            .padding(.top, 16)
+            .opacity(viewModel.tokens.count == 0 ? 0 : 1)
+          Spacer()
+          Button {
+            showTokensDetail.toggle()
+          } label: {
+            Text("More")
+              .font(.system(size: 15, weight: .semibold))
+              .foregroundColor(Color(Colors.Label.secondary))
+              .padding(.top, 16)
+              .opacity(viewModel.tokens.count == 0 ? 0 : 1)
+          }
+        }
       }
       VStack(spacing: 0) {
-        ForEach(viewModel.tokens.prefix(5), id: \.self) { token in
+        ForEach(isDetail == true ? viewModel.tokens : Array(viewModel.tokens.prefix(5)), id: \.self) { token in
           TokenItem(token: token)
         }
       }
     }
   }
 
-  var appsList: some View {
+  func appsList(isDetail: Bool = false) -> some View {
     VStack {
-      HStack {
-        Text("Apps")
-          .font(.system(size: 15, weight: .semibold))
-          .foregroundColor(Color(Colors.Label.secondary))
-          .padding(.top, 16)
-          .opacity(viewModel.configurations.count == 0 ? 0 : 1)
-        Spacer()
-        Text("More")
-          .font(.system(size: 15, weight: .semibold))
-          .foregroundColor(Color(Colors.Label.secondary))
-          .padding(.top, 16)
-          .opacity(viewModel.configurations.count == 0 ? 0 : 1)
+      if !isDetail {
+        HStack {
+          Text("Apps")
+            .font(.system(size: 15, weight: .semibold))
+            .foregroundColor(Color(Colors.Label.secondary))
+            .padding(.top, 16)
+            .opacity(viewModel.configurations.count == 0 ? 0 : 1)
+          Spacer()
+          Button {
+            showAppsDetail.toggle()
+          } label: {
+            Text("More")
+              .font(.system(size: 15, weight: .semibold))
+              .foregroundColor(Color(Colors.Label.secondary))
+              .padding(.top, 16)
+              .opacity(viewModel.configurations.count == 0 ? 0 : 1)
+          }
+        }
       }
       VStack(spacing: 0) {
-        ForEach(viewModel.configurations, id: \.self) { configuration in
+        ForEach(isDetail == true ? viewModel.configurations : Array(viewModel.configurations.prefix(5)), id: \.self) { configuration in
           Link(destination: URL(string: "https://\(configuration.host)")!) {
             HStack {
               WebImage(
@@ -255,41 +331,5 @@ struct HomeView: View {
       .padding(.top, 6)
       .padding(.bottom, 16)
     }
-  }
-
-  var walletSelectorButton: some View {
-    Button(action: { visibleAccount.toggle() }) {
-      WalletSelector(
-        walletColor: viewModel.color, walletName: viewModel.name,
-        walletAddress: viewModel.selectedAddress)
-    }
-    .sheet(isPresented: $visibleAccount, onDismiss: onDismiss) {
-      ProfileSelectorView()
-    }
-  }
-
-  var settingsButton: some View {
-    Button(action: { showingSettings.toggle() }) {
-      Image(systemName: "gearshape.fill")
-        .resizable()
-        .frame(width: 20, height: 20)
-        .foregroundColor(Color(Colors.Label.primary))
-        .padding(8)
-        .background(Color(Colors.Surface.overlay))
-        .clipShape(Circle())
-    }
-    .sheet(isPresented: $showingSettings, onDismiss: onDismiss) {
-      SettingsView()
-    }
-  }
-
-  private func onDismiss() {
-    viewModel.getWalletSelected()
-    viewModel.getConfiguration()
-    refreshTokens()
-  }
-
-  private func refreshTokens() {
-    viewModel.getTokensList()
   }
 }

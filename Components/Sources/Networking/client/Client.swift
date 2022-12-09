@@ -14,17 +14,11 @@ public final class APIClient: Client {
       self.init(networkProvider: RestAPINetowkrProvider())
     case .rpc:
       self.init(networkProvider: RPCNetworkProvider())
-    case .ws:
-      self.init(networkProvider: WsNetworkProvider())
     }
   }
 
   private init(networkProvider: NetworkProvider) {
     self.networkProvider = networkProvider
-  }
-
-  public func performRequest<T: Decodable>(to query: Query) -> AnyPublisher<T, Error> {
-    Empty().eraseToAnyPublisher()
   }
 
   public func performRequest<T: Decodable>(to query: Query) async throws -> T {
