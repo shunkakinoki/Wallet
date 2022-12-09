@@ -21,24 +21,26 @@ public final class RPCNetworkProvider: EthereumNetworkProvider {
 
   public func performRequest<T>(
     to query: Query
-  ) async throws -> T where T: Decodable {
+  ) -> AnyPublisher<T, Error> where T: Decodable {
     guard
       let request = try? getRequest(
         for: URL(string: query.service.baseUrl),
         body: query.body,
         and: query.headers
       )
-    else { throw APIError.invalidQuery }
-    let (data, response) = try await networkSession.data(for: request)
-    if let response = response as? HTTPURLResponse,
-      (200..<300).contains(response.statusCode) == false
-    {
-      throw APIError.statusCode(response)
-    }
-    guard let parsedData = try? JSONDecoder().decode(T.self, from: data) else {
-      throw APIError.invalidData
-    }
-    return parsedData
+    else { return Fail(error: NSError()).eraseToAnyPublisher() }
+    return networkSession.dataTaskPublisher(for: request)
+      .tryMap({ (data, response) -> Data in
+        if let response = response as? HTTPURLResponse,
+          (200..<300).contains(response.statusCode) == false
+        {
+          throw SessionError.statusCode(response)
+        }
+        return data
+      })
+      .mapError({ NSError(domain: $0.localizedDescription, code: 1) })
+      .decode(as: T.self)
+      .eraseToAnyPublisher()
   }
 
   private func getRequest(

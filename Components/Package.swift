@@ -154,7 +154,7 @@ let package = Package(
         "SnapKit",
         "SDWebImage",
         "Commons",
-        .product(name: "NukeUI", package: "Nuke"),
+        "TokenServices",
       ]),
   ]
 )

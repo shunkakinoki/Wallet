@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public final class RestAPINetowkrProvider: NetworkProvider {
+public final class RestAPINetworkProvider: RPCNetworkProvider {
 
   private let networkSession: URLSession
 
