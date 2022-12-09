@@ -87,7 +87,7 @@ let package = Package(
     .target(
       name: "Main",
       dependencies: [
-        "Home", "Onboarding", "Commons", "SnapKit", "Splash", "UIComponents", "Transactions",
+        "Home", "Onboarding", "Commons", "SnapKit", "Splash", "UIComponents", "Transaction",
       ]),
     .target(
       name: "Networking",
@@ -134,18 +134,18 @@ let package = Package(
         "SDWebImageSVGCoder",
       ]),
     .target(
-      name: "TransactionsServices",
+      name: "TransactionServices",
       dependencies: [
         "Commons",
         "Networking",
         "Session",
       ]),
     .target(
-      name: "Transactions",
+      name: "Transaction",
       dependencies: [
         "Commons",
         "SDWebImageSwiftUI",
-        "TransactionsServices",
+        "TransactionServices",
         "UIComponents",
       ]),
     .target(
@@ -154,7 +154,7 @@ let package = Package(
         "SnapKit",
         "SDWebImage",
         "Commons",
-        "TransactionsServices",
+        "TransactionServices",
       ]),
   ]
 )

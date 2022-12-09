@@ -19,7 +19,7 @@ public class TokenRepositoryImp: TokenRepository {
     self.init(
       dataSource: TokenDataSourceImp(),
       session: SessionRepositoryImp(),
-      tokens: TransactionsServicesConfigure.tokens
+      tokens: TransactionServicesConfigure.tokens
     )
   }
 
