@@ -24,6 +24,7 @@ let package = Package(
     .package(url: "https://github.com/GigaBitcoin/secp256k1.swift", .branch("main")),
     .package(url: "https://github.com/attaswift/BigInt", from: "5.3.0"),
     .package(url: "https://github.com/zcash-hackworks/MnemonicSwift", from: "2.2.4"),
+    .package(url: "https://github.com/socketio/socket.io-client-swift", .revision("a1ed825835a2d8c2555938e96557ccc05e4bebf3"))
   ],
   targets: [
     .target(
@@ -65,6 +66,7 @@ let package = Package(
       dependencies: [
         "Keychain",
         "EthereumServices",
+        "UIComponents"
       ]),
     .target(
       name: "Keychain",
@@ -85,7 +87,13 @@ let package = Package(
       dependencies: [
         "Home", "Onboarding", "Commons", "SnapKit", "Splash", "UIComponents",
       ]),
-    .target(name: "Networking"),
+    .target(
+      name: "Networking",
+      dependencies: [
+        .product(name: "SocketIO", package: "socket.io-client-swift"),
+        "Commons"
+      ]
+    ),
     .target(
       name: "Onboarding",
       dependencies: [
@@ -132,6 +140,7 @@ let package = Package(
         "SDWebImage",
         "Commons",
         .product(name: "NukeUI", package: "Nuke"),
+        "EthereumServices"
       ]),
   ]
 )

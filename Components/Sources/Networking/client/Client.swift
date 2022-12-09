@@ -14,6 +14,8 @@ public final class APIClient: Client {
       self.init(networkProvider: RestAPINetowkrProvider())
     case .rpc:
       self.init(networkProvider: RPCNetworkProvider())
+    case .ws:
+      self.init(networkProvider: WsNetworkProvider())
     }
   }
 
