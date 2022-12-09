@@ -2,7 +2,7 @@ import Combine
 import Foundation
 import TransactionServices
 
-public final class TokensViewModel: ObservableObject {
+public final class TransactionViewModel: ObservableObject {
   @Published var tokens = [Token]()
   private var subscriptions = Set<AnyCancellable>()
   var closeAction: () -> Void = {}

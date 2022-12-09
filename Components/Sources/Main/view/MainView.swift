@@ -12,7 +12,7 @@ struct MainView: View {
 
   @ViewBuilder
   func fetchTransactionView() -> some View {
-    return TokensFactory.view()
+    return TransactionFactory.view()
   }
 
   var body: some View {

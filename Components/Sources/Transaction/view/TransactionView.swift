@@ -4,14 +4,16 @@ import SwiftUI
 import TransactionServices
 import UIComponents
 
-public struct TokensView: View {
+public struct TransactionView: View {
   @ObservedObject
-  var viewModel: TokensViewModel
+  var viewModel: TransactionViewModel
 
   @Environment(\.presentationMode)
   var presentationMode
 
-  public init(viewModel: TokensViewModel) {
+  public init(
+    viewModel: TransactionViewModel
+  ) {
     self.viewModel = viewModel
   }
   public var body: some View {
