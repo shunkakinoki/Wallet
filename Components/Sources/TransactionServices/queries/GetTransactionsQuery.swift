@@ -11,7 +11,7 @@ public struct GetTransactionsQuery: Query {
   }
 
   public var query: String {
-    "v1/address/\(address)/transactions"
+    "/v1/address/\(address)/transactions"
   }
 
   public var body: Data? {
