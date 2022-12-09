@@ -23,10 +23,16 @@ struct MainView: View {
           Label("Home", systemImage: "house.fill")
         }
 
+      // fetchTransactionView()
+      //   .tag(1)
+      //   .tabItem {
+      //     Label("Explore", systemImage: "safari")
+      //   }
+
       fetchTransactionView()
         .tag(1)
         .tabItem {
-          Label("Explore", systemImage: "safari")
+          Label("Transactions", systemImage: "mail.stack.fill")
         }
     }
   }
