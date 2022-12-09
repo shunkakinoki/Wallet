@@ -3,11 +3,11 @@ import Commons
 import Foundation
 import Networking
 
-public protocol TokenDataSource {
+public protocol TransactionDataSource {
   func fetch(from address: String) -> AnyPublisher<[Token], Error>
 }
 
-final class TokenDataSourceImp: TokenDataSource {
+final class TransactionDataSourceImp: TransactionDataSource {
 
   private let socketClient: Client
 
@@ -25,7 +25,8 @@ final class TokenDataSourceImp: TokenDataSource {
     let query = GetTransactionsQuery(
       address: address
     )
-    let request: AnyPublisher<[TokenDataModel], Error> = socketClient.performRequest(to: query)
+    let request: AnyPublisher<[TokenDataModel], Error> = socketClient.performRequest(
+      to: query)
     return request.map {
       $0.first!.payload.assets
         .filter { $0.value.asset.decimals != 0 }

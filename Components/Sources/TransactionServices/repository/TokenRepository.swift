@@ -11,19 +11,21 @@ public protocol TokenRepository {
 
 public class TokenRepositoryImp: TokenRepository {
 
-  private let dataSource: TokenDataSource
+  private let dataSource: TransactionDataSource
   private let session: SessionRepository
   private let tokens: ArrayCache<Token>
 
   convenience public init() {
     self.init(
-      dataSource: TokenDataSourceImp(),
+      dataSource: TransactionDataSourceImp(),
       session: SessionRepositoryImp(),
       tokens: TransactionServicesConfigure.tokens
     )
   }
 
-  private init(dataSource: TokenDataSource, session: SessionRepository, tokens: ArrayCache<Token>) {
+  private init(
+    dataSource: TransactionDataSource, session: SessionRepository, tokens: ArrayCache<Token>
+  ) {
     self.dataSource = dataSource
     self.session = session
     self.tokens = tokens
