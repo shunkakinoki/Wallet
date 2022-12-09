@@ -25,7 +25,7 @@ final class TransactionDataSourceImp: TransactionDataSource {
     let query = GetTransactionsQuery(
       address: address
     )
-    let request: AnyPublisher<[TokenDataModel], Error> = socketClient.performRequest(
+    let request: AnyPublisher<[TransactionDataModel], Error> = socketClient.performRequest(
       to: query)
     return request.map {
       $0.first!.payload.assets
@@ -36,7 +36,7 @@ final class TransactionDataSourceImp: TransactionDataSource {
   }
 }
 
-extension TokenDataModel.DynamicAsset {
+extension TransactionDataModel.DynamicAsset {
   func toDomain() -> Token {
     let quantity = (Double(self.quantity) ?? 0) / pow(10, 18)
     let value = self.asset.price?.value ?? 0

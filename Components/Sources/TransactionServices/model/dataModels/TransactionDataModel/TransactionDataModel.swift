@@ -1,6 +1,6 @@
 import Foundation
 
-struct TokenDataModel: Decodable {
+struct TransactionDataModel: Decodable {
 
   public let meta: Meta
   public let payload: Payload
