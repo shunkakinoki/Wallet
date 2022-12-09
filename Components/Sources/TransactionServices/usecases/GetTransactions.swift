@@ -1,12 +1,12 @@
 import Combine
 import Foundation
 
-public protocol GetTokens {
+public protocol GetTransactions {
   func invoke() -> AnyPublisher<[Token], Error>
   func retrieve(with address: String) -> AnyPublisher<[Token], Error>
 }
 
-public struct GetTokensImp: GetTokens {
+public struct GetTransactionsImp: GetTransactions {
 
   private let repository: TransactionRepository
 

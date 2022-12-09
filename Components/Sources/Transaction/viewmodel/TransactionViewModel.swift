@@ -7,8 +7,8 @@ public final class TransactionViewModel: ObservableObject {
   private var subscriptions = Set<AnyCancellable>()
   var closeAction: () -> Void = {}
 
-  public init(getTokens: GetTokens = GetTokensImp()) {
-    getTokens.invoke()
+  public init(GetTransactions: GetTransactions = GetTransactionsImp()) {
+    GetTransactions.invoke()
       .receive(on: DispatchQueue.main)
       .sink(
         receiveCompletion: { error in
