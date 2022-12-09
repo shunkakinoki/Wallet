@@ -38,11 +38,11 @@ final class TransactionDataSourceImp: TransactionDataSource {
 extension TransactionDataModel.Transaction {
   func toDomain() -> TransactionStruct {
     return TransactionStruct(
-      id: self.txHash,
-      name: self.action.verb?.hashValue,
-      image: "",
-      quantity: String(format: "%.1f", 0),
-      assetCode: self.action.object.rawValue,
+      id: "id",
+      name: "name",
+      image: "https://picsum.photos/200",
+      quantity: "23",
+      assetCode: "code",
       value: 1.0
     )
   }

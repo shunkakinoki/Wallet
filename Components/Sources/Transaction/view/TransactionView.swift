@@ -34,6 +34,8 @@ public struct TransactionView: View {
           .padding(.top, 15)
         }
         .padding(.horizontal, 10)
+      } else {
+        Text("Transactions Empty")
       }
     }
     .background(Color(Colors.Background.secondary))
