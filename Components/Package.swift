@@ -93,8 +93,10 @@ let package = Package(
     .target(
       name: "Networking",
       dependencies: [
-        .product(name: "SocketIO", package: "socket.io-client-swift")
-      ]),
+        .product(name: "SocketIO", package: "socket.io-client-swift"),
+        "Commons",
+      ]
+    ),
     .target(
       name: "Onboarding",
       dependencies: [
@@ -157,6 +159,8 @@ let package = Package(
         "SDWebImage",
         "Commons",
         "TransactionServices",
+        .product(name: "NukeUI", package: "Nuke"),
+        "EthereumServices",
       ]),
   ]
 )

@@ -1,8 +1,9 @@
 import Combine
+import Commons
 import Foundation
 import SocketIO
 
-public final class WsNetworkProvider: NetworkProvider {
+public final class WsNetworkProviderImp: WsNetworkProvider {
 
   private let networkSession: URLSession
   private var cancellables: Set<AnyCancellable> = []
@@ -13,42 +14,68 @@ public final class WsNetworkProvider: NetworkProvider {
 
   private let socketManager: SocketManager
   private let socketClient: SocketIOClient
+  private let timeout: Double = 10
+  private var connectContinuation: CheckedContinuation<(), Error>?
+  private var assetsContinuation: CheckedContinuation<Data, Error>?
 
   public init(networkSession: URLSession) {
     self.networkSession = networkSession
     self.socketManager = SocketManager(
-      socketURL: URL(string: "wss://ws.coherent.sh")!,
+      socketURL: URL(string: "wss://api-v4.zerion.io")!,
       config: [
         .log(false),
-        .extraHeaders(["x-api-key": "b920e8ab-0498-4caa-9060-04b54a78ded5"]),
         .forceWebsockets(true),
+        .connectParams([
+          "api_token": ProcessInfo.processInfo.environment["NEXT_PUBLIC_ZERION_API_KEY"] ?? ""
+        ]),
         .version(.two),
         .secure(true),
       ]
     )
-    self.socketClient = socketManager.socket(forNamespace: "/v1/transactions")
-    self.socketClient.connect()
+    self.socketClient = socketManager.socket(forNamespace: "/address")
+    self.listenForConnections()
+    self.listenForAssets()
   }
 
-  public func performRequest<T>(to query: Query) -> AnyPublisher<T, Error> where T: Decodable {
-    ping(query.query)
-      .decode(as: T.self)
-      .first()
-      .eraseToAnyPublisher()
+  private func listenForConnections() {
+    socketClient.on(clientEvent: .connect) { [weak self] data, ack in
+      self?.connectContinuation?.resume(with: .success(()))
+      self?.connectContinuation = nil
+    }
   }
 
-  private func ping(_ address: String) -> Future<Data, Never> {
-    Future { [weak self] promise in
-      guard let self = self else { return }
-      self.socketClient.on(clientEvent: .connect) { [self] data, ack in
-        self.socketClient.emit(
-          "subscribe", ["scope": ["assets"], "payload": ["address": address, "currency": "usd"]]
-        )
-        self.socketClient.on("received address assets") { data, ack in
-          let jsonData = try? JSONSerialization.data(withJSONObject: data)
-          promise(.success(jsonData!))
-          self.socketClient.disconnect()
-        }
+  private func listenForAssets() {
+    socketClient.on("received address assets") { data, ack in
+      do {
+        let data = try JSONSerialization.data(withJSONObject: data, options: .fragmentsAllowed)
+        self.assetsContinuation?.resume(with: .success(data))
+      } catch let error {
+        self.assetsContinuation?.resume(with: .failure(error))
+      }
+    }
+  }
+
+  public func performRequest(to query: Query) async throws -> Data {
+    try await connectIfNeeded()
+    self.socketClient.emit(
+      "subscribe", ["scope": ["assets"], "payload": ["address": query.query, "currency": "usd"]]
+    )
+    return try await withCheckedThrowingContinuation { [weak self] continuation in
+      self?.assetsContinuation = continuation
+    }
+  }
+
+  private func connectIfNeeded() async throws {
+    return try await withCheckedThrowingContinuation { [weak self] continuation in
+      guard socketClient.status != .connected else {
+        continuation.resume(with: .success(()))
+        return
+      }
+      self?.connectContinuation = continuation
+      socketClient.connect(timeoutAfter: timeout) {
+        continuation.resume(with: .failure(NSError(domain: "ws connection", code: 1)))
+        self?.connectContinuation = nil
+        return
       }
     }
   }

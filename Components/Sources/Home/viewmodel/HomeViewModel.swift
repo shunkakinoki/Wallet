@@ -10,6 +10,10 @@ public final class HomeViewModel: ObservableObject {
 
   private let selectedWallet: SelectedWallet
   private let getHostConfiguration: GetHostConfiguration
+  private let getTokens: GetTokens
+
+  @Published
+  var tokens = [Token]()
 
   @Published
   var configurations = [HostConfigurationModel.HostConfigurationParameters]()
@@ -28,10 +32,12 @@ public final class HomeViewModel: ObservableObject {
 
   init(
     selectedWallet: SelectedWallet = SelectedWalletImp(),
-    getHostConfiguration: GetHostConfiguration = GetHostConfigurationImp()
+    getHostConfiguration: GetHostConfiguration = GetHostConfigurationImp(),
+    getTokens: GetTokens = GetTokensImp()
   ) {
     self.selectedWallet = selectedWallet
     self.getHostConfiguration = getHostConfiguration
+    self.getTokens = getTokens
   }
 
   public func getWalletSelected() {
@@ -52,6 +58,15 @@ public final class HomeViewModel: ObservableObject {
     self.configurations = []
     if let configurations = getHostConfiguration.get() {
       self.configurations.append(contentsOf: configurations)
+    }
+  }
+
+  @MainActor
+  public func getTokensList() async {
+    do {
+      self.tokens = try await getTokens.get()
+    } catch {
+      self.tokens = []
     }
   }
 
