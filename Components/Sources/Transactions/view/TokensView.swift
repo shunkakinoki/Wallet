@@ -1,7 +1,7 @@
 import Commons
 import SDWebImageSwiftUI
 import SwiftUI
-import TokenServices
+import TransactionsServices
 import UIComponents
 
 public struct TokensView: View {

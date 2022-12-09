@@ -1,7 +1,7 @@
 import Commons
 import SDWebImageSwiftUI
 import SwiftUI
-import TokenServices
+import TransactionsServices
 
 public struct TokenItem: View {
   @State var token: Token

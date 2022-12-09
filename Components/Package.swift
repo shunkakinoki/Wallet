@@ -134,7 +134,7 @@ let package = Package(
         "SDWebImageSVGCoder",
       ]),
     .target(
-      name: "TokenServices",
+      name: "TransactionsServices",
       dependencies: [
         "Commons",
         "Networking",
@@ -145,7 +145,7 @@ let package = Package(
       dependencies: [
         "Commons",
         "SDWebImageSwiftUI",
-        "TokenServices",
+        "TransactionsServices",
         "UIComponents",
       ]),
     .target(
@@ -154,7 +154,7 @@ let package = Package(
         "SnapKit",
         "SDWebImage",
         "Commons",
-        "TokenServices",
+        "TransactionsServices",
       ]),
   ]
 )

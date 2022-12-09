@@ -1,6 +1,6 @@
 import Commons
 import Foundation
 
-public struct TokenServicesConfigure {
+public struct TransactionsServicesConfigure {
   public static let tokens = ArrayCache<Token>()
 }

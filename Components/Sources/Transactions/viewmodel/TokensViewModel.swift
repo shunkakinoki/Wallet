@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-import TokenServices
+import TransactionsServices
 
 public final class TokensViewModel: ObservableObject {
   @Published var tokens = [Token]()
