@@ -75,8 +75,6 @@ struct HomeView: View {
                 .font(.body)
                 .foregroundColor(Color(Colors.Label.primary))
             }
-          }.sheet(isPresented: $showingQR) {
-            ShowQR(text: viewModel.selectedRawAddress)
           }
           VStack {
             Menu {
@@ -167,6 +165,9 @@ struct HomeView: View {
         viewModel.getWalletSelected()
         viewModel.getConfiguration()
         refreshTokens()
+      }
+      .sheet(isPresented: $showingQR) {
+        ShowQR(text: viewModel.selectedRawAddress)
       }
       .sheet(isPresented: $showTokensDetail) {
         tokenDetail
