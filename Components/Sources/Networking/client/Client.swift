@@ -14,8 +14,6 @@ public final class APIClient: Client {
       self.init(networkProvider: RestAPINetworkProvider())
     case .graphql:
       self.init(networkProvider: GraphQLNetworkProvider())
-    case .socket:
-      self.init(networkProvider: WsNetworkProvider())
     }
   }
 

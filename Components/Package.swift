@@ -63,6 +63,7 @@ let package = Package(
         "Keychain",
         "Import",
         "Settings",
+        "TokenServices",
       ]),
     .target(
       name: "Import",
@@ -137,6 +138,14 @@ let package = Package(
         "SDWebImageSVGCoder",
       ]),
     .target(
+      name: "TokenServices",
+      dependencies: [
+        "Commons",
+        "Networking",
+        "Keychain",
+        "Session",
+      ]),
+    .target(
       name: "TransactionServices",
       dependencies: [
         "Commons",
@@ -158,9 +167,9 @@ let package = Package(
         "SnapKit",
         "SDWebImage",
         "Commons",
+        "TokenServices",
         "TransactionServices",
         .product(name: "NukeUI", package: "Nuke"),
-        "EthereumServices",
       ]),
   ]
 )

@@ -1,8 +1,8 @@
 import Commons
-import EthereumServices
 import Foundation
 import SDWebImageSwiftUI
 import SwiftUI
+import TokenServices
 
 public struct TokenItem: View {
   @State var token: Token

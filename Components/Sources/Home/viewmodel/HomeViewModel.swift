@@ -1,9 +1,9 @@
 import Combine
 import Domain
-import EthereumServices
 import Foundation
 import Session
 import SwiftUI
+import TokenServices
 import UIKit
 
 public final class HomeViewModel: ObservableObject {
