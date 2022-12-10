@@ -25,7 +25,7 @@ public final class WsNetworkProviderImp: WsNetworkProvider {
       config: [
         .log(false),
         .forceWebsockets(true),
-        .connectParams( ["api_token": Constants.NEXT_PUBLIC_ZERION_API_KEY]),
+        .connectParams(["api_token": Constants.NEXT_PUBLIC_ZERION_API_KEY]),
         .version(.two),
         .secure(true),
       ]
