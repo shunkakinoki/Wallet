@@ -25,8 +25,8 @@
 		<string>rainbow</string>
 		<string>wc</string>
 	</array>
-	<key>OPENSEA_API_KEY</key>
-	<string>$(OPENSEA_API_KEY)</string>
+	<key>NEXT_PUBLIC_ZERION_API_KEY</key>
+	<string>$(NEXT_PUBLIC_ZERION_API_KEY)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
