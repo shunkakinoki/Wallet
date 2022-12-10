@@ -36,7 +36,6 @@ public struct TransactionView: View {
                 .fill(.white.opacity(0.12))
                 .frame(height: 0.5)
             }
-            .background(Color(Colors.Background.secondary))
           }
           .clipShape(RoundedRectangle(cornerRadius: 8))
           .padding(.top, 15)
@@ -47,7 +46,6 @@ public struct TransactionView: View {
       }
       .padding([.leading, .trailing, .top], 16)
     }
-    .background(Color(Colors.Background.secondary))
   }
 
   var walletSelectorButton: some View {

@@ -19,7 +19,6 @@ public struct TransactionItem: View {
         .placeholder(content: {
           Text(String(transaction.action))
             .frame(width: 40, height: 40)
-            .background(Color(Colors.Background.primary))
             .clipShape(Circle())
         })
         .frame(width: 40, height: 40)
