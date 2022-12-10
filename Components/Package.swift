@@ -157,6 +157,7 @@ let package = Package(
       name: "Transaction",
       dependencies: [
         "Commons",
+        "Home",
         "SDWebImageSwiftUI",
         "TransactionServices",
         "UIComponents",
