@@ -254,6 +254,7 @@ export default function Home() {
                       toast.error(`Error: ${error}`);
                     }
                   } else {
+                    setIsEnabled(false);
                     toast.error(`Wallet not found!`);
                   }
                 }
