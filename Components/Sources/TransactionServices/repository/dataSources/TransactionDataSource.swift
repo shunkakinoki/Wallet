@@ -38,7 +38,7 @@ extension TransactionDataModel.Transaction {
   func toDomain() -> TransactionStruct {
     return TransactionStruct(
       id: self.txHash,
-      name: self.txHash,
+      action: self.action.verb ?? "Unknown Action",
       image: "https://picsum.photos/200",
       quantity: "23",
       assetCode: self.txHash,
