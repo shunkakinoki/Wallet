@@ -7,19 +7,13 @@ import UIComponents
 
 public struct TransactionView: View {
   @ObservedObject
-  var viewModel: TransactionViewModel
-
-  @Environment(\.presentationMode)
-  var presentationMode
+  var viewModel = TransactionViewModel()
 
   @State
   private var visibleAccount = false
 
-  public init(
-    viewModel: TransactionViewModel
-  ) {
-    self.viewModel = viewModel
-  }
+  public init() {}
+
   public var body: some View {
     NavigationView {
       ScrollView {

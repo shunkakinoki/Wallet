@@ -10,8 +10,4 @@ public struct HomeFactory {
       )
     )
   }
-
-  public static func view() -> some View {
-    return HomeView()
-  }
 }

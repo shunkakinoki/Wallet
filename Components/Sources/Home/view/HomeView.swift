@@ -5,7 +5,7 @@ import Settings
 import SwiftUI
 import UIComponents
 
-struct HomeView: View {
+public struct HomeView: View {
   @ObservedObject
   var viewModel: HomeViewModel = HomeViewModel()
 
@@ -30,7 +30,9 @@ struct HomeView: View {
   @State
   private var showingSettings = false
 
-  var body: some View {
+  public init() {}
+
+  public var body: some View {
     NavigationView {
       ScrollView {
         VStack {
