@@ -7,13 +7,32 @@ extension UserDefaults {
   }
 }
 
-public struct AppTheme {
-  public static func isDarkMode() -> Bool {
-    if let value = UserDefaults.standard.valueExists(forKey: "InterfaceDesign"),
-      let bool = value as? Bool
-    {
-      return bool
+public enum Theme: Int {
+  case device
+  case light
+  case dark
+}
+
+extension Theme {
+  public var userInterfaceStyle: UIUserInterfaceStyle {
+    switch self {
+    case .device:
+      return .unspecified
+    case .light:
+      return .light
+    case .dark:
+      return .dark
     }
-    return true
+  }
+}
+
+public struct AppTheme {
+  public static func isDarkMode() -> Theme {
+    if let value = UserDefaults.standard.valueExists(forKey: "AppTheme"),
+      let appTheme = value as? Theme
+    {
+      return appTheme
+    }
+    return .device
   }
 }
