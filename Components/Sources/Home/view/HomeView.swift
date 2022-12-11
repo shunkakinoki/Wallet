@@ -31,157 +31,162 @@ struct HomeView: View {
   private var showingSettings = false
 
   var body: some View {
-    ScrollView {
-      VStack {
-        HStack(alignment: .center) {
-          walletSelectorButton
-          Spacer()
-          settingsButton
-        }
-        HStack(spacing: 24) {
-          Button {
-            UIPasteboard.general.setValue(
-              viewModel.selectedRawAddress,
-              forPasteboardType: "public.plain-text"
-            )
-          } label: {
-            VStack {
-              Image(systemName: "plus")
-                .font(.system(size: 17, weight: .bold))
-                .padding([.top, .bottom], 14)
-                .foregroundColor(Color(Colors.Label.primary))
-                .frame(width: 48, height: 48)
-                .background(Color(Colors.Background.secondary))
-                .clipShape(Circle())
-                .padding(.top, 25)
-              Text("Buy")
-                .font(.body)
-                .foregroundColor(Color(Colors.Label.primary))
-            }
+    NavigationView {
+      ScrollView {
+        VStack {
+          HStack(alignment: .center) {
+            walletSelectorButton
+            Spacer()
+            settingsButton
           }
-          Button {
-            showingQR.toggle()
-          } label: {
-            VStack {
-              Image(systemName: "arrow.down")
-                .font(.system(size: 17, weight: .bold))
-                .padding([.top, .bottom], 14)
-                .foregroundColor(Color(Colors.Label.primary))
-                .frame(width: 48, height: 48)
-                .background(Color(Colors.Background.secondary))
-                .clipShape(Circle())
-                .padding(.top, 25)
-              Text("Receive")
-                .font(.body)
-                .foregroundColor(Color(Colors.Label.primary))
-            }
-          }
-          VStack {
-            Menu {
-              Button(action: {
-                UIPasteboard.general.setValue(
-                  viewModel.selectedRawAddress,
-                  forPasteboardType: "public.plain-text"
-                )
-                showToast.toggle()
-              }) {
-                Label("Copy Address", systemImage: "doc.on.clipboard")
-              }
-              Button(action: {
-                showingQR.toggle()
-              }) {
-                Label("Show QR Code", systemImage: "qrcode")
-              }
+          HStack(spacing: 24) {
+            Button {
+              UIPasteboard.general.setValue(
+                viewModel.selectedRawAddress,
+                forPasteboardType: "public.plain-text"
+              )
             } label: {
-              Image(systemName: "ellipsis.circle")
-                .font(.system(size: 17, weight: .bold))
-                .padding([.top, .bottom], 14)
-                .foregroundColor(Color(Colors.Label.primary))
-                .frame(width: 48, height: 48)
-                .background(Color(Colors.Background.secondary))
-                .clipShape(Circle())
-                .padding(.top, 25)
-            }
-            Text("More")
-              .font(.body)
-              .foregroundColor(Color(Colors.Label.primary))
-          }
-          Spacer()
-        }
-        Link(destination: URL(string: "https://wallet.light.so")!) {
-          ZStack {
-            VStack(alignment: .leading, spacing: 0) {
-              HStack(spacing: -6) {
-                Image(systemName: "safari.fill")
-                  .resizable()
-                  .scaledToFit()
-                  .padding(6.0)
-                  .frame(width: 30, height: 30)
-                  .foregroundColor(.blue)
-                  .background(.white)
-                  .cornerRadius(7.0)
-                  .padding([.leading, .top], 16)
-                Image(systemName: "puzzlepiece.extension.fill")
-                  .resizable()
-                  .scaledToFit()
-                  .padding(6.0)
-                  .frame(width: 30, height: 30)
-                  .foregroundColor(.blue)
-                  .background(.white)
-                  .cornerRadius(7.0)
-                  .padding([.leading, .top], 16)
+              VStack {
+                Image(systemName: "plus")
+                  .font(.system(size: 17, weight: .bold))
+                  .padding([.top, .bottom], 14)
+                  .foregroundColor(Color(Colors.Label.primary))
+                  .frame(width: 48, height: 48)
+                  .background(Color(Colors.Background.secondary))
+                  .clipShape(Circle())
+                  .padding(.top, 25)
+                Text("Buy")
+                  .font(.body)
+                  .foregroundColor(Color(Colors.Label.primary))
               }
-              Text("Set Up Light For Safari")
-                .foregroundColor(Color(.white))
-                .padding(.leading, 16).padding(.top, 8)
-                .font(.system(size: 17, weight: .semibold))
-              HStack {
-                Text("Set up Light Safari Extension to use Light on any website, right from Safari")
+            }
+            Button {
+              showingQR.toggle()
+            } label: {
+              VStack {
+                Image(systemName: "arrow.down")
+                  .font(.system(size: 17, weight: .bold))
+                  .padding([.top, .bottom], 14)
+                  .foregroundColor(Color(Colors.Label.primary))
+                  .frame(width: 48, height: 48)
+                  .background(Color(Colors.Background.secondary))
+                  .clipShape(Circle())
+                  .padding(.top, 25)
+                Text("Receive")
+                  .font(.body)
+                  .foregroundColor(Color(Colors.Label.primary))
+              }
+            }
+            VStack {
+              Menu {
+                Button(action: {
+                  UIPasteboard.general.setValue(
+                    viewModel.selectedRawAddress,
+                    forPasteboardType: "public.plain-text"
+                  )
+                  showToast.toggle()
+                }) {
+                  Label("Copy Address", systemImage: "doc.on.clipboard")
+                }
+                Button(action: {
+                  showingQR.toggle()
+                }) {
+                  Label("Show QR Code", systemImage: "qrcode")
+                }
+              } label: {
+                Image(systemName: "ellipsis.circle")
+                  .font(.system(size: 17, weight: .bold))
+                  .padding([.top, .bottom], 14)
+                  .foregroundColor(Color(Colors.Label.primary))
+                  .frame(width: 48, height: 48)
+                  .background(Color(Colors.Background.secondary))
+                  .clipShape(Circle())
+                  .padding(.top, 25)
+              }
+              Text("More")
+                .font(.body)
+                .foregroundColor(Color(Colors.Label.primary))
+            }
+            Spacer()
+          }
+          Link(destination: URL(string: "https://wallet.light.so")!) {
+            ZStack {
+              VStack(alignment: .leading, spacing: 0) {
+                HStack(spacing: -6) {
+                  Image(systemName: "safari.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .padding(6.0)
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(.blue)
+                    .background(.white)
+                    .cornerRadius(7.0)
+                    .padding([.leading, .top], 16)
+                  Image(systemName: "puzzlepiece.extension.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .padding(6.0)
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(.blue)
+                    .background(.white)
+                    .cornerRadius(7.0)
+                    .padding([.leading, .top], 16)
+                }
+                Text("Set Up Light For Safari")
+                  .foregroundColor(Color(.white))
+                  .padding(.leading, 16).padding(.top, 8)
+                  .font(.system(size: 17, weight: .semibold))
+                HStack {
+                  Text(
+                    "Set up Light Safari Extension to use Light on any website, right from Safari"
+                  )
                   .foregroundColor(Color(.white))
                   .padding([.leading, .bottom], 16).padding(.top, 8)
                   .font(.system(size: 13, weight: .regular))
-                Spacer()
+                  Spacer()
+                }
               }
+              .multilineTextAlignment(.leading)
             }
-            .multilineTextAlignment(.leading)
+            .contentShape(Rectangle())
+            .frame(maxWidth: .infinity)
+            .background(Color(.systemBlue))
+            .cornerRadius(14)
+            .padding(.top, 16)
           }
-          .contentShape(Rectangle())
-          .frame(maxWidth: .infinity)
-          .background(Color(.systemBlue))
-          .cornerRadius(14)
-          .padding(.top, 16)
+          tokenList()
+          appsList()
+          Spacer()
         }
-        tokenList()
-        appsList()
+        .onReceive(
+          NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
+        ) { _ in
+          viewModel.getConfiguration()
+          refreshTokens()
+        }
+        .onAppear {
+          viewModel.getWalletSelected()
+          viewModel.getConfiguration()
+          refreshTokens()
+        }
+        .sheet(isPresented: $showingQR) {
+          ShowQR(text: viewModel.selectedRawAddress)
+        }
+        .sheet(isPresented: $showTokensDetail) {
+          tokenDetail
+        }
+        .sheet(isPresented: $showAppsDetail) {
+          appsDetail
+        }
+        .toast(isPresenting: $showToast) {
+          AlertToast(type: .complete(Color(.green)), title: "Copied!")
+        }
+        .padding([.leading, .trailing, .top], 16)
         Spacer()
       }
-      .onReceive(
-        NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
-      ) { _ in
-        viewModel.getConfiguration()
-        refreshTokens()
-      }
-      .onAppear {
-        viewModel.getWalletSelected()
-        viewModel.getConfiguration()
-        refreshTokens()
-      }
-      .sheet(isPresented: $showingQR) {
-        ShowQR(text: viewModel.selectedRawAddress)
-      }
-      .sheet(isPresented: $showTokensDetail) {
-        tokenDetail
-      }
-      .sheet(isPresented: $showAppsDetail) {
-        appsDetail
-      }
-      .padding([.leading, .trailing, .top], 16)
-      Spacer()
+      .refreshable {}
+      .navigationTitle("Light Wallet")
     }
-    .toast(isPresenting: $showToast) {
-      AlertToast(type: .complete(Color(.green)), title: "Copied!")
-    }
-    .refreshable {}
   }
 
   var tokenDetail: some View {
@@ -258,8 +263,9 @@ extension HomeView {
         }
       }
       VStack(spacing: 0) {
-        ForEach(isDetail == true ? viewModel.tokens : Array(viewModel.tokens.prefix(5)), id: \.self)
-        { token in
+        ForEach(
+          isDetail == true ? viewModel.tokens : Array(viewModel.tokens.prefix(10)), id: \.self
+        ) { token in
           TokenItem(token: token)
         }
       }
@@ -289,7 +295,7 @@ extension HomeView {
       }
       VStack(spacing: 0) {
         ForEach(
-          isDetail == true ? viewModel.configurations : Array(viewModel.configurations.prefix(5)),
+          isDetail == true ? viewModel.configurations : Array(viewModel.configurations.prefix(10)),
           id: \.self
         ) { configuration in
           Link(destination: URL(string: "https://\(configuration.host)")!) {

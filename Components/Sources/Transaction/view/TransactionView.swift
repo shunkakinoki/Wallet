@@ -21,30 +21,30 @@ public struct TransactionView: View {
     self.viewModel = viewModel
   }
   public var body: some View {
-    ScrollView(.vertical, showsIndicators: false) {
-      VStack {
-        HStack(alignment: .center) {
-          walletSelectorButton
-          Spacer()
-        }
-        if viewModel.transactions.count > 0 {
-          VStack(spacing: 0) {
-            ForEach(viewModel.transactions) { asset in
-              TransactionItem(transaction: asset)
-                .frame(height: 64.5)
-              Rectangle()
-                .fill(.white.opacity(0.12))
-                .frame(height: 0.5)
+    NavigationView {
+      ScrollView {
+        VStack {
+          if viewModel.transactions.count > 0 {
+            VStack(spacing: 0) {
+              ForEach(viewModel.transactions) { asset in
+                TransactionItem(transaction: asset)
+                  .frame(height: 64.5)
+                Rectangle()
+                  .fill(.white.opacity(0.12))
+                  .frame(height: 0.5)
+              }
             }
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .padding(.top, 15)
           }
-          .clipShape(RoundedRectangle(cornerRadius: 8))
-          .padding(.top, 15)
         }
+        .onAppear {
+          viewModel.getWalletSelected()
+        }
+        .padding([.leading, .trailing, .top], 16)
       }
-      .onAppear {
-        viewModel.getWalletSelected()
-      }
-      .padding([.leading, .trailing, .top], 16)
+      .refreshable {}
+      .navigationTitle("Transactions")
     }
   }
 
