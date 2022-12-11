@@ -14,8 +14,8 @@ public struct SettingsView: View {
   @State
   private var showingAlert = false
 
-  var options = ["One", "Two", "Three"]
-  @State private var selectedOption = "One"
+  var options = ["System", "Light", "Dark"]
+  @State private var selectedOption = "System"
 
   public init() {}
 
@@ -50,7 +50,15 @@ public struct SettingsView: View {
                   ForEach(options, id: \.self) {
                     Text($0)
                   }
-                }.pickerStyle(.inline)
+                }
+                .pickerStyle(.inline)
+                .onChange(
+                  of: selectedOption
+                ) { option in
+                  UserDefaults.standard.set(option.lowercased(), forKey: "AppTheme")
+                  NotificationCenter.default.post(
+                    name: .changeLightTheme, object: nil)
+                }
               }
             }
           ) {
@@ -58,7 +66,7 @@ public struct SettingsView: View {
               ColoredIconView(
                 imageName: "paintpalette.fill", foregroundColor: Color(.white),
                 backgroundColor: Color(Colors.System.purple))
-              Text("AppTheme")
+              Text("App Theme")
                 .font(.custom(font: .inter, size: 17, weight: .regular))
               // Toggle("Dark mode", isOn: $appTheme)
               //   .toggleStyle(SwitchToggleStyle(tint: .green))

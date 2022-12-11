@@ -29,9 +29,19 @@ extension Theme {
 public struct AppTheme {
   public static func isDarkMode() -> Theme {
     if let value = UserDefaults.standard.valueExists(forKey: "AppTheme"),
-      let appTheme = value as? Theme
+      let appTheme = value as? String
     {
-      return appTheme
+      switch appTheme
+      {
+      case "dark":
+        return .dark
+      case "light":
+        return .light
+      case "device":
+        return .device
+      default:
+        return .device
+      }
     }
     return .device
   }
