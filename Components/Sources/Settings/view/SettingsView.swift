@@ -115,10 +115,18 @@ public struct SettingsView: View {
             destination: VStack(spacing: 0) {
               Form {
                 Section {
-                  Button(action: { self.deleteWallets() }) {
-                    Text("Delete Wallets")
+                  Button(action: { self.showingAlert.toggle() }) {
+                    Text("Delete All Wallets")
                       .foregroundColor(Color(Colors.Label.primary))
                       .font(.custom(font: .inter, size: 17, weight: .regular))
+                  }
+                  .confirmationDialog(
+                    "Are you sure you want to delete all wallets?",
+                    isPresented: $showingAlert
+                  ) {
+                    Button("Delete All Wallets", role: .destructive) {
+                      self.deleteWallets()
+                    }
                   }
                 }
               }
@@ -148,11 +156,13 @@ public struct SettingsView: View {
   }
 
   func deleteWallets() {
-    do {
-      try viewModel.deleteAllAccounts()
-      AppOrchestra.onboarding()
-    } catch {
-      print(error.localizedDescription)
+    AppOrchestra.onboarding()
+    DispatchQueue.main.asyncAfter(deadline: .now()) {
+      do {
+        try viewModel.deleteAllAccounts()
+      } catch {
+        print(error.localizedDescription)
+      }
     }
   }
 }
