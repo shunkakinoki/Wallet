@@ -19,6 +19,9 @@ public struct HomeView: View {
   private var showAppsDetail = false
 
   @State
+  private var showEdit = false
+
+  @State
   private var showingMore = false
 
   @State
@@ -93,6 +96,11 @@ public struct HomeView: View {
                   showingQR.toggle()
                 }) {
                   Label("Show QR Code", systemImage: "qrcode")
+                }
+                Button(action: {
+                  showEdit.toggle()
+                }) {
+                  Label("Edit Wallet", systemImage: "pencil")
                 }
               } label: {
                 Image(systemName: "ellipsis.circle")
@@ -172,6 +180,15 @@ public struct HomeView: View {
         }
         .sheet(isPresented: $showingQR) {
           ShowQR(text: viewModel.selectedRawAddress)
+        }
+        .sheet(isPresented: $showEdit, onDismiss: onDismiss) {
+          if #available(iOS 16.0, *) {
+            WalletEditView(sheet: true)
+              .presentationDetents([.medium])
+              .presentationDragIndicator(.visible)
+          } else {
+            WalletEditView()
+          }
         }
         .sheet(isPresented: $showTokensDetail) {
           tokenDetail
