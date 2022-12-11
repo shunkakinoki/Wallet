@@ -41,7 +41,7 @@ public struct TransactionView: View {
         .onAppear {
           viewModel.getWalletSelected()
         }
-        .padding([.leading, .trailing, .top], 16)
+        .padding([.leading, .trailing], 16)
       }
       .refreshable {}
       .navigationTitle("Transactions")

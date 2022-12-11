@@ -3,7 +3,7 @@ import SwiftUI
 import Transaction
 
 struct MainView: View {
-  @State var tabSelection = 1
+  @State var tabSelection = 0
 
   @ViewBuilder
   func fetchHomeView() -> some View {
