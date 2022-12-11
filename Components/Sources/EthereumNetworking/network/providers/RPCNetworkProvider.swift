@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public final class RPCNetworkProvider: NetworkProvider {
+public final class RPCNetworkProvider: EthereumNetworkProvider {
 
   private let networkSession: URLSession
 

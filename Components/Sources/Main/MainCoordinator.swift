@@ -94,7 +94,7 @@ extension MainCoordinator {
   }
 
   internal func mainComponent() -> UIViewController {
-    return HomeFactory.retrieve()
+    return MainFactory.retrieve()
   }
 
   private func onboardingComponent() -> UIViewController {

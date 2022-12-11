@@ -1,5 +1,5 @@
+import EthereumNetworking
 import Foundation
-import Networking
 
 struct SendRawTransactionQuery: Query {
   var headers: [String: String]? {
@@ -28,7 +28,7 @@ struct SendRawTransactionQuery: Query {
     ].toData()
   }
 
-  var service: Service {
+  var service: EthereumService {
     return .alchemy
   }
 

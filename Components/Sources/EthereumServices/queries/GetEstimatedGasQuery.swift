@@ -1,5 +1,5 @@
+import EthereumNetworking
 import Foundation
-import Networking
 
 struct GetEstimatedGasQuery: Query {
   var headers: [String: String]? {
@@ -30,7 +30,7 @@ struct GetEstimatedGasQuery: Query {
     ].toData()
   }
 
-  var service: Service {
+  var service: EthereumService {
     return .alchemy
   }
 

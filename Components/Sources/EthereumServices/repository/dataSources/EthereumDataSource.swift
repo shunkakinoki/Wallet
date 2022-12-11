@@ -1,6 +1,6 @@
 import Combine
+import EthereumNetworking
 import Foundation
-import Networking
 
 public struct RPCResult<T: Decodable>: Decodable {
   public let id: Int?
@@ -16,13 +16,15 @@ public protocol EthereumDataSource {
 
 public final class EthereumDataSourceImp: EthereumDataSource {
 
-  private let client: Client
+  private let client: EthereumClient
 
   public convenience init() {
-    self.init(client: APIClient(with: .rpc))
+    self.init(client: RPCEthereumClient())
   }
 
-  init(client: Client) {
+  init(
+    client: EthereumClient
+  ) {
     self.client = client
   }
 

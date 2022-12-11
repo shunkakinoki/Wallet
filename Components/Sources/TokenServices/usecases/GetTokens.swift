@@ -1,6 +1,6 @@
 import Combine
-import Foundation
 import Domain
+import Foundation
 import Session
 
 public protocol GetTokens {

@@ -1,5 +1,5 @@
+import EthereumNetworking
 import Foundation
-import Networking
 
 struct GetTransactionCountQuery: Query {
   var headers: [String: String]? {
@@ -29,7 +29,7 @@ struct GetTransactionCountQuery: Query {
     ].toData()
   }
 
-  var service: Service {
+  var service: EthereumService {
     return .alchemy
   }
 

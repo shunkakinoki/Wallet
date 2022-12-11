@@ -11,13 +11,17 @@ public struct WalletEditView: View {
   var viewModel: WalletEditViewModel
 
   @State
+  public var sheet: Bool
+
+  @State
   public var text = ""
 
   @State
   public var selected: String = ""
 
-  init(viewModel: WalletEditViewModel = WalletEditViewModel()) {
+  public init(viewModel: WalletEditViewModel = WalletEditViewModel(), sheet: Bool = false) {
     self.viewModel = viewModel
+    self.sheet = sheet
     _text = State(initialValue: viewModel.getName())
     _selected = State(initialValue: viewModel.getColor())
   }
@@ -81,6 +85,7 @@ public struct WalletEditView: View {
       .padding([.leading, .top, .trailing], 16)
       Spacer()
     }
+    .padding(.top, sheet ? 45 : 12)
     .navigationBarTitle("Edit", displayMode: .inline)
   }
 }

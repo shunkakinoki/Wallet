@@ -19,12 +19,14 @@ let package = Package(
     .package(url: "https://github.com/SDWebImage/SDWebImage", from: "5.12.5"),
     .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI", from: "2.0.2"),
     .package(url: "https://github.com/SDWebImage/SDWebImageSVGCoder.git", from: "1.6.1"),
+    .package(
+      url: "https://github.com/socketio/socket.io-client-swift",
+      .revision("a1ed825835a2d8c2555938e96557ccc05e4bebf3")),
     .package(url: "https://github.com/kean/Nuke", .branch("master")),
     .package(url: "https://github.com/krzyzanowskim/CryptoSwift", from: "1.5.1"),
     .package(url: "https://github.com/GigaBitcoin/secp256k1.swift", .branch("main")),
     .package(url: "https://github.com/attaswift/BigInt", from: "5.3.0"),
     .package(url: "https://github.com/zcash-hackworks/MnemonicSwift", from: "2.2.4"),
-    .package(url: "https://github.com/socketio/socket.io-client-swift", .revision("a1ed825835a2d8c2555938e96557ccc05e4bebf3"))
   ],
   targets: [
     .target(
@@ -44,10 +46,11 @@ let package = Package(
       dependencies: [
         "Commons"
       ]),
+    .target(name: "EthereumNetworking"),
     .target(
       name: "EthereumServices",
       dependencies: [
-        "Networking",
+        "EthereumNetworking",
         "Domain",
         "Keychain",
       ]),
@@ -60,13 +63,14 @@ let package = Package(
         "Keychain",
         "Import",
         "Settings",
+        "TokenServices",
       ]),
     .target(
       name: "Import",
       dependencies: [
         "Keychain",
         "EthereumServices",
-        "UIComponents"
+        "UIComponents",
       ]),
     .target(
       name: "Keychain",
@@ -85,13 +89,13 @@ let package = Package(
     .target(
       name: "Main",
       dependencies: [
-        "Home", "Onboarding", "Commons", "SnapKit", "Splash", "UIComponents",
+        "Home", "Onboarding", "Commons", "SnapKit", "Splash", "UIComponents", "Transaction",
       ]),
     .target(
       name: "Networking",
       dependencies: [
         .product(name: "SocketIO", package: "socket.io-client-swift"),
-        "Commons"
+        "Commons",
       ]
     ),
     .target(
@@ -134,13 +138,39 @@ let package = Package(
         "SDWebImageSVGCoder",
       ]),
     .target(
+      name: "TokenServices",
+      dependencies: [
+        "Commons",
+        "Networking",
+        "Keychain",
+        "Session",
+      ]),
+    .target(
+      name: "TransactionServices",
+      dependencies: [
+        "Commons",
+        "Networking",
+        "Keychain",
+        "Session",
+      ]),
+    .target(
+      name: "Transaction",
+      dependencies: [
+        "Commons",
+        "Home",
+        "SDWebImageSwiftUI",
+        "TransactionServices",
+        "UIComponents",
+      ]),
+    .target(
       name: "UIComponents",
       dependencies: [
         "SnapKit",
         "SDWebImage",
         "Commons",
+        "TokenServices",
+        "TransactionServices",
         .product(name: "NukeUI", package: "Nuke"),
-        "EthereumServices"
       ]),
   ]
 )

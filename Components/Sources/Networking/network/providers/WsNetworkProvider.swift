@@ -1,7 +1,7 @@
 import Combine
+import Commons
 import Foundation
 import SocketIO
-import Commons
 
 public final class WsNetworkProviderImp: WsNetworkProvider {
 
@@ -25,9 +25,9 @@ public final class WsNetworkProviderImp: WsNetworkProvider {
       config: [
         .log(false),
         .forceWebsockets(true),
-        .connectParams( ["api_token": Constants.NEXT_PUBLIC_ZERION_API_KEY]),
+        .connectParams(["api_token": Constants.NEXT_PUBLIC_ZERION_API_KEY]),
         .version(.two),
-        .secure(true)
+        .secure(true),
       ]
     )
     self.socketClient = socketManager.socket(forNamespace: "/address")
@@ -59,7 +59,7 @@ public final class WsNetworkProviderImp: WsNetworkProvider {
       "subscribe", ["scope": ["assets"], "payload": ["address": query.query, "currency": "usd"]]
     )
     return try await withCheckedThrowingContinuation { [weak self] continuation in
-        self?.assetsContinuation = continuation
+      self?.assetsContinuation = continuation
     }
   }
 

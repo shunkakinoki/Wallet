@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-public struct ModalPresenter<Content> : View where Content : View {
+public struct ModalPresenter<Content>: View where Content: View {
   @ViewBuilder public var content: Content
 
   @Environment(\.presentationMode)

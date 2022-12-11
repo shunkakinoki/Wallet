@@ -1,6 +1,6 @@
 import Combine
-import Foundation
 import Domain
+import Foundation
 
 public protocol TokenRepository {
   func fetch(with address: String) async throws -> [Token]

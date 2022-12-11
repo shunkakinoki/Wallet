@@ -1,7 +1,7 @@
 import Combine
+import Domain
 import Foundation
 import Networking
-import Domain
 
 public protocol TokensDataSource {
   func getTokens(from address: String) async throws -> [Token]
@@ -30,12 +30,11 @@ public final class TokensDataSourceImp: TokensDataSource {
   }
 }
 
-
 extension Double {
-    public func toString() -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        return formatter.string(from: self as NSNumber) ?? "0"
-    }
+  public func toString() -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.maximumFractionDigits = 2
+    return formatter.string(from: self as NSNumber) ?? "0"
+  }
 }
