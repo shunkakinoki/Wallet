@@ -93,14 +93,14 @@ public struct HomeView: View {
                   Label("Copy Address", systemImage: "doc.on.clipboard")
                 }
                 Button(action: {
-                  showingQR.toggle()
-                }) {
-                  Label("Show QR Code", systemImage: "qrcode")
-                }
-                Button(action: {
                   showEdit.toggle()
                 }) {
                   Label("Edit Wallet", systemImage: "pencil")
+                }
+                Button(action: {
+                  showingQR.toggle()
+                }) {
+                  Label("Show QR Code", systemImage: "qrcode")
                 }
               } label: {
                 Image(systemName: "ellipsis.circle")
