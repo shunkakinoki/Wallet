@@ -13,6 +13,5 @@ public struct WalletSelectorIcon: View {
       .aspectRatio(contentMode: .fill)
       .frame(width: 48, height: 48)
       .clipShape(Circle())
-
   }
 }

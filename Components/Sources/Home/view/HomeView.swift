@@ -39,7 +39,6 @@ public struct HomeView: View {
           HStack(alignment: .center) {
             walletSelectorButton
             Spacer()
-            settingsButton
           }
           HStack(spacing: 24) {
             Button {
@@ -188,6 +187,10 @@ public struct HomeView: View {
       }
       .refreshable {}
       .navigationTitle("Light Wallet")
+      .navigationBarItems(
+        trailing:
+          settingsButton
+      )
     }
   }
 
