@@ -9,8 +9,8 @@ public struct SettingsView: View {
   @Environment(\.presentationMode)
   var presentationMode
 
-  @State
-  private var appTheme = AppTheme.isDarkMode()
+  @State private var appTheme = AppTheme.isDarkMode()
+  @State private var showingAlert = false
 
   public init() {}
 
@@ -109,11 +109,39 @@ public struct SettingsView: View {
         .padding([.top, .bottom], 2.5)
         .textCase(nil)
         Section {
-          Button(action: { self.deleteWallets() }) {
-            Text("Delete Wallets")
-              .foregroundColor(Color(Colors.Label.primary))
-              .font(.custom(font: .inter, size: 17, weight: .regular))
+          NavigationLink(
+            destination: VStack(spacing: 0) {
+              Form {
+                Section {
+                  Button(action: {
+                    self.showingAlert.toggle()
+                  }) {
+                    Text("Delete All Wallets")
+                      .foregroundColor(Color(Colors.Label.primary))
+                      .font(.custom(font: .inter, size: 17, weight: .regular))
+                  }
+                }
+                .alert(
+                  "Are you sure you want to delete all wallets?", isPresented: $showingAlert,
+                  actions: {
+                    Button("Remove All", role: .destructive) {
+                      self.deleteWallets()
+                    }
+                  })
+              }
+            }
+          ) {
+            HStack(spacing: 16) {
+              ColoredIconView(
+                imageName: "exclamationmark.octagon.fill", foregroundColor: Color(.white),
+                backgroundColor: Color(Colors.System.red)
+              )
+              .frame(width: 30, height: 30)
+              Text("Advanced")
+                .font(.custom(font: .inter, size: 17, weight: .regular))
+            }
           }
+
         } header: {
           Text("DEVELOPMENT".uppercased())
             .font(.system(size: 12, weight: .medium))
