@@ -9,8 +9,10 @@ public struct SettingsView: View {
   @Environment(\.presentationMode)
   var presentationMode
 
-  @State private var appTheme = AppTheme.isDarkMode()
-  @State private var showingAlert = false
+  @State
+  private var appTheme = AppTheme.isDarkMode()
+  @State
+  private var showingAlert = false
 
   public init() {}
 
@@ -113,21 +115,12 @@ public struct SettingsView: View {
             destination: VStack(spacing: 0) {
               Form {
                 Section {
-                  Button(action: {
-                    self.showingAlert.toggle()
-                  }) {
-                    Text("Delete All Wallets")
+                  Button(action: { self.deleteWallets() }) {
+                    Text("Delete Wallets")
                       .foregroundColor(Color(Colors.Label.primary))
                       .font(.custom(font: .inter, size: 17, weight: .regular))
                   }
                 }
-                .alert(
-                  "Are you sure you want to delete all wallets?", isPresented: $showingAlert,
-                  actions: {
-                    Button("Remove All", role: .destructive) {
-                      self.deleteWallets()
-                    }
-                  })
               }
             }
           ) {
