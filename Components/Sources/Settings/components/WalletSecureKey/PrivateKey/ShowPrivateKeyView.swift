@@ -1,11 +1,15 @@
 import Commons
 import Foundation
+import SPAlert
 import SwiftUI
 
 public struct ShowPrivateKeyView: View {
 
   @StateObject
   var viewModel: ShowPrivateKeyViewModel
+
+  @State
+  private var showAlert = false
 
   public init(viewModel: ShowPrivateKeyViewModel) {
     _viewModel = StateObject(wrappedValue: viewModel)
@@ -51,17 +55,18 @@ public struct ShowPrivateKeyView: View {
           getPrivateKey(),
           forPasteboardType: "public.plain-text"
         )
+        showAlert = true
       } label: {
         HStack {
           Image(systemName: "checkmark.circle.fill")
             .resizable()
             .frame(width: 19.5, height: 19.5)
-            .foregroundStyle(.white)
+            .foregroundColor(Color(Colors.Label.secondary))
             .padding(2.5)
           Text("Copy")
-            .font(.system(size: 17, weight: .bold))
+            .font(.system(size: 17, weight: .semibold))
             .padding([.top, .bottom], 14)
-            .foregroundColor(.white)
+            .foregroundColor(Color(Colors.Label.primary))
         }
         .frame(maxWidth: .infinity)
         .background(Color(Colors.Background.secondary))
@@ -72,7 +77,12 @@ public struct ShowPrivateKeyView: View {
         )
         .padding(.bottom, 20)
         .padding([.leading, .trailing], 16)
-      }
+      }.SPAlert(
+        isPresent: $showAlert,
+        title: "Copied!",
+        preset: .done,
+        haptic: .success
+      )
     }
     .navigationBarTitle("Private Key", displayMode: .inline)
   }

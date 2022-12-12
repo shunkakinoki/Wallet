@@ -19,13 +19,14 @@ class ImportPrivateKeyViewModel: ObservableObject {
     self.importWallet = importWallet
   }
 
-  func importKey(with bytes: ByteArray) {
-    guard bytes.count == 32 else { return }
+  func importKey(with bytes: ByteArray) -> Bool {
+    guard bytes.count == 32 else { return false }
     do {
       try importWallet.import(bytes, type: .privateKey)
-      AppOrchestra.home()
+      return true
     } catch {
       print(error)
+      return false
     }
   }
 
