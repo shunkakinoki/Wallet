@@ -25,33 +25,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     NotificationCenter.default.addObserver(
       self,
-      selector: #selector(deviceMode),
-      name: .changeDeviceTheme,
-      object: nil
-    )
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(lightMode),
-      name: .changeLightTheme,
-      object: nil
-    )
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(darkMode),
-      name: .changeDarkTheme,
+      selector: #selector(appTheme),
+      name: .changeAppTheme,
       object: nil
     )
   }
 
-  @objc func deviceMode() {
+  @objc func appTheme() {
     self.window?.overrideUserInterfaceStyle = AppTheme.isDarkMode().userInterfaceStyle
-  }
-
-  @objc func lightMode() {
-    self.window?.overrideUserInterfaceStyle = AppTheme.isDarkMode().userInterfaceStyle
-  }
-
-  @objc func darkMode() {
-    self.window?.overrideUserInterfaceStyle = .dark
   }
 }

@@ -15,7 +15,9 @@ public struct SettingsView: View {
   private var showingAlert = false
 
   var options = ["System", "Light", "Dark"]
-  @State private var selectedOption = "System"
+  @State private var selectedOption: String =
+    AppTheme.isDarkMode().userInterfaceStyle.rawValue == 0
+    ? "System" : AppTheme.isDarkMode().userInterfaceStyle.rawValue == 1 ? "Light" : "Dark"
 
   public init() {}
 
@@ -57,7 +59,7 @@ public struct SettingsView: View {
                 ) { option in
                   UserDefaults.standard.set(option.lowercased(), forKey: "AppTheme")
                   NotificationCenter.default.post(
-                    name: .changeLightTheme, object: nil)
+                    name: .changeAppTheme, object: nil)
                 }
               }
             }
@@ -68,14 +70,6 @@ public struct SettingsView: View {
                 backgroundColor: Color(Colors.System.purple))
               Text("App Theme")
                 .font(.custom(font: .inter, size: 17, weight: .regular))
-              // Toggle("Dark mode", isOn: $appTheme)
-              //   .toggleStyle(SwitchToggleStyle(tint: .green))
-              //   .font(.custom(font: .inter, size: 17, weight: .regular))
-              //   .onChange(of: appTheme) { newValue in
-              //     UserDefaults.standard.set(newValue, forKey: "InterfaceDesign")
-              //     NotificationCenter.default.post(
-              //       name: newValue ? .changeDarkTheme : .changeLightTheme, object: nil)
-              //   }
             }
           }
         } header: {
