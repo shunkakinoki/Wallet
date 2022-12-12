@@ -207,6 +207,7 @@ public struct HomeView: View {
         Spacer()
       }
       .refreshable {}
+      // .navigationTitle("Light Wallet")
       .navigationBarItems(
         trailing:
           settingsButton
