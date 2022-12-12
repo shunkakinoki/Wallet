@@ -1,5 +1,6 @@
 import Commons
 import Foundation
+import SPAlert
 import SwiftUI
 import UIComponents
 
@@ -9,6 +10,9 @@ public struct ImportHDWalletView: View {
 
   @State
   private var text = ""
+
+  @State
+  private var showingImport = false
 
   @StateObject
   var viewModel = ImportHDWalletViewModel()
@@ -77,13 +81,17 @@ public struct ImportHDWalletView: View {
 
   var importButton: some View {
     Button {
-      viewModel.importKey(with: text, primary: self.primary)
+      var result = viewModel.importKey(with: text, primary: self.primary)
+      if result {
+        AppOrchestra.home()
+        showingImport = true
+      }
     } label: {
       HStack(spacing: 10) {
         Image(systemName: "square.and.arrow.down")
           .resizable()
           .frame(width: 18, height: 21.5)
-          .foregroundColor(.white)
+          .foregroundColor(Color(Colors.Label.secondary))
         Text("Import")
           .font(.system(size: 17, weight: .semibold))
           .padding(.top, 19).padding(.bottom, 16)
@@ -98,6 +106,11 @@ public struct ImportHDWalletView: View {
       )
       .padding(.bottom, 20)
       .padding([.leading, .trailing], 16)
+      .SPAlert(
+        isPresent: $showingImport,
+        title: "Wallet Imported!",
+        preset: .done,
+        haptic: .success)
     }
   }
 }

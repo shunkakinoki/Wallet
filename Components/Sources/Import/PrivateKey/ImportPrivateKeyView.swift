@@ -1,11 +1,15 @@
 import Commons
 import Foundation
+import SPAlert
 import SwiftUI
 import UIComponents
 
 public struct ImportPrivateKeyView: View {
   @State
   private var text = ""
+
+  @State
+  private var showingImport = false
 
   @StateObject
   var viewModel = ImportPrivateKeyViewModel()
@@ -72,13 +76,17 @@ public struct ImportPrivateKeyView: View {
 
   var importButton: some View {
     Button {
-      viewModel.importKey(with: ByteArray(hex: text))
+      var result = viewModel.importKey(with: ByteArray(hex: text))
+      if result {
+        AppOrchestra.home()
+        showingImport = true
+      }
     } label: {
       HStack(spacing: 10) {
         Image(systemName: "square.and.arrow.down")
           .resizable()
           .frame(width: 18, height: 21.5)
-          .foregroundColor(.white)
+          .foregroundColor(Color(Colors.Label.secondary))
         Text("Import")
           .font(.system(size: 17, weight: .semibold))
           .padding(.top, 22)
@@ -94,6 +102,11 @@ public struct ImportPrivateKeyView: View {
       )
       .padding(.bottom, 20)
       .padding([.leading, .trailing], 16)
+      .SPAlert(
+        isPresent: $showingImport,
+        title: "Wallet Imported!",
+        preset: .done,
+        haptic: .success)
     }
   }
 }

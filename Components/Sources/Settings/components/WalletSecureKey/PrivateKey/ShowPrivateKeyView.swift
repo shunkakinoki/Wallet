@@ -64,9 +64,9 @@ public struct ShowPrivateKeyView: View {
             .foregroundColor(Color(Colors.Label.secondary))
             .padding(2.5)
           Text("Copy")
-            .font(.system(size: 17, weight: .bold))
+            .font(.system(size: 17, weight: .semibold))
             .padding([.top, .bottom], 14)
-            .foregroundColor(Color(Colors.Label.secondary))
+            .foregroundColor(Color(Colors.Label.primary))
         }
         .frame(maxWidth: .infinity)
         .background(Color(Colors.Background.secondary))
