@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let appWindow = UIWindow(frame: windowScene.coordinateSpace.bounds)
     appWindow.windowScene = windowScene
     self.window = appWindow
-    self.window?.overrideUserInterfaceStyle = AppTheme.isDarkMode() ? .dark : .light
+    self.window?.overrideUserInterfaceStyle = AppTheme.isDarkMode().userInterfaceStyle
 
     coordinator = MainCoordinator(appWindow)
     coordinator?.start()
@@ -25,23 +25,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     NotificationCenter.default.addObserver(
       self,
-      selector: #selector(lightMode),
-      name: .changeLightTheme,
-      object: nil
-    )
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(darkMode),
-      name: .changeDarkTheme,
+      selector: #selector(appTheme),
+      name: .changeAppTheme,
       object: nil
     )
   }
 
-  @objc func lightMode() {
-    self.window?.overrideUserInterfaceStyle = .light
-  }
-
-  @objc func darkMode() {
-    self.window?.overrideUserInterfaceStyle = .dark
+  @objc func appTheme() {
+    self.window?.overrideUserInterfaceStyle = AppTheme.isDarkMode().userInterfaceStyle
   }
 }

@@ -10,9 +10,11 @@ public struct SettingsView: View {
   var presentationMode
 
   @State
-  private var appTheme = AppTheme.isDarkMode()
-  @State
   private var showingAlert = false
+
+  var options = ["System", "Light", "Dark"]
+
+  @State private var selectedOption: String = AppTheme.getThemeString()
 
   public init() {}
 
@@ -40,18 +42,32 @@ public struct SettingsView: View {
                 .font(.custom(font: .inter, size: 17, weight: .regular))
             }
           }
-          HStack(spacing: 16) {
-            ColoredIconView(
-              imageName: "paintpalette.fill", foregroundColor: Color(.white),
-              backgroundColor: Color(Colors.System.purple))
-            Toggle("Dark mode", isOn: $appTheme)
-              .toggleStyle(SwitchToggleStyle(tint: .green))
-              .font(.custom(font: .inter, size: 17, weight: .regular))
-              .onChange(of: appTheme) { newValue in
-                UserDefaults.standard.set(newValue, forKey: "InterfaceDesign")
-                NotificationCenter.default.post(
-                  name: newValue ? .changeDarkTheme : .changeLightTheme, object: nil)
+          NavigationLink(
+            destination: VStack {
+              Form {
+                Picker("App Theme", selection: $selectedOption) {
+                  ForEach(options, id: \.self) {
+                    Text($0)
+                  }
+                }
+                .pickerStyle(.inline)
+                .onChange(
+                  of: selectedOption
+                ) { option in
+                  UserDefaults.standard.set(option.lowercased(), forKey: "AppTheme")
+                  NotificationCenter.default.post(
+                    name: .changeAppTheme, object: nil)
+                }
               }
+            }
+          ) {
+            HStack(spacing: 16) {
+              ColoredIconView(
+                imageName: "paintpalette.fill", foregroundColor: Color(.white),
+                backgroundColor: Color(Colors.System.purple))
+              Text("App Theme")
+                .font(.custom(font: .inter, size: 17, weight: .regular))
+            }
           }
         } header: {
           Text("Preferences".uppercased())
