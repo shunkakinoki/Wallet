@@ -1,6 +1,6 @@
-import AlertToast
 import Commons
 import SDWebImageSwiftUI
+import SPAlert
 import Settings
 import SwiftUI
 import UIComponents
@@ -197,14 +197,15 @@ public struct HomeView: View {
         .sheet(isPresented: $showAppsDetail) {
           appsDetail
         }
-        .toast(isPresenting: $showToast) {
-          AlertToast(type: .complete(Color(.green)), title: "Copied!")
-        }
+        .SPAlert(
+          isPresent: $showToast,
+          title: "Copied!",
+          preset: .done
+        )
         .padding([.leading, .trailing, .top], 16)
         Spacer()
       }
       .refreshable {}
-      .navigationTitle("Light Wallet")
       .navigationBarItems(
         trailing:
           settingsButton

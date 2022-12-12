@@ -27,6 +27,7 @@ let package = Package(
     .package(url: "https://github.com/GigaBitcoin/secp256k1.swift", .branch("main")),
     .package(url: "https://github.com/attaswift/BigInt", from: "5.3.0"),
     .package(url: "https://github.com/zcash-hackworks/MnemonicSwift", from: "2.2.4"),
+    .package(url: "https://github.com/ivanvorobei/SPAlert", .upToNextMajor(from: "4.2.0")),
   ],
   targets: [
     .target(
@@ -63,6 +64,7 @@ let package = Package(
         "Keychain",
         "Import",
         "Settings",
+        "SPAlert",
         "TokenServices",
       ]),
     .target(
