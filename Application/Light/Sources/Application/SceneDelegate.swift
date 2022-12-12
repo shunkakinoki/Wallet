@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let appWindow = UIWindow(frame: windowScene.coordinateSpace.bounds)
     appWindow.windowScene = windowScene
     self.window = appWindow
-    self.window?.overrideUserInterfaceStyle = AppTheme.isDarkMode().userInterfaceStyle
+    self.window?.overrideUserInterfaceStyle = AppTheme.getUserInterfaceStyle()
 
     coordinator = MainCoordinator(appWindow)
     coordinator?.start()
@@ -32,6 +32,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
 
   @objc func appTheme() {
-    self.window?.overrideUserInterfaceStyle = AppTheme.isDarkMode().userInterfaceStyle
+    self.window?.overrideUserInterfaceStyle = AppTheme.getUserInterfaceStyle()
   }
 }
