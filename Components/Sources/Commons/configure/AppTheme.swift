@@ -24,9 +24,24 @@ extension Theme {
       return .dark
     }
   }
+  public var string: String {
+    switch self {
+    case .device:
+      return "System"
+    case .light:
+      return "Light"
+    case .dark:
+      return "Dark"
+    }
+  }
+
 }
 
 public struct AppTheme {
+  public static func getThemeString() -> String {
+    let rawValue = UserDefaults.standard.integer(forKey: "AppTheme")
+    return Theme(rawValue: rawValue)?.string ?? "System"
+  }
   public static func isDarkMode() -> Theme {
     if let value = UserDefaults.standard.valueExists(forKey: "AppTheme"),
       let appTheme = value as? String

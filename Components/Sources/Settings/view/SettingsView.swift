@@ -10,14 +10,11 @@ public struct SettingsView: View {
   var presentationMode
 
   @State
-  private var appTheme: UIUserInterfaceStyle = AppTheme.isDarkMode().userInterfaceStyle
-  @State
   private var showingAlert = false
 
   var options = ["System", "Light", "Dark"]
-  @State private var selectedOption: String =
-    AppTheme.isDarkMode().userInterfaceStyle.rawValue == 0
-    ? "System" : AppTheme.isDarkMode().userInterfaceStyle.rawValue == 1 ? "Light" : "Dark"
+
+  @State private var selectedOption: String = AppTheme.getThemeString()
 
   public init() {}
 
