@@ -1,11 +1,15 @@
 import Commons
 import Foundation
+import SPAlert
 import SwiftUI
 
 public struct ShowSeedPhraseView: View {
 
   @StateObject
   var viewModel: ShowSeedPhraseViewModel
+
+  @State
+  private var showAlert = false
 
   public init(viewModel: ShowSeedPhraseViewModel) {
     _viewModel = StateObject(wrappedValue: viewModel)
@@ -62,17 +66,18 @@ public struct ShowSeedPhraseView: View {
           getPrivateKey(),
           forPasteboardType: "public.plain-text"
         )
+        showAlert = true
       } label: {
         HStack {
           Image(systemName: "checkmark.circle.fill")
             .resizable()
             .frame(width: 19.5, height: 19.5)
-            .foregroundStyle(.white)
+            .foregroundColor(Color(Colors.Label.secondary))
             .padding(2.5)
           Text("Copy")
             .font(.system(size: 17, weight: .bold))
             .padding([.top, .bottom], 14)
-            .foregroundColor(.white)
+            .foregroundColor(Color(Colors.Label.secondary))
         }
         .frame(maxWidth: .infinity)
         .background(Color(Colors.Background.secondary))
@@ -83,7 +88,13 @@ public struct ShowSeedPhraseView: View {
         )
         .padding(.bottom, 20)
         .padding([.leading, .trailing], 16)
-      }
+      }.SPAlert(
+        isPresent: $showAlert,
+        title: "Copied!",
+        preset: .done,
+        haptic: .success
+      )
+
     }
     .tint(.white)
     .navigationBarTitle("Seed Phrase", displayMode: .inline)

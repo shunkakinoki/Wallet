@@ -200,7 +200,8 @@ public struct HomeView: View {
         .SPAlert(
           isPresent: $showToast,
           title: "Copied!",
-          preset: .done
+          preset: .done,
+          haptic: .success
         )
         .padding([.leading, .trailing, .top], 16)
         Spacer()
