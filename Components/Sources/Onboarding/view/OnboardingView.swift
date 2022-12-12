@@ -1,5 +1,6 @@
 import Commons
 import Import
+import SPAlert
 import SwiftUI
 import UIComponents
 
@@ -11,6 +12,7 @@ public struct OnboardingView: View {
   var presentationMode
 
   @State private var isPresentingEditView = true
+  @State private var showingCreate = false
 
   public init() {}
 
@@ -41,12 +43,19 @@ public struct OnboardingView: View {
               ._lineHeightMultiple(1.08)
             Spacer()
           }.contentShape(Rectangle()).onTapGesture {
+            showingCreate = true
             self.viewModel.createMainWallet()
           }
         }
         .padding([.leading], 16)
         .contentShape(Rectangle())
         .frame(maxWidth: .infinity)
+        .SPAlert(
+          isPresent: $showingCreate,
+          title: "Wallet Created!",
+          preset: .done,
+          haptic: .success
+        )
         Rectangle()
           .fill(Color(Colors.Separator.transparency))
           .frame(height: 0.5)

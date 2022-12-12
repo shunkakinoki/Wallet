@@ -2,6 +2,7 @@ import Commons
 import Domain
 import Import
 import SDWebImageSwiftUI
+import SPAlert
 import SwiftUI
 import UIComponents
 import UniformTypeIdentifiers
@@ -130,7 +131,15 @@ public struct ProfileSelectorView: View {
                 delete(with: wallet)
               }
             }
-          })
+          }
+        )
+        .SPAlert(
+          isPresent: $showingCreate,
+          title: "Wallet Created!",
+          preset: .done,
+          haptic: .success
+        )
+
         if wallet != viewModel.wallets.last {
           Rectangle()
             .fill(Color(Colors.Separator.transparency))
@@ -164,6 +173,7 @@ public struct ProfileSelectorView: View {
       .contentShape(Rectangle())
       .frame(maxWidth: .infinity)
       .onTapGesture {
+        showingCreate = true
         viewModel.createWallet()
         refreshWallets()
       }
