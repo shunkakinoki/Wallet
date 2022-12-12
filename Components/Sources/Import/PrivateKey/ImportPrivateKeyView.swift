@@ -1,6 +1,7 @@
 import Commons
 import Foundation
 import SPAlert
+import SPIndicator
 import SwiftUI
 import UIComponents
 
@@ -10,6 +11,9 @@ public struct ImportPrivateKeyView: View {
 
   @State
   private var showingImport = false
+
+  @State
+  private var showingIndicator = false
 
   @StateObject
   var viewModel = ImportPrivateKeyViewModel()
@@ -80,6 +84,8 @@ public struct ImportPrivateKeyView: View {
       if result {
         AppOrchestra.home()
         showingImport = true
+      } else {
+        showingIndicator = true
       }
     } label: {
       HStack(spacing: 10) {
@@ -106,7 +112,14 @@ public struct ImportPrivateKeyView: View {
         isPresent: $showingImport,
         title: "Wallet Imported!",
         preset: .done,
-        haptic: .success)
+        haptic: .success
+      )
+      .SPIndicator(
+        isPresent: $showingIndicator,
+        title: "Error!",
+        preset: .error,
+        haptic: .error
+      )
     }
   }
 }

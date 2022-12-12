@@ -101,6 +101,15 @@
         }
       },
       {
+        "package": "SPIndicator",
+        "repositoryURL": "https://github.com/ivanvorobei/SPIndicator",
+        "state": {
+          "branch": null,
+          "revision": "43600857729d9efff046dc6673e6f94e095882c7",
+          "version": "1.6.4"
+        }
+      },
+      {
         "package": "Starscream",
         "repositoryURL": "https://github.com/daltoniam/Starscream",
         "state": {

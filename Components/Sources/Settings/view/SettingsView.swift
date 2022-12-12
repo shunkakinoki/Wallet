@@ -12,9 +12,7 @@ public struct SettingsView: View {
   @State
   private var showingAlert = false
 
-  var options = ["System", "Light", "Dark"]
-
-  @State private var selectedOption: String = AppTheme.getThemeString()
+  @State private var selectedOption: Theme = AppTheme.getTheme()
 
   public init() {}
 
@@ -46,15 +44,16 @@ public struct SettingsView: View {
             destination: VStack {
               Form {
                 Picker("App Theme", selection: $selectedOption) {
-                  ForEach(options, id: \.self) {
-                    Text($0)
+                  ForEach(Theme.allCases, id: \.self) {
+                    option in Text(option.description)
                   }
                 }
                 .pickerStyle(.inline)
                 .onChange(
                   of: selectedOption
                 ) { option in
-                  UserDefaults.standard.set(option.lowercased(), forKey: "AppTheme")
+                  print(option)
+                  UserDefaults.standard.set(option.rawValue, forKey: "AppTheme")
                   NotificationCenter.default.post(
                     name: .changeAppTheme, object: nil)
                 }

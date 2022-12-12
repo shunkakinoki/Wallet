@@ -7,10 +7,19 @@ extension UserDefaults {
   }
 }
 
-public enum Theme: Int {
+public enum Theme: Int, CaseIterable {
   case device
   case light
   case dark
+
+  public var description: String {
+    switch self {
+    case .device: return "System"
+    case .light: return "Light"
+    case .dark: return "Dark"
+    }
+  }
+
 }
 
 extension Theme {
@@ -24,40 +33,17 @@ extension Theme {
       return .dark
     }
   }
-  public var string: String {
-    switch self {
-    case .device:
-      return "System"
-    case .light:
-      return "Light"
-    case .dark:
-      return "Dark"
-    }
-  }
-
 }
 
 public struct AppTheme {
   public static func getThemeString() -> String {
-    let rawValue = UserDefaults.standard.integer(forKey: "AppTheme")
-    return Theme(rawValue: rawValue)?.string ?? "System"
+    return self.getTheme().description
   }
-  public static func isDarkMode() -> Theme {
-    if let value = UserDefaults.standard.valueExists(forKey: "AppTheme"),
-      let appTheme = value as? String
-    {
-      switch appTheme
-      {
-      case "dark":
-        return .dark
-      case "light":
-        return .light
-      case "device":
-        return .device
-      default:
-        return .device
-      }
-    }
-    return .device
+  public static func getUserInterfaceStyle() -> UIUserInterfaceStyle {
+    return self.getTheme().userInterfaceStyle
+  }
+  public static func getTheme() -> Theme {
+    let rawValue = UserDefaults.standard.integer(forKey: "AppTheme")
+    return Theme(rawValue: rawValue) ?? .device
   }
 }

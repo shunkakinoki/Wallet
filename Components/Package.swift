@@ -28,6 +28,7 @@ let package = Package(
     .package(url: "https://github.com/attaswift/BigInt", from: "5.3.0"),
     .package(url: "https://github.com/zcash-hackworks/MnemonicSwift", from: "2.2.4"),
     .package(url: "https://github.com/ivanvorobei/SPAlert", .upToNextMajor(from: "4.2.0")),
+    .package(url: "https://github.com/ivanvorobei/SPIndicator", .upToNextMajor(from: "1.6.0")),
   ],
   targets: [
     .target(
@@ -65,6 +66,7 @@ let package = Package(
         "Import",
         "Settings",
         "SPAlert",
+        "SPIndicator",
         "TokenServices",
       ]),
     .target(
@@ -130,6 +132,8 @@ let package = Package(
         "Commons",
         "UIComponents",
         "Session",
+        "SPAlert",
+        "SPIndicator",
         "Keychain",
       ]),
     .target(
