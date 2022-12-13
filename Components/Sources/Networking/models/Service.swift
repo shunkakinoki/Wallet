@@ -1,6 +1,7 @@
 public enum Service {
   case coherent
   case alchemy
+  case wallet
   case zerion
 }
 

@@ -1,7 +1,6 @@
 import Commons
 import SDWebImageSwiftUI
 import SPIndicator
-import Settings
 import SwiftUI
 import UIComponents
 
@@ -19,6 +18,9 @@ public struct ExploreView: View {
       ScrollView {
         VStack {
           appsList()
+        }
+        .onAppear {
+          viewModel.getConfiguration()
         }
         .onReceive(
           NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
@@ -44,13 +46,12 @@ public struct ExploreView: View {
   }
 
   private func onDismiss() {
-    viewModel.getWalletSelected()
     viewModel.getConfiguration()
     viewModel.isLoading = true
   }
 }
 
-extension HomeView {
+extension ExploreView {
   func appsList(isDetail: Bool = false) -> some View {
     VStack {
       if !isDetail {

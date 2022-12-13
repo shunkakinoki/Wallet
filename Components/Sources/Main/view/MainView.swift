@@ -1,3 +1,4 @@
+import Explore
 import Home
 import Settings
 import SwiftUI

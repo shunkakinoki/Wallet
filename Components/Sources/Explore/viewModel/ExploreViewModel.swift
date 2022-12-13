@@ -2,19 +2,16 @@ import Combine
 import DappServices
 import Domain
 import Foundation
-import Services
+import Session
 import SwiftUI
 import UIKit
 
-public final class HomeViewModel: ObservableObject {
+public final class ExploreViewModel: ObservableObject {
 
   private let getHostConfiguration: GetHostConfiguration
   private let getDapps: GetDapps
 
   private var subscriptions = Set<AnyCancellable>()
-
-  @Published
-  var tokens = [Token]()
 
   @Published
   var configurations = [HostConfigurationModel.HostConfigurationParameters]()
@@ -32,7 +29,6 @@ public final class HomeViewModel: ObservableObject {
     self.getHostConfiguration = getHostConfiguration
     self.getDapps = getDapps
 
-    self.getWalletAddress()
   }
 
   public func getConfiguration() {

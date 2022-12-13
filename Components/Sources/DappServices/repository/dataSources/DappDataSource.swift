@@ -4,7 +4,7 @@ import Foundation
 import Networking
 
 public protocol DappDataSource {
-  func fetch(from address: String) -> AnyPublisher<DappDataModel, Error>
+  func fetch() -> AnyPublisher<DappDataModel, Error>
 }
 
 final class DappDataSourceImp: DappDataSource {

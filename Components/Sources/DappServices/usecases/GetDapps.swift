@@ -3,7 +3,7 @@ import Foundation
 
 public protocol GetDapps {
   func invoke() -> AnyPublisher<DappDataModel, Error>
-  func retrieve(with address: String) -> AnyPublisher<DappDataModel, Error>
+  func retrieve() -> AnyPublisher<DappDataModel, Error>
 }
 
 public struct GetDappsImp: GetDapps {
@@ -22,7 +22,7 @@ public struct GetDappsImp: GetDapps {
     repository.get().eraseToAnyPublisher()
   }
 
-  public func retrieve(with address: String) -> AnyPublisher<DappDataModel, Error> {
-    repository.get(with: address)
+  public func retrieve() -> AnyPublisher<DappDataModel, Error> {
+    repository.get()
   }
 }

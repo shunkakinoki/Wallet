@@ -1,6 +1,6 @@
 import Foundation
 
-struct DappDataModel: Decodable {
+public struct DappDataModel: Decodable {
   public let bridge: [Dapp]
   public let mint: [Dapp]
   public let nft: [Dapp]

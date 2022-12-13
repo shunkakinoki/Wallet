@@ -65,7 +65,8 @@ let package = Package(
     .target(
       name: "Explore",
       dependencies: [
-        "DappServices"
+        "DappServices",
+        "Session",
       ]),
     .target(
       name: "EthereumServices",
