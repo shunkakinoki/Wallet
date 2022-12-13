@@ -67,6 +67,7 @@ let package = Package(
       dependencies: [
         "DappServices",
         "Session",
+        "UIComponents",
       ]),
     .target(
       name: "EthereumServices",
