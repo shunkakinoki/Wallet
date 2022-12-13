@@ -22,7 +22,7 @@ jobs:
           yarn run build
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: "14"
+          xcode-version: "14.1"
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "2.7.6"
