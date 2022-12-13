@@ -14,14 +14,14 @@ struct MainView: View {
           Label("Home", systemImage: "house.fill")
         }
 
-      // fetchTransactionView()
-      //   .tag(1)
-      //   .tabItem {
-      //     Label("Explore", systemImage: "safari")
-      //   }
+      ExploreView()
+        .tag(1)
+        .tabItem {
+          Label("Explore", systemImage: "safari")
+        }
 
       TransactionView()
-        .tag(1)
+        .tag(2)
         .tabItem {
           Label("Transactions", systemImage: "mail.stack.fill")
         }

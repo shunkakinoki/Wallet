@@ -50,11 +50,23 @@ let package = Package(
         "Commons"
       ]),
     .target(
+      name: "DappServices",
+      dependencies: [
+        "Networking"
+      ]),
+    .target(
       name: "Domain",
       dependencies: [
         "Commons"
       ]),
-    .target(name: "EthereumNetworking"),
+    .target(
+      name: "EthereumNetworking"
+    ),
+    .target(
+      name: "Explore",
+      dependencies: [
+        "DappServices"
+      ]),
     .target(
       name: "EthereumServices",
       dependencies: [
@@ -100,7 +112,14 @@ let package = Package(
     .target(
       name: "Main",
       dependencies: [
-        "Home", "Onboarding", "Commons", "SnapKit", "Splash", "UIComponents", "Transaction",
+        "Home",
+        "Explore",
+        "Onboarding",
+        "Commons",
+        "SnapKit",
+        "Splash",
+        "UIComponents",
+        "Transaction",
       ]),
     .target(
       name: "Networking",
