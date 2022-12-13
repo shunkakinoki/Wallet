@@ -41,7 +41,7 @@ public final class HomeViewModel: ObservableObject {
   var isLoading = true
 
   @Published
-  var isValidating = true
+  var isValidating = false
 
   init(
     selectedWallet: SelectedWallet = SelectedWalletImp(),

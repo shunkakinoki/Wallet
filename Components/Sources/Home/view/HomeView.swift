@@ -44,19 +44,28 @@ public struct HomeView: View {
             Spacer()
           }
 
-          HStack {
-            Text("$\(viewModel.address.netWorth.toString())")
-              .font(.system(size: 17, weight: .semibold))
-              .foregroundColor(Color(Colors.Label.primary))
-              .padding([.top, .bottom], 8.0)
+          HStack(alignment: .center, spacing: 0) {
+            Text("$")
+              .foregroundColor(Color(Colors.Label.secondary))
+              .font(.system(size: 24, weight: .semibold))
             if viewModel.isLoading {
-              Text("loading")
+              Rectangle()
+                .fill(Color(Colors.Background.secondary))
+                .frame(width: 80, height: 30, alignment: .center)
+                .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
+                .shimmer()
+                .padding([.leading], 2.0)
+            } else {
+              Text(viewModel.address.netWorth.toString())
+                .font(.system(size: 24, weight: .semibold))
+                .foregroundColor(Color(Colors.Label.secondary))
             }
             if viewModel.isValidating {
-              Text("validating")
+              ProgressView()
+                .padding([.leading], 4.0)
             }
             Spacer()
-          }
+          }.padding([.top, .bottom], 8.0)
 
           HStack(spacing: 24) {
             Button {
