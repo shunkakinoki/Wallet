@@ -34,7 +34,8 @@ let package = Package(
     .target(
       name: "AddressServices",
       dependencies: [
-        "Networking"
+        "Networking",
+        "Session",
       ]),
     .target(
       name: "Commons",
