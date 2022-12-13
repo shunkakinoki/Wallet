@@ -49,6 +49,12 @@ public struct HomeView: View {
               .font(.system(size: 17, weight: .semibold))
               .foregroundColor(Color(Colors.Label.primary))
               .padding([.top, .bottom], 8.0)
+            if viewModel.isLoading {
+              Text("loading")
+            }
+            if viewModel.isValidating {
+              Text("validating")
+            }
             Spacer()
           }
 
@@ -215,7 +221,7 @@ public struct HomeView: View {
         Spacer()
       }
       .refreshable {
-        viewModel.getWalletAddress()
+        viewModel.refresh()
       }
       .navigationTitle("Light Wallet")
       .navigationBarItems(

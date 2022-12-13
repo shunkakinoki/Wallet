@@ -37,6 +37,12 @@ public final class HomeViewModel: ObservableObject {
   @Published
   var name: String = ""
 
+  @Published
+  var isLoading = true
+
+  @Published
+  var isValidating = true
+
   init(
     selectedWallet: SelectedWallet = SelectedWalletImp(),
     getAddress: GetAddress = GetAddressImp(),
@@ -83,9 +89,23 @@ public final class HomeViewModel: ObservableObject {
 
   public func getWalletAddress() {
     getAddress.invoke()
-      .replaceError(with: Address.addressDefault)
-      .assign(to: \.address, on: self)
+      .receive(on: DispatchQueue.main)
+      .sink(
+        receiveCompletion: { error in
+          print(error)
+          self.isLoading = false
+          self.isValidating = false
+        },
+        receiveValue: { value in
+          self.address = value
+        }
+      )
       .store(in: &subscriptions)
+  }
+
+  public func refresh() {
+    self.isValidating = true
+    self.getWalletAddress()
   }
 
   public func getChainImage(chainId: String) -> String {
