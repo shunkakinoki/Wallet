@@ -39,6 +39,7 @@ extension TokenDataModel {
   func toModel() -> Token {
     return Token(
       id: self.asset.address,
+      blockchain: self.blockchain,
       name: self.asset.name,
       symbol: self.asset.symbol,
       amount: self.amount ?? 0.0,

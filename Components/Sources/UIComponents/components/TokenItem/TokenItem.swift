@@ -13,23 +13,32 @@ public struct TokenItem: View {
 
   public var body: some View {
     HStack {
-      WebImage(
-        url: URL(
-          string: "https://logos.covalenthq.com/tokens/\(token.id).png"
+      ZStack(alignment: .bottomLeading) {
+        WebImage(
+          url: URL(
+            string: "https://logos.covalenthq.com/tokens/\(token.id).png"
+          )
         )
-      )
-      .resizable()
-      .placeholder(content: {
-        Text(String(token.name ?? ""))
-          .frame(width: 40, height: 40)
-          .background(Color(Colors.Label.secondary))
-          .clipShape(Circle())
-      })
-      .clipShape(Circle())
-      .frame(width: 40, height: 40)
-      .aspectRatio(contentMode: .fill)
-      .padding(.top, 12)
-      .padding(.bottom, 12)
+        .resizable()
+        .placeholder(content: {
+          Text(String(token.symbol ?? ""))
+            .font(.custom(font: .inter, size: 12, weight: .light))
+            .frame(width: 40, height: 40)
+            .background(Color(Colors.Label.secondary))
+            .clipShape(Circle())
+        })
+        .clipShape(Circle())
+        .frame(width: 40, height: 40)
+        .aspectRatio(contentMode: .fill)
+        .padding(.top, 12)
+        .padding(.bottom, 12)
+        if token.blockchain != "ethereum" {
+          Image(token.blockchain)
+            .foregroundColor(.white)
+            .frame(width: 25, height: 25)
+            .clipShape(Circle())
+        }
+      }
       VStack(alignment: .leading, spacing: 4) {
         Text("$\(String(format: "%.02f", Double(truncating: token.value as NSNumber)))")
           .foregroundColor(Color(Colors.Label.primary))
