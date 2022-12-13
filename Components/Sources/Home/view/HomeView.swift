@@ -282,6 +282,8 @@ public struct HomeView: View {
     viewModel.getWalletSelected()
     viewModel.getConfiguration()
     refreshTokens()
+    refreshWallet()
+    viewModel.isLoading = true
   }
 
   private func refreshTokens() {
