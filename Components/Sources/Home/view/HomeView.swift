@@ -216,14 +216,13 @@ public struct HomeView: View {
           ShowQR(text: viewModel.selectedRawAddress)
         }
         .sheet(isPresented: $showEdit, onDismiss: onDismiss) {
-          WalletEditView()
-          // if #available(iOS 16.0, *) {
-          //   WalletEditView(sheet: true)
-          //     .presentationDetents([.medium])
-          //     .presentationDragIndicator(.visible)
-          // } else {
-          // WalletEditView()
-          // }
+          if #available(iOS 16.0, *) {
+            WalletEditView(sheet: true)
+              .presentationDetents([.medium])
+              .presentationDragIndicator(.visible)
+          } else {
+            WalletEditView()
+          }
         }
         .sheet(isPresented: $showTokensDetail) {
           tokenDetail
