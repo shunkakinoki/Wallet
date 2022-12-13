@@ -1,6 +1,6 @@
 import Commons
 import SDWebImageSwiftUI
-import SPAlert
+import SPIndicator
 import Settings
 import SwiftUI
 import UIComponents
@@ -56,7 +56,7 @@ public struct HomeView: View {
                 .shimmer()
                 .padding([.leading], 2.0)
             } else {
-              Text(viewModel.address.netWorth.toString())
+              Text(String(format: "%.2f", viewModel.address.netWorth))
                 .font(.system(size: 24, weight: .semibold))
                 .foregroundColor(Color(Colors.Label.secondary))
             }
@@ -103,17 +103,28 @@ public struct HomeView: View {
                   .foregroundColor(Color(Colors.Label.primary))
               }
             }
+            Button {
+              UIPasteboard.general.setValue(
+                viewModel.selectedRawAddress,
+                forPasteboardType: "public.plain-text"
+              )
+              showToast.toggle()
+            } label: {
+              VStack {
+                Image(systemName: "doc.on.clipboard")
+                  .font(.system(size: 17, weight: .bold))
+                  .padding([.top, .bottom], 14)
+                  .foregroundColor(Color(Colors.Label.primary))
+                  .frame(width: 48, height: 48)
+                  .background(Color(Colors.Background.secondary))
+                  .clipShape(Circle())
+                Text("Address")
+                  .font(.body)
+                  .foregroundColor(Color(Colors.Label.primary))
+              }
+            }
             VStack {
               Menu {
-                Button(action: {
-                  UIPasteboard.general.setValue(
-                    viewModel.selectedRawAddress,
-                    forPasteboardType: "public.plain-text"
-                  )
-                  showToast.toggle()
-                }) {
-                  Label("Copy Address", systemImage: "doc.on.clipboard")
-                }
                 Button(action: {
                   showEdit.toggle()
                 }) {
@@ -199,6 +210,7 @@ public struct HomeView: View {
           viewModel.getWalletSelected()
           viewModel.getConfiguration()
           refreshTokens()
+          refreshWallet()
         }
         .sheet(isPresented: $showingQR) {
           ShowQR(text: viewModel.selectedRawAddress)
@@ -219,7 +231,7 @@ public struct HomeView: View {
         .sheet(isPresented: $showAppsDetail) {
           appsDetail
         }
-        .SPAlert(
+        .SPIndicator(
           isPresent: $showToast,
           title: "Copied!",
           preset: .done,
@@ -282,6 +294,8 @@ public struct HomeView: View {
     viewModel.getWalletSelected()
     viewModel.getConfiguration()
     refreshTokens()
+    refreshWallet()
+    viewModel.isLoading = true
   }
 
   private func refreshTokens() {
@@ -327,14 +341,14 @@ extension HomeView {
           TokenItem(token: token)
         }
       }
-    }
+    }.navigationTitle("Tokens")
   }
 
   func appsList(isDetail: Bool = false) -> some View {
     VStack {
       if !isDetail {
         HStack {
-          Text("Apps")
+          Text("Dapps")
             .font(.system(size: 15, weight: .semibold))
             .foregroundColor(Color(Colors.Label.secondary))
             .padding(.top, 16)
@@ -399,6 +413,6 @@ extension HomeView {
       .cornerRadius(14)
       .padding(.top, 6)
       .padding(.bottom, 16)
-    }
+    }.navigationTitle("Dapps")
   }
 }

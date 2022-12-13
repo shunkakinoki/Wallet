@@ -80,11 +80,19 @@ public final class HomeViewModel: ObservableObject {
 
   @MainActor
   public func getTokensList() async {
-    do {
-      self.tokens = try await getTokens.get()
-    } catch {
-      self.tokens = []
-    }
+    getTokens.get()
+      .receive(on: DispatchQueue.main)
+      .sink(
+        receiveCompletion: { error in
+          print(error)
+          self.isLoading = false
+          self.isValidating = false
+        },
+        receiveValue: { value in
+          self.tokens = value
+        }
+      )
+      .store(in: &subscriptions)
   }
 
   public func getWalletAddress() {
