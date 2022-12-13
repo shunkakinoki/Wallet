@@ -113,87 +113,11 @@ public struct HomeView: View {
                   showToast.toggle()
                 }) {
                   Label("Copy Address", systemImage: "doc.on.clipboard")
-                HStack {
-                    Text("CA$34.45")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(Color(.white))
-                        .padding(.top, 2)
-                        .padding(.bottom, 2)
-
-                    Spacer()
                 }
-                
-                HStack(spacing: 24) {
-                    Button {
-                        UIPasteboard.general.setValue(
-                            viewModel.selectedRawAddress,
-                            forPasteboardType: "public.plain-text"
-                        )
-                    } label: {
-                        VStack {
-                            Image(systemName: "plus")
-                                .font(.system(size: 17, weight: .bold))
-                                .padding([.top, .bottom], 14)
-                                .foregroundColor(Color(Colors.Label.primary))
-                                .frame(width: 48, height: 48)
-                                .background(Color(Colors.Background.secondary))
-                                .clipShape(Circle())
-                                .padding(.top, 25)
-                            Text("Troll")
-                                .font(.body)
-                                .foregroundColor(Color(Colors.Label.primary))
-                        }
-                    }
-                    Button {
-                        showingQR.toggle()
-                    } label: {
-                        VStack {
-                            Image(systemName: "arrow.down")
-                                .font(.system(size: 17, weight: .bold))
-                                .padding([.top, .bottom], 14)
-                                .foregroundColor(Color(Colors.Label.primary))
-                                .frame(width: 48, height: 48)
-                                .background(Color(Colors.Background.secondary))
-                                .clipShape(Circle())
-                                .padding(.top, 25)
-                            Text("Receive")
-                                .font(.body)
-                                .foregroundColor(Color(Colors.Label.primary))
-                        }
-                    }.sheet(isPresented: $showingQR) {
-                        ShowQR(text: viewModel.selectedRawAddress)
-                    }
-                    VStack {
-                        Menu {
-                            Button(action: {
-                                UIPasteboard.general.setValue(
-                                    viewModel.selectedRawAddress,
-                                    forPasteboardType: "public.plain-text"
-                                )
-                                showToast.toggle()
-                            }) {
-                                Label("Copy Address", systemImage: "doc.on.clipboard")
-                            }
-                            Button(action: {
-                                showingQR.toggle()
-                            }) {
-                                Label("Show QR Code", systemImage: "qrcode")
-                            }
-                        } label: {
-                            Image(systemName: "ellipsis.circle")
-                                .font(.system(size: 17, weight: .bold))
-                                .padding([.top, .bottom], 14)
-                                .foregroundColor(Color(Colors.Label.primary))
-                                .frame(width: 48, height: 48)
-                                .background(Color(Colors.Background.secondary))
-                                .clipShape(Circle())
-                                .padding(.top, 25)
-                        }
-                        Text("More")
-                            .font(.body)
-                            .foregroundColor(Color(Colors.Label.primary))
-                    }
-                    Spacer()
+                Button(action: {
+                  showEdit.toggle()
+                }) {
+                  Label("Edit Wallet", systemImage: "pencil")
                 }
                 Button(action: {
                   showingQR.toggle()
