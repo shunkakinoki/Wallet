@@ -54,25 +54,6 @@ public struct ExploreView: View {
 extension ExploreView {
   func appsList(isDetail: Bool = false) -> some View {
     VStack {
-      if !isDetail {
-        HStack {
-          Text("Dapps")
-            .font(.system(size: 15, weight: .semibold))
-            .foregroundColor(Color(Colors.Label.secondary))
-            .padding(.top, 16)
-            .opacity(viewModel.configurations.count == 0 ? 0 : 1)
-          Spacer()
-          Button {
-            showAppsDetail.toggle()
-          } label: {
-            Text("More")
-              .font(.system(size: 15, weight: .semibold))
-              .foregroundColor(Color(Colors.Label.secondary))
-              .padding(.top, 16)
-              .opacity(viewModel.configurations.count == 0 ? 0 : 1)
-          }
-        }
-      }
       VStack(spacing: 0) {
         ForEach(
           isDetail == true ? viewModel.configurations : Array(viewModel.configurations.prefix(10)),
