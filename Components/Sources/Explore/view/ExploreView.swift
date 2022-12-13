@@ -16,7 +16,6 @@ public struct ExploreView: View {
   public var body: some View {
     NavigationView {
       ScrollView {
-        Text(viewModel.dapps.dapps.mint.isEmpty ? "empty" : viewModel.dapps.dapps.mint[0].site)
         VStack {
           appsList()
         }
@@ -35,6 +34,9 @@ public struct ExploreView: View {
         .padding([.leading, .trailing], 16)
         .padding([.top], 8)
         Spacer()
+      }
+      .refreshable {
+        self.refreshDapps()
       }
       .navigationTitle("Explore Dapps")
     }
