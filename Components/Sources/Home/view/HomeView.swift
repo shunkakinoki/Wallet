@@ -330,14 +330,14 @@ extension HomeView {
           TokenItem(token: token)
         }
       }
-    }
+    }.navigationTitle("Tokens")
   }
 
   func appsList(isDetail: Bool = false) -> some View {
     VStack {
       if !isDetail {
         HStack {
-          Text("Apps")
+          Text("Dapps")
             .font(.system(size: 15, weight: .semibold))
             .foregroundColor(Color(Colors.Label.secondary))
             .padding(.top, 16)
@@ -402,6 +402,6 @@ extension HomeView {
       .cornerRadius(14)
       .padding(.top, 6)
       .padding(.bottom, 16)
-    }
+    }.navigationTitle("Dapps")
   }
 }
