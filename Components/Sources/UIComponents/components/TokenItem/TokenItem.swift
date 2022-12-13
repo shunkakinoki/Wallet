@@ -13,18 +13,23 @@ public struct TokenItem: View {
 
   public var body: some View {
     HStack {
-      WebImage(url: URL(string: "https://picsum.photos/200/300"))
-        .resizable()
-        .placeholder(content: {
-          Text(String(token.name ?? ""))
-            .frame(width: 40, height: 40)
-            .background(Color(Colors.Label.primary))
-            .clipShape(Circle())
-        })
-        .frame(width: 40, height: 40)
-        .aspectRatio(contentMode: .fill)
-        .padding(.top, 12)
-        .padding(.bottom, 12)
+      WebImage(
+        url: URL(
+          string: "https://logos.covalenthq.com/tokens/\(token.id).png"
+        )
+      )
+      .resizable()
+      .placeholder(content: {
+        Text(String(token.name ?? ""))
+          .frame(width: 40, height: 40)
+          .background(Color(Colors.Label.secondary))
+          .clipShape(Circle())
+      })
+      .clipShape(Circle())
+      .frame(width: 40, height: 40)
+      .aspectRatio(contentMode: .fill)
+      .padding(.top, 12)
+      .padding(.bottom, 12)
       VStack(alignment: .leading, spacing: 4) {
         Text("$\(String(format: "%.02f", Double(truncating: token.value as NSNumber)))")
           .foregroundColor(Color(Colors.Label.primary))
