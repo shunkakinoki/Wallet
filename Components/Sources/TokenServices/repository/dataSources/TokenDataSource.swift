@@ -40,7 +40,7 @@ extension TokenDataModel {
       id: self.asset.address,
       name: self.asset.name,
       symbol: self.asset.symbol,
-      amount: self.amount,
+      amount: self.amount ?? 0.0,
       value: self.nativeValue.amount
     )
   }

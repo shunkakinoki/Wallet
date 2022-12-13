@@ -1,7 +1,7 @@
 import Foundation
 
 struct TokenDataModel: Decodable {
-  public let amount: Double
+  public let amount: Double?
   public let type: String
   public let nativeValue: NativeValue
   public let asset: Asset

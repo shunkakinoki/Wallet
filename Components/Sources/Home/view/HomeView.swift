@@ -199,6 +199,7 @@ public struct HomeView: View {
           viewModel.getWalletSelected()
           viewModel.getConfiguration()
           refreshTokens()
+          refreshWallet()
         }
         .sheet(isPresented: $showingQR) {
           ShowQR(text: viewModel.selectedRawAddress)

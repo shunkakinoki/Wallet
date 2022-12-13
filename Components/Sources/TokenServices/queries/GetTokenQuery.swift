@@ -11,7 +11,7 @@ public struct GetTokenQuery: Query {
   }
 
   public var query: String {
-    "/v1/address/\(address)"
+    "/v1/address/\(address)/balances"
   }
 
   public var body: Data? {
