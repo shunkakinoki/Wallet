@@ -18,6 +18,7 @@ export class EthereumProvider extends BaseProvider {
   wrapResults: Map<any, any>;
   chainId: any;
   address: string;
+  name: string;
   ready: boolean;
   networkVersion: string;
   rpc: RPCServer;
@@ -77,12 +78,14 @@ export class EthereumProvider extends BaseProvider {
   setConfig(config) {
     this.setAddress(config.address);
 
-    this.networkVersion = "" + config.chainId;
-    this.chainId = "0x" + (config.chainId || 1).toString(16);
+    const chainId = config.chainId;
+    this.chainId = chainId;
+    this.networkVersion = parseInt(chainId, 16).toString();
+
     this.rpc = new RPCServer(config.rpcUrl);
   }
 
-  updateAccount(eventName, address, chainId, rpcUrl) {
+  updateAccount(eventName, address, chainId, rpcUrl, name) {
     window.ethereum.setAddress(address);
 
     if (eventName == "switchAccount") {
@@ -100,6 +103,10 @@ export class EthereumProvider extends BaseProvider {
         window.ethereum.emit("chainChanged", chainId);
         window.ethereum.emit("networkChanged", window.ethereum.net_version());
       }
+    }
+
+    if (window.ethereum.name != name) {
+      this.name = name;
     }
   }
 
@@ -403,7 +410,7 @@ export class EthereumProvider extends BaseProvider {
   }
 
   wallet_addEthereumChain(payload) {
-    this.postMessage("addEthereumChain", payload.id, payload.params[0]);
+    this.postMessage("switchEthereumChain", payload.id, payload.params[0]);
   }
 
   wallet_switchEthereumChain(payload) {
@@ -429,6 +436,7 @@ export class EthereumProvider extends BaseProvider {
           response.address,
           response.chainId,
           response.rpcUrl,
+          response.name,
         );
         break;
       case "signTransaction":
@@ -447,16 +455,8 @@ export class EthereumProvider extends BaseProvider {
             this.logger(`signTransaction error: ${err}`);
             this.sendError(id, err);
 
-            fetch("https://wallet.light.so/api/report", {
-              method: "POST",
-              body: JSON.stringify({
-                host: window.location.host,
-                error: err.message,
-              }),
-              headers: new Headers({
-                "Content-Type": "application/json",
-                Accept: "application/json",
-              }),
+            this.postMessage("errorMessage", Utils.genId(), {
+              err: err.message,
             });
           });
         break;

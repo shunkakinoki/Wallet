@@ -1,8 +1,7 @@
-import { RpcMapping, ChainNames } from "@lightdotso/chain";
+import { RpcMapping, ChainNames } from "@lightwallet/chains";
 import type { FC } from "react";
 import { useState } from "react";
 
-import { useShowDrawer } from "../../hooks/useShowDrawer";
 import { ArrowRightIcon } from "../../icons/ArrowRightIcon";
 import { getFavicon } from "../../services/getFavicon";
 import { getTitle } from "../../services/getTitle";
@@ -28,13 +27,10 @@ export const SwitchEthereumChain: FC<SwitchEthereumChainParams> = ({
   method,
   params,
 }) => {
-  const [closeDrawer] = useShowDrawer(state => {
-    return [state.closeDrawer];
-  });
-
   return (
     <ConfirmButton
       id={id}
+      method={method}
       onConfirmText="Switch"
       onConfirmClick={() => {
         sendToEthereum(
@@ -47,7 +43,6 @@ export const SwitchEthereumChain: FC<SwitchEthereumChainParams> = ({
           favicon: getFavicon(),
           chainId: params.chainId,
         });
-        closeDrawer();
       }}
     />
   );

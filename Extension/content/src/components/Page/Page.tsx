@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import { ChainNames } from "@lightdotso/chain";
+import { ChainNames } from "@lightwallet/chains";
 import type { FC } from "react";
 import { useEffect } from "react";
 
 import { useTransition } from "react-transition-state";
 
+import { useJitsu } from "../../hooks/useJitsu";
 import { useShowDrawer } from "../../hooks/useShowDrawer";
 import { useTransactionError } from "../../hooks/useTransactionError";
+import { useTransactionValue } from "../../hooks/useTransactionValue";
 import { ChainIcon } from "../../icons/ChainIcon";
 import { CloseIcon } from "../../icons/CloseIcon";
 import { InfoIcon } from "../../icons/InfoIcon";
@@ -20,6 +22,8 @@ import { splitAddress } from "../../utils/splitAddress";
 import { ConnectWallet } from "../ConnectWallet";
 import { ConnectWalletDescription } from "../ConnectWallet/ConnectWallet";
 import { Drawer } from "../Drawer";
+import { ErrorMessage } from "../ErrorMessage";
+import { ErrorMessageDescription } from "../ErrorMessage/ErrorMessage";
 import { PersonalSign } from "../PersonalSign";
 import { PersonalSignDescription } from "../PersonalSign/PersonalSign";
 import { SignTransaction } from "../SignTransaction";
@@ -53,6 +57,7 @@ type PageProps = {
 
 type PageType =
   | "ConnectWallet"
+  | "ErrorMessage"
   | "SwitchEthereumChain"
   | "PersonalSign"
   | "SignTransaction"
@@ -68,6 +73,9 @@ export const Page: FC<PageProps> = ({ id, type, method, params }) => {
         <PageTypeContainer>
           {type === "ConnectWallet" && (
             <ConnectWallet id={id} method={method} params={params} />
+          )}
+          {type === "ErrorMessage" && (
+            <ErrorMessage id={id} method={method} params={params} />
           )}
           {type === "SwitchEthereumChain" && (
             <SwitchEthereumChain id={id} method={method} params={params} />
@@ -95,6 +103,12 @@ export const PageLogger: FC<PageProps> = ({ id, type, method, params }) => {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const { track } = useJitsu();
+
+  useEffect(() => {
+    track("modalOpen");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return null;
 };
@@ -106,6 +120,14 @@ export const PageHeader: FC<PageHeaderProps> = ({ id }) => {
   const closeDrawer = useShowDrawer(state => {
     return state.closeDrawer;
   });
+  const resetValue = useTransactionValue(state => {
+    return state.resetValue;
+  });
+
+  useEffect(() => {
+    resetValue();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   return (
     <PageHeaderContainer>
@@ -116,6 +138,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ id }) => {
       <CloseButton
         onClick={() => {
           closeDrawer();
+          resetValue();
           sendToEthereum(null, id, "cancel");
         }}
       >
@@ -139,6 +162,29 @@ export const PageBanner: FC<PageBannerProps> = ({ type }) => {
   useEffect(() => {
     toggle(true);
   }, [toggle]);
+
+  if (type === "ErrorMessage") {
+    return (
+      <>
+        <PageBannerContainer>
+          <strong>Sorry! </strong>We encountered an{" "}
+          <strong>
+            <span>error</span>
+          </strong>{" "}
+          while processing the transaction
+          <PageBannerDataContainer>
+            <LinkContainer>
+              <LinkButton>
+                <LinkIcon />
+              </LinkButton>
+              &nbsp;
+              {isMounted && window.location.host}
+            </LinkContainer>
+          </PageBannerDataContainer>
+        </PageBannerContainer>
+      </>
+    );
+  }
 
   return (
     <>
@@ -195,7 +241,10 @@ export const PageBanner: FC<PageBannerProps> = ({ type }) => {
               &nbsp;
               {isMounted &&
                 window.ethereum &&
-                splitAddress(window.ethereum.address)}
+                decodeURI(window.ethereum.name).replace(/%23/g, "#")}
+              {isMounted &&
+                window.ethereum &&
+                ` (${splitAddress(window.ethereum.address)})`}
             </LinkContainer>
           )}
         </PageBannerDataContainer>
@@ -225,6 +274,7 @@ export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
         {type === "ConnectWallet" && (
           <ConnectWalletDescription params={params} />
         )}
+        {type === "ErrorMessage" && <ErrorMessageDescription params={params} />}
         {type === "PersonalSign" && <PersonalSignDescription params={params} />}
         {type === "SignTransaction" && (
           <SignTransactionDescription params={params} />
@@ -242,6 +292,8 @@ export const PageDescription: FC<PageDescriptionProps> = ({ type, params }) => {
             </InfoButton>
             {type === "ConnectWallet" &&
               "When you click connect, you will allow this dapp to view your public wallet address, token balances & previous transactions."}
+            {type === "ErrorMessage" &&
+              "When you click report, you will allow this dapp to send an anonymous report of what went wrong so we can work on a fix."}
             {type === "PersonalSign" &&
               "When you click sign, you will passing a message back to the dapp that it can use to authenticate your wallet."}
             {type === "SwitchEthereumChain" &&

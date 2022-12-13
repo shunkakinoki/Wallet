@@ -1,5 +1,5 @@
 {
-  "name": "@lightdotso/provider",
+  "name": "@lightwallet/provider",
   "private": false,
   "version": "0.0.1",
   "scripts": {
@@ -11,14 +11,14 @@
     "dist"
   ],
   "dependencies": {
-    "@metamask/eth-sig-util": "^5.0.0",
+    "@metamask/eth-sig-util": "^5.0.2",
     "@types/firefox-webext-browser": "^94.0.1",
     "buffer": "^6.0.3",
     "events": "^3.3.0",
     "isutf8": "^4.0.0"
   },
   "devDependencies": {
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.4"
   },
   "publishConfig": {
     "access": "public",

@@ -2,9 +2,9 @@ import Foundation
 
 final class GetBalanceSafariRequest: SafariExtensionRequest {
 
-    init() { }
-    
-    var response: String? {
-        return nil
-    }
+  init() {}
+
+  var response: String? {
+    return nil
+  }
 }

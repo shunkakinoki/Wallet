@@ -1,31 +1,27 @@
-import Foundation
 import Combine
+import Foundation
 
 public protocol Client {
-    func performRequest<T: Decodable>(to query: Query) async throws -> T
+  func performRequest<T: Decodable>(to query: Query) -> AnyPublisher<T, Error>
 }
 
 public final class APIClient: Client {
-    public let networkProvider: NetworkProvider
+  public let networkProvider: NetworkProvider
 
-    public convenience init(with layer: Layer) {
-        switch layer {
-        case .rest:
-            self.init(networkProvider: RestAPINetowkrProvider())
-        case .rpc:
-            self.init(networkProvider: RPCNetworkProvider())
-        }
+  public convenience init(with layer: Layer) {
+    switch layer {
+    case .rest:
+      self.init(networkProvider: RestAPINetworkProvider())
+    case .graphql:
+      self.init(networkProvider: GraphQLNetworkProvider())
     }
+  }
 
-    private init(networkProvider: NetworkProvider) {
-        self.networkProvider = networkProvider
-    }
+  private init(networkProvider: NetworkProvider) {
+    self.networkProvider = networkProvider
+  }
 
-    public func performRequest<T: Decodable>(to query: Query) -> AnyPublisher<T, Error> {
-        Empty().eraseToAnyPublisher()
-    }
-
-    public func performRequest<T: Decodable>(to query: Query) async throws -> T {
-        try await networkProvider.performRequest(to: query)
-    }
+  public func performRequest<T: Decodable>(to query: Query) -> AnyPublisher<T, Error> {
+    networkProvider.performRequest(to: query)
+  }
 }

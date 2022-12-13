@@ -1,12 +1,12 @@
+import Commons
 import Foundation
 import secp256k1
-import Commons
 
 final class HDPublicKey {
 
-    private let raw: Data
+  private let raw: Data
 
-    public init(raw: Data) {
-        self.raw = raw
-    }
+  public init(raw: Data) {
+    self.raw = raw
+  }
 }

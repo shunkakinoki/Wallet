@@ -1,52 +1,54 @@
-import Foundation
-import Networking
 import Combine
+import EthereumNetworking
+import Foundation
 
 public struct RPCResult<T: Decodable>: Decodable {
-    public let id: Int?
-    public let result: T?
+  public let id: Int?
+  public let result: T?
 }
 
 public protocol EthereumDataSource {
-    func getEstimatedGas(to: String, from: String, value: String) async throws -> String
-    func getGasPrice() async throws -> String
-    func sendTransaction(with signature: String) async throws -> String
-    func getTransactionCount(using address: String) async throws -> String
+  func getEstimatedGas(to: String, from: String, value: String) async throws -> String
+  func getGasPrice() async throws -> String
+  func sendTransaction(with signature: String) async throws -> String
+  func getTransactionCount(using address: String) async throws -> String
 }
 
 public final class EthereumDataSourceImp: EthereumDataSource {
 
-    private let client: Client
+  private let client: EthereumClient
 
-    public convenience init() {
-        self.init(client: APIClient(with: .rpc))
-    }
+  public convenience init() {
+    self.init(client: RPCEthereumClient())
+  }
 
-    init(client: Client) {
-        self.client = client
-    }
+  init(
+    client: EthereumClient
+  ) {
+    self.client = client
+  }
 
-    public func getEstimatedGas(to: String, from: String, value: String) async throws -> String {
-        let query = GetEstimatedGasQuery(to: to, from: from, value: value)
-        let result: RPCResult<String> = try await client.performRequest(to: query)
-        return result.result!
-    }
+  public func getEstimatedGas(to: String, from: String, value: String) async throws -> String {
+    let query = GetEstimatedGasQuery(to: to, from: from, value: value)
+    let result: RPCResult<String> = try await client.performRequest(to: query)
+    return result.result!
+  }
 
-    public func getGasPrice() async throws -> String {
-        let query = GetGasPriceQuery()
-        let result: RPCResult<String> = try await client.performRequest(to: query)
-        return result.result!
-    }
+  public func getGasPrice() async throws -> String {
+    let query = GetGasPriceQuery()
+    let result: RPCResult<String> = try await client.performRequest(to: query)
+    return result.result!
+  }
 
-    public func sendTransaction(with signature: String) async throws -> String {
-        let query = SendRawTransactionQuery(signature: signature)
-        let result: RPCResult<String> = try await client.performRequest(to: query)
-        return result.result!
-    }
+  public func sendTransaction(with signature: String) async throws -> String {
+    let query = SendRawTransactionQuery(signature: signature)
+    let result: RPCResult<String> = try await client.performRequest(to: query)
+    return result.result!
+  }
 
-    public func getTransactionCount(using address: String) async throws -> String {
-        let query = GetTransactionCountQuery(address: address)
-        let result: RPCResult<String> = try await client.performRequest(to: query)
-        return result.result!
-    }
+  public func getTransactionCount(using address: String) async throws -> String {
+    let query = GetTransactionCountQuery(address: address)
+    let result: RPCResult<String> = try await client.performRequest(to: query)
+    return result.result!
+  }
 }

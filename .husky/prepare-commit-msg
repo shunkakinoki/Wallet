@@ -3,4 +3,4 @@
 
 [ -n "$CI" ] && exit 0
 
-exec < /dev/tty && pnpm git-cz -e --hook || true
+exec < /dev/tty && yarn run git-cz -e --hook || true

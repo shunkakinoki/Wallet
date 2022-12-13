@@ -1,27 +1,43 @@
-import { ChainNames } from "@lightdotso/chain";
+import { ChainNames } from "@lightwallet/chains";
 import type { FC } from "react";
-import { useEffect, useState, useCallback } from "react";
+import { useMemo, useEffect, useState, useCallback } from "react";
 
+import { useBlowfishTx } from "../../hooks/useBlowfishTx";
+import { useCoinPrice } from "../../hooks/useCoinPrice";
+import { useConfirmLoading } from "../../hooks/useConfirmLoading";
+import { useGasEstimation } from "../../hooks/useGasEstimation";
+import { useGasFallback } from "../../hooks/useGasFallback";
+import { useGasLimit } from "../../hooks/useGasLimit";
+import { useGasPrice } from "../../hooks/useGasPrice";
 import { useTransactionError } from "../../hooks/useTransactionError";
 import { useTransactionGasConfig } from "../../hooks/useTransactionGasConfig";
-
-import { useTransactionGasPrice } from "../../hooks/useTransactionGasPrice";
-
+import { useTransactionGasValue } from "../../hooks/useTransactionGasValue";
+import { useTransactionTotalValue } from "../../hooks/useTransactionTotalValue";
+import { useTransactionValue } from "../../hooks/useTransactionValue";
 import { BlowfishIcon } from "../../icons/BlowfishIcon";
 import { WarningIcon } from "../../icons/WarningIcon";
-import { logContent } from "../../services/log";
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
+import { beautifyNumber } from "../../utils/beautifyNumber";
+import { blowfishSupportedCheck } from "../../utils/blowfishSupportedCheck";
+import { shortenName } from "../../utils/shortenName";
+import { testnetCheck } from "../../utils/testnetCheck";
 import { ConfirmButton } from "../Base/ConfirmButton";
+
+import { Skeleton } from "../Base/Skeleton";
 
 import {
   InfoButton,
   ChevronIcon,
+  LoadingSpinner,
   SignTransactionDescriptionContainer,
+  SignTransactionSkeletonContainer,
   SignTransactionGasContainer,
   SignTransactionGasSelect,
   SignTransactionGasSelectAccordionContainer,
   SignTransactionGasEstimateContainer,
   SignTransactionGasEstimateFeeContainer,
+  SignTransactionGasEstimateFeeDescriptionContainer,
+  SignTransactionGasEstimatePriceContainer,
   SignTransactionGasEstimateFeeSecondsContainer,
   SignTransactionGasSimulationContainer,
   SignTransactionGasSimulationBlowfishContainer,
@@ -47,17 +63,41 @@ export const SignTransaction: FC<SignTransactionParams> = ({
   method,
   params,
 }) => {
-  const [gasPrice] = useTransactionGasPrice(state => {
-    return [state.gasPrice];
-  });
+  const { gasPrice } = useGasPrice();
   const [error] = useTransactionError(state => {
     return [state.error];
   });
+  const [isConfirmLoading] = useConfirmLoading(state => {
+    return [state.isConfirmLoading];
+  });
+
+  const value = useTransactionValue(state => {
+    return state.value;
+  });
+
+  const gasValue = useTransactionGasValue(state => {
+    return state.gasValue;
+  });
+
+  const totalValue = useTransactionTotalValue(state => {
+    return state.totalValue;
+  });
+
+  const { gasLimit } = useGasLimit(params);
 
   return (
     <ConfirmButton
       id={id}
+      method={method}
+      customConfirmData={
+        testnetCheck() && {
+          tx_value: value,
+          gas_value: gasValue,
+          total_value: totalValue,
+        }
+      }
       disabled={error}
+      loading={isConfirmLoading}
       onConfirmText="Approve"
       onConfirmClick={() => {
         let nonceVar: any;
@@ -80,6 +120,7 @@ export const SignTransaction: FC<SignTransactionParams> = ({
                 ...params,
                 data: params?.data ?? "0x",
                 value: params?.value ?? "0x0",
+                gas: params?.gas ?? gasLimit,
                 chainId: window.ethereum.chainId,
                 gasPrice: gasPrice,
                 nonce: nonceVar,
@@ -94,210 +135,50 @@ export const SignTransaction: FC<SignTransactionParams> = ({
 export const SignTransactionDescription: FC<
   Pick<SignTransactionParams, "params">
 > = ({ params }) => {
-  const [result, setResult] = useState(null);
-  const [isFallback, setIsFallback] = useState(false);
-  const [gasEstimationDollar, setGasEstimationDollar] = useState("");
-  const [gasEstimationFee, setGasEstimationFee] = useState(0.01);
-
   const [config, setConfig] = useTransactionGasConfig(state => {
     return [state.config, state.setConfig];
   });
-  const [gasPrice, setGasPrice] = useTransactionGasPrice(state => {
-    return [state.gasPrice, state.setGasPrice];
+  const [value] = useTransactionValue(state => {
+    return [state.value, state.addValue];
   });
 
-  const [setError] = useTransactionError(state => {
-    return [state.setError];
+  const [isGasFallback] = useGasFallback(state => {
+    return [state.isGasFallback];
   });
 
-  const fetchGasPrice = () => {
-    fetch(`https://wallet.light.so/api/gas/${window.ethereum.chainId}`, {
-      method: "POST",
-      body: JSON.stringify({
-        isLegacy: true,
-        legacySpeed: config.legacySpeed,
-      }),
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      }),
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        logContent(`GasPrice result: ${JSON.stringify(data)}`);
-        if (
-          !data?.gasPrice ||
-          Number.isNaN(data?.gasPrice) ||
-          data?.gasPrice === 0
-        ) {
-          throw "No gasPrice";
-        }
-        setGasPrice(data.gasPrice);
-      })
-      .catch(err => {
-        logContent(`Error gas: ${JSON.stringify(err)}`);
-        if (window.ethereum.storybook) {
-          setGasPrice("0x69");
-          return;
-        }
-        setIsFallback(true);
-        window.ethereum.rpc
-          .call({
-            jsonrpc: "2.0",
-            method: "eth_gasPrice",
-            params: [],
-            id: 1,
-          })
-          .then(response => {
-            setGasPrice(response.result);
-          });
-      });
-  };
+  const { coinPrice, isValidating: isCoinPriceValidating } = useCoinPrice();
+  const {
+    gasPrice,
+    isValidating: isGasPriceValidating,
+    isLoading: isGasPriceLoading,
+  } = useGasPrice();
+  const { gasEstimation } = useGasEstimation(params);
+  const { gasLimit } = useGasLimit(params);
+  const { result, isLoading: isBlowfishLoading } = useBlowfishTx(params);
 
-  useEffect(() => {
-    logContent(`Config: ${JSON.stringify(config)}`);
+  const [setConfirmLoading] = useConfirmLoading(state => {
+    return [state.setConfirmLoading];
+  });
 
-    if (config) {
-      fetchGasPrice();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config]);
+  const setGasValue = useTransactionGasValue(state => {
+    return state.setGasValue;
+  });
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (config) {
-        fetchGasPrice();
-      }
-    }, 3000);
-    return () => {
-      return clearInterval(interval);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config]);
+  const setTotalValue = useTransactionTotalValue(state => {
+    return state.setTotalValue;
+  });
 
-  useEffect(() => {
-    if (result?.simulationResults && !result?.simulationResults?.error) {
-      result?.simulationResults?.expectedStateChanges.map(change => {
-        if (
-          change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
-          change?.rawInfo?.kind === "ERC20_TRANSFER"
-        ) {
-          fetch(
-            `https://min-api.cryptocompare.com/data/price?fsym=${change?.rawInfo.data?.symbol}&tsyms=USD`,
-            {
-              method: "GET",
-            },
-          )
-            .then(response => {
-              return response.json();
-            })
-            .then(data => {
-              logContent(
-                `${
-                  change?.rawInfo.data?.symbol
-                } dollar result: ${JSON.stringify(data)}`,
-              );
-              change.rawInfo.data.value = data.USD;
-            });
-        }
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result?.simulationResults]);
+  const gasEstimationFee = useMemo(() => {
+    return (parseInt(gasEstimation) * parseInt(gasPrice)) / 1e18;
+  }, [gasEstimation, gasPrice]);
 
-  useEffect(() => {
-    if (
-      params?.from &&
-      params?.to &&
-      params?.value &&
-      params?.data &&
-      (window.ethereum.chainId == "0x1" ||
-        window.ethereum.chainId == "0x5" ||
-        window.ethereum.chainId == "0x89")
-    ) {
-      logContent("Starting fetch...");
-      fetch(
-        `https://wallet.light.so/api/blowfish/${
-          window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x5"
-            ? "ethereum"
-            : "polygon"
-        }/v0/${
-          window.ethereum.chainId == "0x1" || window.ethereum.chainId == "0x89"
-            ? "mainnet"
-            : "goerli"
-        }/scan/transaction`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            metadata: {
-              origin: `https://${
-                window.location.host.startsWith("localhost")
-                  ? "https://wallet.light.so"
-                  : window.location.host
-              }`,
-            },
-            userAccount: params.from,
-            txObject: {
-              from: params.from,
-              to: params.to,
-              data: params?.data ?? "0x",
-              value: params?.value ?? "0x0",
-            },
-          }),
-        },
-      )
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          logContent(`Scan message result: ${JSON.stringify(data)}`);
-          return setResult(data);
-        })
-        .catch(err => {
-          logContent(`Error scan: ${JSON.stringify(err)}`);
-        });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const gasEstimationDollar = useMemo(() => {
+    return coinPrice * gasEstimationFee;
+  }, [coinPrice, gasEstimationFee]);
 
-  useEffect(() => {
-    setGasEstimationFee(
-      (parseInt(gasPrice, 16) * (21_000 + 68 * (params?.data?.length / 2))) /
-        10e18,
-    );
-  }, [gasPrice, params?.data]);
-
-  useEffect(() => {
-    if (typeof result?.warnings !== "undefined" && result?.warnings.length) {
-      setError(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result?.warnings]);
-
-  useEffect(() => {
-    fetch(
-      `https://min-api.cryptocompare.com/data/price?fsym=${
-        window.ethereum.chainId == "0x89" ? "MATIC" : "ETH"
-      }&tsyms=USD`,
-      {
-        method: "GET",
-      },
-    )
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        logContent(`Gas dollar result: ${JSON.stringify(data)}`);
-        setGasEstimationDollar(
-          (Number(data.USD) * gasEstimationFee).toFixed(2).toString(),
-        );
-      })
-      .catch(err => {
-        logContent(`Error scan: ${JSON.stringify(err)}`);
-      });
-  }, [gasEstimationFee]);
+  const totalValue = useMemo(() => {
+    return gasEstimationDollar + value;
+  }, [gasEstimationDollar, value]);
 
   const [isExpanded, setIsExpand] = useState<boolean>();
 
@@ -305,7 +186,36 @@ export const SignTransactionDescription: FC<
     setIsExpand(!isExpanded);
   }, [isExpanded]);
 
-  if (params?.from && params?.to && params?.value && params?.data) {
+  useEffect(() => {
+    setTotalValue(totalValue);
+  }, [setTotalValue, totalValue]);
+
+  useEffect(() => {
+    setGasValue(gasEstimationDollar);
+  }, [setGasValue, gasEstimationDollar]);
+
+  useEffect(() => {
+    if (
+      !gasEstimationFee ||
+      !gasLimit ||
+      !gasPrice ||
+      isBlowfishLoading ||
+      isBlowfishLoading
+    ) {
+      setConfirmLoading(true);
+    } else {
+      setConfirmLoading(false);
+    }
+  }, [
+    gasLimit,
+    gasEstimationFee,
+    gasPrice,
+    isBlowfishLoading,
+    isCoinPriceValidating,
+    setConfirmLoading,
+  ]);
+
+  if (params?.from && params?.to) {
     if (result?.simulationResults && result?.simulationResults?.error) {
       return (
         <SignTransactionGasSimulationContainer
@@ -316,10 +226,10 @@ export const SignTransactionDescription: FC<
           <SignTransactionGasSelectTransferErrorContainer>
             {result?.warnings.map(warning => {
               return (
-                <>
-                  <div key={warning?.kind}>{warning?.message}</div>
+                <div key={warning?.kind}>
+                  <>{warning?.message}</>
                   <br />
-                </>
+                </div>
               );
             })}
             {result?.simulationResults?.error?.humanReadableError}
@@ -329,200 +239,240 @@ export const SignTransactionDescription: FC<
     }
     return (
       <SignTransactionDescriptionContainer>
-        {(window.ethereum.chainId === "0x1" ||
-          window.ethereum.chainId === "0x5" ||
-          window.ethereum.chainId === "0x89") && (
-          <SignTransactionGasSelectAccordionContainer
-            onClick={handleExpandToggle}
-          >
-            {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
-              "APPROVAL",
-            ) && "Approval Request"}
-            {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
-              "TRANSFER",
-            ) && "Balance Changes"}
-            {result?.simulationResults && (
-              <ChevronIcon direction={isExpanded ? "top" : "bottom"} />
-            )}
-          </SignTransactionGasSelectAccordionContainer>
-        )}
-        <SignTransactionGasSimulationContainer>
-          {result?.simulationResults &&
-            !result?.simulationResults?.error &&
-            result?.simulationResults?.expectedStateChanges.map(change => {
-              if (
-                change?.rawInfo?.kind === "ERC20_APPROVAL" ||
-                change?.rawInfo?.kind === "ERC721_APPROVAL" ||
-                change?.rawInfo?.kind === "ERC721_APPROVAL_FOR_ALL" ||
-                change?.rawInfo?.kind === "ERC1155_APPROVAL" ||
-                change?.rawInfo?.kind === "ERC1155_APPROVAL_FOR_ALL"
-              ) {
-                return (
-                  <SignTransactionGasSelectApproveContainer
-                    key={change?.humanReadableDiff}
-                    style={{
-                      color:
-                        Number(change?.rawInfo?.data?.amount?.after) >
-                        Number(change?.rawInfo?.data?.amount?.before)
-                          ? "#FF453A"
-                          : "#30D158",
-                    }}
-                  >
-                    <InfoButton>
-                      <WarningIcon />
-                    </InfoButton>
-                    <div>{change?.humanReadableDiff}</div>
-                  </SignTransactionGasSelectApproveContainer>
-                );
-              }
-
-              if (
-                change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
-                change?.rawInfo?.kind === "ERC20_TRANSFER" ||
-                change?.rawInfo?.kind === "ERC721_TRANSFER" ||
-                change?.rawInfo?.kind === "ERC1155_TRANSFER"
-              ) {
-                return (
-                  <>
-                    <SignTransactionGasSelectTransferContainer
-                      key={change?.humanReadableDiff}
-                    >
-                      <SignTransactionGasSelectTransferNameContainer>
-                        <SignTransactionGasSelectTransferImage
-                          name={
-                            change?.rawInfo?.data?.name ??
-                            change?.humanReadableDiff
-                              ?.split(" ")
-                              .slice(1)
-                              .join(" ")
-                          }
-                          src={
-                            change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER"
-                              ? `https://defillama.com/chain-icons/rsz_${
-                                  ChainNames[window.ethereum.chainId]
-                                }.jpg`
-                              : change?.rawInfo?.kind === "ERC721_TRANSFER"
-                              ? change?.rawInfo?.data?.metadata?.rawImageUrl
-                              : `https://logos.covalenthq.com/tokens/${parseInt(
-                                  window.ethereum.chainId,
-                                  16,
-                                ).toString()}/${
-                                  change?.rawInfo?.data?.contract?.address
-                                }.png`
-                          }
-                        />
-                        {change?.rawInfo?.data?.name ??
-                          change?.humanReadableDiff
-                            ?.split(" ")
-                            .slice(1)
-                            .join(" ")}
-                      </SignTransactionGasSelectTransferNameContainer>
-                      <SignTransactionGasSelectTransferBalanceContainer
+        {isBlowfishLoading ? (
+          <SignTransactionSkeletonContainer>
+            <Skeleton width="100%" height="50px" />
+          </SignTransactionSkeletonContainer>
+        ) : (
+          <>
+            <SignTransactionGasSelectAccordionContainer
+              onClick={handleExpandToggle}
+            >
+              {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
+                "APPROVAL",
+              ) && "Approval Request"}
+              {result?.simulationResults?.expectedStateChanges[0]?.rawInfo?.kind?.includes(
+                "TRANSFER",
+              ) && "Balance Changes"}
+              {result?.simulationResults && (
+                <ChevronIcon direction={isExpanded ? "top" : "bottom"} />
+              )}
+            </SignTransactionGasSelectAccordionContainer>
+            <SignTransactionGasSimulationContainer>
+              {result?.simulationResults &&
+                !result?.simulationResults?.error &&
+                result?.simulationResults?.expectedStateChanges.map(change => {
+                  if (
+                    change?.rawInfo?.kind === "ERC20_APPROVAL" ||
+                    change?.rawInfo?.kind === "ERC721_APPROVAL" ||
+                    change?.rawInfo?.kind === "ERC721_APPROVAL_FOR_ALL" ||
+                    change?.rawInfo?.kind === "ERC1155_APPROVAL" ||
+                    change?.rawInfo?.kind === "ERC1155_APPROVAL_FOR_ALL"
+                  ) {
+                    return (
+                      <SignTransactionGasSelectApproveContainer
+                        key={change?.humanReadableDiff}
                         style={{
                           color:
-                            Number(change?.rawInfo?.data?.amount?.after) <
+                            Number(change?.rawInfo?.data?.amount?.after) >
                             Number(change?.rawInfo?.data?.amount?.before)
                               ? "#FF453A"
                               : "#30D158",
                         }}
                       >
-                        {Number(change?.rawInfo?.data?.amount?.after) <
-                        Number(change?.rawInfo?.data?.amount?.before)
-                          ? "-"
-                          : "+"}{" "}
-                        {change?.humanReadableDiff
-                          ?.split(" ")
-                          .slice(1)
-                          .join(" ")}{" "}
-                        {isExpanded && change?.rawInfo?.data?.value && (
-                          <SignTransactionGasSelectTransferBalanceContainerSpan>
-                            ($
-                            {(
-                              (Math.abs(
-                                Number(change?.rawInfo?.data?.amount?.before) -
-                                  Number(change?.rawInfo?.data?.amount?.after),
-                              ) /
-                                10 ** Number(change?.rawInfo?.data?.decimals)) *
-                              Number(change?.rawInfo?.data?.value)
-                            ).toFixed(2)}
-                            )
-                          </SignTransactionGasSelectTransferBalanceContainerSpan>
-                        )}{" "}
-                        <br />
-                      </SignTransactionGasSelectTransferBalanceContainer>
-                    </SignTransactionGasSelectTransferContainer>
-                    {isExpanded &&
-                      (change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
-                        change?.rawInfo?.kind === "ERC20_TRANSFER") && (
-                        <>
+                        <InfoButton>
+                          <WarningIcon />
+                        </InfoButton>
+                        <div>{change?.humanReadableDiff}</div>
+                      </SignTransactionGasSelectApproveContainer>
+                    );
+                  }
+
+                  if (
+                    change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
+                    change?.rawInfo?.kind === "ERC20_TRANSFER" ||
+                    change?.rawInfo?.kind === "ERC721_TRANSFER" ||
+                    change?.rawInfo?.kind === "ERC1155_TRANSFER"
+                  ) {
+                    return (
+                      <div key={change?.humanReadableDiff}>
+                        <SignTransactionGasSelectTransferContainer>
                           <SignTransactionGasSelectTransferNameContainer>
-                            <div />
+                            <SignTransactionGasSelectTransferImage
+                              name={
+                                change?.rawInfo?.data?.name ??
+                                change?.humanReadableDiff
+                                  ?.split(" ")
+                                  .slice(1)
+                                  .join(" ")
+                              }
+                              src={
+                                change?.rawInfo?.kind ===
+                                "NATIVE_ASSET_TRANSFER"
+                                  ? `https://defillama.com/chain-icons/rsz_${
+                                      ChainNames[window.ethereum.chainId]
+                                    }.jpg`
+                                  : change?.rawInfo?.kind === "ERC721_TRANSFER"
+                                  ? change?.rawInfo?.data?.metadata?.rawImageUrl
+                                  : `https://logos.covalenthq.com/tokens/${parseInt(
+                                      window.ethereum.chainId,
+                                      16,
+                                    ).toString()}/${
+                                      change?.rawInfo?.data?.contract?.address
+                                    }.png`
+                              }
+                            />
+                            {change?.rawInfo?.data?.name ??
+                              change?.humanReadableDiff
+                                ?.split(" ")
+                                .slice(1)
+                                .join(" ")}
                           </SignTransactionGasSelectTransferNameContainer>
-                          <SignTransactionGasSelectTransferBalanceExpansionContainer>
-                            {"Before: "}
-                            <strong>
-                              {(
-                                Number(change?.rawInfo?.data?.amount?.before) /
-                                10 ** Number(change?.rawInfo?.data?.decimals)
-                              ).toFixed(2)}{" "}
-                              {change?.rawInfo?.data?.symbol}
-                            </strong>
+                          <SignTransactionGasSelectTransferBalanceContainer
+                            style={{
+                              color:
+                                Number(change?.rawInfo?.data?.amount?.after) <
+                                Number(change?.rawInfo?.data?.amount?.before)
+                                  ? "#FF453A"
+                                  : "#30D158",
+                            }}
+                          >
+                            {Number(change?.rawInfo?.data?.amount?.after) <
+                            Number(change?.rawInfo?.data?.amount?.before)
+                              ? "-"
+                              : "+"}{" "}
+                            {change?.humanReadableDiff
+                              ?.split(" ")
+                              .slice(1)
+                              .join(" ")}{" "}
+                            {isExpanded && change?.rawInfo?.data?.value && (
+                              <SignTransactionGasSelectTransferBalanceContainerSpan>
+                                ($
+                                {beautifyNumber(
+                                  (Math.abs(
+                                    Number(
+                                      change?.rawInfo?.data?.amount?.before,
+                                    ) -
+                                      Number(
+                                        change?.rawInfo?.data?.amount?.after,
+                                      ),
+                                  ) /
+                                    10 **
+                                      Number(change?.rawInfo?.data?.decimals)) *
+                                    Number(change?.rawInfo?.data?.value),
+                                )}
+                                )
+                              </SignTransactionGasSelectTransferBalanceContainerSpan>
+                            )}{" "}
                             <br />
-                            {"After: "}
-                            <strong>
-                              {(
-                                Number(change?.rawInfo?.data?.amount?.after) /
-                                10 ** Number(change?.rawInfo?.data?.decimals)
-                              ).toFixed(2)}{" "}
-                              {change?.rawInfo?.data?.symbol}
-                            </strong>
-                          </SignTransactionGasSelectTransferBalanceExpansionContainer>
-                        </>
-                      )}
-                  </>
-                );
-              }
-            })}
-          {isExpanded && (
-            <SignTransactionGasSimulationBlowfishContainer>
-              <BlowfishIcon />
-            </SignTransactionGasSimulationBlowfishContainer>
-          )}
-        </SignTransactionGasSimulationContainer>
+                          </SignTransactionGasSelectTransferBalanceContainer>
+                        </SignTransactionGasSelectTransferContainer>
+                        {isExpanded &&
+                          (change?.rawInfo?.kind === "NATIVE_ASSET_TRANSFER" ||
+                            change?.rawInfo?.kind === "ERC20_TRANSFER") && (
+                            <>
+                              <SignTransactionGasSelectTransferNameContainer>
+                                <div />
+                              </SignTransactionGasSelectTransferNameContainer>
+                              <SignTransactionGasSelectTransferBalanceExpansionContainer>
+                                {"Before: "}
+                                <strong>
+                                  {beautifyNumber(
+                                    Number(
+                                      change?.rawInfo?.data?.amount?.before,
+                                    ) /
+                                      10 **
+                                        Number(change?.rawInfo?.data?.decimals),
+                                  )}{" "}
+                                  {change?.rawInfo?.data?.symbol}
+                                </strong>
+                                <br />
+                                {"After: "}
+                                <strong>
+                                  {beautifyNumber(
+                                    Number(
+                                      change?.rawInfo?.data?.amount?.after,
+                                    ) /
+                                      10 **
+                                        Number(change?.rawInfo?.data?.decimals),
+                                  )}{" "}
+                                  {change?.rawInfo?.data?.symbol}
+                                </strong>
+                              </SignTransactionGasSelectTransferBalanceExpansionContainer>
+                            </>
+                          )}
+                      </div>
+                    );
+                  }
+                })}
+              {blowfishSupportedCheck() && params?.data && isExpanded && (
+                <SignTransactionGasSimulationBlowfishContainer>
+                  <BlowfishIcon />
+                </SignTransactionGasSimulationBlowfishContainer>
+              )}
+            </SignTransactionGasSimulationContainer>
+          </>
+        )}
         <SignTransactionGasContainer>
           <SignTransactionGasEstimateContainer>
-            ${gasEstimationDollar ?? 0}{" "}
-            <SignTransactionGasEstimateFeeSecondsContainer>
-              ~
-              {window.ethereum.chainId === "0x1"
-                ? config.legacySpeed === "instant"
-                  ? 12
+            <SignTransactionGasEstimatePriceContainer>
+              {totalValue ? (
+                `$${beautifyNumber(totalValue)}`
+              ) : (
+                <Skeleton width="20%" />
+              )}
+              &nbsp;
+              <SignTransactionGasEstimateFeeSecondsContainer>
+                ~
+                {window.ethereum.chainId === "0x1"
+                  ? config.legacySpeed === "instant"
+                    ? 12
+                    : config.legacySpeed === "fast"
+                    ? 30
+                    : config.legacySpeed === "standard"
+                    ? 45
+                    : 60
+                  : window.ethereum.chainId === "0x89"
+                  ? config.legacySpeed === "instant"
+                    ? 2
+                    : config.legacySpeed === "fast"
+                    ? 10
+                    : config.legacySpeed === "standard"
+                    ? 15
+                    : 20
+                  : config.legacySpeed === "instant"
+                  ? 3
                   : config.legacySpeed === "fast"
-                  ? 30
+                  ? 5
                   : config.legacySpeed === "standard"
-                  ? 45
-                  : 60
-                : window.ethereum.chainId === "0x89"
-                ? config.legacySpeed === "instant"
-                  ? 2
-                  : config.legacySpeed === "fast"
-                  ? 10
-                  : config.legacySpeed === "standard"
-                  ? 15
-                  : 20
-                : config.legacySpeed === "instant"
-                ? 3
-                : config.legacySpeed === "fast"
-                ? 5
-                : config.legacySpeed === "standard"
-                ? 8
-                : 20}{" "}
-              sec.
-            </SignTransactionGasEstimateFeeSecondsContainer>
-            <br />
+                  ? 8
+                  : 20}{" "}
+                sec.
+              </SignTransactionGasEstimateFeeSecondsContainer>{" "}
+              {isCoinPriceValidating && <LoadingSpinner />}
+            </SignTransactionGasEstimatePriceContainer>
             <SignTransactionGasEstimateFeeContainer>
-              Estimated Fee: {gasEstimationFee.toFixed(9)}{" "}
-              {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"}
+              <span>Estimated Fee:</span>&nbsp;
+              {!gasEstimationDollar && isGasPriceLoading && (
+                <Skeleton width="20px" height="12px" />
+              )}
+              {gasEstimationDollar &&
+                (gasEstimationDollar < 0.01
+                  ? "$0.01"
+                  : gasEstimationDollar > 10e3
+                  ? `$${gasEstimationDollar.toLocaleString()}`
+                  : `$${gasEstimationDollar.toFixed(2)}`)}
+              &nbsp;
+              {gasPrice && gasEstimationFee && (
+                <SignTransactionGasEstimateFeeDescriptionContainer>
+                  (
+                  {gasEstimationFee < 0.001
+                    ? "< 0.001"
+                    : gasEstimationFee.toFixed(3)}{" "}
+                  {window.ethereum.chainId === "0x89" ? "MATIC" : "ETH"})
+                </SignTransactionGasEstimateFeeDescriptionContainer>
+              )}
+              {isGasPriceValidating && <LoadingSpinner />}
             </SignTransactionGasEstimateFeeContainer>
           </SignTransactionGasEstimateContainer>
           <SignTransactionGasSelect
@@ -532,7 +482,7 @@ export const SignTransactionDescription: FC<
             }}
           >
             <option value="standard">🚗 Standard</option>
-            {!isFallback && (
+            {!isGasFallback && (
               <>
                 <option value="instant">🚨 Instant</option>
                 <option value="fast">🏄‍♂️ Fast</option>
@@ -548,10 +498,6 @@ export const SignTransactionDescription: FC<
   return null;
 };
 
-export const shortenName = (name: string) => {
-  return name.match(/\b\w/g)?.join("").toUpperCase().substring(0, 3);
-};
-
 export const SignTransactionGasSelectTransferImage = ({
   name,
   src,
@@ -560,6 +506,12 @@ export const SignTransactionGasSelectTransferImage = ({
   src: string;
 }) => {
   const [isFallback, setIsFallback] = useState(false);
+
+  useEffect(() => {
+    if (!src) {
+      setIsFallback(true);
+    }
+  }, [src]);
 
   if (isFallback) {
     return (

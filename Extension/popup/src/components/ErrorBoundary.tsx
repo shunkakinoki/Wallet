@@ -25,6 +25,17 @@ export class ErrorBoundary extends Component<Props, State> {
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("Uncaught error:", error, errorInfo);
     logPopup(`popupError: ${error.message}`);
+    fetch("https://wallet.light.so/api/report", {
+      method: "POST",
+      body: JSON.stringify({
+        host: "popup",
+        error: error.message,
+      }),
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      }),
+    });
   }
 
   public render() {

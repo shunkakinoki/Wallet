@@ -1,4 +1,4 @@
-import { RpcMapping } from "@lightdotso/chain";
+import { RpcMapping } from "@lightwallet/chains";
 
 import { injectComponent } from "./App";
 import { Page } from "./components/Page";
@@ -10,6 +10,7 @@ import { getTitle } from "./services/getTitle";
 import { injectApp } from "./services/injectApp";
 import { injectEthereum } from "./services/injectEthereum";
 import { injectWagmi } from "./services/injectWagmi";
+import { client } from "./services/jitsuClient";
 import { logContent } from "./services/log";
 import { replaceMetamask } from "./services/replaceMetamask";
 import { sendMessageToNativeApp } from "./services/sendMessageToNativeApp";
@@ -18,11 +19,11 @@ import { storeHostConfiguration } from "./services/storeHostConfiguration";
 import { allowedDomainCheck } from "./utils/allowedDomainCheck";
 import { genId } from "./utils/genId";
 
+let initialLoad = false;
+
 let address: string;
 let accounts;
 let config;
-
-let initialLoad = false;
 
 browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   logContent(
@@ -110,7 +111,7 @@ document.addEventListener("readystatechange", () => {
 
     getHostConfiguration()
       .then(item => {
-        logContent(`getHostConfiguration: ${JSON.stringify(item)}`);
+        logContent(`<== getHostConfiguration: ${JSON.stringify(item)}`);
 
         if (item?.address) {
           address = item.address;
@@ -121,6 +122,7 @@ document.addEventListener("readystatechange", () => {
               address: address,
               chainId: item.chainId,
               rpcUrl: RpcMapping[item.chainId],
+              name: item?.name ?? "Wallet",
             },
             genId(),
             "didLoadLatestConfiguration",
@@ -146,16 +148,19 @@ document.addEventListener("readystatechange", () => {
           return null;
         }
       })
-      .then(() => {
+      .then(res => {
         getLightConfiguration().then(item => {
           logContent(
-            `getLightConfiguration: ${address}: ${JSON.stringify(item)}`,
+            `<== getLightConfiguration: ${address}: ${JSON.stringify(item)}`,
           );
           if (item.accounts) {
             config = item;
             accounts = item.accounts;
           }
         });
+        if (res) {
+          client.track("connectLoad");
+        }
       });
   }
 });
@@ -164,10 +169,25 @@ window.addEventListener("message", event => {
   if (event.source == window && event.data) {
     if (event.data.direction == "from-page-script") {
       switch (event.data.message.method) {
+        case "errorMessage":
+          injectComponent(
+            Page({
+              type: "ErrorMessage",
+              id: event.data.message.id,
+              method: event.data.message.method,
+              params: event.data.message.params,
+            }),
+          );
+          break;
         case "requestAccounts":
           getHostConfiguration().then(item => {
+            logContent(`<== getHostConfiguration: ${JSON.stringify(item)}`);
+
             if (item?.address) {
               address = item.address;
+            }
+            if (item?.name) {
+              logContent(item?.name);
             }
             if (item?.chainId) {
               sendToEthereum(address, event.data.message.id, "requestAccounts");

@@ -1,3 +1,4 @@
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const SignTransactionDescriptionContainer = styled.div`
@@ -15,19 +16,33 @@ export const SignTransactionGasContainer = styled.div`
 `;
 
 export const SignTransactionGasEstimateContainer = styled.div`
+  width: 100%;
   font-size: 18px;
   font-weight: 600;
 `;
 
+export const SignTransactionGasEstimatePriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const SignTransactionGasEstimateFeeContainer = styled.div`
+  display: flex;
+  align-items: center;
+
   font-size: 12px;
   font-weight: 500;
 
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
+`;
+
+export const SignTransactionGasEstimateFeeDescriptionContainer = styled.div`
+  font-size: 10px;
+  font-weight: 400;
+
   overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const SignTransactionGasEstimateFeeSecondsContainer = styled.span`
@@ -67,6 +82,10 @@ export const SignTransactionGasSelectAccordionContainer = styled.div`
 
   padding-bottom: 1.25rem;
   padding-right: 0.3rem;
+`;
+
+export const SignTransactionSkeletonContainer = styled.div`
+  padding-bottom: 1rem;
 `;
 
 export const SignTransactionGasSelectApproveContainer = styled.div`
@@ -113,9 +132,7 @@ export const SignTransactionGasSelectTransferFallbackImageContainer = styled.spa
 
   justify-content: center;
   align-items: center;
-  min-width: 1.15rem;
-  min-height: 1.15rem;
-  padding: 0.3rem;
+  padding: 0.25rem;
 
   width: 1.15rem;
   height: 1.15rem;
@@ -172,6 +189,31 @@ export const SignTransactionGasSelect = styled.select`
 
 export const InfoButton = styled.span`
   flex-shrink: 1;
+`;
+
+const rotate360 = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const LoadingSpinner = styled.div`
+  animation: ${rotate360} 1s linear infinite;
+  transform: translateZ(0);
+
+  border-top: 1px solid grey;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  border-left: 1px solid black;
+  background: transparent;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+
+  margin-left: 2px;
 `;
 
 type DirectionType = "top" | "right" | "bottom" | "left";

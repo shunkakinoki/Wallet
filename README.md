@@ -19,6 +19,9 @@
 - 🫰 **Best Dapp Experience** for making possible what dapps can enable people to do
 - 👨‍👩‍👧‍👦 **Open Source & Community Owned** for trustless web3 ethos
 - 🌐 **Safari Extension** to enable seamless dapp experiences on Safari
+- 🔐 **Privacy Focused** for protecting web3 users' privacy. See public dashboard at [https://wallet.light.so/open](https://wallet.light.so/open)
+- 💥 **Transaction Simulation** for better confirmation confidence. See storybook at [https://content.light.so](https://content.light.so)
+- 🚧 **Transaction Warning** for preventing interactions w/ malicious contracts & phishing sites.
 - 🔑 **Secure Enclave** for secure transactions on mobile
 
 ## 📱 Demo
@@ -50,9 +53,8 @@ If you want to contribute, you can use our [main telegram](https://t.me/Light_Wa
 ## 🚀 Getting Started
 
 1. Download XCode: https://developer.apple.com/xcode/
-2. Install Cocoapods: https://cocoapods.org/
-3. Install Pnpm: https://pnpm.io/
-4. Run `pod install && pnpm install && pnpm run build`
+2. Install Yarn: https://yarnpkg.com/
+3. Run `yarn install && yarn run build`
 
 ## 📚 Acknowledgements
 

@@ -16,21 +16,30 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
-      - uses: pnpm/action-setup@v2
       - run: |
-          pnpm install --frozen-lockfile
+          yarn install --frozen-lockfile
       - run: |
-          pnpm turbo run build
+          yarn turbo run build
   lint:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
-      - uses: pnpm/action-setup@v2
+      - id: mint
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/mint
+          key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
+          restore-keys: ${{ runner.os }}-mint-
       - run: |
-          pnpm install --frozen-lockfile
+          brew install mint
+      - if: steps.mint.outputs.cache-hit != 'true'
+        run: |
+          mint bootstrap
       - run: |
-          pnpm turbo run lint
+          yarn install --frozen-lockfile
+      - run: |
+          yarn run turbo run lint

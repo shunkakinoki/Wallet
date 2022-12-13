@@ -79,7 +79,8 @@ platform :ios do
         provisioningProfiles: {
           DEVELOPER_APP_ID => PROVISIONING_PROFILE_SPECIFIER
         }
-      }
+      },
+      xcargs: "NEXT_PUBLIC_ZERION_API_KEY='#{ENV["NEXT_PUBLIC_ZERION_API_KEY"]}'"
     )
 
   end

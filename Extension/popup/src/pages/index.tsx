@@ -5,7 +5,7 @@ import {
   ClipboardDocumentCheckIcon,
   GlobeAltIcon,
 } from "@heroicons/react/24/outline";
-import { ChainNames } from "@lightdotso/chain";
+import { ChainNames } from "@lightwallet/chains";
 import {
   ListItem,
   List,
@@ -17,6 +17,7 @@ import {
   ListInput,
 } from "konsta/react";
 import { useEffect, useState, useRef } from "react";
+// eslint-disable-next-line import/no-named-as-default
 import toast, { Toaster } from "react-hot-toast";
 
 import { Avatar } from "../components/Avatar";
@@ -188,7 +189,7 @@ export default function Home() {
   }, [shadowChainIdOption]);
 
   return (
-    <div className="flex justify-center min-w-[320px]">
+    <div className="flex min-w-[320px] justify-center">
       <div className="w-full max-w-lg">
         <BlockHeader className="ml-1.5 font-semibold">
           <div className="">
@@ -282,11 +283,11 @@ export default function Home() {
         </BlockHeader>
         <BlockHeader className="ml-4">
           <div className="flex items-center pt-4 text-base">
-            <GlobeAltIcon className="mr-1.5 w-4 h-4" />
+            <GlobeAltIcon className="mr-1.5 h-4 w-4" />
             {host}
           </div>
         </BlockHeader>
-        <div className="pl-4 mt-12 -mb-7 ml-4 text-xs font-medium text-gray-600 dark:text-gray-300">
+        <div className="mt-12 -mb-7 ml-4 pl-4 text-xs font-medium text-gray-600 dark:text-gray-300">
           ENABLED
         </div>
         <List strong inset className="mb-0 bg-gray-400">
@@ -297,7 +298,7 @@ export default function Home() {
                 <div className="flex items-center fill-gray-300">
                   <select
                     ref={optionIdRef}
-                    className="-mr-4 text-base whitespace-nowrap bg-inherit outline-none appearance-none"
+                    className="-mr-4 appearance-none whitespace-nowrap bg-inherit text-base outline-none"
                     style={{
                       width:
                         selectOptionIdWidth && shadowChainIdOption
@@ -358,7 +359,7 @@ export default function Home() {
                 </div>
               )
             }
-            media={<div className="w-3 h-3 bg-green-400 rounded-full" />}
+            media={<div className="h-3 w-3 rounded-full bg-green-400" />}
           />
         </List>
         <Block className="mt-2 mb-0 ml-4">
@@ -366,7 +367,7 @@ export default function Home() {
             Light will connect wallet when Extension is enabled on this device.
           </p>
         </Block>
-        <div className="pl-4 mt-12 -mb-7 ml-4 text-xs font-medium text-gray-600 dark:text-gray-300">
+        <div className="mt-12 -mb-7 ml-4 pl-4 text-xs font-medium text-gray-600 dark:text-gray-300">
           WALLET SETTINGS
         </div>
         <List strong inset className="mb-0">
@@ -377,7 +378,7 @@ export default function Home() {
                 <div className="flex items-center fill-gray-300">
                   <div>
                     {isFallback ? (
-                      <span className="flex justify-center items-center w-5 h-5 text-xs font-semibold leading-none text-gray-400 bg-gray-200 rounded-full border dark:border-0 border-gray-400">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full border border-gray-400 bg-gray-200 text-xs font-semibold leading-none text-gray-400 dark:border-0">
                         {/* @ts-expect-error */}
                         {shortenName(ChainNames[chainId] ?? "Undefined")}
                       </span>
@@ -387,7 +388,7 @@ export default function Home() {
                         src={`https://defillama.com/chain-icons/rsz_${ChainNames[
                           chainId
                         ].toLowerCase()}.jpg`}
-                        className="w-5 h-5 rounded-full"
+                        className="h-5 w-5 rounded-full"
                         onError={() => {
                           return setIsFallback(true);
                         }}
@@ -396,7 +397,7 @@ export default function Home() {
                   </div>
                   <select
                     ref={chainIdRef}
-                    className="-mr-1 ml-2 text-base whitespace-nowrap bg-inherit outline-none appearance-none"
+                    className="-mr-1 ml-2 appearance-none whitespace-nowrap bg-inherit text-base outline-none"
                     style={{
                       width:
                         selectChainIdWidth && shadowChainIdOption
@@ -457,19 +458,19 @@ export default function Home() {
                 </div>
               )
             }
-            media={<div className="w-3 h-3 bg-blue-400 rounded-full" />}
+            media={<div className="h-3 w-3 rounded-full bg-blue-400" />}
           />
           <ListItem
             title="Address"
-            media={<div className="w-3 h-3 bg-red-400 rounded-full" />}
+            media={<div className="h-3 w-3 rounded-full bg-red-400" />}
             after={
               chainId && (
                 <div className="flex items-center fill-gray-300">
                   {accountId && splitAddress(accountId)}
                   {!isCopied ? (
-                    <ClipboardDocumentIcon className="ml-1.5 w-4 h-4" />
+                    <ClipboardDocumentIcon className="ml-1.5 h-4 w-4" />
                   ) : (
-                    <ClipboardDocumentCheckIcon className="ml-1.5 w-4 h-4" />
+                    <ClipboardDocumentCheckIcon className="ml-1.5 h-4 w-4" />
                   )}
                 </div>
               )
@@ -485,16 +486,16 @@ export default function Home() {
             Customize how the wallet will interact with the connected dapp.
           </p>
         </Block>
-        <div className="pl-4 mt-12 -mb-7 ml-4 text-xs font-medium text-gray-600 dark:text-gray-300">
+        <div className="mt-12 -mb-7 ml-4 pl-4 text-xs font-medium text-gray-600 dark:text-gray-300">
           ACTIONS
         </div>
         <List strong inset className="mb-0">
           <ListItem
-            className="hover:bg-gray-300 dark:hover:bg-gray-800 cursor-pointer"
+            className="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800"
             title="Report Issue With This Website"
             mediaClassName="shrink-0 flex py-2 mr-2"
             media={
-              <div className="flex justify-center items-center w-5 h-5 bg-red-600 rounded-md">
+              <div className="flex h-5 w-5 items-center justify-center rounded-md bg-red-600">
                 <ExclamationMarkBubble />
               </div>
             }
@@ -596,10 +597,10 @@ export default function Home() {
             }}
           />
           <ListItem
-            className="hover:bg-gray-300 dark:hover:bg-gray-800 cursor-pointer"
+            className="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800"
             title="Forget Settings For This Website"
             media={
-              <div className="flex justify-center items-center w-5 h-5 bg-pink-600 rounded-md">
+              <div className="flex h-5 w-5 items-center justify-center rounded-md bg-pink-600">
                 <Trash />
               </div>
             }
@@ -608,10 +609,10 @@ export default function Home() {
             }}
           />
           <ListItem
-            className="hover:bg-gray-300 dark:hover:bg-gray-800 cursor-pointer"
+            className="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800"
             title="Delete Entire Wallet History"
             media={
-              <div className="flex justify-center items-center w-5 h-5 bg-violet-600 rounded-md">
+              <div className="flex h-5 w-5 items-center justify-center rounded-md bg-violet-600">
                 <EntryLeverKeypadTrianglebadgeExclamationmark />
               </div>
             }
@@ -687,14 +688,14 @@ export default function Home() {
                 <div className="flex items-center fill-gray-300">
                   <select
                     ref={shadowOptionIdRef}
-                    className="inline-block mr-2 w-auto max-w-none text-base whitespace-nowrap bg-inherit outline-none appearance-none"
+                    className="mr-2 inline-block w-auto max-w-none appearance-none whitespace-nowrap bg-inherit text-base outline-none"
                   >
                     <option>{shadowOptionIdOption}</option>
                   </select>
                 </div>
               )
             }
-            media={<div className="w-3 h-3 bg-gray-400 rounded-full" />}
+            media={<div className="h-3 w-3 rounded-full bg-gray-400" />}
           />
           <ListItem
             title="ChainId"
@@ -703,14 +704,14 @@ export default function Home() {
                 <div className="flex items-center fill-gray-300">
                   <select
                     ref={shadowChainIdRef}
-                    className="inline-block mr-2 w-auto max-w-none text-base whitespace-nowrap bg-inherit outline-none appearance-none"
+                    className="mr-2 inline-block w-auto max-w-none appearance-none whitespace-nowrap bg-inherit text-base outline-none"
                   >
                     <option>{shadowChainIdOption}</option>
                   </select>
                 </div>
               )
             }
-            media={<div className="w-3 h-3 bg-gray-400 rounded-full" />}
+            media={<div className="h-3 w-3 rounded-full bg-gray-400" />}
           />
         </List>
       </div>

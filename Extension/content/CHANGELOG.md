@@ -1,4 +1,4 @@
-# @lightdotso/content
+# @lightwallet/content
 
 ## 0.0.1
 

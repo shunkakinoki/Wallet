@@ -19,11 +19,13 @@ jobs:
         with:
           ruby-version: "2.7.6"
       - uses: actions/setup-node@v3
-      - uses: pnpm/action-setup@v2
       - run: |
           bundle install
-          pnpm install --frozen-lockfile
-          pnpm turbo run build
+          yarn install --frozen-lockfile
+          printenv > ./Extension/content/.env
+          yarn turbo run build
+        env:
+          JITSU_JS_KEY: ${{ secrets.JITSU_JS_KEY }}
       - run: |
           bundle exec fastlane internal
         env:
@@ -38,6 +40,7 @@ jobs:
           PROVISIONING_PROFILE_SPECIFIER: ${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           ITMSTRANSPORTER_FORCE_ITMS_PACKAGE_UPLOAD: true
+          NEXT_PUBLIC_ZERION_API_KEY: ${{ secrets.NEXT_PUBLIC_ZERION_API_KEY }}
       - if: always()
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
