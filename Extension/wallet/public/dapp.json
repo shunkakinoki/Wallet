@@ -1,0 +1,92 @@
+{
+    "dapps": {
+        "bridge": [
+            {
+                "name": "Hop",
+                "icon": "https://app.hop.exchange/favicon.ico",
+                "site": "https://app.hop.exchange"
+            },
+            {
+                "name": "Hashflow",
+                "icon": "https://app.hashflow.com/apple-touch-icon.png",
+                "site": "https://app.hashflow.com"
+            },
+            {
+                "name": "Connext",
+                "icon": "https://bridge.connext.network/favicon.png",
+                "site": "https://bridge.connext.network"
+            },
+            {
+                "name": "Multichain",
+                "icon": "https://app.multichain.org/favicon.ico",
+                "site": "https://app.multichain.org"
+            }
+        ],
+        "mint": [
+            {
+                "name": "mint.fun",
+                "icon": "https://mint.fun/icon180.png",
+                "site": "https://mint.fun"
+            },
+            {
+                "name": "Free NFT",
+                "icon": "https://i.ibb.co/St9wCG3/Frame-478.png",
+                "site": "https://freenft.xyz"
+            },
+            {
+                "name": "Sound",
+                "icon": "https://sound.xyz/apple-touch-icon.png",
+                "site": "https://sound.xyz"
+            },
+            {
+                "name": "Galaxe",
+                "icon": "https://galxe.com/favicon.ico",
+                "site": "https://galxe.com"
+            }
+        ],
+        "nft": [
+            {
+                "name": "Opensea",
+                "icon": "https://opensea.io/static/images/logos/opensea.svg",
+                "site": "https://opensea.io"
+            },
+            {
+                "name": "Looksrare",
+                "icon": "https://looksrare.org/apple-touch-icon.png",
+                "site": "https://looksrare.org"
+            },
+            {
+                "name": "SuperRare",
+                "icon": "https://superrare.com/favicon.png",
+                "site": "https://superrare.com"
+            },
+            {
+                "name": "Foundation",
+                "icon": "https://foundation.app/favicons/32x32/app-light.png",
+                "site": "https://foundation.app"
+            }
+        ],
+        "swap": [
+            {
+                "name": "Uniswap",
+                "icon": "https://app.uniswap.org/images/512x512_App_Icon.png",
+                "site": "https://app.uniswap.org"
+            },
+            {
+                "name": "Sushi",
+                "icon": "https://www.sushi.com/swap/apple-touch-icon.png",
+                "site": "https://www.sushi.com/swap"
+            },
+            {
+                "name": "Cow",
+                "icon": "https://swap.cow.fi/favicon.png",
+                "site": "https://swap.cow.fi"
+            },
+            {
+                "name": "1 Inch",
+                "icon": "https://app.1inch.io/assets/favicon/apple-touch-icon.png",
+                "site": "https://app.1inch.io"
+            }
+        ]
+    }
+}
