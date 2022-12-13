@@ -1,3 +1,4 @@
+import AddressServices
 import Combine
 import Domain
 import Foundation
@@ -9,11 +10,14 @@ import UIKit
 public final class HomeViewModel: ObservableObject {
 
   private let selectedWallet: SelectedWallet
+  private let getAddress: GetAddress
   private let getHostConfiguration: GetHostConfiguration
   private let getTokens: GetTokens
 
+  private var subscriptions = Set<AnyCancellable>()
+
   @Published
-  var netWorth: Double = 0.0
+  var address: Address = Address.addressDefault
 
   @Published
   var tokens = [Token]()
@@ -35,12 +39,16 @@ public final class HomeViewModel: ObservableObject {
 
   init(
     selectedWallet: SelectedWallet = SelectedWalletImp(),
+    getAddress: GetAddress = GetAddressImp(),
     getHostConfiguration: GetHostConfiguration = GetHostConfigurationImp(),
     getTokens: GetTokens = GetTokensImp()
   ) {
     self.selectedWallet = selectedWallet
+    self.getAddress = getAddress
     self.getHostConfiguration = getHostConfiguration
     self.getTokens = getTokens
+
+    self.getWalletAddress()
   }
 
   public func getWalletSelected() {
@@ -71,6 +79,13 @@ public final class HomeViewModel: ObservableObject {
     } catch {
       self.tokens = []
     }
+  }
+
+  public func getWalletAddress() {
+    getAddress.invoke()
+      .replaceError(with: Address.addressDefault)
+      .assign(to: \.address, on: self)
+      .store(in: &subscriptions)
   }
 
   public func getChainImage(chainId: String) -> String {

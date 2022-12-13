@@ -43,6 +43,16 @@ public struct HomeView: View {
             walletSelectorButton
             Spacer()
           }
+
+          HStack {
+            Text(viewModel.address.netWorth.toString())
+              .font(.system(size: 17, weight: .semibold))
+              .foregroundColor(Color(Colors.Label.primary))
+              .padding(.top, 2)
+              .padding(.bottom, 2)
+            Spacer()
+          }
+
           HStack(spacing: 24) {
             Button {
               UIPasteboard.general.setValue(
@@ -118,6 +128,7 @@ public struct HomeView: View {
             }
             Spacer()
           }
+
           Link(destination: URL(string: "https://wallet.light.so")!) {
             ZStack {
               VStack(alignment: .leading, spacing: 0) {
@@ -264,6 +275,13 @@ public struct HomeView: View {
       await viewModel.getTokensList()
     }
   }
+
+  private func refreshWallet() {
+    Task {
+      await viewModel.getWalletAddress()
+    }
+  }
+
 }
 
 extension HomeView {
