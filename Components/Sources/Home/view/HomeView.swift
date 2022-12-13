@@ -241,7 +241,8 @@ public struct HomeView: View {
         Spacer()
       }
       .refreshable {
-        viewModel.refresh()
+        refreshTokens()
+        refreshWallet()
       }
       .navigationTitle("Light Wallet")
       .navigationBarItems(
