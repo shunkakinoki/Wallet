@@ -16,11 +16,13 @@ public struct ExploreView: View {
   public var body: some View {
     NavigationView {
       ScrollView {
+        Text(viewModel.dapps.mint.isEmpty ? "empty" : viewModel.dapps.mint[0].site)
         VStack {
           appsList()
         }
         .onAppear {
           viewModel.getConfiguration()
+          self.refreshDapps()
         }
         .onReceive(
           NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
@@ -48,6 +50,12 @@ public struct ExploreView: View {
   private func onDismiss() {
     viewModel.getConfiguration()
     viewModel.isLoading = true
+  }
+
+  private func refreshDapps() {
+    Task {
+      await viewModel.getDapps()
+    }
   }
 }
 

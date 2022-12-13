@@ -12,4 +12,10 @@ public struct DappDataModel: Decodable {
     public let site: String
   }
 
+  public init() {
+    self.bridge = []
+    self.mint = []
+    self.nft = []
+    self.swap = []
+  }
 }

@@ -17,6 +17,9 @@ public final class ExploreViewModel: ObservableObject {
   var configurations = [HostConfigurationModel.HostConfigurationParameters]()
 
   @Published
+  var dapps = DappDataModel()
+
+  @Published
   var isLoading = true
 
   @Published
@@ -36,6 +39,23 @@ public final class ExploreViewModel: ObservableObject {
     if let configurations = getHostConfiguration.get() {
       self.configurations.append(contentsOf: configurations)
     }
+  }
+
+  @MainActor
+  public func getDapps() async {
+    getDapps.retrieve()
+      .receive(on: DispatchQueue.main)
+      .sink(
+        receiveCompletion: { error in
+          print(error)
+          self.isLoading = false
+          self.isValidating = false
+        },
+        receiveValue: { value in
+          self.dapps = value
+        }
+      )
+      .store(in: &subscriptions)
   }
 
   public func getChainImage(chainId: String) -> String {
