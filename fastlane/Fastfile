@@ -88,8 +88,6 @@ platform :ios do
   lane :internal do
     build
 
-    ENV['ITMSTRANSPORTER_FORCE_ITMS_PACKAGE_UPLOAD'] = 'true'
-
     pilot(
       apple_id: "#{DEVELOPER_APP_ID}",
       app_identifier: "io.magic.light",
@@ -109,8 +107,6 @@ platform :ios do
     changelog = read_changelog(
       section_identifier: '[Unreleased]'
     )
-
-    ENV['ITMSTRANSPORTER_FORCE_ITMS_PACKAGE_UPLOAD'] = 'true'
 
     pilot(
       apple_id: "#{DEVELOPER_APP_ID}",
