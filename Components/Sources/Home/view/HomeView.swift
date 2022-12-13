@@ -45,11 +45,10 @@ public struct HomeView: View {
           }
 
           HStack {
-            Text(viewModel.address.netWorth.toString())
+            Text("$\(viewModel.address.netWorth.toString())")
               .font(.system(size: 17, weight: .semibold))
               .foregroundColor(Color(Colors.Label.primary))
-              .padding(.top, 2)
-              .padding(.bottom, 2)
+              .padding([.top, .bottom], 8.0)
             Spacer()
           }
 
@@ -68,7 +67,6 @@ public struct HomeView: View {
                   .frame(width: 48, height: 48)
                   .background(Color(Colors.Background.secondary))
                   .clipShape(Circle())
-                  .padding(.top, 25)
                 Text("Buy")
                   .font(.body)
                   .foregroundColor(Color(Colors.Label.primary))
@@ -85,7 +83,6 @@ public struct HomeView: View {
                   .frame(width: 48, height: 48)
                   .background(Color(Colors.Background.secondary))
                   .clipShape(Circle())
-                  .padding(.top, 25)
                 Text("Receive")
                   .font(.body)
                   .foregroundColor(Color(Colors.Label.primary))
@@ -120,7 +117,6 @@ public struct HomeView: View {
                   .frame(width: 48, height: 48)
                   .background(Color(Colors.Background.secondary))
                   .clipShape(Circle())
-                  .padding(.top, 25)
               }
               Text("More")
                 .font(.body)
@@ -214,10 +210,13 @@ public struct HomeView: View {
           preset: .done,
           haptic: .success
         )
-        .padding([.leading, .trailing, .top], 16)
+        .padding([.leading, .trailing], 16)
+        .padding([.top], 8)
         Spacer()
       }
-      .refreshable {}
+      .refreshable {
+        viewModel.getWalletAddress()
+      }
       .navigationTitle("Light Wallet")
       .navigationBarItems(
         trailing:
