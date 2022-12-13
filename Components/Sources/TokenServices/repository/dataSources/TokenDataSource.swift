@@ -29,6 +29,7 @@ final class TokenDataSourceImp: TokenDataSource {
       to: query)
     return
       request
+      .map { $0.filter { $0.amount != nil } }
       .map { $0.map { $0.toModel() } }
       .eraseToAnyPublisher()
   }
