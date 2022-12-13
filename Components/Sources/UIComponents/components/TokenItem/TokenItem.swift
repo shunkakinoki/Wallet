@@ -13,10 +13,10 @@ public struct TokenItem: View {
 
   public var body: some View {
     HStack {
-      WebImage(url: URL(string: token.image))
+      WebImage(url: URL(string: "https://picsum.photos/200/300"))
         .resizable()
         .placeholder(content: {
-          Text(String(token.name.first ?? Character("")))
+          Text(String(token.name ?? ""))
             .frame(width: 40, height: 40)
             .background(Color(Colors.Label.primary))
             .clipShape(Circle())
@@ -29,11 +29,11 @@ public struct TokenItem: View {
         Text("$\(String(format: "%.02f", Double(truncating: token.value as NSNumber)))")
           .foregroundColor(Color(Colors.Label.primary))
           .font(.custom(font: .inter, size: 17, weight: .regular))
-        Text(token.assetCode)
+        Text(token.symbol)
           .font(.custom(font: .inter, size: 13, weight: .medium))
       }.padding(.leading, 4)
       Spacer()
-      Text("\(token.quantity) \(token.assetCode.uppercased())")
+      Text("\(token.amount) \(token.symbol.uppercased())")
         .foregroundColor(Color(Colors.Label.secondary))
         .font(.custom(font: .inter, size: 14, weight: .semibold))
     }.padding(.leading, 7.5).padding(.trailing, 7.5)

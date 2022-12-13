@@ -56,7 +56,7 @@ public struct HomeView: View {
                 .shimmer()
                 .padding([.leading], 2.0)
             } else {
-              Text(viewModel.address.netWorth.toString())
+              Text(String(format: "%.2f", viewModel.address.netWorth))
                 .font(.system(size: 24, weight: .semibold))
                 .foregroundColor(Color(Colors.Label.secondary))
             }
