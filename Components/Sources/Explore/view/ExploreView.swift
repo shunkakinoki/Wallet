@@ -16,7 +16,7 @@ public struct ExploreView: View {
   public var body: some View {
     NavigationView {
       ScrollView {
-        Text(viewModel.dapps.mint.isEmpty ? "empty" : viewModel.dapps.mint[0].site)
+        Text(viewModel.dapps.dapps.mint.isEmpty ? "empty" : viewModel.dapps.dapps.mint[0].site)
         VStack {
           appsList()
         }
