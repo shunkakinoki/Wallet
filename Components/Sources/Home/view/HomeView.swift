@@ -1,6 +1,6 @@
 import Commons
 import SDWebImageSwiftUI
-import SPAlert
+import SPIndicator
 import Settings
 import SwiftUI
 import UIComponents
@@ -103,17 +103,28 @@ public struct HomeView: View {
                   .foregroundColor(Color(Colors.Label.primary))
               }
             }
+            Button {
+              UIPasteboard.general.setValue(
+                viewModel.selectedRawAddress,
+                forPasteboardType: "public.plain-text"
+              )
+              showToast.toggle()
+            } label: {
+              VStack {
+                Image(systemName: "doc.on.clipboard")
+                  .font(.system(size: 17, weight: .bold))
+                  .padding([.top, .bottom], 14)
+                  .foregroundColor(Color(Colors.Label.primary))
+                  .frame(width: 48, height: 48)
+                  .background(Color(Colors.Background.secondary))
+                  .clipShape(Circle())
+                Text("Address")
+                  .font(.body)
+                  .foregroundColor(Color(Colors.Label.primary))
+              }
+            }
             VStack {
               Menu {
-                Button(action: {
-                  UIPasteboard.general.setValue(
-                    viewModel.selectedRawAddress,
-                    forPasteboardType: "public.plain-text"
-                  )
-                  showToast.toggle()
-                }) {
-                  Label("Copy Address", systemImage: "doc.on.clipboard")
-                }
                 Button(action: {
                   showEdit.toggle()
                 }) {
@@ -220,7 +231,7 @@ public struct HomeView: View {
         .sheet(isPresented: $showAppsDetail) {
           appsDetail
         }
-        .SPAlert(
+        .SPIndicator(
           isPresent: $showToast,
           title: "Copied!",
           preset: .done,
