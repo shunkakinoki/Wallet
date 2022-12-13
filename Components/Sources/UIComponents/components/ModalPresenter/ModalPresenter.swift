@@ -17,7 +17,6 @@ public struct ModalPresenter<Content>: View where Content: View {
         content
           .padding(.horizontal, 15)
       }
-      .navigationBarTitle("More", displayMode: .inline)
       .toolbar { CloseToolbar { presentationMode.wrappedValue.dismiss() } }
     }
   }

@@ -255,12 +255,14 @@ public struct HomeView: View {
   var tokenDetail: some View {
     ModalPresenter {
       tokenList(isDetail: true)
+        .navigationBarTitle("Tokens", displayMode: .inline)
     }
   }
 
   var appsDetail: some View {
     ModalPresenter {
       appsList(isDetail: true)
+        .navigationBarTitle("Dapps", displayMode: .inline)
     }
   }
 
@@ -341,7 +343,7 @@ extension HomeView {
           TokenItem(token: token)
         }
       }
-    }.navigationTitle("Tokens")
+    }
   }
 
   func appsList(isDetail: Bool = false) -> some View {
@@ -413,6 +415,6 @@ extension HomeView {
       .cornerRadius(14)
       .padding(.top, 6)
       .padding(.bottom, 16)
-    }.navigationTitle("Dapps")
+    }
   }
 }
