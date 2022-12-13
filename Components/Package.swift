@@ -32,6 +32,11 @@ let package = Package(
   ],
   targets: [
     .target(
+      name: "AddressServices",
+      dependencies: [
+        "Networking"
+      ]),
+    .target(
       name: "Commons",
       dependencies: [
         "SDWebImageSwiftUI",
@@ -59,6 +64,7 @@ let package = Package(
     .target(
       name: "Home",
       dependencies: [
+        "AddressServices",
         "Commons",
         "SnapKit",
         "UIComponents",

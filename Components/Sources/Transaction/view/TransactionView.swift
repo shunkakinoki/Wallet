@@ -37,7 +37,9 @@ public struct TransactionView: View {
         }
         .padding([.leading, .trailing], 16)
       }
-      .refreshable {}
+      .refreshable {
+        viewModel.refresh()
+      }
       .navigationTitle("Transactions")
     }
   }

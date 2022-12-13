@@ -43,6 +43,30 @@ public struct HomeView: View {
             walletSelectorButton
             Spacer()
           }
+
+          HStack(alignment: .center, spacing: 0) {
+            Text("$")
+              .foregroundColor(Color(Colors.Label.secondary))
+              .font(.system(size: 24, weight: .semibold))
+            if viewModel.isLoading {
+              Rectangle()
+                .fill(Color(Colors.Background.secondary))
+                .frame(width: 80, height: 30, alignment: .center)
+                .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
+                .shimmer()
+                .padding([.leading], 2.0)
+            } else {
+              Text(viewModel.address.netWorth.toString())
+                .font(.system(size: 24, weight: .semibold))
+                .foregroundColor(Color(Colors.Label.secondary))
+            }
+            if viewModel.isValidating {
+              ProgressView()
+                .padding([.leading], 4.0)
+            }
+            Spacer()
+          }.padding([.top, .bottom], 8.0)
+
           HStack(spacing: 24) {
             Button {
               UIPasteboard.general.setValue(
@@ -58,7 +82,6 @@ public struct HomeView: View {
                   .frame(width: 48, height: 48)
                   .background(Color(Colors.Background.secondary))
                   .clipShape(Circle())
-                  .padding(.top, 25)
                 Text("Buy")
                   .font(.body)
                   .foregroundColor(Color(Colors.Label.primary))
@@ -75,7 +98,6 @@ public struct HomeView: View {
                   .frame(width: 48, height: 48)
                   .background(Color(Colors.Background.secondary))
                   .clipShape(Circle())
-                  .padding(.top, 25)
                 Text("Receive")
                   .font(.body)
                   .foregroundColor(Color(Colors.Label.primary))
@@ -110,7 +132,6 @@ public struct HomeView: View {
                   .frame(width: 48, height: 48)
                   .background(Color(Colors.Background.secondary))
                   .clipShape(Circle())
-                  .padding(.top, 25)
               }
               Text("More")
                 .font(.body)
@@ -118,6 +139,7 @@ public struct HomeView: View {
             }
             Spacer()
           }
+
           Link(destination: URL(string: "https://wallet.light.so")!) {
             ZStack {
               VStack(alignment: .leading, spacing: 0) {
@@ -203,10 +225,13 @@ public struct HomeView: View {
           preset: .done,
           haptic: .success
         )
-        .padding([.leading, .trailing, .top], 16)
+        .padding([.leading, .trailing], 16)
+        .padding([.top], 8)
         Spacer()
       }
-      .refreshable {}
+      .refreshable {
+        viewModel.refresh()
+      }
       .navigationTitle("Light Wallet")
       .navigationBarItems(
         trailing:
@@ -264,6 +289,13 @@ public struct HomeView: View {
       await viewModel.getTokensList()
     }
   }
+
+  private func refreshWallet() {
+    Task {
+      await viewModel.getWalletAddress()
+    }
+  }
+
 }
 
 extension HomeView {
