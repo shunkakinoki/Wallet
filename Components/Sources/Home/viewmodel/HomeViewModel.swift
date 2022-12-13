@@ -13,6 +13,9 @@ public final class HomeViewModel: ObservableObject {
   private let getTokens: GetTokens
 
   @Published
+  var netWorth: Double = 0.0
+
+  @Published
   var tokens = [Token]()
 
   @Published
