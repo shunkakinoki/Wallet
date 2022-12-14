@@ -20,6 +20,9 @@ public final class ExploreViewModel: ObservableObject {
   var dapps = [Dapp]()
 
   @Published
+  var nftDapps = [Dapp]()
+
+  @Published
   var isLoading = true
 
   @Published
@@ -31,13 +34,11 @@ public final class ExploreViewModel: ObservableObject {
   ) {
     self.getHostConfiguration = getHostConfiguration
     self.getDapps = getDapps
-
   }
 
   public func getConfiguration() {
-    self.configurations = [
-      Dapp(name: "sf", icon: "sfd", site: "https://light.so", type: "internal")
-    ]
+    self.configurations = []
+
   }
 
   @MainActor
@@ -52,6 +53,7 @@ public final class ExploreViewModel: ObservableObject {
         },
         receiveValue: { value in
           self.dapps = value
+          self.nftDapps = Array(self.dapps[0...3])
         }
       )
       .store(in: &subscriptions)
