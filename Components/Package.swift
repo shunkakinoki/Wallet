@@ -52,7 +52,8 @@ let package = Package(
     .target(
       name: "DappServices",
       dependencies: [
-        "Networking"
+        "Networking",
+        "Session",
       ]),
     .target(
       name: "Domain",
