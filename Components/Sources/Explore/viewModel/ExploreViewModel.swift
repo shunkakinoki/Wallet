@@ -81,9 +81,9 @@ public final class ExploreViewModel: ObservableObject {
 extension HostConfigurationModel.HostConfigurationParameters {
   func toModel() -> Dapp {
     return Dapp(
-      name: "https://\(self.host)",
+      name: self.host,
       icon: "https://\(self.host)/\(self.favicon ?? "favicon.ico")",
-      site: self.host,
+      site: "https://\(self.host)",
       type: "host"
     )
   }
