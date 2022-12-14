@@ -22,6 +22,9 @@ public final class ProfileSelectorViewModel: ObservableObject {
     self.getTotalWallets = getTotalWallets
     self.walletCreation = walletCreation
     self.deleteWallet = deleteWallet
+
+    self.getWallets()
+    self.selectedWallet()
   }
 
   public func getWallets() {
