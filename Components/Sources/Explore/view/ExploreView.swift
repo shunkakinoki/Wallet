@@ -15,6 +15,15 @@ public struct ExploreView: View {
     NavigationView {
       ScrollView {
         VStack {
+
+          dappSection(
+            dapps: Array(
+              viewModel.dapps.isEmpty ? [] : viewModel.configurations),
+            title: "Recent Dapps",
+            subTitle:
+              ""
+          )
+
           dappSection(
             dapps: Array(
               viewModel.dapps.isEmpty ? [] : viewModel.dapps.filter { $0.type == "bridge" }),
