@@ -16,38 +16,7 @@ public struct ExploreView: View {
       ScrollView {
         Text(viewModel.dapps.isEmpty ? "empty" : viewModel.dapps[0].site)
         VStack {
-          ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 15) {
-              ForEach(viewModel.dapps, id: \.self) { item in
-                HStack {
-                  WebImage(
-                    url: URL(
-                      string:
-                        item.icon)
-                  )
-                  .resizable()
-                  .frame(width: 36, height: 36)
-                  .clipShape(RoundedRectangle(cornerRadius: 8))
-                  VStack(alignment: .leading, spacing: 0) {
-                    Text(item.name)
-                      .foregroundColor(Color(Colors.Label.primary))
-                      .font(Font.system(size: 17, weight: .regular))
-                      ._lineHeightMultiple(1.09)
-                    Text(item.site)
-                      .foregroundColor(Color(Colors.Label.secondary))
-                      .font(Font.system(size: 12, weight: .regular))
-                      ._lineHeightMultiple(1.12)
-                  }
-                  .padding([.bottom], 2)
-                  Spacer()
-                }.contentShape(Rectangle())
-                  .frame(maxWidth: .infinity)
-                  .padding([.top, .bottom], 8).padding(.leading, 16)
-              }.background(Color(Colors.System.secondary))
-                .cornerRadius(14)
-
-            }
-          }
+          appsList(dapps: viewModel.dapps)
         }
         .onAppear {
           viewModel.getConfiguration()
@@ -65,6 +34,41 @@ public struct ExploreView: View {
         self.refreshDapps()
       }
       .navigationTitle("Explore Dapps")
+    }
+  }
+
+  func appsList(dapps: [Dapp]) -> some View {
+    ScrollView(.horizontal, showsIndicators: false) {
+      LazyHStack(spacing: 15) {
+        ForEach(viewModel.dapps, id: \.self) { item in
+          HStack {
+            WebImage(
+              url: URL(
+                string:
+                  item.icon)
+            )
+            .resizable()
+            .frame(width: 36, height: 36)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            VStack(alignment: .leading, spacing: 0) {
+              Text(item.name)
+                .foregroundColor(Color(Colors.Label.primary))
+                .font(Font.system(size: 17, weight: .regular))
+                ._lineHeightMultiple(1.09)
+              Text(item.site)
+                .foregroundColor(Color(Colors.Label.secondary))
+                .font(Font.system(size: 12, weight: .regular))
+                ._lineHeightMultiple(1.12)
+            }
+            .padding([.bottom], 2)
+            Spacer()
+          }.contentShape(Rectangle())
+            .frame(maxWidth: .infinity)
+            .padding([.top, .bottom], 8).padding(.leading, 16)
+        }.background(Color(Colors.System.secondary))
+          .cornerRadius(14)
+
+      }
     }
   }
 
