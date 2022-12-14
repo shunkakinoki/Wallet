@@ -1,92 +1,100 @@
 {
-    "dapps": {
-        "bridge": [
+    "dapps": [
             {
                 "name": "Hop",
                 "icon": "https://app.hop.exchange/favicon.ico",
-                "site": "https://app.hop.exchange"
+                "site": "https://app.hop.exchange",
+                "type": "bridge"
             },
             {
                 "name": "Hashflow",
                 "icon": "https://app.hashflow.com/apple-touch-icon.png",
-                "site": "https://app.hashflow.com"
+                "site": "https://app.hashflow.com",
+                "type": "bridge"
             },
             {
                 "name": "Connext",
                 "icon": "https://bridge.connext.network/favicon.png",
-                "site": "https://bridge.connext.network"
+                "site": "https://bridge.connext.network",
+                "type": "bridge"
             },
             {
                 "name": "Multichain",
                 "icon": "https://app.multichain.org/favicon.ico",
-                "site": "https://app.multichain.org"
-            }
-        ],
-        "mint": [
+                "site": "https://app.multichain.org",
+                "type": "bridge"
+            },
             {
                 "name": "mint.fun",
                 "icon": "https://mint.fun/icon180.png",
-                "site": "https://mint.fun"
+                "site": "https://mint.fun",
+                "type": "mint"
             },
             {
                 "name": "Free NFT",
                 "icon": "https://i.ibb.co/St9wCG3/Frame-478.png",
-                "site": "https://freenft.xyz"
+                "site": "https://freenft.xyz",
+                "type": "mint"
             },
             {
                 "name": "Sound",
                 "icon": "https://sound.xyz/apple-touch-icon.png",
-                "site": "https://sound.xyz"
+                "site": "https://sound.xyz",
+                "type": "mint"
             },
             {
                 "name": "Galaxe",
                 "icon": "https://galxe.com/favicon.ico",
-                "site": "https://galxe.com"
-            }
-        ],
-        "nft": [
+                "site": "https://galxe.com",
+                "type": "mint"
+            },
             {
                 "name": "Opensea",
                 "icon": "https://opensea.io/static/images/logos/opensea.svg",
-                "site": "https://opensea.io"
+                "site": "https://opensea.io",
+                "type": "nft"
             },
             {
                 "name": "Looksrare",
                 "icon": "https://looksrare.org/apple-touch-icon.png",
-                "site": "https://looksrare.org"
+                "site": "https://looksrare.org",
+                "type": "nft"
             },
             {
                 "name": "SuperRare",
                 "icon": "https://superrare.com/favicon.png",
-                "site": "https://superrare.com"
+                "site": "https://superrare.com",
+                "type": "nft"
             },
             {
                 "name": "Foundation",
                 "icon": "https://foundation.app/favicons/32x32/app-light.png",
-                "site": "https://foundation.app"
-            }
-        ],
-        "swap": [
+                "site": "https://foundation.app",
+                "type": "nft"
+            },
             {
                 "name": "Uniswap",
                 "icon": "https://app.uniswap.org/images/512x512_App_Icon.png",
-                "site": "https://app.uniswap.org"
+                "site": "https://app.uniswap.org",
+                "type": "swap"
             },
             {
                 "name": "Sushi",
                 "icon": "https://www.sushi.com/swap/apple-touch-icon.png",
-                "site": "https://www.sushi.com/swap"
+                "site": "https://www.sushi.com/swap",
+                "type": "swap"
             },
             {
                 "name": "Cow",
                 "icon": "https://swap.cow.fi/favicon.png",
-                "site": "https://swap.cow.fi"
+                "site": "https://swap.cow.fi",
+                "type": "swap"
             },
             {
                 "name": "1 Inch",
                 "icon": "https://app.1inch.io/assets/favicon/apple-touch-icon.png",
-                "site": "https://app.1inch.io"
+                "site": "https://app.1inch.io",
+                "type": "swap"
             }
-        ]
-    }
+    ]
 }
