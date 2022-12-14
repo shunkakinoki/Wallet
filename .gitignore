@@ -3,6 +3,11 @@
 .next
 .turbo
 
+# Logs
+*.log
+yarn-debug.log*
+yarn-error.log*
+
 # Node modules
 node_modules
 
