@@ -20,9 +20,6 @@ public final class ExploreViewModel: ObservableObject {
   var dapps = [Dapp]()
 
   @Published
-  var nftDapps = [Dapp]()
-
-  @Published
   var isLoading = true
 
   @Published
@@ -37,8 +34,9 @@ public final class ExploreViewModel: ObservableObject {
   }
 
   public func getConfiguration() {
-    self.configurations = []
-
+    if let config = getHostConfiguration.get() {
+      self.configurations = config.map { $0.toModel() }
+    }
   }
 
   @MainActor
@@ -53,7 +51,6 @@ public final class ExploreViewModel: ObservableObject {
         },
         receiveValue: { value in
           self.dapps = value
-          self.nftDapps = Array(self.dapps[0...3])
         }
       )
       .store(in: &subscriptions)
@@ -84,9 +81,9 @@ public final class ExploreViewModel: ObservableObject {
 extension HostConfigurationModel.HostConfigurationParameters {
   func toModel() -> Dapp {
     return Dapp(
-      name: "https://\(self.host)",
+      name: self.host,
       icon: "https://\(self.host)/\(self.favicon ?? "favicon.ico")",
-      site: self.host,
+      site: "https://\(self.host)",
       type: "host"
     )
   }

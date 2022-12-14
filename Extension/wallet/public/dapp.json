@@ -73,6 +73,24 @@
                 "type": "nft"
             },
             {
+                "name": "Lenster",
+                "icon": "https://lenster.xyz/apple-touch-icon.png",
+                "site": "https://lenster.xyz/",
+                "type": "social"
+            },
+            {
+                "name": "Link3",
+                "icon": "https://link3.to/favicon.ico",
+                "site": "https://link3.to/",
+                "type": "social"
+            },
+            {
+                "name": "Showtime",
+                "icon": "https://showtime.xyz/favicon.png",
+                "site": "https://showtime.xyz",
+                "type": "social"
+            },
+            {
                 "name": "Uniswap",
                 "icon": "https://app.uniswap.org/images/512x512_App_Icon.png",
                 "site": "https://app.uniswap.org",
