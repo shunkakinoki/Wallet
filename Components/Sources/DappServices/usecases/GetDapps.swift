@@ -1,9 +1,10 @@
 import Combine
 import Foundation
+import Session
 
 public protocol GetDapps {
-  func invoke() -> AnyPublisher<DappDataModel, Error>
-  func retrieve() -> AnyPublisher<DappDataModel, Error>
+  func invoke() -> AnyPublisher<[Dapp], Error>
+  func get() -> AnyPublisher<[Dapp], Error>
 }
 
 public struct GetDappsImp: GetDapps {
@@ -18,11 +19,11 @@ public struct GetDappsImp: GetDapps {
     self.repository = repository
   }
 
-  public func invoke() -> AnyPublisher<DappDataModel, Error> {
+  public func invoke() -> AnyPublisher<[Dapp], Error> {
     repository.get().eraseToAnyPublisher()
   }
 
-  public func retrieve() -> AnyPublisher<DappDataModel, Error> {
-    repository.get()
+  public func get() -> AnyPublisher<[Dapp], Error> {
+    return repository.get().eraseToAnyPublisher()
   }
 }

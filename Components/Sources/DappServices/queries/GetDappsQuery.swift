@@ -21,6 +21,4 @@ public struct GetDappsQuery: Query {
   public var service: Service {
     return .wallet
   }
-
-  public init() {}
 }

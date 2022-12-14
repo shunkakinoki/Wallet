@@ -14,10 +14,10 @@ public final class ExploreViewModel: ObservableObject {
   private var subscriptions = Set<AnyCancellable>()
 
   @Published
-  var configurations = [HostConfigurationModel.HostConfigurationParameters]()
+  var configurations = [Dapp]()
 
   @Published
-  var dapps = DappDataModel()
+  var dapps = [Dapp]()
 
   @Published
   var isLoading = true
@@ -35,15 +35,14 @@ public final class ExploreViewModel: ObservableObject {
   }
 
   public func getConfiguration() {
-    self.configurations = []
-    if let configurations = getHostConfiguration.get() {
-      self.configurations.append(contentsOf: configurations)
-    }
+    self.configurations = [
+      Dapp(name: "sf", icon: "sfd", site: "https://light.so", type: "internal")
+    ]
   }
 
   @MainActor
   public func getDapps() async {
-    getDapps.retrieve()
+    getDapps.get()
       .receive(on: DispatchQueue.main)
       .sink(
         receiveCompletion: { error in
@@ -77,5 +76,16 @@ public final class ExploreViewModel: ObservableObject {
     default:
       return "ethereum"
     }
+  }
+}
+
+extension HostConfigurationModel.HostConfigurationParameters {
+  func toModel() -> Dapp {
+    return Dapp(
+      name: "https://\(self.host)",
+      icon: "https://\(self.host)/\(self.favicon ?? "favicon.ico")",
+      site: self.host,
+      type: "host"
+    )
   }
 }
