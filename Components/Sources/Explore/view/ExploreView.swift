@@ -15,141 +15,37 @@ public struct ExploreView: View {
     NavigationView {
       ScrollView {
         VStack {
-          Group {
-            HStack {
-              Text("Bridge")
-                .font(.system(size: 24, weight: .semibold))
-                .foregroundColor(Color(Colors.Label.primary))
-              Spacer()
-            }
-            .padding([.leading, .trailing], 23)
-            .padding([.top], 25)
+          dappSection(
+            dapps: Array(
+              viewModel.dapps.isEmpty ? [] : viewModel.dapps.filter { $0.type == "bridge" }),
+            title: "Mint",
+            subTitle:
+              "Move assets between different layers of Ethereum by bridging them across."
+          )
 
-            HStack {
-              Text("Move assets between different layers of Ethereum by bridging them across.")
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(Color(Colors.Label.secondary))
-              Spacer()
-            }
-            .padding([.leading, .trailing], 23)
-            .padding([.top], 3)
+          dappSection(
+            dapps: Array(
+              viewModel.dapps.isEmpty ? [] : viewModel.dapps.filter { $0.type == "mint" }),
+            title: "Mint",
+            subTitle:
+              "Find new art, music & cultural objects to mint into existence."
+          )
 
-            ScrollView(.horizontal, showsIndicators: false) {
-              LazyHStack(spacing: 15) {
-                ForEach(
-                  Array(
-                    viewModel.dapps.isEmpty ? [] : viewModel.dapps.filter { $0.type == "bridge" }),
-                  id: \.self
-                ) {
-                  item in
-                  appLink(item: item)
-                }
-              }
-            }.padding([.top], 2)
-          }
+          dappSection(
+            dapps: Array(
+              viewModel.dapps.isEmpty ? [] : viewModel.dapps.filter { $0.type == "nft" }),
+            title: "NFT Marketplace",
+            subTitle:
+              "Place bids on existing NFTs that you want to buy."
+          )
 
-          Group {
-            HStack {
-              Text("Mint")
-                .font(.system(size: 24, weight: .semibold))
-                .foregroundColor(Color(Colors.Label.primary))
-              Spacer()
-            }
-            .padding([.leading, .trailing], 23)
-            .padding([.top], 25)
-
-            HStack {
-              Text("Find new art, music & cultural objects to mint into existence.")
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(Color(Colors.Label.secondary))
-              Spacer()
-            }
-            .padding([.leading, .trailing], 23)
-            .padding([.top], 3)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-              LazyHStack(spacing: 15) {
-                ForEach(
-                  Array(
-                    viewModel.dapps.isEmpty ? [] : viewModel.dapps.filter { $0.type == "mint" }),
-                  id: \.self
-                ) {
-                  item in
-                  appLink(item: item)
-                }
-              }
-            }
-          }
-
-          Group {
-            HStack {
-              Text("NFT Marketplace")
-                .font(.system(size: 24, weight: .semibold))
-                .foregroundColor(Color(Colors.Label.primary))
-              Spacer()
-            }
-            .padding([.leading, .trailing], 23)
-            .padding([.top], 25)
-
-            HStack {
-              Text(
-                "Place bids on existing NFTs that you want to buy."
-              )
-              .font(.system(size: 16, weight: .semibold))
-              .foregroundColor(Color(Colors.Label.secondary))
-              Spacer()
-            }
-            .padding([.leading, .trailing], 23)
-            .padding([.top], 3)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-              LazyHStack(spacing: 15) {
-                ForEach(
-                  Array(viewModel.dapps.isEmpty ? [] : viewModel.dapps.filter { $0.type == "nft" }),
-                  id: \.self
-                ) {
-                  item in
-                  appLink(item: item)
-                }
-              }
-            }
-          }
-
-          Group {
-            HStack {
-              Text("Swap")
-                .font(.system(size: 24, weight: .semibold))
-                .foregroundColor(Color(Colors.Label.primary))
-              Spacer()
-            }
-            .padding([.leading, .trailing], 23)
-            .padding([.top], 25)
-
-            HStack {
-              Text(
-                "Swap tokens on Ethereum & other networks using decentralized exchanges, which are known as DEXs."
-              )
-              .font(.system(size: 16, weight: .semibold))
-              .foregroundColor(Color(Colors.Label.secondary))
-              Spacer()
-            }
-            .padding([.leading, .trailing], 23)
-            .padding([.top], 3)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-              LazyHStack(spacing: 15) {
-                ForEach(
-                  Array(
-                    viewModel.dapps.isEmpty ? [] : viewModel.dapps.filter { $0.type == "swap" }),
-                  id: \.self
-                ) {
-                  item in
-                  appLink(item: item)
-                }
-              }
-            }
-          }
-          .padding([.bottom], 13)
+          dappSection(
+            dapps: Array(
+              viewModel.dapps.isEmpty ? [] : viewModel.dapps.filter { $0.type == "swap" }),
+            title: "Swap",
+            subTitle:
+              "Swap tokens on Ethereum & other networks using decentralized exchanges, which are known as DEXs."
+          )
 
         }
         .onAppear {
@@ -212,5 +108,42 @@ extension ExploreView {
         .padding([.top, .bottom], 8).padding(.leading, 16)
     }.background(Color(Colors.System.secondary))
       .cornerRadius(14)
+  }
+}
+
+extension ExploreView {
+  func dappSection(dapps: [Dapp], title: String, subTitle: String) -> some View {
+    Group {
+      HStack {
+        Text(title)
+          .font(.system(size: 24, weight: .semibold))
+          .foregroundColor(Color(Colors.Label.primary))
+        Spacer()
+      }
+      .padding([.leading, .trailing], 23)
+      .padding([.top], 25)
+
+      HStack {
+        Text(subTitle)
+          .font(.system(size: 16, weight: .semibold))
+          .foregroundColor(Color(Colors.Label.secondary))
+        Spacer()
+      }
+      .padding([.leading, .trailing], 23)
+      .padding([.top], 3)
+
+      ScrollView(.horizontal, showsIndicators: false) {
+        LazyHStack(spacing: 15) {
+          ForEach(
+            dapps,
+            id: \.self
+          ) {
+            item in
+            appLink(item: item)
+          }
+        }
+      }
+    }
+
   }
 }
