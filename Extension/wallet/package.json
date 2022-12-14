@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@planetscale/database": "^1.5.0",
     "@heroicons/react": "^2.0.13",
     "clsx": "^1.2.1",
     "gas-price-oracle": "^0.5.2",
