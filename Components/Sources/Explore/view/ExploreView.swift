@@ -18,7 +18,7 @@ public struct ExploreView: View {
           dappSection(
             dapps: Array(
               viewModel.dapps.isEmpty ? [] : viewModel.dapps.filter { $0.type == "bridge" }),
-            title: "Mint",
+            title: "Bridge",
             subTitle:
               "Move assets between different layers of Ethereum by bridging them across."
           )
@@ -45,6 +45,14 @@ public struct ExploreView: View {
             title: "Swap",
             subTitle:
               "Swap tokens on Ethereum & other networks using decentralized exchanges, which are known as DEXs."
+          )
+
+          dappSection(
+            dapps: Array(
+              viewModel.dapps.isEmpty ? [] : viewModel.dapps.filter { $0.type == "social" }),
+            title: "Social",
+            subTitle:
+              "Interact with next-generation of blockchain social apps that assures your data ownership."
           )
 
         }
@@ -122,25 +130,19 @@ extension ExploreView {
       }
       .padding([.leading, .trailing], 23)
       .padding([.top], 25)
+      .padding([.bottom], 1)
 
       HStack {
         Text(subTitle)
-          .font(.system(size: 16, weight: .semibold))
+          .font(.system(size: 14, weight: .semibold))
           .foregroundColor(Color(Colors.Label.secondary))
         Spacer()
       }
       .padding([.leading, .trailing], 23)
-      .padding([.top], 3)
 
       ScrollView(.horizontal, showsIndicators: false) {
         LazyHStack(spacing: 15) {
-          ForEach(
-            dapps,
-            id: \.self
-          ) {
-            item in
-            appLink(item: item)
-          }
+          ForEach(dapps, id: \.self) { item in appLink(item: item) }
         }
       }
     }
