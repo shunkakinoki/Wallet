@@ -55,6 +55,8 @@ public struct ExploreView: View {
               "Interact with next-generation of blockchain social apps that assures your data ownership."
           )
 
+          VStack(spacing: 0) {}.padding([.bottom], 30)
+
         }
         .onAppear {
           viewModel.getConfiguration()
