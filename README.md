@@ -31,7 +31,7 @@ See [here](https://twitter.com/i/status/1587163495262404608)
 ## 🏄‍♂️ Contributing
 
 - Our designs are on [Figma](https://www.figma.com/file/Qqd4WKaub5BHLUHi0eqvD7), credits to [Oz](https://twitter.com/0xOzh) and [Zypsy](https://zypsy.com) for the work.
-- Look in to our [Github Issues](https://github.com/LightDotSo/Wallet/issues)
+- Look into our [Github Issues](https://github.com/LightDotSo/Wallet/issues)
 - See progress on our [Github Project Board](https://github.com/orgs/LightDotSo/projects/1/views/1)
 
 See our [contributing guidelines](./CONTRIBUTING.md).
