@@ -6,4 +6,5 @@ export const ChainNames = {
   "0x89": "Polygon",
   "0xa4b1": "Arbitrum",
   "0xa86a": "Avalanche",
+  "0x5d456c62": "SKALE",
 };

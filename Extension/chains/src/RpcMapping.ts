@@ -9,4 +9,5 @@ export const RpcMapping = {
   "0xa4b1":
     "https://arbitrum-mainnet.infura.io/v3/013805fd6bd24b3c9a464eeb7c05c63b",
   "0xa86a": "https://api.avax.network/ext/bc/C/rpc	",
+  "0x5d456c62": "https://mainnet.skalenodes.com/v1/honorable-steel-rasalhague",
 };

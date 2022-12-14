@@ -6,4 +6,5 @@ export const CoinGeckoIds = {
   "0x89": "polygon-pos",
   "0xa4b1": "arbitrum-one",
   "0xa86a": "avalanche",
+  "0x5d456c62": "SKALE",
 };
