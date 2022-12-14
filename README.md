@@ -19,6 +19,7 @@
 - 🫰 **Best Dapp Experience** for making possible what dapps can enable people to do
 - 👨‍👩‍👧‍👦 **Open Source & Community Owned** for trustless web3 ethos
 - 🌐 **Safari Extension** to enable seamless dapp experiences on Safari
+- 💯 **Flawless Connection Flow** for the smoothest dapp experience. See public chart at [https://wallet.light.so/flow](https://wallet.light.so/flow)
 - 🔐 **Privacy Focused** for protecting web3 users' privacy. See public dashboard at [https://wallet.light.so/open](https://wallet.light.so/open)
 - 💥 **Transaction Simulation** for better confirmation confidence. See storybook at [https://content.light.so](https://content.light.so)
 - 🚧 **Transaction Warning** for preventing interactions w/ malicious contracts & phishing sites.

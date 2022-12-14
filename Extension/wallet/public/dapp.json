@@ -1,15 +1,9 @@
 {
     "dapps": [
             {
-                "name": "Hop",
-                "icon": "https://app.hop.exchange/favicon.ico",
-                "site": "https://app.hop.exchange",
-                "type": "bridge"
-            },
-            {
-                "name": "Hashflow",
-                "icon": "https://app.hashflow.com/apple-touch-icon.png",
-                "site": "https://app.hashflow.com",
+                "name": "Synapse",
+                "icon": "https://synapseprotocol.com/favicon.ico",
+                "site": "https://synapseprotocol.com",
                 "type": "bridge"
             },
             {
@@ -75,7 +69,7 @@
             {
                 "name": "Lenster",
                 "icon": "https://lenster.xyz/apple-touch-icon.png",
-                "site": "https://lenster.xyz/",
+                "site": "https://lenster.xyz",
                 "type": "social"
             },
             {

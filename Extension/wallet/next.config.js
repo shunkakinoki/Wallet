@@ -7,7 +7,7 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: "/chart",
+        source: "/flow",
         destination:
           "https://lightdotso.notion.site/f961b6a222f240929bcf9e664c12862a?v=b2bf8efb4c0143fc99c4b626d8e5c34f",
         permanent: true,
