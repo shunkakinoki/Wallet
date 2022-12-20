@@ -12,19 +12,19 @@ struct MainView: View {
       HomeView()
         .tag(0)
         .tabItem {
-          Label("Home", systemImage: "house.fill")
+          Label("", systemImage: "house.fill")
         }
 
       ExploreView()
         .tag(1)
         .tabItem {
-          Label("Explore", systemImage: "safari")
+          Label("", systemImage: "safari")
         }
 
       TransactionView()
         .tag(2)
         .tabItem {
-          Label("Transactions", systemImage: "mail.stack.fill")
+          Label("", systemImage: "mail.stack.fill")
         }
 
     }
