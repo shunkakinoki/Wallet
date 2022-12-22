@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   BeakerIcon,
   BriefcaseIcon,
@@ -11,8 +12,16 @@ import clsx from "clsx";
 import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import useSWR from "swr";
 
 import s from "./store.module.css";
+
+const fetcher = (...args: any[]) => {
+  //@ts-expect-error
+  return fetch(...args).then(res => {
+    return res.json();
+  });
+};
 
 const supportLinks = [
   {
@@ -20,12 +29,14 @@ const supportLinks = [
     href: "#",
     description: "New Dapps to try out across the ecosystem.",
     icon: BeakerIcon,
+    type: "mint",
   },
   {
     name: "Trending",
     href: "#",
     description: "Trending Dapps curated from Light users.",
     icon: FireIcon,
+    type: "mint",
   },
   {
     name: "Bridge",
@@ -33,6 +44,7 @@ const supportLinks = [
     description:
       "Move assets between different layers of Ethereum by bridging them across.",
     icon: BriefcaseIcon,
+    type: "bridge",
   },
   {
     name: "Mint",
@@ -40,12 +52,14 @@ const supportLinks = [
     description:
       "Find new art, music & cultural objects to mint into existence.",
     icon: CubeTransparentIcon,
+    type: "mint",
   },
   {
     name: "NFT",
     href: "#",
     description: "Place bids on existing NFTs that you want to buy.",
     icon: BuildingStorefrontIcon,
+    type: "nft",
   },
   {
     name: "Swap",
@@ -53,6 +67,7 @@ const supportLinks = [
     description:
       "Swap tokens on Ethereum & other networks using decentralized exchanges, which are known as DEXs.",
     icon: ScaleIcon,
+    type: "swap",
   },
   {
     name: "Social",
@@ -60,11 +75,13 @@ const supportLinks = [
     description:
       "Interact with next-generation of blockchain social apps that assures your data ownership.",
     icon: FaceSmileIcon,
+    type: "social",
   },
 ];
 
 export default function Store() {
   let [hoveredIndex, setHoveredIndex] = useState<number>(0);
+  const { data, error } = useSWR("https://wallet.light.so/dapp.json", fetcher);
 
   return (
     <div className="flex justify-center">
@@ -121,7 +138,31 @@ export default function Store() {
             </LayoutGroup>
           </nav>
         </div>
-        <main className="mt-12 w-full">
+        <main className="mt-4 w-full">
+          <AnimatePresence>
+            <ul className="flex space-x-6 overflow-x-scroll">
+              {data &&
+                data.dapps
+                  .filter((d: any) => {
+                    return d.type === supportLinks[hoveredIndex].type;
+                  })
+                  .map((dapp: any) => {
+                    return (
+                      <li
+                        key={dapp.name + dapp.type}
+                        className="flex rounded-3xl border border-gray-500"
+                      >
+                        <img
+                          className="h-6 w-6 rounded-full"
+                          src={dapp.icon}
+                          alt=""
+                        />
+                        <div className="pr-4 text-lg">{dapp.name}</div>
+                      </li>
+                    );
+                  })}
+            </ul>
+          </AnimatePresence>
           <AnimatePresence mode="popLayout">
             <motion.div
               key={supportLinks[hoveredIndex].name}
@@ -134,6 +175,17 @@ export default function Store() {
               {supportLinks[hoveredIndex].description}
             </motion.div>
           </AnimatePresence>
+          {data && (
+            <iframe
+              className="h-[30rem] rounded-md"
+              title="iframe"
+              src={
+                data.dapps.filter((d: any) => {
+                  return d.type === supportLinks[hoveredIndex].type;
+                })[0].site
+              }
+            />
+          )}
         </main>
       </div>
     </div>
