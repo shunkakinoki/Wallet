@@ -71,7 +71,7 @@ export default function Store() {
       <div className="max-w-lg flex-col">
         <div
           className={clsx(
-            "flex w-full overflow-x-scroll",
+            "flex w-full overflow-x-scroll border-b border-gray-400",
             hoveredIndex < 3
               ? s.left
               : hoveredIndex === supportLinks.length - 1
@@ -79,7 +79,7 @@ export default function Store() {
               : s.scroll,
           )}
         >
-          <nav className="mx-4 my-11 flex gap-8">
+          <nav className="mx-4 mt-5 mb-4 flex gap-8">
             <LayoutGroup id="nav">
               {supportLinks.map((link, index) => {
                 return (
