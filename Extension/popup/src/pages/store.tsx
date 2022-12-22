@@ -38,7 +38,7 @@ const supportLinks = [
     name: "Mint",
     href: "#",
     description:
-      "Move assets between different layers of Ethereum by bridging them across.",
+      "Find new art, music & cultural objects to mint into existence.",
     icon: CubeTransparentIcon,
   },
   {
