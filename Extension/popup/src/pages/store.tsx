@@ -106,14 +106,14 @@ export default function Store() {
           </LayoutGroup>
         </nav>
         <main className="mt-12 w-full">
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             <motion.div
               key={supportLinks[hoveredIndex].name}
               className="text-lg text-gray-600"
-              initial={{ y: 10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -10, opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
             >
               {supportLinks[hoveredIndex].description}
             </motion.div>
