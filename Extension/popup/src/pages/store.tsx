@@ -177,7 +177,7 @@ export default function Store() {
           </AnimatePresence>
           {data && (
             <iframe
-              className="h-[30rem] rounded-md"
+              className="h-[36rem] rounded-md"
               title="iframe"
               src={
                 data.dapps.filter((d: any) => {
