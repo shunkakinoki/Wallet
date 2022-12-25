@@ -10,7 +10,6 @@ import {
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { AnimatePresence, motion, LayoutGroup, Reorder } from "framer-motion";
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import useSWR from "swr";
 
@@ -83,6 +82,7 @@ export default function Store() {
   let [hoveredIndex, setHoveredIndex] = useState<number>(0);
   const { data } = useSWR("https://wallet.light.so/api/dapp", fetcher);
   const [tabs, setTabs] = useState<any[]>([]);
+  const [links, setLinks] = useState<any[]>(supportLinks);
 
   const items = useMemo(() => {
     if (data) {
@@ -110,45 +110,55 @@ export default function Store() {
               : s.scroll,
           )}
         >
-          <nav className="mx-4 mt-5 mb-4 flex gap-8">
-            <LayoutGroup id="nav">
-              {supportLinks.map((link, index) => {
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={clsx(
-                      "relative -my-2 -mx-3 rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]",
-                      hoveredIndex === index && "bg-gray-200",
-                    )}
-                    onMouseEnter={() => {
-                      return setHoveredIndex(index);
-                    }}
-                  >
-                    <AnimatePresence>
-                      {hoveredIndex === index && (
-                        <motion.span
-                          className="absolute inset-0 rounded-lg bg-gray-100"
-                          layoutId="hoverTab"
-                          initial={{ opacity: 0 }}
-                          animate={{
-                            opacity: 1,
-                            transition: { duration: 0.15 },
-                          }}
-                          exit={{
-                            opacity: 0,
-                            transition: { duration: 0.15, delay: 0.2 },
-                          }}
-                        />
-                      )}
-                    </AnimatePresence>
-                    <div className="relative z-10 flex items-center">
-                      <link.icon className="mr-2 h-4 w-4" aria-hidden="true" />
-                      {link.name}
-                    </div>
-                  </Link>
-                );
-              })}
+          <nav className="mx-4 mt-5 mb-4 flex">
+            <LayoutGroup>
+              <Reorder.Group
+                className="flex gap-8 "
+                as="div"
+                axis="x"
+                values={links}
+                onReorder={setLinks}
+              >
+                <AnimatePresence>
+                  {links.map((link, index) => {
+                    return (
+                      <div
+                        key={link.href}
+                        className={clsx(
+                          "relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]",
+                          hoveredIndex === index && "bg-gray-200",
+                        )}
+                        onMouseEnter={() => {
+                          return setHoveredIndex(index);
+                        }}
+                      >
+                        {hoveredIndex === index && (
+                          <motion.span
+                            className="absolute inset-0 rounded-lg bg-gray-100"
+                            layoutId="hoverTab"
+                            initial={{ opacity: 0 }}
+                            animate={{
+                              opacity: 1,
+                              transition: { duration: 0.15 },
+                            }}
+                            exit={{
+                              opacity: 0,
+                              transition: { duration: 0.15, delay: 0.2 },
+                            }}
+                          />
+                        )}
+                        <div className="relative z-10 flex items-center">
+                          <link.icon
+                            className="mr-2 h-4 w-4"
+                            aria-hidden="true"
+                          />
+                          {link.name}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </AnimatePresence>
+              </Reorder.Group>
             </LayoutGroup>
           </nav>
         </div>
