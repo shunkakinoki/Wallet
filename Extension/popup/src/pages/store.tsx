@@ -111,9 +111,10 @@ export default function Store() {
           )}
         >
           <nav className="mx-4 mt-5 mb-4 flex">
-            <LayoutGroup>
+            <LayoutGroup id="nav">
               <Reorder.Group
-                className="flex gap-8 "
+                layoutScroll
+                className="flex gap-8"
                 as="div"
                 axis="x"
                 values={links}
@@ -122,39 +123,59 @@ export default function Store() {
                 <AnimatePresence>
                   {links.map((link, index) => {
                     return (
-                      <div
-                        key={link.href}
-                        className={clsx(
-                          "relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]",
-                          hoveredIndex === index && "bg-gray-200",
-                        )}
-                        onMouseEnter={() => {
-                          return setHoveredIndex(index);
+                      <Reorder.Item
+                        key={link.name}
+                        as="div"
+                        value={link}
+                        id={link.name}
+                        initial={{ opacity: 0.3 }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                          transition: { duration: 0.15 },
+                        }}
+                        exit={{
+                          opacity: 0,
+                          y: 20,
+                          transition: { duration: 0.3 },
                         }}
                       >
-                        {hoveredIndex === index && (
-                          <motion.span
-                            className="absolute inset-0 rounded-lg bg-gray-100"
-                            layoutId="hoverTab"
-                            initial={{ opacity: 0 }}
-                            animate={{
-                              opacity: 1,
-                              transition: { duration: 0.15 },
-                            }}
-                            exit={{
-                              opacity: 0,
-                              transition: { duration: 0.15, delay: 0.2 },
-                            }}
-                          />
-                        )}
-                        <div className="relative z-10 flex items-center">
-                          <link.icon
-                            className="mr-2 h-4 w-4"
-                            aria-hidden="true"
-                          />
-                          {link.name}
-                        </div>
-                      </div>
+                        <button
+                          className={clsx(
+                            "relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]",
+                            hoveredIndex === index && "bg-gray-200",
+                          )}
+                          onClick={() => {
+                            return setHoveredIndex(index);
+                          }}
+                          onMouseEnter={() => {
+                            return setHoveredIndex(index);
+                          }}
+                        >
+                          {hoveredIndex === index && (
+                            <motion.span
+                              className="absolute inset-0 rounded-lg bg-gray-100"
+                              layoutId="hoverTab"
+                              initial={{ opacity: 0 }}
+                              animate={{
+                                opacity: 1,
+                                transition: { duration: 0.15 },
+                              }}
+                              exit={{
+                                opacity: 0,
+                                transition: { duration: 0.15, delay: 0.2 },
+                              }}
+                            />
+                          )}
+                          <div className="relative z-10 flex items-center">
+                            <link.icon
+                              className="mr-2 h-4 w-4"
+                              aria-hidden="true"
+                            />
+                            {link.name}
+                          </div>
+                        </button>
+                      </Reorder.Item>
                     );
                   })}
                 </AnimatePresence>
@@ -163,77 +184,75 @@ export default function Store() {
           </nav>
         </div>
         <main className="mt-4 w-full">
-          {/* <Reorder.Group axis="x" values={items} onReorder={setItems}>
-            {items.map(item => {
-              return (
-                // /!\ don't forget the value prop!
-                <Reorder.Item key={item} value={item}>
-                  {item}
-                </Reorder.Item>
-              );
-            })}
-          </Reorder.Group> */}
-          <Reorder.Group as="ul" axis="x" values={tabs} onReorder={setTabs}>
-            <AnimatePresence>
-              <ul className="flex space-x-6 overflow-x-scroll">
-                {tabs?.map((dapp: any) => {
-                  return (
-                    <Reorder.Item
-                      key={dapp.site}
-                      value={dapp}
-                      id={dapp.site}
-                      initial={{ opacity: 0.3 }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                        transition: { duration: 0.15 },
-                      }}
-                      exit={{
-                        opacity: 0,
-                        y: 20,
-                        transition: { duration: 0.3 },
-                      }}
-                    >
-                      <div
-                        key={dapp.site}
-                        className="flex items-center rounded-3xl border border-gray-500"
-                      >
-                        <img
-                          className="m-1 h-6 w-6 rounded-full"
-                          src={dapp.icon}
-                          alt=""
-                        />
-                        <div className="pr-2 text-sm">{dapp.name}</div>
-                      </div>
-                    </Reorder.Item>
-                  );
-                })}
-              </ul>
-            </AnimatePresence>
-          </Reorder.Group>
-          <AnimatePresence mode="popLayout">
-            <motion.div
-              key={supportLinks[hoveredIndex].name}
-              className="mt-4 text-lg text-gray-600"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+          <LayoutGroup id="tabs">
+            <Reorder.Group
+              layoutScroll
+              as="ul"
+              axis="x"
+              values={tabs}
+              onReorder={setTabs}
             >
-              {supportLinks[hoveredIndex].description}
-            </motion.div>
-          </AnimatePresence>
-          {data && (
-            <iframe
-              className="mt-4 h-[36rem] rounded-md"
-              title="iframe"
-              src={
-                data.dapps.filter((d: any) => {
-                  return d.type === supportLinks[hoveredIndex].type;
-                })[0].site
-              }
-            />
-          )}
+              <AnimatePresence>
+                <ul className="flex space-x-6 overflow-x-scroll">
+                  {tabs?.map((dapp: any) => {
+                    return (
+                      <Reorder.Item
+                        key={dapp.site}
+                        value={dapp}
+                        id={dapp.site}
+                        initial={{ opacity: 0.3 }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                          transition: { duration: 0.15 },
+                        }}
+                        exit={{
+                          opacity: 0,
+                          y: 20,
+                          transition: { duration: 0.3 },
+                        }}
+                      >
+                        <div
+                          key={dapp.site}
+                          className="flex items-center rounded-3xl border border-gray-500"
+                        >
+                          <img
+                            className="m-1 h-6 w-6 rounded-full"
+                            src={dapp.icon}
+                            alt=""
+                          />
+                          <div className="pr-2 text-sm">{dapp.name}</div>
+                        </div>
+                      </Reorder.Item>
+                    );
+                  })}
+                </ul>
+              </AnimatePresence>
+            </Reorder.Group>
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={supportLinks[hoveredIndex].name}
+                className="mt-4 text-lg text-gray-600"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {supportLinks[hoveredIndex].description}
+              </motion.div>
+            </AnimatePresence>
+            {data && (
+              <iframe
+                className="mt-4 h-[36rem] rounded-md"
+                title="iframe"
+                src={
+                  data.dapps.filter((d: any) => {
+                    return d.type === supportLinks[hoveredIndex].type;
+                  })[0].site
+                }
+              />
+            )}
+          </LayoutGroup>
         </main>
       </div>
     </div>
