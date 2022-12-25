@@ -79,10 +79,11 @@ const supportLinks = [
 ];
 
 export default function Store() {
-  let [hoveredIndex, setHoveredIndex] = useState<number>(0);
   const { data } = useSWR("https://wallet.light.so/api/dapp", fetcher);
+
+  const [hoveredIndex, setHoveredIndex] = useState<number>(0);
   const [tabs, setTabs] = useState<any[]>([]);
-  const [links, setLinks] = useState<any[]>(supportLinks);
+  const [links, setLinks] = useState(supportLinks);
 
   const items = useMemo(() => {
     if (data) {
