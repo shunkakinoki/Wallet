@@ -9,9 +9,9 @@ import {
   ScaleIcon,
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
-import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
+import { AnimatePresence, motion, LayoutGroup, Reorder } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useSWR from "swr";
 
 import s from "./store.module.css";
@@ -36,7 +36,7 @@ const supportLinks = [
     href: "#",
     description: "Trending Dapps curated from Light users.",
     icon: FireIcon,
-    type: "mint",
+    type: "trending",
   },
   {
     name: "Bridge",
@@ -81,7 +81,21 @@ const supportLinks = [
 
 export default function Store() {
   let [hoveredIndex, setHoveredIndex] = useState<number>(0);
-  const { data, error } = useSWR("https://wallet.light.so/dapp.json", fetcher);
+  const { data } = useSWR("https://wallet.light.so/api/dapp", fetcher);
+  const [tabs, setTabs] = useState<any[]>([]);
+
+  const items = useMemo(() => {
+    if (data) {
+      return data.dapps.filter((d: any) => {
+        return d.type === supportLinks[hoveredIndex].type;
+      });
+    }
+    return [];
+  }, [data, hoveredIndex]);
+
+  useEffect(() => {
+    setTabs(items);
+  }, [items]);
 
   return (
     <div className="flex justify-center">
@@ -149,17 +163,29 @@ export default function Store() {
               );
             })}
           </Reorder.Group> */}
-          <AnimatePresence>
-            <ul className="flex space-x-6 overflow-x-scroll">
-              {data &&
-                data.dapps
-                  .filter((d: any) => {
-                    return d.type === supportLinks[hoveredIndex].type;
-                  })
-                  .map((dapp: any) => {
-                    return (
+          <Reorder.Group as="ul" axis="x" values={tabs} onReorder={setTabs}>
+            <AnimatePresence>
+              <ul className="flex space-x-6 overflow-x-scroll">
+                {tabs?.map((dapp: any) => {
+                  return (
+                    <Reorder.Item
+                      key={dapp.site}
+                      value={dapp}
+                      id={dapp.site}
+                      initial={{ opacity: 0.3 }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                        transition: { duration: 0.15 },
+                      }}
+                      exit={{
+                        opacity: 0,
+                        y: 20,
+                        transition: { duration: 0.3 },
+                      }}
+                    >
                       <div
-                        key={dapp.name + dapp.type}
+                        key={dapp.site}
                         className="flex items-center rounded-3xl border border-gray-500"
                       >
                         <img
@@ -169,14 +195,16 @@ export default function Store() {
                         />
                         <div className="pr-2 text-sm">{dapp.name}</div>
                       </div>
-                    );
-                  })}
-            </ul>
-          </AnimatePresence>
+                    </Reorder.Item>
+                  );
+                })}
+              </ul>
+            </AnimatePresence>
+          </Reorder.Group>
           <AnimatePresence mode="popLayout">
             <motion.div
               key={supportLinks[hoveredIndex].name}
-              className="text-lg text-gray-600"
+              className="mt-4 text-lg text-gray-600"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
