@@ -139,6 +139,16 @@ export default function Store() {
           </nav>
         </div>
         <main className="mt-4 w-full">
+          {/* <Reorder.Group axis="x" values={items} onReorder={setItems}>
+            {items.map(item => {
+              return (
+                // /!\ don't forget the value prop!
+                <Reorder.Item key={item} value={item}>
+                  {item}
+                </Reorder.Item>
+              );
+            })}
+          </Reorder.Group> */}
           <AnimatePresence>
             <ul className="flex space-x-6 overflow-x-scroll">
               {data &&
@@ -148,7 +158,7 @@ export default function Store() {
                   })
                   .map((dapp: any) => {
                     return (
-                      <li
+                      <div
                         key={dapp.name + dapp.type}
                         className="flex items-center rounded-3xl border border-gray-500"
                       >
@@ -157,8 +167,8 @@ export default function Store() {
                           src={dapp.icon}
                           alt=""
                         />
-                        <div className="pr-4 text-lg">{dapp.name}</div>
-                      </li>
+                        <div className="pr-2 text-sm">{dapp.name}</div>
+                      </div>
                     );
                   })}
             </ul>
