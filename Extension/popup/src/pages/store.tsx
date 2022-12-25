@@ -89,7 +89,7 @@ export default function Store() {
         <div
           className={clsx(
             "flex w-full overflow-x-scroll border-b border-gray-400",
-            hoveredIndex < 3
+            hoveredIndex === 0
               ? s.left
               : hoveredIndex === supportLinks.length - 1
               ? s.right
@@ -150,10 +150,10 @@ export default function Store() {
                     return (
                       <li
                         key={dapp.name + dapp.type}
-                        className="flex rounded-3xl border border-gray-500"
+                        className="flex items-center rounded-3xl border border-gray-500"
                       >
                         <img
-                          className="h-6 w-6 rounded-full"
+                          className="m-1 h-6 w-6 rounded-full"
                           src={dapp.icon}
                           alt=""
                         />
@@ -177,7 +177,7 @@ export default function Store() {
           </AnimatePresence>
           {data && (
             <iframe
-              className="h-[36rem] rounded-md"
+              className="mt-4 h-[36rem] rounded-md"
               title="iframe"
               src={
                 data.dapps.filter((d: any) => {
