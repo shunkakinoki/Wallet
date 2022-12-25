@@ -251,7 +251,7 @@ export default function Home() {
                       }
                     } catch (error) {
                       console.error(error);
-                      toast.error(`Error: ${error}`);
+                      toast.error(`Error: ${error}! Try refreshing the page.`);
                     }
                   } else {
                     toast.error(`Wallet not found!`);
