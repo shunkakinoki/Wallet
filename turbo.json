@@ -89,6 +89,7 @@
     "@lightwallet/wallet#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
+      "env": ["BLOWFISH_API_KEY", "COHERENT_API_KEY", "COVALENT_API_KEY"],
       "outputs": [
         ".next"
       ]

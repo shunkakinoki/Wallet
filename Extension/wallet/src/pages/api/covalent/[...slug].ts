@@ -13,6 +13,7 @@ export default async function handler(req: NextRequest) {
     `https://api.covalenthq.com/${req.nextUrl.pathname.replace(
       "/api/covalent/",
       "",
+      // eslint-disable-next-line turbo/no-undeclared-env-vars, no-undef
     )}?key=${process.env.COVALENT_API_KEY}`,
   );
 }

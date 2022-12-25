@@ -8,6 +8,7 @@ export const config = {
 };
 
 export default async function handler(req: NextRequest) {
+  // eslint-disable-next-line no-console
   console.log(req.nextUrl.pathname);
   const r = await fetch(
     `https://api.coherent.sh/${req.nextUrl.pathname.replace(
@@ -19,6 +20,7 @@ export default async function handler(req: NextRequest) {
       headers: {
         Accept: "application/json",
         "Content-type": "application/json",
+        // eslint-disable-next-line no-undef
         "X-API-KEY": process.env.COHERENT_API_KEY,
       },
       body: req.body,
