@@ -81,8 +81,9 @@ const initialTabs = [
 export default function Store() {
   const { data } = useSWR("https://wallet.light.so/api/dapp", fetcher);
 
-  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [selectedLink, setSelectedLink] = useState<number>(0);
   const [links, setLinks] = useState<any[]>([]);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [tabs, setTabs] = useState(initialTabs);
 
   const items = useMemo(() => {
@@ -194,8 +195,13 @@ export default function Store() {
               onReorder={setLinks}
             >
               <AnimatePresence>
-                <ul className="flex space-x-6 overflow-x-scroll">
-                  {links?.map((dapp: any) => {
+                <ul
+                  className={clsx(
+                    "flex w-full space-x-5 overflow-x-scroll",
+                    selectedLink === 0 ? s.left : s.scroll,
+                  )}
+                >
+                  {links?.map((dapp, index) => {
                     return (
                       <Reorder.Item
                         key={dapp.site}
@@ -213,9 +219,15 @@ export default function Store() {
                           transition: { duration: 0.3 },
                         }}
                       >
-                        <div
+                        <button
                           key={dapp.site}
-                          className="flex items-center rounded-3xl border border-gray-500"
+                          className={clsx(
+                            "flex items-center rounded-3xl border border-gray-500 transition-colors duration-100",
+                            selectedLink === index && "bg-gray-100",
+                          )}
+                          onClick={() => {
+                            return setSelectedLink(index);
+                          }}
                         >
                           <img
                             className="m-1 h-6 w-6 rounded-full"
@@ -223,7 +235,7 @@ export default function Store() {
                             alt=""
                           />
                           <div className="pr-2 text-sm">{dapp.name}</div>
-                        </div>
+                        </button>
                       </Reorder.Item>
                     );
                   })}
