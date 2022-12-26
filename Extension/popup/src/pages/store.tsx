@@ -149,8 +149,9 @@ export default function Store() {
                           >
                             <button
                               className={clsx(
-                                "relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]",
-                                selectedTab === index && "bg-gray-200",
+                                "relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms] dark:text-gray-400 dark:hover:text-gray-300",
+                                selectedTab === index &&
+                                  "bg-gray-200 dark:text-gray-800",
                               )}
                               onClick={() => {
                                 return setSelectedTab(index);
@@ -161,7 +162,7 @@ export default function Store() {
                             >
                               {selectedTab === index && (
                                 <motion.span
-                                  className="absolute inset-0 rounded-lg bg-gray-100"
+                                  className="absolute inset-0 rounded-lg bg-gray-100 dark:text-gray-900"
                                   layoutId="hoverTab"
                                   initial={{ opacity: 0 }}
                                   animate={{
@@ -190,8 +191,9 @@ export default function Store() {
                           <button
                             key={link.name}
                             className={clsx(
-                              "relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]",
-                              selectedTab === index && "bg-gray-200",
+                              "relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms] dark:text-gray-400",
+                              selectedTab === index &&
+                                "bg-gray-200 dark:text-gray-800",
                             )}
                             onClick={() => {
                               return setSelectedTab(index);
@@ -202,7 +204,7 @@ export default function Store() {
                           >
                             {selectedTab === index && (
                               <motion.span
-                                className="absolute inset-0 rounded-lg bg-gray-100"
+                                className="absolute inset-0 rounded-lg bg-gray-100 dark:text-gray-900"
                                 layoutId="hoverTab"
                                 initial={{ opacity: 0 }}
                                 animate={{
@@ -267,8 +269,9 @@ export default function Store() {
                         <button
                           key={dapp.site}
                           className={clsx(
-                            "flex items-center rounded-3xl border border-gray-500 transition-colors duration-100",
-                            selectedLink === index && "bg-gray-100",
+                            "flex items-center rounded-3xl border border-gray-400 transition-colors duration-100 dark:border-gray-600",
+                            selectedLink === index &&
+                              "bg-gray-100 dark:text-gray-800",
                           )}
                           onClick={() => {
                             return setSelectedLink(index);
