@@ -328,7 +328,7 @@ export default function Store() {
             <AnimatePresence mode="popLayout">
               <motion.div
                 key={initialTabs[selectedTab].name}
-                className="mt-4 text-lg text-gray-600"
+                className="mt-4 text-lg text-gray-600 dark:text-gray-400"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -341,7 +341,7 @@ export default function Store() {
               <div className="mt-4 flex gap-8">
                 <iframe
                   ref={iframeCallbackRef}
-                  className="h-[30rem] w-[18rem] rounded-md"
+                  className="h-[30rem] w-[18rem] cursor-pointer rounded-md"
                   title="iframe"
                   //@ts-expect-error
                   src={selectedDapp?.site}
