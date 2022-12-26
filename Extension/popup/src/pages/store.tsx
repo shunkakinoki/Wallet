@@ -12,7 +12,7 @@ import clsx from "clsx";
 import { AnimatePresence, motion, LayoutGroup, Reorder } from "framer-motion";
 import { Block, Button } from "konsta/react";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import Balancer from "react-wrap-balancer";
 import useSWR from "swr";
 
@@ -105,6 +105,37 @@ export default function Store() {
     setSelectedDapp(items[0]);
     setLinks(items);
   }, [items]);
+
+  //Code rom: https://github.com/springload/react-iframe-click/blob/master/src/index.tsx
+  const iframeRef = useRef<null | HTMLIFrameElement>(null);
+
+  const iframeCallbackRef = useCallback(
+    (node: null | HTMLIFrameElement): void => {
+      iframeRef.current = node;
+    },
+    [],
+  );
+
+  useEffect(() => {
+    const onBlur = () => {
+      if (
+        document.activeElement &&
+        document.activeElement.nodeName.toLowerCase() === "iframe" &&
+        iframeRef.current &&
+        iframeRef.current === document.activeElement
+      ) {
+        //@ts-expect-error
+        window.open(selectedDapp?.site);
+      }
+    };
+
+    window.addEventListener("blur", onBlur);
+
+    return () => {
+      window.removeEventListener("blur", onBlur);
+    };
+    //@ts-expect-error
+  }, [selectedDapp?.site]);
 
   return (
     <div className="flex min-w-[320px] justify-center">
@@ -303,12 +334,13 @@ export default function Store() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <Balancer>{initialTabs[selectedTab].description}</Balancer>
+                {initialTabs[selectedTab].description}
               </motion.div>
             </AnimatePresence>
             {data && (
               <div className="mt-4 flex gap-8">
                 <iframe
+                  ref={iframeCallbackRef}
                   className="h-[30rem] w-[18rem] rounded-md"
                   title="iframe"
                   //@ts-expect-error
