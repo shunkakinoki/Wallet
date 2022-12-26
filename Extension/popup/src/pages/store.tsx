@@ -88,6 +88,8 @@ export default function Store() {
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [tabs, setTabs] = useState(initialTabs);
 
+  const [isEdit, setIsEdit] = useState(false);
+
   const items = useMemo(() => {
     if (data) {
       return data.dapps.filter((d: any) => {
@@ -125,63 +127,104 @@ export default function Store() {
                 onReorder={setTabs}
               >
                 <AnimatePresence>
-                  {tabs.map((link, index) => {
-                    return (
-                      <Reorder.Item
-                        key={link.name}
-                        as="div"
-                        value={link}
-                        id={link.name}
-                        initial={{ opacity: 0.3 }}
-                        animate={{
-                          opacity: 1,
-                          y: 0,
-                          transition: { duration: 0.15 },
-                        }}
-                        exit={{
-                          opacity: 0,
-                          y: 20,
-                          transition: { duration: 0.3 },
-                        }}
-                      >
-                        <button
-                          className={clsx(
-                            "relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]",
-                            selectedTab === index && "bg-gray-200",
-                          )}
-                          onClick={() => {
-                            return setSelectedTab(index);
-                          }}
-                          onMouseEnter={() => {
-                            return setSelectedTab(index);
-                          }}
-                        >
-                          {selectedTab === index && (
-                            <motion.span
-                              className="absolute inset-0 rounded-lg bg-gray-100"
-                              layoutId="hoverTab"
-                              initial={{ opacity: 0 }}
-                              animate={{
-                                opacity: 1,
-                                transition: { duration: 0.15 },
+                  {isEdit
+                    ? tabs.map((link, index) => {
+                        return (
+                          <Reorder.Item
+                            key={link.name}
+                            as="div"
+                            value={link}
+                            id={link.name}
+                            initial={{ opacity: 0.3 }}
+                            animate={{
+                              opacity: 1,
+                              y: 0,
+                              transition: { duration: 0.15 },
+                            }}
+                            exit={{
+                              opacity: 0,
+                              y: 20,
+                              transition: { duration: 0.3 },
+                            }}
+                          >
+                            <button
+                              className={clsx(
+                                "relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]",
+                                selectedTab === index && "bg-gray-200",
+                              )}
+                              onClick={() => {
+                                return setSelectedTab(index);
                               }}
-                              exit={{
-                                opacity: 0,
-                                transition: { duration: 0.15, delay: 0.2 },
+                              onMouseEnter={() => {
+                                return setSelectedTab(index);
                               }}
-                            />
-                          )}
-                          <div className="relative z-10 flex items-center">
-                            <link.icon
-                              className="mr-2 h-4 w-4"
-                              aria-hidden="true"
-                            />
-                            {link.name}
-                          </div>
-                        </button>
-                      </Reorder.Item>
-                    );
-                  })}
+                            >
+                              {selectedTab === index && (
+                                <motion.span
+                                  className="absolute inset-0 rounded-lg bg-gray-100"
+                                  layoutId="hoverTab"
+                                  initial={{ opacity: 0 }}
+                                  animate={{
+                                    opacity: 1,
+                                    transition: { duration: 0.15 },
+                                  }}
+                                  exit={{
+                                    opacity: 0,
+                                    transition: { duration: 0.15, delay: 0.2 },
+                                  }}
+                                />
+                              )}
+                              <div className="relative z-10 flex items-center">
+                                <link.icon
+                                  className="mr-2 h-4 w-4"
+                                  aria-hidden="true"
+                                />
+                                {link.name}
+                              </div>
+                            </button>
+                          </Reorder.Item>
+                        );
+                      })
+                    : tabs.map((link, index) => {
+                        return (
+                          <button
+                            key={link.name}
+                            className={clsx(
+                              "relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]",
+                              selectedTab === index && "bg-gray-200",
+                            )}
+                            onClick={() => {
+                              return setSelectedTab(index);
+                            }}
+                            onMouseEnter={() => {
+                              return setSelectedTab(index);
+                            }}
+                          >
+                            {selectedTab === index && (
+                              <motion.span
+                                className="absolute inset-0 rounded-lg bg-gray-100"
+                                layoutId="hoverTab"
+                                initial={{ opacity: 0 }}
+                                animate={{
+                                  opacity: 1,
+                                  transition: { duration: 0.15 },
+                                }}
+                                exit={{
+                                  opacity: 0,
+                                  transition: { duration: 0.15, delay: 0.2 },
+                                }}
+                              />
+                            )}
+                            <div className="relative z-10 flex items-center">
+                              <link.icon
+                                className="mr-2 h-4 w-4"
+                                aria-hidden="true"
+                              />
+                              {link.name}
+                            </div>
+                          </button>
+                        );
+                      })}
                 </AnimatePresence>
               </Reorder.Group>
             </LayoutGroup>
