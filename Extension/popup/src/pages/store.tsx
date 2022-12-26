@@ -22,7 +22,7 @@ const fetcher = (...args: any[]) => {
   });
 };
 
-const supportLinks = [
+const initialTabs = [
   {
     name: "New",
     href: "#",
@@ -82,20 +82,20 @@ export default function Store() {
   const { data } = useSWR("https://wallet.light.so/api/dapp", fetcher);
 
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
-  const [tabs, setTabs] = useState<any[]>([]);
-  const [links, setLinks] = useState(supportLinks);
+  const [links, setLinks] = useState<any[]>([]);
+  const [tabs, setTabs] = useState(initialTabs);
 
   const items = useMemo(() => {
     if (data) {
       return data.dapps.filter((d: any) => {
-        return d.type === supportLinks[hoveredIndex].type;
+        return d.type === initialTabs[hoveredIndex].type;
       });
     }
     return [];
   }, [data, hoveredIndex]);
 
   useEffect(() => {
-    setTabs(items);
+    setLinks(items);
   }, [items]);
 
   return (
@@ -106,7 +106,7 @@ export default function Store() {
             "flex w-full overflow-x-scroll border-b border-gray-400",
             hoveredIndex === 0
               ? s.left
-              : hoveredIndex === supportLinks.length - 1
+              : hoveredIndex === initialTabs.length - 1
               ? s.right
               : s.scroll,
           )}
@@ -118,11 +118,11 @@ export default function Store() {
                 className="flex gap-8"
                 as="div"
                 axis="x"
-                values={links}
-                onReorder={setLinks}
+                values={tabs}
+                onReorder={setTabs}
               >
                 <AnimatePresence>
-                  {links.map((link, index) => {
+                  {tabs.map((link, index) => {
                     return (
                       <Reorder.Item
                         key={link.name}
@@ -185,17 +185,17 @@ export default function Store() {
           </nav>
         </div>
         <main className="mt-4 w-full">
-          <LayoutGroup id="tabs">
+          <LayoutGroup id="links">
             <Reorder.Group
               layoutScroll
               as="ul"
               axis="x"
-              values={tabs}
-              onReorder={setTabs}
+              values={links}
+              onReorder={setLinks}
             >
               <AnimatePresence>
                 <ul className="flex space-x-6 overflow-x-scroll">
-                  {tabs?.map((dapp: any) => {
+                  {links?.map((dapp: any) => {
                     return (
                       <Reorder.Item
                         key={dapp.site}
@@ -232,14 +232,14 @@ export default function Store() {
             </Reorder.Group>
             <AnimatePresence mode="popLayout">
               <motion.div
-                key={supportLinks[hoveredIndex].name}
+                key={initialTabs[hoveredIndex].name}
                 className="mt-4 text-lg text-gray-600"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                {supportLinks[hoveredIndex].description}
+                {initialTabs[hoveredIndex].description}
               </motion.div>
             </AnimatePresence>
             {data && (
@@ -248,7 +248,7 @@ export default function Store() {
                 title="iframe"
                 src={
                   data.dapps.filter((d: any) => {
-                    return d.type === supportLinks[hoveredIndex].type;
+                    return d.type === initialTabs[hoveredIndex].type;
                   })[0].site
                 }
               />
