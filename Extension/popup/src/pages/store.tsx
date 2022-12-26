@@ -342,7 +342,7 @@ export default function Store() {
               <div className="mt-4 flex gap-8">
                 <iframe
                   ref={iframeCallbackRef}
-                  className="h-3/5 w-2/5 cursor-pointer rounded-md md:h-[30rem] md:w-[18rem]"
+                  className="h-[60vh] w-2/5 cursor-pointer rounded-md md:h-[30rem] md:w-[18rem]"
                   title="iframe"
                   //@ts-expect-error
                   src={selectedDapp?.site}
