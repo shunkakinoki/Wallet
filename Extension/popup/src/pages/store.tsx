@@ -83,6 +83,7 @@ const initialTabs = [
 export default function Store() {
   const { data } = useSWR("https://wallet.light.so/api/dapp", fetcher);
 
+  const [selectedDapp, setSelectedDapp] = useState();
   const [selectedLink, setSelectedLink] = useState<number>(0);
   const [links, setLinks] = useState<any[]>([]);
   const [selectedTab, setSelectedTab] = useState<number>(0);
@@ -274,6 +275,7 @@ export default function Store() {
                               "bg-gray-100 dark:text-gray-800",
                           )}
                           onClick={() => {
+                            setSelectedDapp(dapp);
                             return setSelectedLink(index);
                           }}
                         >
@@ -306,11 +308,8 @@ export default function Store() {
               <iframe
                 className="mt-4 h-[36rem] rounded-md"
                 title="iframe"
-                src={
-                  data.dapps.filter((d: any) => {
-                    return d.type === initialTabs[selectedTab].type;
-                  })[0].site
-                }
+                //@ts-expect-error
+                src={selectedDapp?.site}
               />
             )}
           </LayoutGroup>
