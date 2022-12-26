@@ -15,6 +15,9 @@ module.exports = {
     "prettier",
     "turbo",
   ],
+  globals: {
+    browser: true,
+  },
   ignorePatterns: [
     "Application/Light Safari Extension/Resources/**/*.js",
     "**/dist/**/*.js",

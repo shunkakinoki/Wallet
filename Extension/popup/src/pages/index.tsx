@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import {
@@ -16,6 +17,7 @@ import {
   DialogButton,
   ListInput,
 } from "konsta/react";
+import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 // eslint-disable-next-line import/no-named-as-default
 import toast, { Toaster } from "react-hot-toast";
@@ -621,7 +623,7 @@ export default function Home() {
             }}
           />
         </List>
-        <Block className="flex justify-center">
+        <Block className="flex justify-center gap-8">
           <Button
             outline
             large
@@ -659,6 +661,11 @@ export default function Home() {
           >
             Open Light App
           </Button>
+          <Link href="/store">
+            <Button outline large rounded className="w-32 normal-case">
+              Dapp Store
+            </Button>
+          </Link>
         </Block>
         <BlockHeader className="invisible ml-4 font-semibold">
           {accounts && addresses && shadowAccountIdOption && (

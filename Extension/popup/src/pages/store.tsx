@@ -10,6 +10,8 @@ import {
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { AnimatePresence, motion, LayoutGroup, Reorder } from "framer-motion";
+import { Block, Button } from "konsta/react";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import useSWR from "swr";
 
@@ -267,6 +269,13 @@ export default function Store() {
             )}
           </LayoutGroup>
         </main>
+        <Block className="flex justify-center">
+          <Link href="/">
+            <Button outline large rounded className="w-32 normal-case">
+              Go Home
+            </Button>
+          </Link>
+        </Block>
       </div>
     </div>
   );
