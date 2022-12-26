@@ -100,8 +100,8 @@ export default function Store() {
   }, [items]);
 
   return (
-    <div className="flex justify-center">
-      <div className="max-w-lg flex-col">
+    <div className="flex min-w-[320px] justify-center">
+      <div className="w-full max-w-lg flex-col">
         <div
           className={clsx(
             "flex w-full overflow-x-scroll border-b border-gray-400",
