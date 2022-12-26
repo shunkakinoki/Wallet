@@ -81,18 +81,18 @@ const initialTabs = [
 export default function Store() {
   const { data } = useSWR("https://wallet.light.so/api/dapp", fetcher);
 
-  const [hoveredIndex, setHoveredIndex] = useState<number>(0);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [links, setLinks] = useState<any[]>([]);
   const [tabs, setTabs] = useState(initialTabs);
 
   const items = useMemo(() => {
     if (data) {
       return data.dapps.filter((d: any) => {
-        return d.type === initialTabs[hoveredIndex].type;
+        return d.type === initialTabs[selectedTab].type;
       });
     }
     return [];
-  }, [data, hoveredIndex]);
+  }, [data, selectedTab]);
 
   useEffect(() => {
     setLinks(items);
@@ -104,9 +104,9 @@ export default function Store() {
         <div
           className={clsx(
             "flex w-full overflow-x-scroll border-b border-gray-400",
-            hoveredIndex === 0
+            selectedTab === 0
               ? s.left
-              : hoveredIndex === initialTabs.length - 1
+              : selectedTab === initialTabs.length - 1
               ? s.right
               : s.scroll,
           )}
@@ -144,16 +144,16 @@ export default function Store() {
                         <button
                           className={clsx(
                             "relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]",
-                            hoveredIndex === index && "bg-gray-200",
+                            selectedTab === index && "bg-gray-200",
                           )}
                           onClick={() => {
-                            return setHoveredIndex(index);
+                            return setSelectedTab(index);
                           }}
                           onMouseEnter={() => {
-                            return setHoveredIndex(index);
+                            return setSelectedTab(index);
                           }}
                         >
-                          {hoveredIndex === index && (
+                          {selectedTab === index && (
                             <motion.span
                               className="absolute inset-0 rounded-lg bg-gray-100"
                               layoutId="hoverTab"
@@ -232,14 +232,14 @@ export default function Store() {
             </Reorder.Group>
             <AnimatePresence mode="popLayout">
               <motion.div
-                key={initialTabs[hoveredIndex].name}
+                key={initialTabs[selectedTab].name}
                 className="mt-4 text-lg text-gray-600"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                {initialTabs[hoveredIndex].description}
+                {initialTabs[selectedTab].description}
               </motion.div>
             </AnimatePresence>
             {data && (
@@ -248,7 +248,7 @@ export default function Store() {
                 title="iframe"
                 src={
                   data.dapps.filter((d: any) => {
-                    return d.type === initialTabs[hoveredIndex].type;
+                    return d.type === initialTabs[selectedTab].type;
                   })[0].site
                 }
               />
