@@ -13,6 +13,7 @@ import { AnimatePresence, motion, LayoutGroup, Reorder } from "framer-motion";
 import { Block, Button } from "konsta/react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import Balancer from "react-wrap-balancer";
 import useSWR from "swr";
 
 import s from "./store.module.css";
@@ -101,6 +102,7 @@ export default function Store() {
   }, [data, selectedTab]);
 
   useEffect(() => {
+    setSelectedDapp(items[0]);
     setLinks(items);
   }, [items]);
 
@@ -109,7 +111,7 @@ export default function Store() {
       <div className="w-full max-w-lg flex-col">
         <div
           className={clsx(
-            "flex w-full overflow-x-scroll border-b border-gray-400",
+            "flex w-full overflow-x-scroll border-b border-gray-400 dark:border-gray-600",
             selectedTab === 0
               ? s.left
               : selectedTab === initialTabs.length - 1
@@ -301,16 +303,26 @@ export default function Store() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                {initialTabs[selectedTab].description}
+                <Balancer>{initialTabs[selectedTab].description}</Balancer>
               </motion.div>
             </AnimatePresence>
             {data && (
-              <iframe
-                className="mt-4 h-[36rem] rounded-md"
-                title="iframe"
-                //@ts-expect-error
-                src={selectedDapp?.site}
-              />
+              <div className="mt-4 flex gap-8">
+                <iframe
+                  className="h-[30rem] w-[18rem] rounded-md"
+                  title="iframe"
+                  //@ts-expect-error
+                  src={selectedDapp?.site}
+                />
+                <div>
+                  <h1 className="text-3xl font-bold tracking-tight text-indigo-400 ">
+                    <Balancer>
+                      {/* @ts-expect-error */}
+                      {selectedDapp?.name}
+                    </Balancer>
+                  </h1>
+                </div>
+              </div>
             )}
           </LayoutGroup>
         </main>
