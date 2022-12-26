@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { GlobeAltIcon } from "@heroicons/react/20/solid";
 import {
   BeakerIcon,
   BriefcaseIcon,
@@ -346,13 +347,27 @@ export default function Store() {
                   //@ts-expect-error
                   src={selectedDapp?.site}
                 />
-                <div>
+                <div className="space-y-8">
                   <h1 className="text-3xl font-bold tracking-tight text-indigo-400 ">
                     <Balancer>
                       {/* @ts-expect-error */}
                       {selectedDapp?.name}
                     </Balancer>
                   </h1>
+                  <button
+                    type="button"
+                    className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    onClick={() => {
+                      //@ts-expect-error
+                      window.open(selectedDapp?.site);
+                    }}
+                  >
+                    <GlobeAltIcon
+                      className="-ml-1 mr-3 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                    Open in Safari
+                  </button>
                 </div>
               </div>
             )}
