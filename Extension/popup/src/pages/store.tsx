@@ -342,13 +342,13 @@ export default function Store() {
               <div className="mt-4 flex gap-8">
                 <iframe
                   ref={iframeCallbackRef}
-                  className="h-[60vh] w-[60vw] cursor-pointer rounded-md md:h-[30rem] md:w-[18rem]"
+                  className="xs:w-[50vw] h-[60vh] w-[55vw] cursor-pointer rounded-md md:h-[30rem] md:w-[18rem]"
                   title="iframe"
                   //@ts-expect-error
                   src={selectedDapp?.site}
                 />
                 <div className="space-y-8">
-                  <h1 className="text-3xl font-bold tracking-tight text-indigo-400 ">
+                  <h1 className="text-2xl font-bold tracking-tight text-indigo-400 ">
                     <Balancer>
                       {/* @ts-expect-error */}
                       {selectedDapp?.name}
@@ -356,7 +356,7 @@ export default function Store() {
                   </h1>
                   <button
                     type="button"
-                    className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-2 py-1 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     onClick={() => {
                       //@ts-expect-error
                       window.open(selectedDapp?.site);
