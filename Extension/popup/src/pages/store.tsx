@@ -267,7 +267,7 @@ export default function Store() {
             </LayoutGroup>
           </nav>
         </div>
-        <main className="mt-4 w-full">
+        <main className="mt-4 w-full px-3">
           <LayoutGroup id="links">
             <Reorder.Group
               layoutScroll
@@ -279,7 +279,7 @@ export default function Store() {
               <AnimatePresence>
                 <ul
                   className={clsx(
-                    "flex w-full space-x-5 overflow-x-scroll",
+                    "flex w-full space-x-4 overflow-x-scroll",
                     selectedLink === 0 ? s.left : s.scroll,
                   )}
                 >
@@ -342,7 +342,7 @@ export default function Store() {
               <div className="mt-4 flex gap-8">
                 <iframe
                   ref={iframeCallbackRef}
-                  className="h-[30rem] w-[18rem] cursor-pointer rounded-md"
+                  className="h-3/5 w-2/5 cursor-pointer rounded-md md:h-[30rem] md:w-[18rem]"
                   title="iframe"
                   //@ts-expect-error
                   src={selectedDapp?.site}
