@@ -2511,7 +2511,7 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@motionone/animation@^10.13.1":
+"@motionone/animation@^10.13.1", "@motionone/animation@^10.15.1":
   version "10.15.1"
   resolved "https://registry.yarnpkg.com/@motionone/animation/-/animation-10.15.1.tgz#4a85596c31cbc5100ae8eb8b34c459fb0ccf6807"
   integrity sha512-mZcJxLjHor+bhcPuIFErMDNyrdb2vJur8lSfMCsuCB4UyV8ILZLvK+t+pg56erv8ud9xQGK/1OGPt10agPrCyQ==
@@ -2533,6 +2533,18 @@
     hey-listen "^1.0.8"
     tslib "^2.3.1"
 
+"@motionone/dom@^10.15.3":
+  version "10.15.3"
+  resolved "https://registry.yarnpkg.com/@motionone/dom/-/dom-10.15.3.tgz#afb27270032368a917f1ae8dd87e0069a6a9fe40"
+  integrity sha512-FQ7a2zMBXc1UeU8CG9G3yDpst55fbb0+C9A0VGfwOITitBCzigKZnXRgsRSWWR+FW57GSc13eGQxtYB0lKG0Ng==
+  dependencies:
+    "@motionone/animation" "^10.15.1"
+    "@motionone/generators" "^10.15.1"
+    "@motionone/types" "^10.15.1"
+    "@motionone/utils" "^10.15.1"
+    hey-listen "^1.0.8"
+    tslib "^2.3.1"
+
 "@motionone/easing@^10.15.1":
   version "10.15.1"
   resolved "https://registry.yarnpkg.com/@motionone/easing/-/easing-10.15.1.tgz#95cf3adaef34da6deebb83940d8143ede3deb693"
@@ -2541,7 +2553,7 @@
     "@motionone/utils" "^10.15.1"
     tslib "^2.3.1"
 
-"@motionone/generators@^10.13.1":
+"@motionone/generators@^10.13.1", "@motionone/generators@^10.15.1":
   version "10.15.1"
   resolved "https://registry.yarnpkg.com/@motionone/generators/-/generators-10.15.1.tgz#dc6abb11139d1bafe758a41c134d4c753a9b871c"
   integrity sha512-67HLsvHJbw6cIbLA/o+gsm7h+6D4Sn7AUrB/GPxvujse1cGZ38F5H7DzoH7PhX+sjvtDnt2IhFYF2Zp1QTMKWQ==
@@ -9071,6 +9083,17 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
+framer-motion@^7.10.3:
+  version "7.10.3"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-7.10.3.tgz#8b23f50bbc1ee8c830c869c5398e457d5272feb5"
+  integrity sha512-k2ccYeZNSpPg//HTaqrU+4pRq9f9ZpaaN7rr0+Rx5zA4wZLbk547wtDzge2db1sB+1mnJ6r59P4xb+aEIi/W+w==
+  dependencies:
+    "@motionone/dom" "^10.15.3"
+    hey-listen "^1.0.8"
+    tslib "2.4.0"
+  optionalDependencies:
+    "@emotion/is-prop-valid" "^0.8.2"
+
 framer-motion@^7.6.19:
   version "7.6.19"
   resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-7.6.19.tgz#a24ea890881374f4184be5abb773ce8e4a0d3734"
@@ -13800,6 +13823,11 @@ react-transition-state@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/react-transition-state/-/react-transition-state-2.0.2.tgz#27d82c1e5833d011ce1b74500d56fc9c8343194e"
   integrity sha512-XmEw4Bp8NG2twK2+Kj/ea3RCHNM/yzQu766lyQxsswBRnN/vmiOgdVH3vlNwHEhRgM02Fdm3Vnrql8Kwgdhc3w==
+
+react-wrap-balancer@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/react-wrap-balancer/-/react-wrap-balancer-0.2.3.tgz#6d1c2abcc02f9647888ca2d89adfad1ebeedad57"
+  integrity sha512-PWwo0+bMtRSsK2sDUl1NAtufz+vuB91AekruNurHsgHhxJx38RK4+vgzPN5jzGH0nufvwMxhtZXBjYRe+hFYCw==
 
 react@^18.2.0:
   version "18.2.0"
