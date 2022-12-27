@@ -387,7 +387,7 @@ export default function Home() {
                     ) : (
                       <img
                         //@ts-expect-error
-                        src={`https://defillama.com/chain-icons/rsz_${ChainNames[
+                        src={`https://icons.llamao.fi/icons/chains/rsz_${ChainNames[
                           chainId
                         ].toLowerCase()}.jpg`}
                         className="h-5 w-5 rounded-full"
