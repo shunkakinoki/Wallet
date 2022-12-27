@@ -78,7 +78,7 @@ export const ChainIcon: FC<ChainIconParams> = ({ chainId }) => {
       ) : (
         // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
         <ChainIconImage
-          src={`https://defillama.com/chain-icons/rsz_${ChainNames[
+          src={`https://icons.llamao.fi/icons/chains/rsz_${ChainNames[
             chainId
           ].toLowerCase()}.jpg`}
           onError={() => {

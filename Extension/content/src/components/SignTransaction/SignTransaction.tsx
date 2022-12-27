@@ -309,7 +309,7 @@ export const SignTransactionDescription: FC<
                               src={
                                 change?.rawInfo?.kind ===
                                 "NATIVE_ASSET_TRANSFER"
-                                  ? `https://defillama.com/chain-icons/rsz_${
+                                  ? `https://icons.llamao.fi/icons/chains/rsz_${
                                       ChainNames[window.ethereum.chainId]
                                     }.jpg`
                                   : change?.rawInfo?.kind === "ERC721_TRANSFER"
