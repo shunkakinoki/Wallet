@@ -309,9 +309,9 @@ export const SignTransactionDescription: FC<
                               src={
                                 change?.rawInfo?.kind ===
                                 "NATIVE_ASSET_TRANSFER"
-                                  ? `https://icons.llamao.fi/icons/chains/rsz_${
-                                      ChainNames[window.ethereum.chainId]
-                                    }.jpg`
+                                  ? `https://icons.llamao.fi/icons/chains/rsz_${ChainNames[
+                                      window.ethereum.chainId
+                                    ].toLowerCase()}.jpg`
                                   : change?.rawInfo?.kind === "ERC721_TRANSFER"
                                   ? change?.rawInfo?.data?.metadata?.rawImageUrl
                                   : `https://logos.covalenthq.com/tokens/${parseInt(
