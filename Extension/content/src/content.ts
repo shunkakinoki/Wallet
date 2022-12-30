@@ -259,5 +259,7 @@ window.addEventListener("message", event => {
 });
 
 setInterval(() => {
-  replaceMetamask();
+  if (window?.ethereum) {
+    replaceMetamask();
+  }
 }, 300);
