@@ -1,11 +1,11 @@
 .scroll {
-  -webkit-mask: linear-gradient(90deg, #0000, #000 10% 80%, #0000)
+  -webkit-mask: linear-gradient(90deg, #0000, #000 10% 80%, #0000);
 }
 
 .left {
-  -webkit-mask: linear-gradient(90deg, #0000, #000 0% 80%, #0000)
+  -webkit-mask: linear-gradient(90deg, #0000, #000 0% 80%, #0000);
 }
 
 .right {
-  -webkit-mask: linear-gradient(90deg, #0000, #000 10% 100%, #0000)
+  -webkit-mask: linear-gradient(90deg, #0000, #000 10% 100%, #0000);
 }
