@@ -23,18 +23,18 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
-### ios internal
+### ios dev
 
 ```sh
-[bundle exec] fastlane ios internal
+[bundle exec] fastlane ios dev
 ```
 
 
 
-### ios external
+### ios production
 
 ```sh
-[bundle exec] fastlane ios external
+[bundle exec] fastlane ios production
 ```
 
 

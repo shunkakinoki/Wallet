@@ -124,7 +124,7 @@
 		2A863C76281E59280070E226 /* Light.Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Light.Development.xcconfig; sourceTree = "<group>"; };
 		2ADF7EAB28B959F200A94894 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		2ADF7EAE28B95A3C00A94894 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
-		2AE391F62800D8F000E19495 /* Light Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Light Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AE391F62800D8F000E19495 /* Light.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Light.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AE391F92800D8F000E19495 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2AE391FB2800D8F000E19495 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2AE392022800D8F100E19495 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -133,7 +133,6 @@
 		A686724D28F618A800F812B6 /* popup */ = {isa = PBXFileReference; lastKnownFileType = folder; path = popup; sourceTree = "<group>"; };
 		A69B427E290F82F000F30677 /* inpage.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = inpage.js; sourceTree = "<group>"; };
 		A6AFE4512964CE93001678F4 /* Light Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Light Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6AFE4522964CE96001678F4 /* Light copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Light copy-Info.plist"; path = "/Users/shunkakinoki/ghq/github.com/LightDotSo/Wallet/Application/Light copy-Info.plist"; sourceTree = "<absolute>"; };
 		A6B6E66C28E4445800C50DF9 /* Light.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Light.entitlements; sourceTree = "<group>"; };
 		A6B6E66D28E4452800C50DF9 /* Light Safari Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Light Safari Extension.entitlements"; sourceTree = "<group>"; };
 		A6DCD07428E504C80072C636 /* popup.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
@@ -249,14 +248,13 @@
 				2A0108C328E245E700611300 /* Light Safari Extension */,
 				2AE391F72800D8F000E19495 /* Products */,
 				2AABA2FC2810A20A001BDB6F /* Frameworks */,
-				A6AFE4522964CE96001678F4 /* Light copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		2AE391F72800D8F000E19495 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2AE391F62800D8F000E19495 /* Light Dev.app */,
+				2AE391F62800D8F000E19495 /* Light.app */,
 				2A0108C228E245E700611300 /* Light Safari Extension.appex */,
 				A6AFE4512964CE93001678F4 /* Light Dev.app */,
 			);
@@ -344,7 +342,7 @@
 				2AABA2FD2810A20A001BDB6F /* Core */,
 			);
 			productName = Light;
-			productReference = 2AE391F62800D8F000E19495 /* Light Dev.app */;
+			productReference = 2AE391F62800D8F000E19495 /* Light.app */;
 			productType = "com.apple.product-type.application";
 		};
 		A6AFE4362964CE93001678F4 /* Light Dev */ = {
@@ -529,7 +527,8 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Light Safari Extension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development: Created via API (C9D4454S76)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 324;
 				DEVELOPMENT_TEAM = "";
@@ -734,11 +733,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Light/Light.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development: Created via API (C9D4454S76)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 324;
-				DEVELOPMENT_TEAM = 4Z47XRX22C;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Light/Resources/Info.plist;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Access your wallet";
@@ -757,7 +759,8 @@
 					"-weak_framework",
 					SwiftUI,
 				);
-				PROVISIONING_PROFILE_SPECIFIER = "match Development io.magic.light";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.magic.light";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -770,6 +773,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Light/Light.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
@@ -813,6 +817,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 324;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Light copy-Info.plist";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Access your wallet";
@@ -834,6 +839,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.magic.light.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.magic.light";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.magic.light.dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -873,7 +879,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.magic.light.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.magic.light";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.magic.light";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.magic.light.dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
