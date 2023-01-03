@@ -63,6 +63,17 @@
 		A6DCD08528E504C80072C636 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD07928E504C80072C636 /* background.js */; };
 		A6DCD08628E504C80072C636 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD07A28E504C80072C636 /* manifest.json */; };
 		A6DCD09028E628430072C636 /* ethereum.js in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD08F28E628430072C636 /* ethereum.js */; };
+		A6F53FA42964F42C002FBBF2 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0108C428E245E700611300 /* SafariWebExtensionHandler.swift */; };
+		A6F53FA62964F42C002FBBF2 /* Extension in Frameworks */ = {isa = PBXBuildFile; productRef = A6F53FA22964F42C002FBBF2 /* Extension */; };
+		A6F53FA82964F42C002FBBF2 /* popup in Resources */ = {isa = PBXBuildFile; fileRef = A686724D28F618A800F812B6 /* popup */; };
+		A6F53FA92964F42C002FBBF2 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD07928E504C80072C636 /* background.js */; };
+		A6F53FAA2964F42C002FBBF2 /* images in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD07828E504C80072C636 /* images */; };
+		A6F53FAB2964F42C002FBBF2 /* ethereum.js in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD08F28E628430072C636 /* ethereum.js */; };
+		A6F53FAC2964F42C002FBBF2 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD07628E504C80072C636 /* content.js */; };
+		A6F53FAD2964F42C002FBBF2 /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD07428E504C80072C636 /* popup.html */; };
+		A6F53FAE2964F42C002FBBF2 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD07A28E504C80072C636 /* manifest.json */; };
+		A6F53FAF2964F42C002FBBF2 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD07728E504C80072C636 /* _locales */; };
+		A6F53FB02964F42C002FBBF2 /* inpage.js in Resources */ = {isa = PBXBuildFile; fileRef = A69B427E290F82F000F30677 /* inpage.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,8 +144,8 @@
 		A686724D28F618A800F812B6 /* popup */ = {isa = PBXFileReference; lastKnownFileType = folder; path = popup; sourceTree = "<group>"; };
 		A69B427E290F82F000F30677 /* inpage.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = inpage.js; sourceTree = "<group>"; };
 		A6AFE4512964CE93001678F4 /* Light Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Light Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6B6E66C28E4445800C50DF9 /* Light.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Light.entitlements; sourceTree = "<group>"; };
-		A6B6E66D28E4452800C50DF9 /* Light Safari Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Light Safari Extension.entitlements"; sourceTree = "<group>"; };
+		A6B6E66C28E4445800C50DF9 /* Configuration/Light.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Configuration/Light.entitlements; sourceTree = "<group>"; };
+		A6B6E66D28E4452800C50DF9 /* Configuration/Light Safari Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Configuration/Light Safari Extension.entitlements"; sourceTree = "<group>"; };
 		A6DCD07428E504C80072C636 /* popup.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
 		A6DCD07628E504C80072C636 /* content.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
 		A6DCD07728E504C80072C636 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
@@ -169,13 +180,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A6F53FA52964F42C002FBBF2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6F53FA62964F42C002FBBF2 /* Extension in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		2A0108C328E245E700611300 /* Light Safari Extension */ = {
 			isa = PBXGroup;
 			children = (
-				A6B6E66D28E4452800C50DF9 /* Light Safari Extension.entitlements */,
+				A6B6E66D28E4452800C50DF9 /* Configuration/Light Safari Extension.entitlements */,
 				2A0108C428E245E700611300 /* SafariWebExtensionHandler.swift */,
 				2A0108D728E245E800611300 /* Info.plist */,
 				2A0108C628E245E700611300 /* Resources */,
@@ -264,7 +283,7 @@
 		2AE391F82800D8F000E19495 /* Light */ = {
 			isa = PBXGroup;
 			children = (
-				A6B6E66C28E4445800C50DF9 /* Light.entitlements */,
+				A6B6E66C28E4445800C50DF9 /* Configuration/Light.entitlements */,
 				2A863C74281E59000070E226 /* Configuration */,
 				2AE3920D2800DA4C00E19495 /* Sources */,
 				2AE3920E2800DA4F00E19495 /* Resources */,
@@ -367,6 +386,25 @@
 			productReference = A6AFE4512964CE93001678F4 /* Light Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A6F53FA12964F42C002FBBF2 /* Light Dev Safari Extension copy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A6F53FB12964F42C002FBBF2 /* Build configuration list for PBXNativeTarget "Light Dev Safari Extension copy" */;
+			buildPhases = (
+				A6F53FA32964F42C002FBBF2 /* Sources */,
+				A6F53FA52964F42C002FBBF2 /* Frameworks */,
+				A6F53FA72964F42C002FBBF2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Light Dev Safari Extension copy";
+			packageProductDependencies = (
+				A6F53FA22964F42C002FBBF2 /* Extension */,
+			);
+			productName = "Light Safari Extension";
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -407,6 +445,7 @@
 				2A4993412821E2C100346628 /* Lint */,
 				2A0108C128E245E700611300 /* Light Safari Extension */,
 				A6AFE4362964CE93001678F4 /* Light Dev */,
+				A6F53FA12964F42C002FBBF2 /* Light Dev Safari Extension copy */,
 			);
 		};
 /* End PBXProject section */
@@ -466,6 +505,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A6F53FA72964F42C002FBBF2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6F53FA82964F42C002FBBF2 /* popup in Resources */,
+				A6F53FA92964F42C002FBBF2 /* background.js in Resources */,
+				A6F53FAA2964F42C002FBBF2 /* images in Resources */,
+				A6F53FAB2964F42C002FBBF2 /* ethereum.js in Resources */,
+				A6F53FAC2964F42C002FBBF2 /* content.js in Resources */,
+				A6F53FAD2964F42C002FBBF2 /* popup.html in Resources */,
+				A6F53FAE2964F42C002FBBF2 /* manifest.json in Resources */,
+				A6F53FAF2964F42C002FBBF2 /* _locales in Resources */,
+				A6F53FB02964F42C002FBBF2 /* inpage.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -492,6 +547,14 @@
 			files = (
 				A6AFE43B2964CE93001678F4 /* AppDelegate.swift in Sources */,
 				A6AFE43C2964CE93001678F4 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6F53FA32964F42C002FBBF2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6F53FA42964F42C002FBBF2 /* SafariWebExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,7 +589,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Light Safari Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Configuration/Light Safari Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -563,7 +626,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Light Safari Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Configuration/Light Safari Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 324;
@@ -734,7 +797,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Light/Light.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Light/Configuration/Light.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -774,7 +837,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Light/Light.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Light/Configuration/Light.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 324;
@@ -812,14 +875,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Light/Light.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Light/Configuration/Light.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: Created via API (C9D4454S76)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 324;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Light copy-Info.plist";
+				INFOPLIST_FILE = Light/Resources/Info.plist;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Access your wallet";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -852,14 +915,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Light/Light.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Light/Configuration/Light.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 324;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Light copy-Info.plist";
+				INFOPLIST_FILE = Light/Resources/Info.plist;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Access your wallet";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -880,6 +943,79 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.magic.light";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.magic.light.dev";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		A6F53FB22964F42C002FBBF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Configuration/Light Safari Extension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 324;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Light Safari Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Light Safari Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.magic.light.dev.Light-Safari-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.magic.light.dev.Light-Safari-Extension";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A6F53FB32964F42C002FBBF2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Configuration/Light Safari Extension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 324;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Light Safari Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Light Safari Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.magic.light.dev.Light-Safari-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.magic.light.dev.Light-Safari-Extension";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -934,6 +1070,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		A6F53FB12964F42C002FBBF2 /* Build configuration list for PBXNativeTarget "Light Dev Safari Extension copy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A6F53FB22964F42C002FBBF2 /* Debug */,
+				A6F53FB32964F42C002FBBF2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -948,6 +1093,10 @@
 		A6AFE4392964CE93001678F4 /* Core */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Core;
+		};
+		A6F53FA22964F42C002FBBF2 /* Extension */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Extension;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
