@@ -69,25 +69,6 @@ public struct HomeView: View {
 
           HStack(spacing: 24) {
             Button {
-              UIPasteboard.general.setValue(
-                viewModel.selectedRawAddress,
-                forPasteboardType: "public.plain-text"
-              )
-            } label: {
-              VStack {
-                Image(systemName: "plus")
-                  .font(.system(size: 17, weight: .bold))
-                  .padding([.top, .bottom], 14)
-                  .foregroundColor(Color(Colors.Label.primary))
-                  .frame(width: 48, height: 48)
-                  .background(Color(Colors.Background.secondary))
-                  .clipShape(Circle())
-                Text("Buy")
-                  .font(.body)
-                  .foregroundColor(Color(Colors.Label.primary))
-              }
-            }
-            Button {
               showingQR.toggle()
             } label: {
               VStack {
