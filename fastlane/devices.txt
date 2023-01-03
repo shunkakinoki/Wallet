@@ -1,3 +1,2 @@
 Device ID	Device Name
-00008030-001265AC3ED0802E	    IsaaciPhone
 00008110-00111C103485801E	    ShuniPhone

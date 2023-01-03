@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
@@ -27,7 +28,7 @@ jobs:
         env:
           JITSU_JS_KEY: ${{ secrets.JITSU_JS_KEY }}
       - run: |
-          bundle exec fastlane internal
+          bundle exec fastlane dev
         env:
           APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
           APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}

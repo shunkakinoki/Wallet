@@ -53,7 +53,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane ios test
 ```
 
-Running project tests
+
 
 ### ios update_devices
 
@@ -61,7 +61,7 @@ Running project tests
 [bundle exec] fastlane ios update_devices
 ```
 
-Add devices present on devices.txt to provisioning profile
+
 
 ### ios match_development
 
@@ -69,7 +69,15 @@ Add devices present on devices.txt to provisioning profile
 [bundle exec] fastlane ios match_development
 ```
 
-Sync iOS keys and profiles used for development signing
+
+
+### ios match_dev_development
+
+```sh
+[bundle exec] fastlane ios match_dev_development
+```
+
+
 
 ### ios match_appstore
 
@@ -77,7 +85,15 @@ Sync iOS keys and profiles used for development signing
 [bundle exec] fastlane ios match_appstore
 ```
 
-Sync iOS keys and profiles used for AppStore signing
+
+
+### ios match_dev_appstore
+
+```sh
+[bundle exec] fastlane ios match_dev_appstore
+```
+
+
 
 ----
 
