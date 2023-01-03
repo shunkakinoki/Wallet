@@ -441,8 +441,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2AE391F52800D8F000E19495 /* Light */,
 				2A4993412821E2C100346628 /* Lint */,
+				2AE391F52800D8F000E19495 /* Light */,
 				2A0108C128E245E700611300 /* Light Safari Extension */,
 				A6AFE4362964CE93001678F4 /* Light Dev */,
 				A6F53FA12964F42C002FBBF2 /* Light Dev Safari Extension copy */,
@@ -875,11 +875,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Light/Configuration/Light.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development: Created via API (C9D4454S76)";
+				CODE_SIGN_ENTITLEMENTS = "Light/Configuration/Light Dev.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 324;
-				DEVELOPMENT_TEAM = 4Z47XRX22C;
+				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Light/Resources/Info.plist;
@@ -901,7 +902,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.magic.light.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development io.magic.light";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.magic.light.dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -915,7 +916,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Light/Configuration/Light.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Light/Configuration/Light Dev.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 324;
@@ -953,7 +954,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Configuration/Light Safari Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Configuration/Light Dev Safari Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -990,8 +991,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Configuration/Light Safari Extension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
+				CODE_SIGN_ENTITLEMENTS = "Light Safari Extension/Configuration/Light Dev Safari Extension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 324;
 				DEVELOPMENT_TEAM = "";
