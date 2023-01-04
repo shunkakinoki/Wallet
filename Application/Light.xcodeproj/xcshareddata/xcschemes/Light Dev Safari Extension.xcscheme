@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A6F53FA12964F42C002FBBF2"
-               BuildableName = "Light Dev Safari Extension.appex"
+               BuildableName = "Light Dev Safari Extension"
                BlueprintName = "Light Dev Safari Extension"
                ReferencedContainer = "container:Light.xcodeproj">
             </BuildableReference>
@@ -30,8 +30,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A6F53FA12964F42C002FBBF2"
-               BuildableName = "Light Dev.app"
-               BlueprintName = "Light Dev"
+               BuildableName = "Light Dev Safari Extension"
+               BlueprintName = "Light Dev Safari Extension"
                ReferencedContainer = "container:Light.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A6F53FA12964F42C002FBBF2"
-            BuildableName = "Light Dev.app"
-            BlueprintName = "Light Dev"
+            BuildableName = "Light Dev Safari Extension"
+            BlueprintName = "Light Dev Safari Extension"
             ReferencedContainer = "container:Light.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -81,8 +81,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A6F53FA12964F42C002FBBF2"
-            BuildableName = "Light Dev.app"
-            BlueprintName = "Light Dev"
+            BuildableName = "Light Dev Safari Extension"
+            BlueprintName = "Light Dev Safari Extension"
             ReferencedContainer = "container:Light.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
