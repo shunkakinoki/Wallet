@@ -382,13 +382,13 @@
 			packageProductDependencies = (
 				A6AFE4392964CE93001678F4 /* Core */,
 			);
-			productName = Light;
+			productName = "Light Dev";
 			productReference = A6AFE4512964CE93001678F4 /* Light Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A6F53FA12964F42C002FBBF2 /* Light Dev Safari Extension copy */ = {
+		A6F53FA12964F42C002FBBF2 /* Light Dev Safari Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A6F53FB12964F42C002FBBF2 /* Build configuration list for PBXNativeTarget "Light Dev Safari Extension copy" */;
+			buildConfigurationList = A6F53FB12964F42C002FBBF2 /* Build configuration list for PBXNativeTarget "Light Dev Safari Extension" */;
 			buildPhases = (
 				A6F53FA32964F42C002FBBF2 /* Sources */,
 				A6F53FA52964F42C002FBBF2 /* Frameworks */,
@@ -398,11 +398,11 @@
 			);
 			dependencies = (
 			);
-			name = "Light Dev Safari Extension copy";
+			name = "Light Dev Safari Extension";
 			packageProductDependencies = (
 				A6F53FA22964F42C002FBBF2 /* Extension */,
 			);
-			productName = "Light Safari Extension";
+			productName = "Light Dev Safari Extension";
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -445,7 +445,7 @@
 				2AE391F52800D8F000E19495 /* Light */,
 				2A0108C128E245E700611300 /* Light Safari Extension */,
 				A6AFE4362964CE93001678F4 /* Light Dev */,
-				A6F53FA12964F42C002FBBF2 /* Light Dev Safari Extension copy */,
+				A6F53FA12964F42C002FBBF2 /* Light Dev Safari Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -1072,7 +1072,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A6F53FB12964F42C002FBBF2 /* Build configuration list for PBXNativeTarget "Light Dev Safari Extension copy" */ = {
+		A6F53FB12964F42C002FBBF2 /* Build configuration list for PBXNativeTarget "Light Dev Safari Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A6F53FB22964F42C002FBBF2 /* Debug */,

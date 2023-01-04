@@ -30,8 +30,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2AE391F52800D8F000E19495"
-               BuildableName = "Light Dev.app"
-               BlueprintName = "Light Dev"
+               BuildableName = "Light.app"
+               BlueprintName = "Light"
                ReferencedContainer = "container:Light.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2AE391F52800D8F000E19495"
-            BuildableName = "Light Dev.app"
-            BlueprintName = "Light Dev"
+            BuildableName = "Light.app"
+            BlueprintName = "Light"
             ReferencedContainer = "container:Light.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -81,8 +81,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2AE391F52800D8F000E19495"
-            BuildableName = "Light Dev.app"
-            BlueprintName = "Light Dev"
+            BuildableName = "Light.app"
+            BlueprintName = "Light"
             ReferencedContainer = "container:Light.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
