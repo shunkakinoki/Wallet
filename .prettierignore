@@ -6,3 +6,5 @@ Application/Light Safari Extension/Resources
 fastlane/README.md
 
 *.json
+pnpm-lock.yaml
+pnpm-workspace.yaml

@@ -52,4 +52,4 @@ jobs:
         run: |
           mint bootstrap
       - run: |
-          pnpm run turbo run lint
+          pnpm turbo run lint
