@@ -31,4 +31,6 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - run: pnpm run fastlane:test
+      - run: |
+          pnpm run fastlane:test
+        working-directory: ./Application

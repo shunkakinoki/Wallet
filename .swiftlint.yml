@@ -1,0 +1,19 @@
+included:
+  - Application/Light/Sources
+  - Application/Light Safari Extension/SafariWebExtensionHandler.swift
+  - Components/Sources
+  - Components/Tests
+excluded:
+  - Components/.build
+disabled_rules:
+  - file_length
+  - function_body_length
+  - function_parameter_count
+  - identifier_name
+  - inclusive_language
+  - large_tuple
+  - line_length
+  - opening_brace
+  - nesting
+  - trailing_comma
+  - type_body_length

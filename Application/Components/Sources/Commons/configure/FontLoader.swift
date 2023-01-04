@@ -15,7 +15,7 @@ public enum FontLoader {
     loadFonts()
   }
 
-  private static func loadFont(_ name: FontFamily.fontExtension) {
+  private static func loadFont(_ name: FontFamily.FontExtension) {
     name.fonts.forEach {
       guard
         let fontURL = Bundle.main.url(forResource: $0, withExtension: name.fontExtension),

@@ -3,7 +3,7 @@ import SwiftUI
 import UIKit
 
 public enum FontFamily: String, CaseIterable {
-  public typealias fontExtension = (fontExtension: String, fonts: [String])
+  public typealias FontExtension = (fontExtension: String, fonts: [String])
 
   case inter = "Inter"
 
@@ -14,7 +14,7 @@ public enum FontFamily: String, CaseIterable {
     }
   }
 
-  public var fontsName: fontExtension {
+  public var fontsName: FontExtension {
     switch self {
     case .inter:
       return ("ttf", FontFamily.inter.validWeights.map { self.rawValue + $0.rawValue })
