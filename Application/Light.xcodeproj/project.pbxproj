@@ -84,12 +84,12 @@
 			remoteGlobalIDString = 2A0108C128E245E700611300;
 			remoteInfo = "Light Safari Extension";
 		};
-		A6AFE4382964CE93001678F4 /* PBXContainerItemProxy */ = {
+		A644383C296546DA00B9DB1E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2AE391EE2800D8F000E19495 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 2A0108C128E245E700611300;
-			remoteInfo = "Light Safari Extension";
+			remoteGlobalIDString = A6F53FA12964F42C002FBBF2;
+			remoteInfo = "Light Dev Safari Extension";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -376,7 +376,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				A6AFE4372964CE93001678F4 /* PBXTargetDependency */,
+				A644383D296546DA00B9DB1E /* PBXTargetDependency */,
 			);
 			name = "Light Dev";
 			packageProductDependencies = (
@@ -566,10 +566,10 @@
 			target = 2A0108C128E245E700611300 /* Light Safari Extension */;
 			targetProxy = 2A0108D828E245E800611300 /* PBXContainerItemProxy */;
 		};
-		A6AFE4372964CE93001678F4 /* PBXTargetDependency */ = {
+		A644383D296546DA00B9DB1E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2A0108C128E245E700611300 /* Light Safari Extension */;
-			targetProxy = A6AFE4382964CE93001678F4 /* PBXContainerItemProxy */;
+			target = A6F53FA12964F42C002FBBF2 /* Light Dev Safari Extension */;
+			targetProxy = A644383C296546DA00B9DB1E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
