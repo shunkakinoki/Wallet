@@ -37,6 +37,7 @@
 		2AE391FC2800D8F000E19495 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE391FB2800D8F000E19495 /* SceneDelegate.swift */; };
 		2AE392032800D8F100E19495 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AE392022800D8F100E19495 /* Assets.xcassets */; };
 		2AE392062800D8F100E19495 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AE392042800D8F100E19495 /* LaunchScreen.storyboard */; };
+		A60EEADE2965C8020070222F /* Light Dev Safari Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A60EEADC2965C6D10070222F /* Light Dev Safari Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A686724E28F618A800F812B6 /* popup in Resources */ = {isa = PBXBuildFile; fileRef = A686724D28F618A800F812B6 /* popup */; };
 		A686724F28F618A800F812B6 /* popup in Resources */ = {isa = PBXBuildFile; fileRef = A686724D28F618A800F812B6 /* popup */; };
 		A69B427F290F82F000F30677 /* inpage.js in Resources */ = {isa = PBXBuildFile; fileRef = A69B427E290F82F000F30677 /* inpage.js */; };
@@ -110,6 +111,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				A60EEADE2965C8020070222F /* Light Dev Safari Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,6 +141,7 @@
 		2AE392022800D8F100E19495 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2AE392052800D8F100E19495 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2AE392072800D8F100E19495 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A60EEADC2965C6D10070222F /* Light Dev Safari Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Light Dev Safari Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A686724D28F618A800F812B6 /* popup */ = {isa = PBXFileReference; lastKnownFileType = folder; path = popup; sourceTree = "<group>"; };
 		A69B427E290F82F000F30677 /* inpage.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = inpage.js; sourceTree = "<group>"; };
 		A6AFE4512964CE93001678F4 /* Light Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Light Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +277,7 @@
 				2AE391F62800D8F000E19495 /* Light.app */,
 				2A0108C228E245E700611300 /* Light Safari Extension.appex */,
 				A6AFE4512964CE93001678F4 /* Light Dev.app */,
+				A60EEADC2965C6D10070222F /* Light Dev Safari Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -401,6 +405,7 @@
 				A6F53FA22964F42C002FBBF2 /* Extension */,
 			);
 			productName = "Light Dev Safari Extension";
+			productReference = A60EEADC2965C6D10070222F /* Light Dev Safari Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -893,7 +898,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 23;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					SwiftUI,
@@ -933,7 +938,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 23;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					SwiftUI,
@@ -969,7 +974,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 23;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -1006,7 +1011,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 23;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,

@@ -5,6 +5,7 @@ APPLE_KEY_ID = ENV["APPLE_KEY_ID"]
 APPLE_KEY_CONTENT = ENV["APPLE_KEY_CONTENT"]
 DEVELOPER_APP_ID = ENV["DEVELOPER_APP_ID"]
 PROVISIONING_PROFILE_SPECIFIER = ENV["PROVISIONING_PROFILE_SPECIFIER"]
+GH_NUMBER = ENV["GH_NUMBER"]
 GIT_AUTHORIZATION = ENV["GIT_AUTHORIZATION"]
 KEYCHAIN_NAME = ENV["TEMP_KEYCHAIN_USER"]
 KEYCHAIN_PASSWORD = ENV["TEMP_KEYCHAIN_PASSWORD"]
@@ -59,8 +60,15 @@ def update_prod_xcconfig(name, new_value)
   )
 end
 
-def prepare_environment
+def prepare_environment(name, api_key, live)
+  number = app_store_build_number(
+    initial_build_number: 0,
+    app_identifier: name,
+    api_key: api_key,
+    live: live
+  )
   increment_build_number(
+    build_number: number + 1,
     xcodeproj: 'Application/Light.xcodeproj'
   )
 end
@@ -86,6 +94,14 @@ platform :ios do
     build
     api_key = app_store_api_key
     apply_dev_xcconfig
+
+    increment_version_number_in_xcodeproj(
+      version_number: GH_NUMBER, 
+      xcodeproj: 'Application/Light.xcodeproj',
+      target: 'Light'
+    )
+
+    prepare_environment("io.magic.light.dev", api_key, false)
 
     match(
       keychain_name: KEYCHAIN_NAME,
@@ -125,7 +141,7 @@ platform :ios do
       apple_id: "#{DEVELOPER_APP_ID}",
       app_identifier: "io.magic.light.dev",
       changelog: "Bug fixes and performance improvements",
-      skip_waiting_for_build_processing: false,
+      skip_waiting_for_build_processing: true,
       skip_submission: true,
       distribute_external: false,
       notify_external_testers: true,
@@ -138,6 +154,8 @@ platform :ios do
     build
     api_key = app_store_api_key
     apply_prod_xcconfig
+
+    prepare_environment("io.magic.light", api_key, false)
 
     match(
       keychain_name: KEYCHAIN_NAME,
@@ -203,6 +221,11 @@ platform :ios do
   lane :update_devices do
     app_store_api_key
     match(git_branch: "main", app_identifier: ["io.magic.light"], type: "development", force_for_new_devices: true)
+  end
+
+  lane :update_dev_devices do
+    app_store_api_key
+    match(git_branch: "main", app_identifier: ["io.magic.light.dev"], type: "development", force_for_new_devices: true)
   end
 
   lane :match_development do
