@@ -898,7 +898,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 23;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					SwiftUI,
@@ -938,7 +938,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 23;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					SwiftUI,
@@ -974,7 +974,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 23;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -1011,7 +1011,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 23;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,

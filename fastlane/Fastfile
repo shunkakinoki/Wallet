@@ -5,6 +5,7 @@ APPLE_KEY_ID = ENV["APPLE_KEY_ID"]
 APPLE_KEY_CONTENT = ENV["APPLE_KEY_CONTENT"]
 DEVELOPER_APP_ID = ENV["DEVELOPER_APP_ID"]
 PROVISIONING_PROFILE_SPECIFIER = ENV["PROVISIONING_PROFILE_SPECIFIER"]
+GH_NUMBER = ENV["GH_NUMBER"]
 GIT_AUTHORIZATION = ENV["GIT_AUTHORIZATION"]
 KEYCHAIN_NAME = ENV["TEMP_KEYCHAIN_USER"]
 KEYCHAIN_PASSWORD = ENV["TEMP_KEYCHAIN_PASSWORD"]
@@ -94,6 +95,7 @@ platform :ios do
     api_key = app_store_api_key
     apply_dev_xcconfig
 
+    increment_version_number(version_number: GH_NUMBER)
     prepare_environment("io.magic.light.dev", api_key, false)
 
     match(
