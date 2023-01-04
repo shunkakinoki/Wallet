@@ -27,9 +27,8 @@ jobs:
         with:
           run_install: true
       - run: |
-          yarn install --frozen-lockfile
           printenv > ./Extension/content/.env
-          yarn turbo run build
+          pnpm turbo run build
         env:
           JITSU_JS_KEY: ${{ secrets.JITSU_JS_KEY }}
       - if: github.event_name == 'pull_request'

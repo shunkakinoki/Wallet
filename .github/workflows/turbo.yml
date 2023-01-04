@@ -23,7 +23,7 @@ jobs:
         with:
           run_install: true
       - run: |
-          yarn turbo run build
+          pnpm turbo run build
   lint:
     runs-on: macos-latest
     timeout-minutes: 30
@@ -50,4 +50,4 @@ jobs:
         run: |
           mint bootstrap
       - run: |
-          yarn run turbo run lint
+          pnpm run turbo run lint

@@ -23,11 +23,11 @@ jobs:
         with:
           run_install: true
       - run: |
-          yarn run build
+          pnpm run build
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: "14.1"
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - run: yarn run fastlane:test
+      - run: pnpm run fastlane:test
