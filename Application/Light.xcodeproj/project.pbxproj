@@ -902,7 +902,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.magic.light.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development io.magic.light.dev";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.magic.light.dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -942,7 +942,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.magic.light.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.magic.light";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.magic.light.dev";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.magic.light.dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -963,7 +963,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Light Safari Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Light Safari Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Light Dev Safari Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1000,7 +1000,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Light Safari Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Light Safari Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Light Dev Safari Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
