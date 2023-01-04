@@ -240,6 +240,7 @@ importers:
       react-dom: ^18.2.0
       react-hot-toast: ^2.4.0
       react-wrap-balancer: ^0.2.3
+      swr: ^2.0.0
       tailwindcss: ^3.2.4
       typescript: 4.9.4
     dependencies:
@@ -258,6 +259,7 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       react-hot-toast: 2.4.0_biqbaboplfbrettd7655fr4n2y
       react-wrap-balancer: 0.2.4_react@18.2.0
+      swr: 2.0.0_react@18.2.0
     devDependencies:
       '@types/node': 18.11.18
       '@types/react': 18.0.26
@@ -16188,6 +16190,16 @@ packages:
 
   /swr/2.0.0-rc.1_react@18.2.0:
     resolution: {integrity: sha512-GHKO88VK7aQ8PQMewcQMhNhBnSrrXsg5wxtLpHvsfFHwiil9eMumUhfocf4ew2DaOkVZQm/O5rKi2oeJ5qBX+g==}
+    engines: {pnpm: '7'}
+    peerDependencies:
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
+
+  /swr/2.0.0_react@18.2.0:
+    resolution: {integrity: sha512-IhUx5yPkX+Fut3h0SqZycnaNLXLXsb2ECFq0Y29cxnK7d8r7auY2JWNbCW3IX+EqXUg3rwNJFlhrw5Ye/b6k7w==}
     engines: {pnpm: '7'}
     peerDependencies:
       react: ^16.11.0 || ^17.0.0 || ^18.0.0
