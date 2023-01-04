@@ -80,6 +80,10 @@ platform :ios do
     keychain_name = KEYCHAIN_NAME
     keychain_password = KEYCHAIN_PASSWORD
     ensure_temp_keychain(keychain_name, keychain_password)
+
+    increment_build_number(
+      xcodeproj: 'Application/Light.xcodeproj'
+    )
   end
   
   lane :dev do
@@ -203,6 +207,11 @@ platform :ios do
   lane :update_devices do
     app_store_api_key
     match(git_branch: "main", app_identifier: ["io.magic.light"], type: "development", force_for_new_devices: true)
+  end
+
+  lane :update_dev_devices do
+    app_store_api_key
+    match(git_branch: "main", app_identifier: ["io.magic.light.dev"], type: "development", force_for_new_devices: true)
   end
 
   lane :match_development do
