@@ -35,7 +35,7 @@
                BlueprintIdentifier = "CommonsTests"
                BuildableName = "CommonsTests"
                BlueprintName = "CommonsTests"
-               ReferencedContainer = "container:../Components">
+               ReferencedContainer = "container:Components">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "KeychainTests"
                BuildableName = "KeychainTests"
                BlueprintName = "KeychainTests"
-               ReferencedContainer = "container:../Components">
+               ReferencedContainer = "container:Components">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -55,7 +55,7 @@
                BlueprintIdentifier = "SafariExtensionTests"
                BuildableName = "SafariExtensionTests"
                BlueprintName = "SafariExtensionTests"
-               ReferencedContainer = "container:../Components">
+               ReferencedContainer = "container:Components">
             </BuildableReference>
          </TestableReference>
       </Testables>
