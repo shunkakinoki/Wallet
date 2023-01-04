@@ -13,7 +13,7 @@ public struct DirectoryWalletWriterDirectory: WriterDirectory {
   }
 
   private var destination: URL {
-    fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.io.magic.light")!
+    fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.io.magic.light.dev")!
       .appendingPathComponent("keystore")
   }
 
