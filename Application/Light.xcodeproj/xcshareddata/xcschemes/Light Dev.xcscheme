@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2AE391F52800D8F000E19495"
+               BlueprintIdentifier = "A6AFE4362964CE93001678F4"
                BuildableName = "Light Dev.app"
                BlueprintName = "Light Dev"
                ReferencedContainer = "container:Light.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2AE391F52800D8F000E19495"
+            BlueprintIdentifier = "A6AFE4362964CE93001678F4"
             BuildableName = "Light Dev.app"
             BlueprintName = "Light Dev"
             ReferencedContainer = "container:Light.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2AE391F52800D8F000E19495"
+            BlueprintIdentifier = "A6AFE4362964CE93001678F4"
             BuildableName = "Light Dev.app"
             BlueprintName = "Light Dev"
             ReferencedContainer = "container:Light.xcodeproj">
