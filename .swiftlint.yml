@@ -5,3 +5,11 @@ included:
   - Components/Tests
 excluded:
   - Components/.build
+disabled_rules:
+  - function_body_length
+  - function_parameter_count
+  - identifier_name
+  - large_tuple
+  - line_length
+  - nesting
+  - trailing_comma
