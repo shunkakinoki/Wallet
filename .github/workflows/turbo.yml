@@ -18,7 +18,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-          cache: "yarn"
+          cache: "pnpm"
+      - uses: pnpm/action-setup@v2
+        with:
+          run_install: true
       - run: |
           yarn turbo run build
   lint:
@@ -31,7 +34,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-          cache: "yarn"
+          cache: "pnpm"
+      - uses: pnpm/action-setup@v2
+        with:
+          run_install: true
       - id: mint
         uses: actions/cache@v2
         with:
