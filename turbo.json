@@ -115,8 +115,8 @@
       "outputs": [],
       "inputs": [
         "Application/**/Sources/**/*.swift",
-        "Components/**/Sources/**/*.swift",
-        "Components/**/Tests/**/*.swift"
+        "Application/Components/**/Sources/**/*.swift",
+        "Application/Components/**/Tests/**/*.swift"
       ]
     },
     "//#lint": {
@@ -124,27 +124,23 @@
       "outputs": [],
       "inputs": ["**"]
     },
-    "//#fastlane:submit": {
+    "//#fastlane:build": {
       "dependsOn": [],
       "outputs": [],
       "inputs": [
         "Application/**",
-        "Components/**",
         "Extension/background/**",
         "Extension/content/**",
         "Extension/ethereum/**",
         "Extension/popup/**",
-        "fastlane/**",
-        "packgae.json"
+        "pnpm-lock.yaml"
       ]
     },
     "//#fastlane:test": {
       "dependsOn": [],
       "outputs": [],
       "inputs": [
-        "Application/**",
-        "Components/**",
-        "fastlane/**"
+        "Application/**"
       ]
     }
   }
