@@ -62,8 +62,8 @@ end
 def prepare_environment(name, live, api_key)
   number = app_store_build_number(
     app_identifier: name,
-    api_key: api_key
-    live: live,
+    api_key: api_key,
+    live: live
   )
   increment_build_number(
     build_number: number + 1,
