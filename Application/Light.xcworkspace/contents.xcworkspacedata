@@ -5,6 +5,6 @@
       location = "group:Components">
    </FileRef>
    <FileRef
-      location = "container:Application/Light.xcodeproj">
+      location = "container:Light.xcodeproj">
    </FileRef>
 </Workspace>
