@@ -1,4 +1,4 @@
-<img src="assets/logo.png" alt="Light Wallet Logo" align="right" width="120" />
+<img src=".github/assets/logo.png" alt="Light Wallet Logo" align="right" width="120" />
 
 # 🪄 Light Wallet
 
@@ -90,4 +90,4 @@ If you find Light Wallet useful, please consider supporting development.
 
 ## ❤️ Support
 
-<img src="assets/blowfish.svg" alt="Blowfish logo"  width="300" />
+<img src=".github/assets/blowfish.svg" alt="Blowfish logo"  width="300" />
