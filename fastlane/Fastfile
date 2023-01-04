@@ -45,7 +45,7 @@ end
 
 def update_dev_xcconfig(name, new_value)
   update_xcconfig_value(
-    path: './Application/Light/Configuration/Development.xcconfig',
+    path: './Application/Light/Configuration/Light.Development.xcconfig',
     name: name,
     value: new_value
   )
@@ -53,7 +53,7 @@ end
 
 def update_prod_xcconfig(name, new_value)
   update_xcconfig_value(
-    path: './Application/Light/Configuration/Production.xcconfig',
+    path: './Application/Light/Configuration/Light.Production.xcconfig',
     name: name,
     value: new_value
   )
