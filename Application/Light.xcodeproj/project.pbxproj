@@ -979,7 +979,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.magic.light.dev.Light-Safari-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.magic.light.dev.Light-Safari-Extension";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.magic.light.dev.Light-Safari-Extension";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1015,8 +1015,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.magic.light.dev.Light-Safari-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.magic.light.dev.Light-Safari-Extension";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.magic.light.dev.Light-Safari-Extension";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.magic.light.dev.Light-Safari-Extension";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
