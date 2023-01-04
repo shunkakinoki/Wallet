@@ -59,7 +59,7 @@ def update_prod_xcconfig(name, new_value)
   )
 end
 
-def prepare_environment(name, live, api_key)
+def prepare_environment(name, api_key, live)
   number = app_store_build_number(
     app_identifier: name,
     api_key: api_key,
