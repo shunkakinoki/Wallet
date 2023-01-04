@@ -61,12 +61,12 @@ end
 
 def prepare_environment(name, api_key, live)
   number = app_store_build_number(
+    initial_build_number: 0,
     app_identifier: name,
     api_key: api_key,
     live: live
   )
   increment_build_number(
-    initial_build_number: 0,
     build_number: number + 1,
     xcodeproj: 'Application/Light.xcodeproj'
   )
