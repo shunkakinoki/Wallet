@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
@@ -17,17 +18,38 @@ jobs:
           xcode-version: "14.1"
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.7.6"
+          bundler-cache: true
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+      - uses: pnpm/action-setup@v2
+        with:
+          run_install: true
       - run: |
-          bundle install
-          yarn install --frozen-lockfile
           printenv > ./Extension/content/.env
-          yarn turbo run build
+          pnpm turbo run build
         env:
           JITSU_JS_KEY: ${{ secrets.JITSU_JS_KEY }}
-      - run: |
-          bundle exec fastlane internal
+      - if: github.event_name == 'pull_request'
+        run: |
+          bundle exec fastlane dev
+        env:
+          APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
+          APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
+          APPLE_KEY_CONTENT: ${{ secrets.APPLE_KEY_CONTENT }}
+          GIT_AUTHORIZATION: ${{ secrets.BOT_TOKEN }}
+          TEMP_KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}
+          TEMP_KEYCHAIN_USER: ${{ secrets.TEMP_KEYCHAIN_USER }}
+          DEVELOPER_APP_ID: ${{ secrets.DEVELOPER_APP_ID }}
+          DEVELOPER_APP_IDENTIFIER: ${{ secrets.DEVELOPER_APP_IDENTIFIER }}
+          PROVISIONING_PROFILE_SPECIFIER: ${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          NEXT_PUBLIC_ZERION_API_KEY: ${{ secrets.NEXT_PUBLIC_ZERION_API_KEY }}
+      - if: github.event_name == 'push'
+        run: |
+          bundle exec fastlane production
         env:
           APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
           APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}

@@ -15,11 +15,16 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+      - uses: pnpm/action-setup@v2
+        with:
+          run_install: true
       - run: |
-          yarn install --frozen-lockfile
-      - run: |
-          yarn turbo run build
+          pnpm turbo run build
   lint:
     runs-on: macos-latest
     timeout-minutes: 30
@@ -27,7 +32,14 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+      - uses: pnpm/action-setup@v2
+        with:
+          run_install: true
       - id: mint
         uses: actions/cache@v2
         with:
@@ -40,6 +52,4 @@ jobs:
         run: |
           mint bootstrap
       - run: |
-          yarn install --frozen-lockfile
-      - run: |
-          yarn run turbo run lint
+          pnpm turbo run lint

@@ -97,16 +97,32 @@
     "storybook": {
       "dependsOn": ["^storybook"]
     },
-    "//#lint": {
+    "//#lint:eslint": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": [
+        "Extension/**/src/**/*.ts",
+        "Extension/**/src/**/*.tsx"
+      ]
+    },
+    "//#lint:prettier": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": ["**"]
+    },
+    "//#lint:swift-format": {
       "dependsOn": [],
       "outputs": [],
       "inputs": [
         "Application/**/Sources/**/*.swift",
         "Components/**/Sources/**/*.swift",
-        "Components/**/Tests/**/*.swift",
-        "Extension/**/src/**/*.ts",
-        "Extension/**/src/**/*.tsx"
+        "Components/**/Tests/**/*.swift"
       ]
+    },
+    "//#lint": {
+      "dependsOn": ["lint:eslint", "lint:prettier", "lint:swift-format"],
+      "outputs": [],
+      "inputs": ["**"]
     },
     "//#fastlane:submit": {
       "dependsOn": [],

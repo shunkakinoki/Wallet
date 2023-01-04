@@ -1,5 +1,4 @@
-app_identifier(["io.magic.light", "io.magic.light.Light-Safari-Extension"]) # The bundle identifier of your app
-apple_id("admin@light.so") # Your Apple email address
-
-team_id("4Z47XRX22C") # Developer Portal Team ID
+app_identifier(["io.magic.light", "io.magic.light.Light-Safari-Extension"])
+apple_id("admin@light.so") 
+team_id("4Z47XRX22C")
 

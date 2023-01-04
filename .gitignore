@@ -5,8 +5,6 @@
 
 # Logs
 *.log
-yarn-debug.log*
-yarn-error.log*
 
 # Node modules
 node_modules
@@ -42,7 +40,7 @@ timeline.xctimeline
 playground.xcworkspace
 
 .build/
-.yarn/
+.pnpm/
 
 # fastlane
 #
