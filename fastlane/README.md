@@ -63,6 +63,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
+### ios update_dev_devices
+
+```sh
+[bundle exec] fastlane ios update_dev_devices
+```
+
+
+
 ### ios match_development
 
 ```sh
