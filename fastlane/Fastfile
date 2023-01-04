@@ -66,6 +66,7 @@ def prepare_environment(name, api_key, live)
     live: live
   )
   increment_build_number(
+    initial_build_number: 0,
     build_number: number + 1,
     xcodeproj: 'Application/Light.xcodeproj'
   )
@@ -79,13 +80,6 @@ def apply_prod_xcconfig
   update_prod_xcconfig('NEXT_PUBLIC_ZERION_API_KEY', NEXT_PUBLIC_ZERION_API_KEY)
 end
 
-def increment_build_number(number)
-    increment_build_number(
-      initial_build_number: 0,
-      build_number: number + 1,
-      xcodeproj: 'Application/Light.xcodeproj'
-    )
-end
 
 platform :ios do
 
