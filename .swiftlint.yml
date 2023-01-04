@@ -1,0 +1,5 @@
+included:
+  - Application/Light/Sources
+  - Application/Light Safari Extension/SafariWebExtensionHandler.swift
+excluded:
+  - Components/.build
