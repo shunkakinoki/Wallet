@@ -136,7 +136,7 @@ platform :ios do
       apple_id: "#{DEVELOPER_APP_ID}",
       app_identifier: "io.magic.light.dev",
       changelog: "Bug fixes and performance improvements",
-      skip_waiting_for_build_processing: false,
+      skip_waiting_for_build_processing: true,
       skip_submission: true,
       distribute_external: false,
       notify_external_testers: true,
