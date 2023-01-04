@@ -18,6 +18,7 @@ public final class WalletBackupViewModel: ObservableObject {
   private init(account: EthereumAccount, selectedWallet: SelectedWallet) {
     self.account = account
     self.selectedWallet = selectedWallet
+    // swiftlint:disable force_try
     self.address = try! selectedWallet.selected().address.eip55Description
   }
 

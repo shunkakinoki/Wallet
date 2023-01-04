@@ -24,6 +24,7 @@ class RLPTests: XCTestCase {
     ]
 
     for (string, expectString) in zip(stringArray, expectArray) {
+      // swiftlint:disable force_try
       let expect = try! RLPEncoder().encode(string)
       XCTAssertEqual(expect.hex(), expectString)
     }
@@ -34,6 +35,7 @@ class RLPTests: XCTestCase {
     let expectArray = ["0x01", "0x10", "0x4f", "0x7f", "0x8180", "0x8203e8", "0x830186a0"]
 
     for (int, expectString) in zip(intArray, expectArray) {
+      // swiftlint:disable force_try
       let expect = try! RLPEncoder().encode(int)
       XCTAssertEqual(expect.hex(), expectString)
     }

@@ -17,6 +17,7 @@ public final class HDPrivateKey: ExtendedPrivateKey {
 
   public init(seed: ByteArray) throws {
     let hmac = HMAC(key: "Bitcoin seed".data(using: .ascii)!.bytes, variant: .sha2(.sha512))
+    // swiftlint:disable force_try
     let output = try! hmac.authenticate(seed.bytes)
     self.key = ByteArray(output[0..<32])
     self.chainCode = ByteArray(output[32..<64])
@@ -70,6 +71,7 @@ extension HDPrivateKey {
     data += childIndex
 
     let hmac = HMAC(key: chainCode.bytes, variant: .sha2(.sha512))
+    // swiftlint:disable force_try
     let digest = try! hmac.authenticate(data.bytes)
 
     let pk = digest[0..<32]

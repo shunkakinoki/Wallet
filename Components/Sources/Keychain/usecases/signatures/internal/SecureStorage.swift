@@ -55,6 +55,7 @@ public final class SecureStorage: SecureStoraging {
     var error: Unmanaged<CFError>?
     guard
       let plainTextData = keychain.SecKeyCreateDecryptedData(
+        // swiftlint:disable force_cast
         raw as! SecKey, .eciesEncryptionCofactorVariableIVX963SHA256AESGCM, cipherText as CFData,
         error: &error) as Data?
     else {
@@ -74,6 +75,7 @@ extension SecureStorage {
     guard let secKey = keychain.SecKeyCreateRandomKey(query as CFDictionary, &error) else {
       throw error!.takeRetainedValue() as Swift.Error
     }
+    // swiftlint:disable force_cast
     return secKey as! SecKey
   }
 
