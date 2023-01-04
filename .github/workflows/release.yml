@@ -15,8 +15,9 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
-      - run: |
-          yarn install --frozen-lockfile
+        with:
+          node-version-file: ".nvmrc"
+          cache: "yarn"
       - run: |
           yarn run build
       - uses: changesets/action@v1

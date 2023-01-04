@@ -15,6 +15,7 @@ let package = Package(
       targets: ["SafariExtension"]),
   ],
   dependencies: [
+    .package(url: "https://github.com/SnapKit/SnapKit", from: "5.6.0"),
     .package(url: "https://github.com/SDWebImage/SDWebImage", from: "5.14.3"),
     .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI", from: "2.2.2"),
     .package(url: "https://github.com/SDWebImage/SDWebImageSVGCoder.git", from: "1.6.1"),
@@ -166,6 +167,7 @@ let package = Package(
       dependencies: [
         "Session",
         "SDWebImageSVGCoder",
+        "SnapKit",
       ]),
     .target(
       name: "TokenServices",

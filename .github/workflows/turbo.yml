@@ -16,8 +16,9 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
-      - run: |
-          yarn install --frozen-lockfile
+        with:
+          node-version-file: ".nvmrc"
+          cache: "yarn"
       - run: |
           yarn turbo run build
   lint:
@@ -28,6 +29,9 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "yarn"
       - id: mint
         uses: actions/cache@v2
         with:
@@ -39,7 +43,5 @@ jobs:
       - if: steps.mint.outputs.cache-hit != 'true'
         run: |
           mint bootstrap
-      - run: |
-          yarn install --frozen-lockfile
       - run: |
           yarn run turbo run lint
