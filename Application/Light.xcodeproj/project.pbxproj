@@ -55,7 +55,6 @@
 		A6AFE4492964CE93001678F4 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A65AB88286C355D0099728F /* Inter-Medium.ttf */; };
 		A6AFE44A2964CE93001678F4 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A65AB84286C355D0099728F /* Inter-Regular.ttf */; };
 		A6AFE44B2964CE93001678F4 /* Inter-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A65AB85286C355D0099728F /* Inter-Thin.ttf */; };
-		A6AFE44D2964CE93001678F4 /* Light Safari Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2A0108C228E245E700611300 /* Light Safari Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A6DCD08028E504C80072C636 /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD07428E504C80072C636 /* popup.html */; };
 		A6DCD08228E504C80072C636 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD07628E504C80072C636 /* content.js */; };
 		A6DCD08328E504C80072C636 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD07728E504C80072C636 /* _locales */; };
@@ -111,7 +110,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				A6AFE44D2964CE93001678F4 /* Light Safari Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
