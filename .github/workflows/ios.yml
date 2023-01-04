@@ -25,6 +25,5 @@ jobs:
           xcode-version: "14.1"
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.7.6"
-      - run: bundle install
+          bundler-cache: true
       - run: yarn run fastlane:test

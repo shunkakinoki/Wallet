@@ -18,10 +18,9 @@ jobs:
           xcode-version: "14.1"
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.7.6"
+          bundler-cache: true
       - uses: actions/setup-node@v3
       - run: |
-          bundle install
           yarn install --frozen-lockfile
           printenv > ./Extension/content/.env
           yarn turbo run build
