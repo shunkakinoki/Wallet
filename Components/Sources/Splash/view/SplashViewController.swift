@@ -1,7 +1,6 @@
 import Commons
 import Foundation
 import SDWebImageSVGCoder
-import SnapKit
 import UIKit
 
 public final class SplashViewController: UIViewController {

@@ -29,21 +29,12 @@
         }
       },
       {
-        "package": "Nuke",
-        "repositoryURL": "https://github.com/kean/Nuke",
-        "state": {
-          "branch": "master",
-          "revision": "0d8a0dc3cca7432a6772ec546a7e5e1b20103bda",
-          "version": null
-        }
-      },
-      {
         "package": "SDWebImage",
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage",
         "state": {
           "branch": null,
-          "revision": "9248fe561a2a153916fb9597e3af4434784c6d32",
-          "version": "5.13.4"
+          "revision": "4178d12a44691182c2eb79c70281b14cb73f4cbf",
+          "version": "5.14.3"
         }
       },
       {
@@ -60,8 +51,8 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImageSwiftUI",
         "state": {
           "branch": null,
-          "revision": "ed288667c909c89127ab1b690113a3e397af3098",
-          "version": "2.2.1"
+          "revision": "61fefe9c284fd41ddef77d02749e88f00c305196",
+          "version": "2.2.2"
         }
       },
       {
@@ -71,15 +62,6 @@
           "branch": "main",
           "revision": "39dd39248e769ea88253a0ce300399b402a64529",
           "version": null
-        }
-      },
-      {
-        "package": "SnapKit",
-        "repositoryURL": "https://github.com/SnapKit/SnapKit",
-        "state": {
-          "branch": null,
-          "revision": "f222cbdf325885926566172f6f5f06af95473158",
-          "version": "5.6.0"
         }
       },
       {
