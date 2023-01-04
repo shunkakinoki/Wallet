@@ -59,8 +59,14 @@ def update_prod_xcconfig(name, new_value)
   )
 end
 
-def prepare_environment
+def prepare_environment(name, live)
+  number = app_store_build_number(
+    live: live,
+    app_identifier: name,
+    api_key: api_key
+  )
   increment_build_number(
+    build_number: number + 1,
     xcodeproj: 'Application/Light.xcodeproj'
   )
 end
@@ -73,6 +79,13 @@ def apply_prod_xcconfig
   update_prod_xcconfig('NEXT_PUBLIC_ZERION_API_KEY', NEXT_PUBLIC_ZERION_API_KEY)
 end
 
+def increment_build_number(number)
+    increment_build_number(
+      initial_build_number: 0,
+      build_number: number + 1,
+      xcodeproj: 'Application/Light.xcodeproj'
+    )
+end
 
 platform :ios do
 
@@ -80,16 +93,14 @@ platform :ios do
     keychain_name = KEYCHAIN_NAME
     keychain_password = KEYCHAIN_PASSWORD
     ensure_temp_keychain(keychain_name, keychain_password)
-
-    increment_build_number(
-      xcodeproj: 'Application/Light.xcodeproj'
-    )
   end
   
   lane :dev do
     build
     api_key = app_store_api_key
     apply_dev_xcconfig
+
+    prepare_environment("io.magic.light.dev", false)
 
     match(
       keychain_name: KEYCHAIN_NAME,
@@ -142,6 +153,8 @@ platform :ios do
     build
     api_key = app_store_api_key
     apply_prod_xcconfig
+
+    prepare_environment("io.magic.light", false)
 
     match(
       keychain_name: KEYCHAIN_NAME,
