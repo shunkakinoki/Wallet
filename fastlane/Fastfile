@@ -95,7 +95,12 @@ platform :ios do
     api_key = app_store_api_key
     apply_dev_xcconfig
 
-    increment_version_number(version_number: GH_NUMBER)
+    increment_version_number_in_xcodeproj(
+      version_number: GH_NUMBER, 
+      xcodeproj: 'Application/Light.xcodeproj',
+      target: 'Light'
+    )
+
     prepare_environment("io.magic.light.dev", api_key, false)
 
     match(
