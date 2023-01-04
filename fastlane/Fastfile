@@ -85,6 +85,7 @@ platform :ios do
   lane :dev do
     build
     api_key = app_store_api_key
+    apply_dev_xcconfig
 
     match(
       keychain_name: KEYCHAIN_NAME,
@@ -115,7 +116,7 @@ platform :ios do
       export_method: "app-store",
       export_options: {
         provisioningProfiles: {
-          DEVELOPER_APP_ID => "match AppStore io.magic.light.dev"
+          DEVELOPER_APP_ID => "match AppStore io.magic.light"
         }
       },
     )
@@ -136,6 +137,7 @@ platform :ios do
   lane :production do
     build
     api_key = app_store_api_key
+    apply_prod_xcconfig
 
     match(
       keychain_name: KEYCHAIN_NAME,
