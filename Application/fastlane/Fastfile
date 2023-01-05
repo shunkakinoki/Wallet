@@ -159,6 +159,17 @@ platform :ios do
     api_key = app_store_api_key
     apply_prod_xcconfig
 
+    increment_version_number_in_xcodeproj(
+      version_number: "1.0", 
+      xcodeproj: 'Light.xcodeproj',
+      target: 'Light'
+    )
+    increment_version_number_in_xcodeproj(
+      version_number: "1.0", 
+      xcodeproj: 'Light.xcodeproj',
+      target: 'Light Safari Extension'
+    )
+
     prepare_environment("io.magic.light", api_key, false)
 
     match(
