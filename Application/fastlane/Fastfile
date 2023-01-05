@@ -98,7 +98,12 @@ platform :ios do
     increment_version_number_in_xcodeproj(
       version_number: GH_NUMBER, 
       xcodeproj: 'Light.xcodeproj',
-      target: 'Light'
+      target: 'Light Dev'
+    )
+    increment_version_number_in_xcodeproj(
+      version_number: GH_NUMBER, 
+      xcodeproj: 'Light.xcodeproj',
+      target: 'Light Dev Safari Extension'
     )
 
     prepare_environment("io.magic.light.dev", api_key, false)
@@ -140,7 +145,6 @@ platform :ios do
     pilot(
       apple_id: "#{DEVELOPER_APP_ID}",
       app_identifier: "io.magic.light.dev",
-      changelog: "Bug fixes and performance improvements",
       skip_waiting_for_build_processing: true,
       skip_submission: true,
       distribute_external: false,
@@ -154,6 +158,17 @@ platform :ios do
     build
     api_key = app_store_api_key
     apply_prod_xcconfig
+
+    increment_version_number_in_xcodeproj(
+      version_number: "1.0", 
+      xcodeproj: 'Light.xcodeproj',
+      target: 'Light'
+    )
+    increment_version_number_in_xcodeproj(
+      version_number: "1.0", 
+      xcodeproj: 'Light.xcodeproj',
+      target: 'Light Safari Extension'
+    )
 
     prepare_environment("io.magic.light", api_key, false)
 
