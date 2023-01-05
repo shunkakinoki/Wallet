@@ -1,0 +1,15 @@
+[package]
+name = "lightwallet_core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["lib", "staticlib"]
+name = "uniffi_lightwallet_core"
+
+[dependencies]
+uniffi = "0.17.0"
+uniffi_macros = "0.17.0"
+
+[build-dependencies]
+uniffi_build = "0.17.0"
