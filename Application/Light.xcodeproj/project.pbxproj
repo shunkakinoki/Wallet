@@ -38,6 +38,8 @@
 		2AE392032800D8F100E19495 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AE392022800D8F100E19495 /* Assets.xcassets */; };
 		2AE392062800D8F100E19495 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AE392042800D8F100E19495 /* LaunchScreen.storyboard */; };
 		A60EEADE2965C8020070222F /* Light Dev Safari Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A60EEADC2965C6D10070222F /* Light Dev Safari Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A677014E2966C42A00FCF3BA /* LightWalletCoreFFI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A677014D2966C41F00FCF3BA /* LightWalletCoreFFI.xcframework */; };
+		A67701512966C43E00FCF3BA /* LightWalletCoreFFI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A677014D2966C41F00FCF3BA /* LightWalletCoreFFI.xcframework */; };
 		A686724E28F618A800F812B6 /* popup in Resources */ = {isa = PBXBuildFile; fileRef = A686724D28F618A800F812B6 /* popup */; };
 		A686724F28F618A800F812B6 /* popup in Resources */ = {isa = PBXBuildFile; fileRef = A686724D28F618A800F812B6 /* popup */; };
 		A69B427F290F82F000F30677 /* inpage.js in Resources */ = {isa = PBXBuildFile; fileRef = A69B427E290F82F000F30677 /* inpage.js */; };
@@ -142,11 +144,12 @@
 		2AE392052800D8F100E19495 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2AE392072800D8F100E19495 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A60EEADC2965C6D10070222F /* Light Dev Safari Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Light Dev Safari Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A677014D2966C41F00FCF3BA /* LightWalletCoreFFI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = LightWalletCoreFFI.xcframework; sourceTree = "<group>"; };
 		A686724D28F618A800F812B6 /* popup */ = {isa = PBXFileReference; lastKnownFileType = folder; path = popup; sourceTree = "<group>"; };
 		A69B427E290F82F000F30677 /* inpage.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = inpage.js; sourceTree = "<group>"; };
 		A6AFE4512964CE93001678F4 /* Light Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Light Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6B6E66C28E4445800C50DF9 /* Light.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Configuration/Light.entitlements; sourceTree = "<group>"; };
-		A6B6E66D28E4452800C50DF9 /* Light Safari Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Configuration/Light Safari Extension.entitlements"; sourceTree = "<group>"; };
+		A6B6E66C28E4445800C50DF9 /* Configuration/Light.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Configuration/Light.entitlements; sourceTree = "<group>"; };
+		A6B6E66D28E4452800C50DF9 /* Configuration/Light Safari Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Configuration/Light Safari Extension.entitlements"; sourceTree = "<group>"; };
 		A6DCD07428E504C80072C636 /* popup.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
 		A6DCD07628E504C80072C636 /* content.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
 		A6DCD07728E504C80072C636 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
@@ -169,6 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A67701512966C43E00FCF3BA /* LightWalletCoreFFI.xcframework in Frameworks */,
 				2AABA2FE2810A20A001BDB6F /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,6 +181,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A677014E2966C42A00FCF3BA /* LightWalletCoreFFI.xcframework in Frameworks */,
 				A6AFE43E2964CE93001678F4 /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,7 +200,7 @@
 		2A0108C328E245E700611300 /* Light Safari Extension */ = {
 			isa = PBXGroup;
 			children = (
-				A6B6E66D28E4452800C50DF9 /* Light Safari Extension.entitlements */,
+				A6B6E66D28E4452800C50DF9 /* Configuration/Light Safari Extension.entitlements */,
 				2A0108C428E245E700611300 /* SafariWebExtensionHandler.swift */,
 				2A0108D728E245E800611300 /* Info.plist */,
 				2A0108C628E245E700611300 /* Resources */,
@@ -255,6 +260,7 @@
 		2AABA2FC2810A20A001BDB6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A677014D2966C41F00FCF3BA /* LightWalletCoreFFI.xcframework */,
 				2ADF7EAE28B95A3C00A94894 /* AVKit.framework */,
 				2ADF7EAB28B959F200A94894 /* SwiftUI.framework */,
 			);
@@ -285,7 +291,7 @@
 		2AE391F82800D8F000E19495 /* Light */ = {
 			isa = PBXGroup;
 			children = (
-				A6B6E66C28E4445800C50DF9 /* Light.entitlements */,
+				A6B6E66C28E4445800C50DF9 /* Configuration/Light.entitlements */,
 				2A863C74281E59000070E226 /* Configuration */,
 				2AE3920D2800DA4C00E19495 /* Sources */,
 				2AE3920E2800DA4F00E19495 /* Resources */,
