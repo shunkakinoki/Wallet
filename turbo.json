@@ -32,7 +32,7 @@
         "../Makefile"
       ],
       "outputs": [
-        "../Application/Components/Sources/Generated/**",
+        "../Application/LightWallet/Sources/Generated/**",
         "../Application/LightWalletCoreFFI.xcframework/**"
       ]
     },
@@ -131,8 +131,8 @@
       "outputs": [],
       "inputs": [
         "Application/**/Sources/**/*.swift",
-        "Application/Components/**/Sources/**/*.swift",
-        "Application/Components/**/Tests/**/*.swift"
+        "Application/LightWallet/**/Sources/**/*.swift",
+        "Application/LightWallet/**/Tests/**/*.swift"
       ]
     },
     "//#lint": {

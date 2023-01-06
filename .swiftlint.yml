@@ -1,10 +1,10 @@
 included:
   - Application/Light/Sources
   - Application/Light Safari Extension/SafariWebExtensionHandler.swift
-  - Components/Sources
-  - Components/Tests
+  - Application/LightWallet/Sources
+  - Application/LightWallet/Tests
 excluded:
-  - Components/.build
+  - Application/LightWallet/.build
 disabled_rules:
   - file_length
   - function_body_length
