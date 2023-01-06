@@ -50,7 +50,7 @@ public final class CreateWalletImp: CreateWallet {
   }
 }
 
-//MARK: - Helpers
+// MARK: - Helpers
 extension CreateWalletImp {
   private func generateNewWallet(with seedKeyStore: SeedKeyStore) throws -> (
     privateKey: Data, publicKey: PublicKey, address: String

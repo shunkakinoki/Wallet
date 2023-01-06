@@ -75,7 +75,7 @@ extension MainCoordinator {
   }
 }
 
-// MARK: -  Components Actions
+// MARK: - Components Actions
 extension MainCoordinator {
   @objc func logInCompleted() {
     DispatchQueue.main.async {

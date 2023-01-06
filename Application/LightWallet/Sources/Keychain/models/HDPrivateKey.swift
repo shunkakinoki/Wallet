@@ -38,14 +38,14 @@ public final class HDPrivateKey: ExtendedPrivateKey {
   }
 }
 
-//MARK: - Public Key
+// MARK: - Public Key
 extension HDPrivateKey {
   public func publicKey(compressed: Bool) throws -> PublicKey {
     try PrivateKey(rawBytes: key).publicKey(compressed: compressed)
   }
 }
 
-//MARK: - Derive functions
+// MARK: - Derive functions
 extension HDPrivateKey {
   public func child() throws -> HDPrivateKey {
     try self
@@ -91,7 +91,7 @@ extension HDPrivateKey {
   }
 }
 
-//MARK: - Serialization
+// MARK: - Serialization
 extension HDPrivateKey {
   internal var data: Data {
     Data(key)

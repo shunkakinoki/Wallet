@@ -9,13 +9,13 @@ extension EthereumAccount {
       kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
       kSecAttrApplicationTag as String: address.data(using: .utf8),
     ]
-    let _ = SecItemDelete(params as CFDictionary)
+    _ = SecItemDelete(params as CFDictionary)
   }
 
   public func deleteAllKeys() throws {
     let params: [String: Any] = [
       kSecClass as String: kSecClassKey
     ]
-    let _ = SecItemDelete(params as CFDictionary)
+    _ = SecItemDelete(params as CFDictionary)
   }
 }

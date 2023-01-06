@@ -5,7 +5,13 @@ included:
   - Application/LightWallet/Tests
 excluded:
   - Application/LightWallet/.build
+  - Application/LightWallet/Sources/Generated
 disabled_rules:
+  - unused_optional_binding
+  - closure_parameter_position
+  - cyclomatic_complexity
+  - discouraged_direct_init
+  - for_where
   - file_length
   - function_body_length
   - function_parameter_count
@@ -13,7 +19,9 @@ disabled_rules:
   - inclusive_language
   - large_tuple
   - line_length
+  - multiple_closures_with_trailing_closure
   - opening_brace
   - nesting
+  - redundant_string_enum_value
   - trailing_comma
   - type_body_length
