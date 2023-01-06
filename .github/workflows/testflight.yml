@@ -13,25 +13,7 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v3
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: "14.1"
-      - uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - uses: pnpm/action-setup@v2
-        with:
-          run_install: true
-      - uses: Swatinem/rust-cache@v2
-        with:
-          cache-on-failure: true
-      - run: |
-          rustup update
+      - uses: ./.github/actions/setup
       - run: |
           printenv > ./Extension/content/.env
           pnpm run build

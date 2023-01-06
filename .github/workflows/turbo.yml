@@ -13,16 +13,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - uses: pnpm/action-setup@v2
-        with:
-          run_install: true
+      - uses: ./.github/actions/setup
       - run: |
           pnpm turbo run build
   lint:
@@ -30,26 +21,6 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - uses: pnpm/action-setup@v2
-        with:
-          run_install: true
-      - id: mint
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}/mint
-          key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
-          restore-keys: ${{ runner.os }}-mint-
-      - run: |
-          brew install mint
-      - if: steps.mint.outputs.cache-hit != 'true'
-        run: |
-          mint bootstrap
+      - uses: ./.github/actions/setup
       - run: |
           pnpm turbo run lint
