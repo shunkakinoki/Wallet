@@ -26,11 +26,19 @@ runs:
         rustup update
     - if: runner.os == 'macOS'
       id: mint
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
-        path: ${{ github.workspace }}/mint
+        path: .mint
         key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
         restore-keys: ${{ runner.os }}-mint-
+    - if: runner.os == 'macOS'
+      uses: actions/cache@v3
+      working-dir: Application/LightWallet
+      with:
+        path: .build
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-
     - if: runner.os == 'macOS'
       shell: bash
       run: |
@@ -39,3 +47,6 @@ runs:
       shell: bash
       run: |
         mint bootstrap
+      env:
+        MINT_PATH: .mint/lib
+        MINT_LINK_PATH: .mint/bin
