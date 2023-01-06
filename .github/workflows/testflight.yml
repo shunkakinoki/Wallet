@@ -27,10 +27,10 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           run_install: true
+      - uses: actions-rs/toolchain@v1
       - run: |
           printenv > ./Extension/content/.env
-          pnpm turbo run build
-          make
+          pnpm run build
         env:
           JITSU_JS_KEY: ${{ secrets.JITSU_JS_KEY }}
       - if: github.event_name == 'pull_request'

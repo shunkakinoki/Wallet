@@ -23,9 +23,9 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           run_install: true
+      - uses: actions-rs/toolchain@v1
       - run: |
           pnpm run build
-          make
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: "14.1"
