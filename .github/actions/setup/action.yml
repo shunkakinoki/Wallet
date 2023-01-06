@@ -1,3 +1,4 @@
+name: Setup
 runs:
   using: "composite"
   steps:
@@ -33,7 +34,7 @@ runs:
     - if: runner.os == 'macOS'
       shell: bash
       run: |
-        brew install mint
+        brew bundle install
     - if: runner.os == 'macOS' && steps.mint.outputs.cache-hit != 'true'
       shell: bash
       run: |
