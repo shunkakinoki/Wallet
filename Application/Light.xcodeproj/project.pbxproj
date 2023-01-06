@@ -149,7 +149,7 @@
 		A69B427E290F82F000F30677 /* inpage.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = inpage.js; sourceTree = "<group>"; };
 		A6AFE4512964CE93001678F4 /* Light Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Light Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6B6E66C28E4445800C50DF9 /* Light.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Configuration/Light.entitlements; sourceTree = "<group>"; };
-		A6B6E66D28E4452800C50DF9 /* LightSafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Configuration/LightSafariExtension.entitlements"; sourceTree = "<group>"; };
+		A6B6E66D28E4452800C50DF9 /* LightSafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Configuration/LightSafariExtension.entitlements; sourceTree = "<group>"; };
 		A6DCD07428E504C80072C636 /* popup.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
 		A6DCD07628E504C80072C636 /* content.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
 		A6DCD07728E504C80072C636 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2A0108C328E245E700611300 /* Light Safari Extension */ = {
+		2A0108C328E245E700611300 /* LightSafariExtension */ = {
 			isa = PBXGroup;
 			children = (
 				A6B6E66D28E4452800C50DF9 /* LightSafariExtension.entitlements */,
@@ -205,7 +205,7 @@
 				2A0108D728E245E800611300 /* Info.plist */,
 				2A0108C628E245E700611300 /* Resources */,
 			);
-			path = "LightSafariExtension";
+			path = LightSafariExtension;
 			sourceTree = "<group>";
 		};
 		2A0108C628E245E700611300 /* Resources */ = {
@@ -271,7 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				2AE391F82800D8F000E19495 /* Light */,
-				2A0108C328E245E700611300 /* Light Safari Extension */,
+				2A0108C328E245E700611300 /* LightSafariExtension */,
 				2AE391F72800D8F000E19495 /* Products */,
 				2AABA2FC2810A20A001BDB6F /* Frameworks */,
 			);
@@ -596,15 +596,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "LightSafariExtension/Configuration/LightSafariExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = LightSafariExtension/Configuration/LightSafariExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 332;
+				CURRENT_PROJECT_VERSION = 333;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "LightSafariExtension/Info.plist";
+				INFOPLIST_FILE = LightSafariExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Light Safari Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -633,14 +633,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "LightSafariExtension/Configuration/LightSafariExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = LightSafariExtension/Configuration/LightSafariExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 332;
+				CURRENT_PROJECT_VERSION = 333;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "LightSafariExtension/Info.plist";
+				INFOPLIST_FILE = LightSafariExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Light Safari Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -808,7 +808,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 332;
+				CURRENT_PROJECT_VERSION = 333;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -847,7 +847,7 @@
 				CODE_SIGN_ENTITLEMENTS = Light/Configuration/Light.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 332;
+				CURRENT_PROJECT_VERSION = 333;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -886,7 +886,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 332;
+				CURRENT_PROJECT_VERSION = 333;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -926,7 +926,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Light/Configuration/Light Dev.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 332;
+				CURRENT_PROJECT_VERSION = 333;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -961,15 +961,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "LightSafariExtension/Configuration/LightDevSafariExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = LightSafariExtension/Configuration/LightDevSafariExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 332;
+				CURRENT_PROJECT_VERSION = 333;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "LightSafariExtension/Info.plist";
+				INFOPLIST_FILE = LightSafariExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Light Dev Safari Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -998,15 +998,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "LightSafariExtension/Configuration/LightDevSafariExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = LightSafariExtension/Configuration/LightDevSafariExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 332;
+				CURRENT_PROJECT_VERSION = 333;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "LightSafariExtension/Info.plist";
+				INFOPLIST_FILE = LightSafariExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Light Dev Safari Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
