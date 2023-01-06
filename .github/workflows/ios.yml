@@ -24,6 +24,8 @@ jobs:
         with:
           run_install: true
       - uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
       - run: |
           rustup update
       - run: |
