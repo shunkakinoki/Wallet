@@ -12,4 +12,4 @@ uniffi = "0.17.0"
 uniffi_macros = "0.17.0"
 
 [build-dependencies]
-uniffi_build = "0.17.0"
+uniffi_build = { version = "0.20.0", features = ["builtin-bindgen"] }

@@ -253,7 +253,7 @@ name = "lightwallet_core"
 version = "0.1.0"
 dependencies = [
  "uniffi",
- "uniffi_build",
+ "uniffi_build 0.20.0",
  "uniffi_macros",
 ]
 
@@ -592,6 +592,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "uniffi_build"
+version = "0.20.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "74b65ae1c0bac70369bb0d9df6fae578b1ca130bf4cb6203e2636e2d6969dba5"
+dependencies = [
+ "anyhow",
+ "camino",
+ "uniffi_bindgen",
+]
+
+[[package]]
 name = "uniffi_macros"
 version = "0.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -601,7 +612,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
- "uniffi_build",
+ "uniffi_build 0.17.0",
 ]
 
 [[package]]
