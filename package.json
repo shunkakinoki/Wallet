@@ -4,7 +4,7 @@
   "version": "0.0.1-0",
   "description": "",
   "scripts": {
-    "build": "make && turbo run build",
+    "build": "turbo run build",
     "build:dev": "turbo run build:dev",
     "changeset": "changeset",
     "eslint:cmd": "eslint --config .eslintrc.js --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint",

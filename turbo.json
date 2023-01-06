@@ -20,6 +20,22 @@
       "inputs": ["**"],
       "outputs": ["../../Application/Light Safari Extension/Resources/background.js"]
     },
+    "@lightwallet/core#build": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "src/**/*.rs",
+        "src/LightWalletCore.udl",
+        "build.rs",
+        "Cargo.toml",
+        "../Cargo.lock",
+        "../Cargo.toml",
+        "../Makefile"
+      ],
+      "outputs": [
+        "../Application/Components/Sources/Generated/**",
+        "../Application/LightWalletCoreFFI.xcframework/**"
+      ]
+    },
     "@lightwallet/content#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
