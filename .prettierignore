@@ -3,7 +3,7 @@
 dist
 vendor
 
-Application/Light Safari Extension/Resources
+Application/LightSafariExtension/Resources
 fastlane/README.md
 
 *.json

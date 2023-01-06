@@ -29,4 +29,4 @@ xcframework:
 
 cp-xcframework-source:
 	cp -r target/LightWalletCoreFFI.xcframework Application
-	cp Core/src/LightWalletCore.swift Application/Components/Sources/Generated
+	cp Core/src/LightWalletCore.swift Application/LightWallet/Sources/Generated
