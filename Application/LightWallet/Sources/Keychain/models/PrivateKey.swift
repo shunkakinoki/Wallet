@@ -16,7 +16,7 @@ public final class PrivateKey: ExtendedPrivateKey {
 
   public init(rawBytes: ByteArray) {
     self.rawBytes = rawBytes
-    let _ = self.rawBytes.withUnsafeBufferPointer { pointer in
+    _ = self.rawBytes.withUnsafeBufferPointer { pointer in
       mlock(pointer.baseAddress, pointer.count)
     }
   }

@@ -73,7 +73,7 @@ public final class ImportKeyStoreImp: ImportKeyStore {
   }
 
   private func getAddresses(with mnemonic: EthereumMnemonic) throws -> [Int: String] {
-    //REFACTOR: Retrieve all addresses from master seed phrase (https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account-discovery)
+    // REFACTOR: Retrieve all addresses from master seed phrase (https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account-discovery)
     return [0: try mnemonic.getAddress(at: 0).eip55Description]
   }
 }

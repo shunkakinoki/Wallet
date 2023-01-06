@@ -36,14 +36,14 @@ public final class WsNetworkProviderImp: WsNetworkProvider {
   }
 
   private func listenForConnections() {
-    socketClient.on(clientEvent: .connect) { [weak self] data, ack in
+    socketClient.on(clientEvent: .connect) { [weak self] _, _ in
       self?.connectContinuation?.resume(with: .success(()))
       self?.connectContinuation = nil
     }
   }
 
   private func listenForAssets() {
-    socketClient.on("received address assets") { data, ack in
+    socketClient.on("received address assets") { data, _ in
       do {
         let data = try JSONSerialization.data(withJSONObject: data, options: .fragmentsAllowed)
         self.assetsContinuation?.resume(with: .success(data))

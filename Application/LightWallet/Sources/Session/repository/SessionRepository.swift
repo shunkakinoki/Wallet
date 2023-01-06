@@ -10,7 +10,7 @@ public protocol SessionRepository {
   func changeSelectedWalletName(with name: String) throws
   func changeSelectedWalletColor(with color: EthereumWalletColor) throws
 
-  //Hosts
+  // Hosts
   func getHostParameters() -> [HostConfigurationModel.HostConfigurationParameters]?
   func getHostParameters(with host: String) -> HostConfigurationResolve?
   func updateHosts(with host: HostConfigurationRequest) throws
@@ -36,7 +36,7 @@ public final class SessionRepositoryImp: SessionRepository {
   }
 }
 
-//MARK: - Wallets Methods
+// MARK: - Wallets Methods
 extension SessionRepositoryImp {
   public func getSelected() throws -> EthereumWallet {
     guard let selectedWallet = try account.fetchSelectedWallet() else {
@@ -62,7 +62,7 @@ extension SessionRepositoryImp {
   }
 }
 
-//MARK: - Host Configuration
+// MARK: - Host Configuration
 extension SessionRepositoryImp {
 
   public func getHostParameters() -> [HostConfigurationModel.HostConfigurationParameters]? {

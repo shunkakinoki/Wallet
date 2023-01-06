@@ -65,7 +65,7 @@ public final class SecureStorage: SecureStoraging {
   }
 }
 
-//MARK: - Secure Enclave Handling
+// MARK: - Secure Enclave Handling
 extension SecureStorage {
   private func createKey(with address: String) throws -> SecKey {
     let count = getPrivateKeyCount(with: address)
@@ -107,7 +107,7 @@ extension SecureStorage {
   }
 }
 
-//MARK: - Helpers
+// MARK: - Helpers
 extension SecureStorage {
   private func getQuery(_ address: String, limit: Bool) -> [String: Any] {
     var params: [String: Any] = [

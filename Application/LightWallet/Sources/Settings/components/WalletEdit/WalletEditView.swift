@@ -63,6 +63,7 @@ public struct WalletEditView: View {
                   .overlay(
                     ZStack {
                       selected == color
+                        // swiftlint:disable:next void_function_in_ternary
                         ? Circle().stroke(Color(Colors.Label.primary), lineWidth: 4)
                         : Circle().stroke(Color(Colors.System.secondary), lineWidth: 4)
                       Circle().strokeBorder(Color(Colors.System.secondary), lineWidth: 4)

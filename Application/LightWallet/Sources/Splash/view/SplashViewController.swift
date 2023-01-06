@@ -32,7 +32,7 @@ public final class SplashViewController: UIViewController {
   }
 }
 
-//MARK: - Helpers
+// MARK: - Helpers
 extension SplashViewController {
   private func helpers() {
     let SVGCoder = SDImageSVGCoder.shared
@@ -40,7 +40,7 @@ extension SplashViewController {
   }
 }
 
-//MARK: - UI
+// MARK: - UI
 extension SplashViewController {
   func setupUI() {
     view.addSubview(logoImage)
