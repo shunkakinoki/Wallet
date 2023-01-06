@@ -33,10 +33,9 @@ runs:
         restore-keys: ${{ runner.os }}-mint-
     - if: runner.os == 'macOS'
       uses: actions/cache@v3
-      working-directory: Application/LightWallet
       with:
-        path: .build
-        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        path: Application/LightWallet/.build
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Application/LightWallet/Package.resolved') }}
         restore-keys: |
           ${{ runner.os }}-spm-
     - if: runner.os == 'macOS'
