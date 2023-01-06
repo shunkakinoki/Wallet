@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const options = {
   entryPoints: ["./src/content.ts"],
-  outdir: "../../Application/Light Safari Extension/Resources",
+  outdir: "../../Application/LightSafariExtension/Resources",
   tsconfig: "tsconfig.build.json",
   bundle: true,
   minify: true,

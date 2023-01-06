@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "next dev",
-    "build": "cross-env NODE_ENV=production next build && next export -o '../../Application/Light Safari Extension/Resources/popup' && cp '../../Application/Light Safari Extension/Resources/popup/index.html' '../../Application/Light Safari Extension/Resources/popup.html'",
-    "build:dev": "cross-env NODE_ENV=development next build && next export -o '../../Application/Light Safari Extension/Resources/popup' && cp '../../Application/Light Safari Extension/Resources/popup/index.html' '../../Application/Light Safari Extension/Resources/popup.html'",
+    "build": "cross-env NODE_ENV=production next build && next export -o '../../Application/LightSafariExtension/Resources/popup' && cp '../../Application/LightSafariExtension/Resources/popup/index.html' '../../Application/LightSafariExtension/Resources/popup.html'",
+    "build:dev": "cross-env NODE_ENV=development next build && next export -o '../../Application/LightSafariExtension/Resources/popup' && cp '../../Application/LightSafariExtension/Resources/popup/index.html' '../../Application/LightSafariExtension/Resources/popup.html'",
     "start": "next start"
   },
   "dependencies": {

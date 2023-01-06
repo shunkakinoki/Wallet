@@ -1,6 +1,6 @@
 included:
   - Application/Light/Sources
-  - Application/Light Safari Extension/SafariWebExtensionHandler.swift
+  - Application/LightSafariExtension/SafariWebExtensionHandler.swift
   - Application/LightWallet/Sources
   - Application/LightWallet/Tests
 excluded:

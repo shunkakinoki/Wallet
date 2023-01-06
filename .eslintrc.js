@@ -19,7 +19,7 @@ module.exports = {
     browser: true,
   },
   ignorePatterns: [
-    "Application/Light Safari Extension/Resources/**/*.js",
+    "Application/LightSafariExtension/Resources/**/*.js",
     "**/dist/**/*.js",
   ],
   overrides: [
