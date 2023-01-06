@@ -1,3 +1,6 @@
+target
+Application/LightWalletCoreFFI.xcframework
+
 .env
 .env.local
 .next

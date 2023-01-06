@@ -77,6 +77,13 @@ let package = Package(
         "Keychain",
       ]),
     .target(
+      name: "Generated",
+      dependencies: [
+        "LightWalletCoreFFI"
+      ]
+    ),
+    .binaryTarget(name: "LightWalletCoreFFI", path: "../LightWalletCoreFFI.xcframework"),
+    .target(
       name: "Home",
       dependencies: [
         "AddressServices",
@@ -165,6 +172,7 @@ let package = Package(
     .target(
       name: "Splash",
       dependencies: [
+        "Generated",
         "Session",
         "SDWebImageSVGCoder",
         "SnapKit",
