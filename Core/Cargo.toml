@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [lib]
-crate-type = ["lib", "staticlib"]
 name = "uniffi_lightwallet_core"
+crate-type = ["staticlib", "cdylib"]
 
 [dependencies]
 uniffi = "0.17.0"

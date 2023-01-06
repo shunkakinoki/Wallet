@@ -1,3 +1,4 @@
 namespace LightWalletCore {
-  string greeting(string name);
+    string rust_greeting(string name);
 };
+

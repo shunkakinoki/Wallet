@@ -1,5 +1,5 @@
 target
-LightWalletCoreFFI.xcframework
+Application/LightWalletCoreFFI.xcframework
 
 .env
 .env.local

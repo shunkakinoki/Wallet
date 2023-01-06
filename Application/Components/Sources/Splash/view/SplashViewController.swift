@@ -1,5 +1,6 @@
 import Commons
 import Foundation
+import Generated
 import SDWebImageSVGCoder
 import SnapKit
 import UIKit
@@ -27,6 +28,7 @@ public final class SplashViewController: UIViewController {
 
     helpers()
     viewModel.invoke()
+    print(rustGreeting(name: "Bob"))
   }
 }
 
