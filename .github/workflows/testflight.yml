@@ -70,7 +70,7 @@ jobs:
           PROVISIONING_PROFILE_SPECIFIER: ${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           NEXT_PUBLIC_ZERION_API_KEY: ${{ secrets.NEXT_PUBLIC_ZERION_API_KEY }}
-      - if: always()
+      - if: github.event_name == 'push'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           push_options: "--force"
