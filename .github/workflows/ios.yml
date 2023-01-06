@@ -25,6 +25,7 @@ jobs:
           run_install: true
       - run: |
           pnpm run build
+          make
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: "14.1"

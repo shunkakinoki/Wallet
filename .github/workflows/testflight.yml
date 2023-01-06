@@ -30,6 +30,7 @@ jobs:
       - run: |
           printenv > ./Extension/content/.env
           pnpm turbo run build
+          make
         env:
           JITSU_JS_KEY: ${{ secrets.JITSU_JS_KEY }}
       - if: github.event_name == 'pull_request'
