@@ -28,7 +28,8 @@
         "build.rs",
         "Cargo.toml",
         "../Cargo.lock",
-        "../Cargo.toml"
+        "../Cargo.toml",
+        "../Makefile"
       ],
       "outputs": [
         "../Application/Components/Sources/Generated/**",
