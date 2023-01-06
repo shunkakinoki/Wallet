@@ -13,7 +13,7 @@ build-targets:
 	cargo build --release --target aarch64-apple-ios
 
 bindgen-swift:
-	uniffi-bindgen generate Core/src/LightWalletCore.udl --language swift
+	cargo uniffi-bindgen generate Core/src/LightWalletCore.udl --language swift
 	sed -i '' 's/module\ LightWalletCoreFFI/framework\ module\ LightWalletCoreFFI/' Core/src/LightWalletCoreFFI.modulemap
 
 assemble-frameworks:
