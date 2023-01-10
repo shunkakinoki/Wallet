@@ -3,6 +3,7 @@ Application/LightWalletCoreFFI.xcframework
 
 .env
 .env.local
+.mint
 .next
 .turbo
 
