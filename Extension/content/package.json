@@ -25,6 +25,7 @@
     "next": "^13.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-json-view": "^1.21.3",
     "react-modal": "^3.16.1",
     "react-transition-state": "^2.0.2",
     "storybook": "^6.5.14",
