@@ -113,7 +113,7 @@ importers:
       '@emotion/react': ^11.10.5
       '@emotion/styled': ^11.10.5
       '@jitsu/sdk-js': ^3.1.3
-      '@lightwallet/chains': '*'
+      '@lightwallet/chains': workspace:*
       '@storybook/addon-actions': ^6.5.15
       '@storybook/addon-essentials': ^6.5.15
       '@storybook/addon-interactions': ^6.5.15
@@ -175,7 +175,7 @@ importers:
 
   Extension/ethereum:
     specifiers:
-      '@lightwallet/provider': '*'
+      '@lightwallet/provider': workspace:*
       '@metamask/eth-sig-util': ^5.0.2
       '@types/firefox-webext-browser': ^94.0.1
       '@types/node': ^18.11.18
@@ -200,7 +200,7 @@ importers:
 
   Extension/inpage:
     specifiers:
-      '@lightwallet/provider': '*'
+      '@lightwallet/provider': workspace:*
       '@metamask/eth-sig-util': ^5.0.2
       '@types/firefox-webext-browser': ^94.0.1
       '@types/node': ^18.11.18
@@ -226,7 +226,7 @@ importers:
   Extension/popup:
     specifiers:
       '@heroicons/react': ^2.0.13
-      '@lightwallet/chains': '*'
+      '@lightwallet/chains': workspace:*
       '@tailwindcss/line-clamp': ^0.4.2
       '@types/firefox-webext-browser': ^94.0.1
       '@types/node': ^18.11.18
