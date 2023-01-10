@@ -38,7 +38,13 @@ export const SignTypedDescription: FC<
   if (params.raw && params?.from) {
     return (
       <SignTypedMessageDescriptionContainer>
-        {params?.raw && JSON.stringify(params?.raw)}
+        <div>
+          <pre>
+            {params?.raw && JSON.parse(params?.raw)?.message
+              ? JSON.stringify(JSON.parse(params?.raw)?.message, null, 1)
+              : params?.raw}
+          </pre>
+        </div>
       </SignTypedMessageDescriptionContainer>
     );
   }
