@@ -36,6 +36,13 @@
         "../Application/LightWalletCoreFFI.xcframework/**"
       ]
     },
+    "@lightwallet/chains#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": [
+        "dist"
+      ]
+    },
     "@lightwallet/content#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
@@ -100,6 +107,13 @@
         ".next",
         "../../Application/LightSafariExtension/Resources/popup/**",
         "../../Application/LightSafariExtension/Resources/popup.html"
+      ]
+    },
+    "@lightwallet/provider#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": [
+        "dist"
       ]
     },
     "@lightwallet/wallet#build": {
