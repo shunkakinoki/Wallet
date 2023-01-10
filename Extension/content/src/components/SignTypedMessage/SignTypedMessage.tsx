@@ -1,5 +1,7 @@
 import type { FC } from "react";
 
+import ReactJson from "react-json-view";
+
 import { useBlowfishMessage } from "../../hooks/useBlowfishMessage";
 
 import { sendMessageToNativeApp } from "../../services/sendMessageToNativeApp";
@@ -9,7 +11,7 @@ import { SignTypedMessageDescriptionContainer } from "./SignTypedMessage.styles"
 
 type SignTypedMessageParams = {
   id: number;
-  method: string;
+  method: "";
   params: any;
 };
 
@@ -38,7 +40,19 @@ export const SignTypedDescription: FC<
   if (params.raw && params?.from) {
     return (
       <SignTypedMessageDescriptionContainer>
-        {params?.raw && JSON.stringify(params?.raw)}
+        <ReactJson
+          src={JSON.parse(params?.raw)?.message}
+          style={{
+            backgroundColor: "transparent",
+          }}
+          theme="grayscale:inverted"
+          enableClipboard={false}
+          displayObjectSize={false}
+          displayDataTypes={true}
+          quotesOnKeys={false}
+          indentWidth={2}
+          collapseStringsAfterLength={20}
+        />
       </SignTypedMessageDescriptionContainer>
     );
   }
