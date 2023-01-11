@@ -14,12 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
-      - if: github.event_name == 'push'
-        run: |
+      - run: |
           pnpm run build
-      - if: github.event_name == 'pull_request'
-        run: |
-          pnpm run build:dev
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: "14.1"
