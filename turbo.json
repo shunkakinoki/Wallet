@@ -140,6 +140,15 @@
       "outputs": [],
       "inputs": ["**"]
     },
+    "//#lint:swiftlint": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": [
+        "Application/**/Sources/**/*.swift",
+        "Application/LightWallet/**/Sources/**/*.swift",
+        "Application/LightWallet/**/Tests/**/*.swift"
+      ]
+    },
     "//#lint:swift-format": {
       "dependsOn": [],
       "outputs": [],

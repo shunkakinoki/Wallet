@@ -16,6 +16,7 @@
     "lint": "echo \"Error: no lint specified\" && exit 0",
     "lint:eslint": "pnpm run eslint:lint",
     "lint:prettier": "pnpm run prettier:lint",
+    "lint:swiftlint": "pnpm run swiftlint:lint",
     "lint:swift-format": "pnpm run swift-format:lint",
     "ncu:check": "ncu--packageFile 'Extension/**/package.json'",
     "ncu:upgrade:monorepo": "ncu --packageFile 'Extension/**/package.json' -u",
@@ -30,8 +31,8 @@
     "swiftlint:fix": "mint run swiftlint --fix",
     "swiftlint:lint": "mint run swiftlint",
     "swift-format:cmd": "mint run swift-format --in-place --recursive --parallel --ignore-unparsable-files",
-    "swift-format:fix": "mint run swift-format --in-place --recursive --parallel --ignore-unparsable-files .",
-    "swift-format:lint": "mint run swift-format --recursive --parallel --ignore-unparsable-files .",
+    "swift-format:fix": "mint run swift-format --in-place --recursive --parallel --ignore-unparsable-files Application/**/Sources/**",
+    "swift-format:lint": "mint run swift-format --recursive --parallel --ignore-unparsable-files Application/**/Sources/**",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
