@@ -16,9 +16,14 @@ jobs:
       - uses: ./.github/actions/setup
       - run: |
           printenv > ./Extension/content/.env
+      - if: github.action == 'push'
+        run: |
           pnpm run build
         env:
           JITSU_JS_KEY: ${{ secrets.JITSU_JS_KEY }}
+      - if: github.action == 'pull_request'
+        run: |
+          pnpm run build:dev
       - if: github.event_name == 'pull_request'
         run: |
           bundle exec fastlane dev
