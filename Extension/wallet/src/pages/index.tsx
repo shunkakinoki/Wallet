@@ -181,7 +181,7 @@ export default function Home() {
                       const accounts = await window?.ethereum.request({
                         method: "eth_requestAccounts",
                       });
-                      if (accounts && accounts.length > 0) {
+                      if (accounts) {
                         if (isEnabled) {
                           //@ts-expect-error
                           swiper?.slideTo(0);
