@@ -2,7 +2,7 @@
   "name": "light-wallet",
   "private": true,
   "version": "0.0.1-0",
-  "description": "",
+  "description": "Official repository for Light Wallet",
   "scripts": {
     "build": "turbo run build",
     "build:dev": "turbo run build:dev",
