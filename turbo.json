@@ -36,12 +36,19 @@
         "../Application/LightWalletCoreFFI.xcframework/**"
       ]
     },
+    "@lightwallet/chains#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": [
+        "dist/**"
+      ]
+    },
     "@lightwallet/content#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "env": ["CI", "JITSU_JS_KEY"],
       "outputs": [
-        "public",
+        "public/**",
         "../../Application/LightSafariExtension/Resources/content.js"
       ]
     },
@@ -50,7 +57,7 @@
       "inputs": ["**"],
       "env": ["CI", "JITSU_JS_KEY"],
       "outputs": [
-        "public",
+        "public/**",
         "../../Application/LightSafariExtension/Resources/content.js"
       ]
     },
@@ -87,7 +94,7 @@
       "inputs": ["**"],
       "env": ["CI", "JITSU_JS_KEY", "VERCEL"],
       "outputs": [
-        ".next",
+        ".next/**",
         "../../Application/LightSafariExtension/Resources/popup/**",
         "../../Application/LightSafariExtension/Resources/popup.html"
       ]
@@ -102,12 +109,19 @@
         "../../Application/LightSafariExtension/Resources/popup.html"
       ]
     },
+    "@lightwallet/provider#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["**"],
+      "outputs": [
+        "dist/**"
+      ]
+    },
     "@lightwallet/wallet#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
       "env": ["BLOWFISH_API_KEY", "COHERENT_API_KEY", "COVALENT_API_KEY"],
       "outputs": [
-        ".next"
+        ".next/**"
       ]
     },
     "storybook": {
@@ -125,6 +139,15 @@
       "dependsOn": [],
       "outputs": [],
       "inputs": ["**"]
+    },
+    "//#lint:swiftlint": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": [
+        "Application/**/Sources/**/*.swift",
+        "Application/LightWallet/**/Sources/**/*.swift",
+        "Application/LightWallet/**/Tests/**/*.swift"
+      ]
     },
     "//#lint:swift-format": {
       "dependsOn": [],

@@ -11,18 +11,20 @@ const colors = [
 ];
 
 const fills: {
+// prettier-ignore
   readonly [key in typeof colors[number]]: string;
-} = {
-  red: "FF3B30",
-  orange: "FF9500",
-  yellow: "FFCC00",
-  green: "34C759",
-  teal: "5AC8FA",
-  blue: "007AFF",
-  indigo: "5856D6",
-  purple: "AF52DE",
-  pink: "FF2D55",
-};
+} =
+  {
+    red: "FF3B30",
+    orange: "FF9500",
+    yellow: "FFCC00",
+    green: "34C759",
+    teal: "5AC8FA",
+    blue: "007AFF",
+    indigo: "5856D6",
+    purple: "AF52DE",
+    pink: "FF2D55",
+  };
 
 export const Avatar = ({ color }: { color: string }) => {
   const fillColor = fills[color];
