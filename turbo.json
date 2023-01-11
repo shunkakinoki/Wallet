@@ -36,6 +36,22 @@
         "../Application/LightWalletCoreFFI.xcframework/**"
       ]
     },
+    "@lightwallet/core#build:dev": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "src/**/*.rs",
+        "src/LightWalletCore.udl",
+        "build.rs",
+        "Cargo.toml",
+        "../Cargo.lock",
+        "../Cargo.toml",
+        "../Makefile"
+      ],
+      "outputs": [
+        "../Application/LightWallet/Sources/Generated/**",
+        "../Application/LightWalletCoreFFI.xcframework/**"
+      ]
+    },
     "@lightwallet/chains#build": {
       "dependsOn": ["^build"],
       "inputs": ["**"],
