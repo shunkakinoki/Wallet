@@ -3,7 +3,8 @@
   "private": false,
   "version": "0.0.1",
   "scripts": {
-    "build": "cd .. && make"
+    "build": "cd .. && make",
+    "build:dev": "cd .. && make"
   },
   "publishConfig": {
     "access": "public",
