@@ -148,8 +148,8 @@
 		A686724D28F618A800F812B6 /* popup */ = {isa = PBXFileReference; lastKnownFileType = folder; path = popup; sourceTree = "<group>"; };
 		A69B427E290F82F000F30677 /* inpage.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = inpage.js; sourceTree = "<group>"; };
 		A6AFE4512964CE93001678F4 /* Light Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Light Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6B6E66C28E4445800C50DF9 /* Configuration/Light.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Configuration/Light.entitlements; sourceTree = "<group>"; };
-		A6B6E66D28E4452800C50DF9 /* Configuration/LightSafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Configuration/LightSafariExtension.entitlements; sourceTree = "<group>"; };
+		A6B6E66C28E4445800C50DF9 /* Light.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Configuration/Light.entitlements; sourceTree = "<group>"; };
+		A6B6E66D28E4452800C50DF9 /* LightSafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Configuration/LightSafariExtension.entitlements; sourceTree = "<group>"; };
 		A6DCD07428E504C80072C636 /* popup.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
 		A6DCD07628E504C80072C636 /* content.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
 		A6DCD07728E504C80072C636 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 		2A0108C328E245E700611300 /* LightSafariExtension */ = {
 			isa = PBXGroup;
 			children = (
-				A6B6E66D28E4452800C50DF9 /* Configuration/LightSafariExtension.entitlements */,
+				A6B6E66D28E4452800C50DF9 /* LightSafariExtension.entitlements */,
 				2A0108C428E245E700611300 /* SafariWebExtensionHandler.swift */,
 				2A0108D728E245E800611300 /* Info.plist */,
 				2A0108C628E245E700611300 /* Resources */,
@@ -291,7 +291,7 @@
 		2AE391F82800D8F000E19495 /* Light */ = {
 			isa = PBXGroup;
 			children = (
-				A6B6E66C28E4445800C50DF9 /* Configuration/Light.entitlements */,
+				A6B6E66C28E4445800C50DF9 /* Light.entitlements */,
 				2A863C74281E59000070E226 /* Configuration */,
 				2AE3920D2800DA4C00E19495 /* Sources */,
 				2AE3920E2800DA4F00E19495 /* Resources */,
@@ -600,7 +600,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 339;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -636,7 +636,7 @@
 				CODE_SIGN_ENTITLEMENTS = LightSafariExtension/Configuration/LightSafariExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 339;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -808,7 +808,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 339;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -848,7 +848,7 @@
 				CODE_SIGN_ENTITLEMENTS = Light/Configuration/Light.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 339;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -889,7 +889,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 339;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -931,7 +931,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Light/Configuration/Light Dev.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Sentrei, Inc. (4Z47XRX22C)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 339;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = 4Z47XRX22C;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -970,7 +970,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 339;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1007,7 +1007,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 339;
+				CURRENT_PROJECT_VERSION = 340;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Z47XRX22C;
 				GENERATE_INFOPLIST_FILE = YES;
