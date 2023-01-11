@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <Page>
       <title>Light Wallet</title>
-      <div className="container px-3 my-12 mx-auto max-w-md">
+      <div className="container my-12 mx-auto max-w-md px-3">
         <div className="my-8 text-center">
           <h1 className="text-3xl font-bold">
             Enabling the{" "}
@@ -42,13 +42,13 @@ export default function Home() {
               : "Please switch to Safari to proceed."}
           </p>
         </div>
-        <div className="flex my-6">
+        <div className="my-6 flex">
           {isSafari ? (
-            <div className="flex shrink-0 justify-center items-center p-0.5 mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-gray-400 rounded-full border-2 border-gray-400">
+            <div className="mt-0.5 mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-gray-400 p-0.5 text-sm font-semibold text-gray-400">
               <CheckIcon />
             </div>
           ) : (
-            <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
+            <div className="mt-0.5 mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-indigo-700 text-sm font-semibold text-indigo-700">
               <p>1</p>
             </div>
           )}
@@ -56,8 +56,8 @@ export default function Home() {
             {isSafari ? "Open Safari - That's done!" : "Open Safari Browser"}
           </div>
         </div>
-        <div className="flex my-6">
-          <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
+        <div className="my-6 flex">
+          <div className="mt-0.5 mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-indigo-700 text-sm font-semibold text-indigo-700">
             <p>2</p>
           </div>
           <div>
@@ -66,7 +66,7 @@ export default function Home() {
             in the address bar
             <div>
               <Image
-                className="mt-4 rounded-md ring-4 ring-gray-300 shadow"
+                className="mt-4 rounded-md shadow ring-4 ring-gray-300"
                 src="/extension_button.jpg"
                 alt="Extension Button"
                 height={45}
@@ -88,7 +88,7 @@ export default function Home() {
               </button>
             </div>
             {isButton && (
-              <div className="py-3 px-5 mt-2 text-sm bg-gray-300 dark:bg-gray-700 rounded-md">
+              <div className="mt-2 rounded-md bg-gray-300 py-3 px-5 text-sm dark:bg-gray-700">
                 Depending on your screen size and Safari settings, the{" "}
                 <ExtensionIcon /> may be replaced by either a{" "}
                 <span className="font-bold text-indigo-400">aA</span> or{" "}
@@ -99,8 +99,8 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div className="flex my-6">
-          <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
+        <div className="my-6 flex">
+          <div className="mt-0.5 mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-indigo-700 text-sm font-semibold text-indigo-700">
             <p>3</p>
           </div>
           <div>
@@ -111,7 +111,7 @@ export default function Home() {
             from the toolbar
             <div>
               <Image
-                className="mt-4 rounded-md ring-4 ring-gray-300 shadow"
+                className="mt-4 rounded-md shadow ring-4 ring-gray-300"
                 src="/manage_extensions.jpg"
                 alt="Manage Extensions"
                 height={45}
@@ -120,8 +120,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex my-6">
-          <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
+        <div className="my-6 flex">
+          <div className="mt-0.5 mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-indigo-700 text-sm font-semibold text-indigo-700">
             <p>4</p>
           </div>
           <div>
@@ -140,7 +140,7 @@ export default function Home() {
               </button>
             </div>
             {isEnabled && (
-              <div className="py-3 px-5 mt-2 text-sm bg-gray-300 dark:bg-gray-700 rounded-md">
+              <div className="mt-2 rounded-md bg-gray-300 py-3 px-5 text-sm dark:bg-gray-700">
                 iOS doesn’t let you enable Safari Extensions when Web
                 Restrictions are enabled. You can check if you have these
                 enabled in the{" "}
@@ -170,16 +170,16 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div className="flex my-6">
-          <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
+        <div className="my-6 flex">
+          <div className="mt-0.5 mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-indigo-700 text-sm font-semibold text-indigo-700">
             <p>5</p>
           </div>
           <div>
             Tap <strong className="text-indigo-400">Light Wallet</strong>
           </div>
         </div>
-        <div className="flex my-6">
-          <div className="flex shrink-0 justify-center items-center mt-0.5 mr-2 w-5 h-5 text-sm font-semibold text-indigo-700 rounded-full border-2 border-indigo-700">
+        <div className="my-6 flex">
+          <div className="mt-0.5 mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-indigo-700 text-sm font-semibold text-indigo-700">
             <p>6</p>
           </div>
           <div>
@@ -190,7 +190,7 @@ export default function Home() {
             </strong>
           </div>
         </div>
-        <div className="mt-5 text-sm font-medium text-center text-gray-500 dark:text-gray-300">
+        <div className="mt-5 text-center text-sm font-medium text-gray-500 dark:text-gray-300">
           <p>
             Troube enabling Light Wallet Extension? <br />
             <a

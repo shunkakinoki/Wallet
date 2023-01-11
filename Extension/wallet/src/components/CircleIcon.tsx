@@ -1,7 +1,7 @@
 export const CircleIcon = () => {
   return (
     <svg
-      className="inline-flex mr-1 mb-0.5 fill-indigo-400 "
+      className="mr-1 mb-0.5 inline-flex fill-indigo-400 "
       xmlns="http://www.w3.org/2000/svg"
       width="18"
       height="18"

@@ -11,10 +11,10 @@ export const CarouselButton: FC<{ index: number }> = ({
   const swiper = useSwiper();
 
   return (
-    <div className="flex justify-center items-center my-8 space-x-2">
+    <div className="my-8 flex items-center justify-center space-x-2">
       <button
         className={clsx(
-          "w-2.5 h-2.5 bg-gray-400 rounded-full",
+          "h-2.5 w-2.5 rounded-full bg-gray-400",
           index === 0 && "bg-indigo-300",
           index === 1 && "bg-gray-400",
         )}
@@ -24,7 +24,7 @@ export const CarouselButton: FC<{ index: number }> = ({
       />
       <button
         className={clsx(
-          "w-2.5 h-2.5 bg-gray-400 rounded-full",
+          "h-2.5 w-2.5 rounded-full bg-gray-400",
           index === 1 && "bg-indigo-300",
           index === 2 && "bg-gray-400",
         )}
@@ -34,7 +34,7 @@ export const CarouselButton: FC<{ index: number }> = ({
       />
       <button
         className={clsx(
-          "w-2.5 h-2.5 bg-gray-400 rounded-full",
+          "h-2.5 w-2.5 rounded-full bg-gray-400",
           index === 2 && "bg-indigo-300",
           index === 3 && "bg-gray-400",
         )}

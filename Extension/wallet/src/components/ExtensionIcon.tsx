@@ -1,7 +1,7 @@
 export const ExtensionIcon = () => {
   return (
     <svg
-      className="inline-flex mr-1 mb-1 fill-indigo-400 "
+      className="mr-1 mb-1 inline-flex fill-indigo-400 "
       xmlns="http://www.w3.org/2000/svg"
       width="19"
       height="19"
