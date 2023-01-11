@@ -16,8 +16,6 @@ jobs:
       - uses: ./.github/actions/setup
       - run: |
           pnpm run build --filter=./Extension/*
-      - if: always()
-        uses: mxschmitt/action-tmate@v3
   lint:
     runs-on: macos-latest
     timeout-minutes: 30
