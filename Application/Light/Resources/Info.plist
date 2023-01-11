@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>APP_GROUP_IDENTIFIER</key>
+	<string>$(APP_GROUP_IDENTIFIER)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -27,8 +29,6 @@
 	</array>
 	<key>NEXT_PUBLIC_ZERION_API_KEY</key>
 	<string>$(NEXT_PUBLIC_ZERION_API_KEY)</string>
-	<key>APP_GROUP_IDENTIFIER</key>
-	<string>$(APP_GROUP_IDENTIFIER)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
