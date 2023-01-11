@@ -14,10 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
-      - if: github.action == 'push'
+      - if: github.event_name == 'push'
         run: |
           pnpm run build
-      - if: github.action == 'pull_request'
+      - if: github.event_name == 'pull_request'
         run: |
           pnpm run build:dev
       - uses: maxim-lobanov/setup-xcode@v1
