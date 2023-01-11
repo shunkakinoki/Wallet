@@ -98,6 +98,7 @@ module.exports = {
     ],
     "jsx-a11y/href-no-hash": "off",
     "no-console": ["error", { allow: ["warn", "error"] }],
+    "no-html-link-for-pages": "off",
     "no-restricted-exports": ["error", { restrictedNamedExports: ["default"] }],
     "no-unused-vars": "off",
     "prefer-arrow-callback": ["error", { allowNamedFunctions: false }],

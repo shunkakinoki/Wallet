@@ -8,7 +8,7 @@ export const LinkIcon = () => {
       height="24"
       width="24"
       stroke="#838282"
-      className="w-6 h-6"
+      className="h-6 w-6"
     >
       <path
         strokeLinecap="round"

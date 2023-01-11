@@ -8,7 +8,7 @@ export const WalletIcon = () => {
       width="24"
       strokeWidth={2}
       stroke="#838282"
-      className="w-6 h-6"
+      className="h-6 w-6"
     >
       <path
         strokeLinecap="round"
