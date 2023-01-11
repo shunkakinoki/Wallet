@@ -1,61 +1,13 @@
-/* eslint-disable import/no-named-as-default */
-
 import clsx from "clsx";
 import { Page } from "konsta/react";
 import { useEffect, useMemo, useState } from "react";
 import ReactConfetti from "react-confetti";
 import toast, { Toaster } from "react-hot-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
-import create from "zustand";
-import { persist } from "zustand/middleware";
 
 import { CarouselButton } from "../components/CarouselButton";
-
-interface StepState {
-  step: number;
-  setStep: (newStep: number) => void;
-}
-
-export const useUserStep = create(
-  persist<StepState>(
-    (set, get) => {
-      return {
-        step: 0,
-        setStep: newStep => {
-          return set(() => {
-            return { step: newStep };
-          });
-        },
-      };
-    },
-    {
-      name: "@lightwallet/wallet",
-    },
-  ),
-);
-
-interface InitialState {
-  isInitial: boolean;
-  setIsInitial: (newState: boolean) => void;
-}
-
-export const useIsInitial = create(
-  persist<InitialState>(
-    (set, get) => {
-      return {
-        isInitial: false,
-        setIsInitial: newState => {
-          return set(() => {
-            return { isInitial: newState };
-          });
-        },
-      };
-    },
-    {
-      name: "@lightwallet/initial",
-    },
-  ),
-);
+import { useIsInitial } from "../hooks/useIsInitial";
+import { useUserStep } from "../hooks/useUserStep";
 
 export default function Home() {
   const [isSafari, setIsSafari] = useState(false);
@@ -94,7 +46,7 @@ export default function Home() {
     return 0;
   }, [isMounted, sstep]);
 
-  const sIsInitial = useMemo(() => {
+  const mountedIsInitial = useMemo(() => {
     if (isMounted) {
       return isInitial;
     }
@@ -102,19 +54,11 @@ export default function Home() {
   }, [isMounted, isInitial]);
 
   useEffect(() => {
-    if (isMounted && sIsInitial) {
-      setIsInitial(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step]);
-
-  useEffect(() => {
-    if (step === 2 && sIsInitial) {
+    if (step === 2 && mountedIsInitial) {
       setIsInitial(false);
       window.location.reload();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step]);
+  }, [mountedIsInitial, setIsInitial, step]);
 
   return (
     <Page>
@@ -237,7 +181,7 @@ export default function Home() {
                       const accounts = await window?.ethereum.request({
                         method: "eth_requestAccounts",
                       });
-                      if (accounts && accounts.length > 0) {
+                      if (accounts) {
                         if (isEnabled) {
                           //@ts-expect-error
                           swiper?.slideTo(0);
