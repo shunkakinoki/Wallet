@@ -4,29 +4,8 @@
 <dict>
 	<key>APP_GROUP_IDENTIFIER</key>
 	<string>$(APP_GROUP_IDENTIFIER)</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>io.magic.light</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>lightdotso</string>
-			</array>
-		</dict>
-	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>metamask</string>
-		<string>argent</string>
-		<string>trust</string>
-		<string>rainbow</string>
-		<string>wc</string>
-	</array>
 	<key>NEXT_PUBLIC_ZERION_API_KEY</key>
 	<string>$(NEXT_PUBLIC_ZERION_API_KEY)</string>
 	<key>UIApplicationSceneManifest</key>
