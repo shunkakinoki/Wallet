@@ -145,9 +145,9 @@ platform :ios do
     pilot(
       apple_id: "#{DEVELOPER_APP_ID}",
       app_identifier: "io.magic.light.dev",
-      skip_waiting_for_build_processing: true,
+      skip_waiting_for_build_processing: false,
       skip_submission: true,
-      distribute_external: false,
+      distribute_external: true,
       notify_external_testers: true,
       itc_provider: "4Z47XRX22C",
       team_id: "4Z47XRX22C"
