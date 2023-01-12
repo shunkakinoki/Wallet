@@ -147,7 +147,7 @@ platform :ios do
       app_identifier: "io.magic.light.dev",
       skip_waiting_for_build_processing: false,
       skip_submission: true,
-      distribute_external: true,
+      distribute_external: false,
       notify_external_testers: true,
       itc_provider: "4Z47XRX22C",
       team_id: "4Z47XRX22C"
