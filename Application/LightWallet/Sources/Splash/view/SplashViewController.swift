@@ -29,6 +29,9 @@ public final class SplashViewController: UIViewController {
     helpers()
     viewModel.invoke()
     print(rustGreeting(name: "Bob"))
+    print(
+      Constants.CF_BUNDLE_NAME
+    )
   }
 }
 
