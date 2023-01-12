@@ -7,6 +7,9 @@ apple:
 	@make xcframework
 	@make cp-xcframework-source
 
+dev:
+	sed -i '' 's/= ""/= ".dev"/g' Application/LightWallet/Sources/Commons/configure/Constants.swift
+
 build-targets:
 	cargo build --release --target x86_64-apple-ios
 	cargo +nightly build --release --target aarch64-apple-ios-sim

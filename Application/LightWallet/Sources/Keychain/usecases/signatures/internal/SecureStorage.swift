@@ -16,7 +16,7 @@ public final class SecureStorage: SecureStoraging {
   }
 
   enum Keys {
-    static let accessGroup = "4Z47XRX22C." + Bundle.main.bundleIdentifier!.description
+    static let accessGroup = Constants.APP_ACCESS_GROUP
   }
 
   public init(keychain: SecureKeychain = KeychainWrapper()) {

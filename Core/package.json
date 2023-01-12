@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "build": "cd .. && make",
-    "build:dev": "cd .. && make"
+    "build:dev": "cd .. && make && make dev"
   },
   "publishConfig": {
     "access": "public",
