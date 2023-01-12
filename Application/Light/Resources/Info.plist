@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>APP_GROUP_IDENTIFIER</key>
-	<string>$(APP_GROUP_IDENTIFIER)</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>io.magic.light</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>lightdotso</string>
-			</array>
-		</dict>
-	</array>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>metamask</string>
-		<string>argent</string>
-		<string>trust</string>
-		<string>rainbow</string>
-		<string>wc</string>
-	</array>
-	<key>NEXT_PUBLIC_ZERION_API_KEY</key>
-	<string>$(NEXT_PUBLIC_ZERION_API_KEY)</string>
-	<key>UIApplicationSceneManifest</key>
 	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLName</key>
+				<string>io.magic.light</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>lightdotso</string>
+				</array>
+			</dict>
+		</array>
+		<key>ITSAppUsesNonExemptEncryption</key>
 		<false/>
-		<key>UISceneConfigurations</key>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>metamask</string>
+			<string>argent</string>
+			<string>trust</string>
+			<string>rainbow</string>
+			<string>wc</string>
+		</array>
+		<key>APP_GROUP_IDENTIFIER</key>
+		<string>$(APP_GROUP_IDENTIFIER)</string>
+		<key>NEXT_PUBLIC_ZERION_API_KEY</key>
+		<string>$(NEXT_PUBLIC_ZERION_API_KEY)</string>
+		<key>UIApplicationSceneManifest</key>
 		<dict>
-			<key>UIWindowSceneSessionRoleApplication</key>
-			<array>
-				<dict>
-					<key>UISceneConfigurationName</key>
-					<string>Default Configuration</string>
-					<key>UISceneDelegateClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-				</dict>
-			</array>
+			<key>UIApplicationSupportsMultipleScenes</key>
+			<false/>
+			<key>UISceneConfigurations</key>
+			<dict>
+				<key>UIWindowSceneSessionRoleApplication</key>
+				<array>
+					<dict>
+						<key>UISceneConfigurationName</key>
+						<string>Default Configuration</string>
+						<key>UISceneDelegateClassName</key>
+						<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					</dict>
+				</array>
+			</dict>
 		</dict>
 	</dict>
-</dict>
 </plist>
