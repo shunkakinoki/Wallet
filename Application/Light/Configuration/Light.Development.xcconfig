@@ -1,4 +1,5 @@
 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon-Dev
+APP_BUNDLE_IDENTIFIER = io.magic.light.dev
 APP_GROUP_IDENTIFIER = group.io.magic.light.dev
 PRODUCT_BUNDLE_IDENTIFIER = io.magic.light.dev
 PRODUCT_NAME = $(TARGET_NAME)

@@ -144,6 +144,8 @@
 		2AE392052800D8F100E19495 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2AE392072800D8F100E19495 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A60EEADC2965C6D10070222F /* Light Dev Safari Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Light Dev Safari Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A63454A4296FB743007ADB5D /* Identity.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Identity.xcconfig; sourceTree = "<group>"; };
+		A63454A5296FBBCA007ADB5D /* Compiler.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Compiler.xcconfig; sourceTree = "<group>"; };
 		A67701542967BEEC00FCF3BA /* LightWalletCoreFFI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = LightWalletCoreFFI.xcframework; sourceTree = "<group>"; };
 		A686724D28F618A800F812B6 /* popup */ = {isa = PBXFileReference; lastKnownFileType = folder; path = popup; sourceTree = "<group>"; };
 		A69B427E290F82F000F30677 /* inpage.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = inpage.js; sourceTree = "<group>"; };
@@ -251,6 +253,8 @@
 		2A863C74281E59000070E226 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				A63454A5296FBBCA007ADB5D /* Compiler.xcconfig */,
+				A63454A4296FB743007ADB5D /* Identity.xcconfig */,
 				2A863C75281E591C0070E226 /* Light.Production.xcconfig */,
 				2A863C76281E59280070E226 /* Light.Development.xcconfig */,
 			);
@@ -685,6 +689,7 @@
 		};
 		2AE392082800D8F100E19495 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A63454A5296FBBCA007ADB5D /* Compiler.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -746,6 +751,7 @@
 		};
 		2AE392092800D8F100E19495 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A63454A5296FBBCA007ADB5D /* Compiler.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
