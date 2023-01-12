@@ -14,10 +14,7 @@ public struct UserDefaultsWalletWriterDirectory: WriterDirectory {
   where T: Decodable, T: Encodable {
     guard
       let sharedContainer = UserDefaults(
-        suiteName: Constants.CF_BUNDLE_NAME == "Light"
-          ? "group.io.magic.light"
-          : Constants.CF_BUNDLE_NAME == "Light"
-            ? "group.io.magic.light" : "group.io.magic.light.dev"
+        suiteName: Constants.APP_GROUP_IDENTIFIER
       ),
       let wallet = try sharedContainer.get(objectType: objectType.self, forKey: file)
     else {
@@ -29,8 +26,7 @@ public struct UserDefaultsWalletWriterDirectory: WriterDirectory {
   public func write<T>(_ wallet: T, at file: String) throws where T: Decodable, T: Encodable {
     guard
       let sharedContainer = UserDefaults(
-        suiteName: Constants.CF_BUNDLE_NAME == "Light"
-          ? "group.io.magic.light" : "group.io.magic.light.dev"
+        suiteName: Constants.APP_GROUP_IDENTIFIER
       )
     else {
       throw Error.writing
@@ -42,8 +38,7 @@ public struct UserDefaultsWalletWriterDirectory: WriterDirectory {
   public func delete(at file: String) throws {
     guard
       let sharedContainer = UserDefaults(
-        suiteName: Constants.CF_BUNDLE_NAME == "Light"
-          ? "group.io.magic.light" : "group.io.magic.light.dev"
+        suiteName: Constants.APP_GROUP_IDENTIFIER
       )
     else {
       throw Error.deleting
@@ -55,8 +50,7 @@ public struct UserDefaultsWalletWriterDirectory: WriterDirectory {
   public func deleteAll() throws {
     guard
       let sharedContainer = UserDefaults(
-        suiteName: Constants.CF_BUNDLE_NAME == "Light"
-          ? "group.io.magic.light" : "group.io.magic.light.dev"
+        suiteName: Constants.APP_GROUP_IDENTIFIER
       )
     else {
       throw Error.deleting
