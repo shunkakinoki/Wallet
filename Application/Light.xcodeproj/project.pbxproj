@@ -594,6 +594,7 @@
 /* Begin XCBuildConfiguration section */
 		2A0108DC28E245E800611300 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A863C75281E591C0070E226 /* Light.Production.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = LightSafariExtension/Configuration/LightSafariExtension.entitlements;
@@ -631,6 +632,7 @@
 		};
 		2A0108DD28E245E800611300 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A863C75281E591C0070E226 /* Light.Production.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = LightSafariExtension/Configuration/LightSafariExtension.entitlements;
@@ -799,7 +801,7 @@
 		};
 		2AE3920B2800D8F100E19495 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2A863C76281E59280070E226 /* Light.Development.xcconfig */;
+			baseConfigurationReference = 2A863C75281E591C0070E226 /* Light.Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -922,7 +924,7 @@
 		};
 		A6AFE4502964CE93001678F4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2A863C75281E591C0070E226 /* Light.Production.xcconfig */;
+			baseConfigurationReference = 2A863C76281E59280070E226 /* Light.Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
@@ -964,6 +966,7 @@
 		};
 		A6F53FB22964F42C002FBBF2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A863C76281E59280070E226 /* Light.Development.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = LightSafariExtension/Configuration/LightDevSafariExtension.entitlements;
@@ -1001,6 +1004,7 @@
 		};
 		A6F53FB32964F42C002FBBF2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A863C76281E59280070E226 /* Light.Development.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = LightSafariExtension/Configuration/LightDevSafariExtension.entitlements;
