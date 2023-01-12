@@ -14,7 +14,7 @@ public struct DirectoryWalletWriterDirectory: WriterDirectory {
 
   private var destination: URL {
     fileManager.containerURL(
-      forSecurityApplicationGroupIdentifier: Constants.APP_GROUP_IDENTIFIER
+      forSecurityApplicationGroupIdentifier: "group.io.magic.light.dev"
     )!
     .appendingPathComponent("keystore")
   }

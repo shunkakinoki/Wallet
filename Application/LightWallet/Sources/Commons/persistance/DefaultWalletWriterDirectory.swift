@@ -14,7 +14,7 @@ public struct UserDefaultsWalletWriterDirectory: WriterDirectory {
   where T: Decodable, T: Encodable {
     guard
       let sharedContainer = UserDefaults(
-        suiteName: Constants.APP_GROUP_IDENTIFIER
+        suiteName: "group.io.magic.light.dev"
       ),
       let wallet = try sharedContainer.get(objectType: objectType.self, forKey: file)
     else {
@@ -26,7 +26,7 @@ public struct UserDefaultsWalletWriterDirectory: WriterDirectory {
   public func write<T>(_ wallet: T, at file: String) throws where T: Decodable, T: Encodable {
     guard
       let sharedContainer = UserDefaults(
-        suiteName: Constants.APP_GROUP_IDENTIFIER
+        suiteName: "group.io.magic.light.dev"
       )
     else {
       throw Error.writing
@@ -38,7 +38,7 @@ public struct UserDefaultsWalletWriterDirectory: WriterDirectory {
   public func delete(at file: String) throws {
     guard
       let sharedContainer = UserDefaults(
-        suiteName: Constants.APP_GROUP_IDENTIFIER
+        suiteName: "group.io.magic.light.dev"
       )
     else {
       throw Error.deleting
@@ -50,7 +50,7 @@ public struct UserDefaultsWalletWriterDirectory: WriterDirectory {
   public func deleteAll() throws {
     guard
       let sharedContainer = UserDefaults(
-        suiteName: Constants.APP_GROUP_IDENTIFIER
+        suiteName: "group.io.magic.light.dev"
       )
     else {
       throw Error.deleting
