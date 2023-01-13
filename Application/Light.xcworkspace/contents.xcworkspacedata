@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:LightWallet">
+      location = "container:Light.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:Light.xcodeproj">
+      location = "group:LightWallet">
    </FileRef>
 </Workspace>
