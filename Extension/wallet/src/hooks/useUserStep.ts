@@ -1,3 +1,4 @@
+import { mountStoreDevtool } from "simple-zustand-devtools";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -23,3 +24,7 @@ export const useUserStep = create(
     },
   ),
 );
+
+if (process.env.NODE_ENV === "development") {
+  mountStoreDevtool("useUserStep", useUserStep);
+}

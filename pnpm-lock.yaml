@@ -308,6 +308,7 @@ importers:
       react-confetti: ^6.1.0
       react-dom: ^18.2.0
       react-hot-toast: ^2.4.0
+      simple-zustand-devtools: ^1.1.0
       swiper: ^8.4.5
       tailwindcss: ^3.2.4
       telegraf: ^4.11.2
@@ -324,6 +325,7 @@ importers:
       react-confetti: 6.1.0_react@18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-hot-toast: 2.4.0_biqbaboplfbrettd7655fr4n2y
+      simple-zustand-devtools: 1.1.0_buugwjitou2xlpan3evrc363re
       swiper: 8.4.5
       telegraf: 4.11.2
       zustand: 4.3.1_react@18.2.0
@@ -15771,6 +15773,22 @@ packages:
 
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
+
+  /simple-zustand-devtools/1.1.0_buugwjitou2xlpan3evrc363re:
+    resolution: {integrity: sha512-Axfcfr9L3YL3kto7aschCQLY2VUlXXMnIVtaTe9Y0qWbNmPsX/y7KsNprmxBZoB0pww5ZGs1u/ohcrvQ3tE6jA==}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      '@types/react-dom': '>=18.0.0'
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+      zustand: '>=1.0.2'
+    dependencies:
+      '@types/react': 18.0.26
+      '@types/react-dom': 18.0.10
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      zustand: 4.3.1_react@18.2.0
+    dev: false
 
   /sisteransi/1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
