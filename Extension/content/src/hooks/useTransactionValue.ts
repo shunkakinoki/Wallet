@@ -1,4 +1,5 @@
-import create from "zustand";
+import { mountStoreDevtool } from "simple-zustand-devtools";
+import { create } from "zustand";
 
 interface TransactionValueState {
   value: number;
@@ -21,3 +22,7 @@ export const useTransactionValue = create<TransactionValueState>(set => {
     },
   };
 });
+
+if (process.env.NODE_ENV === "development") {
+  mountStoreDevtool("useTransactionValue", useTransactionValue);
+}

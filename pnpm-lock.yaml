@@ -136,6 +136,7 @@ importers:
       react-json-view: ^1.21.3
       react-modal: ^3.16.1
       react-transition-state: ^2.0.2
+      simple-zustand-devtools: ^1.1.0
       storybook: ^6.5.15
       swr: ^2.0.0
       zustand: ^4.3.1
@@ -156,6 +157,7 @@ importers:
       react-json-view: 1.21.3_ib3m5ricvtkl2cll7qpr2f6lvq
       react-modal: 3.16.1_biqbaboplfbrettd7655fr4n2y
       react-transition-state: 2.0.2_biqbaboplfbrettd7655fr4n2y
+      simple-zustand-devtools: 1.1.0_buugwjitou2xlpan3evrc363re
       storybook: 6.5.15_biqbaboplfbrettd7655fr4n2y
       swr: 2.0.0_react@18.2.0
       zustand: 4.3.1_react@18.2.0
