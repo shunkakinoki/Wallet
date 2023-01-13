@@ -17,6 +17,7 @@ module.exports = {
   ],
   globals: {
     browser: true,
+    process: true,
   },
   ignorePatterns: [
     "Application/LightSafariExtension/Resources/**/*.js",

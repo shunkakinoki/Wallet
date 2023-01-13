@@ -1,4 +1,5 @@
-import create from "zustand";
+import { mountStoreDevtool } from "simple-zustand-devtools";
+import { create } from "zustand";
 
 interface TransactionErrorState {
   isConfirmLoading: boolean;
@@ -15,3 +16,7 @@ export const useConfirmLoading = create<TransactionErrorState>(set => {
     },
   };
 });
+
+if (process.env.NODE_ENV === "development") {
+  mountStoreDevtool("useConfirmLoading", useConfirmLoading);
+}

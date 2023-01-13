@@ -6,7 +6,7 @@
     "build": "pnpm run build:content && pnpm run build:storybook",
     "build:content": "cross-env NODE_ENV=production node ./esbuild.config.js",
     "build:dev": "cross-env NODE_ENV=development node ./esbuild.config.js",
-    "build:storybook": "node -e \"if (process.env.CI === '1'){process.exit(1)} \" || build-storybook -o public",
+    "build:storybook": "node -e \"if (process.env.CI === '1'){process.exit(1)} \" || cross-env NODE_ENV=development build-storybook -o public",
     "dev": "concurrently 'pnpm:dev:*'",
     "dev:storybook": "cross-env NODE_ENV=development start-storybook",
     "dev:next": "cross-env NODE_ENV=development next dev"
@@ -28,6 +28,7 @@
     "react-json-view": "^1.21.3",
     "react-modal": "^3.16.1",
     "react-transition-state": "^2.0.2",
+    "simple-zustand-devtools": "^1.1.0",
     "storybook": "^6.5.15",
     "swr": "^2.0.0",
     "zustand": "^4.3.1"
