@@ -23,6 +23,7 @@ export class EthereumProvider extends BaseProvider {
   networkVersion: string;
   rpc: RPCServer;
   didEmitConnectAfterSubscription: boolean;
+  _metamask: {};
   isMetaMask: boolean;
   logger: (text: any) => void;
 
@@ -34,6 +35,7 @@ export class EthereumProvider extends BaseProvider {
     this.idMapping = new IdMapping();
     this.callbacks = new Map();
     this.wrapResults = new Map();
+    this._metamask = {};
     this.isMetaMask = true;
     this.isLight = true;
     this.logger = logger;
