@@ -61,3 +61,9 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           push_options: "--force"
+      - if: github.event_name == 'pull_request'
+        uses: mobile-dev-inc/action-upload@v2
+        with:
+          name: ${{ github.sha }}
+          app-file: Application/Light Dev.ipa
+          workspace: Application/.mobiledev
