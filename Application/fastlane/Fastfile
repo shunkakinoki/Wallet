@@ -145,7 +145,7 @@ platform :ios do
     pilot(
       apple_id: "#{DEVELOPER_APP_ID}",
       app_identifier: "io.magic.light.dev",
-      skip_waiting_for_build_processing: false,
+      skip_waiting_for_build_processing: true,
       skip_submission: true,
       distribute_external: false,
       notify_external_testers: true,
@@ -229,9 +229,22 @@ platform :ios do
 
   lane :test do
     run_tests(workspace: "Light.xcworkspace",
-              devices: ["iPhone 14"],
+              devices: ["iPhone 14 Pro"],
               scheme: "Tests")
   end
+
+  lane :test_build do
+    gym(
+      workspace: "Light.xcworkspace",
+      scheme: "Light Dev",
+      skip_archive: false,
+      skip_package_ipa: true,
+      destination: "platform=iOS Simulator,name=iPhone 14 Pro",
+      configuration: "Debug",
+      build_path: ".",
+      archive_path: "Light Dev.xcarchive",
+    )
+end
 
   lane :update_devices do
     app_store_api_key

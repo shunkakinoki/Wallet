@@ -22,6 +22,16 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - run: |
-          pnpm run fastlane:test
-        working-directory: ./Application
+      - working-directory: ./Application
+        run: |
+          bundle exec fastlane test
+      - working-directory: ./Application
+        run: |
+          bundle exec fastlane test_build
+      - if: github.event_name == 'pull_request'
+        uses: mobile-dev-inc/action-maestro-cloud@main
+        with:
+          api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
+          name: ${{ github.sha }}
+          app-file: Application/Light Dev.xcarchive/Products/Applications/Light Dev.app
+          workspace: Application/.mobiledev
