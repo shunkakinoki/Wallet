@@ -62,7 +62,7 @@ jobs:
         with:
           push_options: "--force"
       - if: github.event_name == 'pull_request'
-        uses: mobile-dev-inc/action-upload@v2
+        uses: mobile-dev-inc/action-upload@v1
         with:
           name: ${{ github.sha }}
           app-file: Application/Light Dev.ipa
