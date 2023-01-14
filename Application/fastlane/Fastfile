@@ -233,7 +233,7 @@ platform :ios do
               scheme: "Tests")
   end
 
-  lane :build_test do
+  lane :test_build do
     xcbuild(
         workspace: "Light.xcworkspace",
         scheme: "Light Dev",
