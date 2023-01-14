@@ -229,7 +229,7 @@ platform :ios do
 
   lane :test do
     run_tests(workspace: "Light.xcworkspace",
-              devices: ["iPhone 14"],
+              devices: ["iPhone 14 Pro"],
               scheme: "Tests")
   end
 
