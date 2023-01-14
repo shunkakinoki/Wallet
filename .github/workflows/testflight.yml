@@ -62,7 +62,7 @@ jobs:
         with:
           push_options: "--force"
       - if: github.event_name == 'pull_request'
-        uses: mobile-dev-inc/action-upload@main
+        uses: mobile-dev-inc/action-maestro-cloud@main
         with:
           api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
           name: ${{ github.sha }}
