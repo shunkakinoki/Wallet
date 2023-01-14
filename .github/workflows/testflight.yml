@@ -62,8 +62,9 @@ jobs:
         with:
           push_options: "--force"
       - if: github.event_name == 'pull_request'
-        uses: mobile-dev-inc/action-upload@v1
+        uses: mobile-dev-inc/action-upload@main
         with:
+          api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
           name: ${{ github.sha }}
           app-file: Application/Light Dev.ipa
           workspace: Application/.mobiledev
