@@ -33,5 +33,5 @@ jobs:
         with:
           api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
           name: ${{ github.sha }}
-          app-file: Application/Light Dev.app
+          app-file: Application/Light Dev.xcarchive/Products/Applications/Light Dev.app
           workspace: Application/.mobiledev

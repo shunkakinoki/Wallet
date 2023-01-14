@@ -235,6 +235,7 @@ platform :ios do
 
   lane :test_build do
     xcbuild(
+        archive: true,
         workspace: "Light.xcworkspace",
         scheme: "Light Dev",
         configuration: "Debug",
