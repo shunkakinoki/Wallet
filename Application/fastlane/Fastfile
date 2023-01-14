@@ -234,12 +234,15 @@ platform :ios do
   end
 
   lane :test_build do
-    xcbuild(
-        archive: true,
-        workspace: "Light.xcworkspace",
-        scheme: "Light Dev",
-        configuration: "Debug",
-        xcargs: "-sdk iphonesimulator SYMROOT='/var/tmp/'"
+    gym(
+      workspace: "Light.xcworkspace",
+      scheme: "Light Dev",
+      skip_archive: false,
+      skip_package_ipa: true,
+      destination: "platform=iOS Simulator,name=iPhone 14 Pro",
+      configuration: "Debug",
+      build_path: ".",
+      archive_path: "Light Dev.xcarchive",
     )
 end
 
