@@ -233,6 +233,15 @@ platform :ios do
               scheme: "Tests")
   end
 
+  lane :build_test do
+    xcbuild(
+        workspace: "Light.xcworkspace",
+        scheme: "Light Dev",
+        configuration: "Debug",
+        xcargs: "-sdk iphonesimulator SYMROOT='/var/tmp/'"
+    )
+end
+
   lane :update_devices do
     app_store_api_key
     match(git_branch: "main", app_identifier: ["io.magic.light"], type: "development", force_for_new_devices: true)
