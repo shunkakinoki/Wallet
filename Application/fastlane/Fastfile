@@ -208,7 +208,7 @@ platform :ios do
     pilot(
       apple_id: "#{DEVELOPER_APP_ID}",
       app_identifier: "io.magic.light",
-      changelog: "Bug fixes and performance improvements",
+      changelog: "Light Archive Build",
       skip_waiting_for_build_processing: false,
       skip_submission: true,
       distribute_external: true,
