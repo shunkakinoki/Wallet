@@ -50,12 +50,12 @@
   "system": {
     "macos": {
       "monterey": {
-        "HOMEBREW_VERSION": "4.0.10",
+        "HOMEBREW_VERSION": "4.0.23",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "f57f453fecc79ce1cc33398c88b1f3ae2396a3a6",
+        "Homebrew/homebrew-core": "b7398c590870db5eda0d82cd67bd1e36bd2f8f2a",
         "CLT": "14.2.0.0.1.1668646533",
         "Xcode": "14.1",
-        "macOS": "12.6.4"
+        "macOS": "12.6.6"
       }
     }
   }
