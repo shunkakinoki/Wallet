@@ -18,6 +18,7 @@ runs:
     - uses: pnpm/action-setup@v2
       with:
         run_install: true
+    - uses: mkroening/rust-toolchain-toml@main
     - uses: Swatinem/rust-cache@v2
       with:
         cache-on-failure: true
