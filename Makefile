@@ -12,7 +12,7 @@ dev:
 
 build-targets:
 	cargo build --release --target x86_64-apple-ios
-	cargo +nightly build --release --target aarch64-apple-ios-sim
+	cargo build --release --target aarch64-apple-ios-sim
 	cargo build --release --target aarch64-apple-ios
 
 bindgen-swift:
