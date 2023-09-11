@@ -1,4 +1,9 @@
 [toolchain]
-channel = "nightly"
-targets = ["aarch64-apple-ios", "aarch64-apple-ios-sim", "x86_64-apple-ios"]
+channel = "nightly-2023-06-15"
+targets = [
+    "aarch64-apple-ios",
+    "aarch64-apple-ios-sim",
+    "x86_64-apple-ios",
+    "x86_64-apple-darwin",
+]
 profile = "default"
