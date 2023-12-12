@@ -62,7 +62,7 @@ end
 
 def prepare_environment(name, api_key, live)
   increment_build_number(
-    build_number: 404,
+    build_number: 405,
     xcodeproj: 'Light.xcodeproj'
   )
 end
